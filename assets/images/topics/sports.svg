@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề Sports">
+  <defs>
+    <linearGradient id="bgSp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd488"/><stop offset="1" stop-color="#d9f2d4"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgSp)"/>
+  <path d="M0,200 Q200,160 400,205 L400,260 L0,260 Z" fill="#4caf6a"/>
+  <g>
+    <path d="M60,220 L160,196 L120,252 Z" fill="#ffffff" opacity="0.6"/>
+    <path d="M340,216 L240,240 L300,250 Z" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <circle cx="200" cy="120" r="66" fill="#ffffff"/>
+  <circle cx="200" cy="120" r="52" fill="none" stroke="#999" stroke-width="3"/>
+  <path d="M200,68 Q218,90 200,104 M200,104 Q182,120 200,136 M200,136 Q218,158 200,172" stroke="#999" stroke-width="3" fill="none"/>
+  <path d="M148,98 Q168,100 174,120 M252,142 Q232,144 226,120" stroke="#999" stroke-width="3" fill="none"/>
+  <path d="M200,120 L226,94" stroke="#999" stroke-width="3" fill="none"/>
+</svg>

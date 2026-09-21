@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề Nature">
+  <defs>
+    <linearGradient id="bgN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79d0a4"/><stop offset="1" stop-color="#d9f2e3"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgN)"/>
+  <circle cx="320" cy="55" r="28" fill="#ffd34d"/>
+  <path d="M0,200 Q100,140 200,185 Q300,230 400,175 L400,260 L0,260 Z" fill="#4caf6a"/>
+  <path d="M60,260 Q110,150 170,90 Q230,30 290,90 Q350,150 340,260 Z" fill="#2f8f4f"/>
+  <rect x="160" y="210" width="24" height="50" fill="#8c5a2b"/>
+  <circle cx="200" cy="120" r="34" fill="#ffffff" opacity="0.95"/>
+  <circle cx="190" cy="120" r="22" fill="#e8f7ee"/>
+  <circle cx="156" cy="150" r="8" fill="#ffffff" opacity="0.8"/>
+  <circle cx="272" cy="176" r="6" fill="#ffffff" opacity="0.8"/>
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-label="Banner EngBee - Học từ vựng tiếng Anh">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff3cc"/>
+      <stop offset="1" stop-color="#f7b733"/>
+    </linearGradient>
+    <linearGradient id="beeBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd34d"/>
+      <stop offset="1" stop-color="#f5a623"/>
+    </linearGradient>
+    <clipPath id="bodyClip">
+      <ellipse cx="880" cy="265" rx="95" ry="78"/>
+    </clipPath>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#b87800" flood-opacity="0.3"/>
+    </filter>
+    <path id="hex" d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"/>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#sky)"/>
+
+  <circle cx="180" cy="70" r="170" fill="#ffffff" opacity="0.2"/>
+  <circle cx="1120" cy="460" r="200" fill="#ffd34d" opacity="0.35"/>
+  <circle cx="640" cy="140" r="90" fill="#ffffff" opacity="0.18"/>
+
+  <g stroke="#ffffff" stroke-width="4" fill="none" opacity="0.5">
+    <use href="#hex" x="120" y="300" transform="scale(0.9)"/>
+    <use href="#hex" x="280" y="340" transform="scale(0.6)"/>
+    <use href="#hex" x="60" y="150" transform="scale(0.55)"/>
+    <use href="#hex" x="500" y="90" transform="scale(0.6)"/>
+    <use href="#hex" x="760" y="70" transform="scale(0.5)"/>
+  </g>
+
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="120" cy="140" r="26"/>
+    <circle cx="160" cy="125" r="34"/>
+    <circle cx="205" cy="140" r="26"/>
+    <circle cx="138" cy="150" r="20"/>
+    <circle cx="180" cy="150" r="20"/>
+  </g>
+  <g fill="#ffffff" opacity="0.85">
+    <circle cx="320" cy="70" r="20"/>
+    <circle cx="355" cy="58" r="26"/>
+    <circle cx="392" cy="70" r="19"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="170" y="400" width="260" height="95" rx="10" fill="#e08e00"/>
+    <path d="M185 415 Q240 395 300 415 L300 480 Q240 465 185 480 Z" fill="#ffffff"/>
+    <path d="M300 415 Q360 395 415 415 L415 480 Q360 465 300 480 Z" fill="#fffdf3"/>
+    <rect x="298" y="412" width="5" height="70" fill="#e08e00" opacity="0.35"/>
+    <g stroke="#d9b45b" stroke-width="3" stroke-linecap="round" opacity="0.7">
+      <line x1="215" y1="435" x2="270" y2="430"/>
+      <line x1="215" y1="450" x2="270" y2="445"/>
+      <line x1="335" y1="430" x2="385" y2="435"/>
+      <line x1="335" y1="445" x2="380" y2="450"/>
+    </g>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <ellipse cx="875" cy="180" rx="32" ry="60" fill="#ffffff" opacity="0.85" transform="rotate(-18 875 180)"/>
+    <ellipse cx="910" cy="215" rx="26" ry="50" fill="#ffffff" opacity="0.75" transform="rotate(14 910 215)"/>
+    <ellipse cx="880" cy="265" rx="95" ry="78" fill="url(#beeBody)"/>
+    <ellipse cx="880" cy="265" rx="95" ry="78" fill="none" stroke="#d98a00" stroke-width="4"/>
+    <g clip-path="url(#bodyClip)">
+      <rect x="830" y="185" width="40" height="26" fill="#d98a00" opacity="0.45"/>
+      <rect x="830" y="245" width="40" height="26" fill="#d98a00" opacity="0.55"/>
+      <rect x="830" y="305" width="40" height="26" fill="#d98a00" opacity="0.45"/>
+    </g>
+    <path d="M1005,250 L1060,225 L1005,285 Z" fill="#d98a00"/>
+    <circle cx="790" cy="250" r="48" fill="url(#beeBody)"/>
+    <line x1="770" y1="150" x2="758" y2="108" stroke="#8a5a00" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="756" cy="102" r="8" fill="#8a5a00"/>
+    <line x1="805" y1="142" x2="812" y2="100" stroke="#8a5a00" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="813" cy="94" r="8" fill="#8a5a00"/>
+    <circle cx="773" cy="240" r="7" fill="#3a2a00"/>
+    <circle cx="798" cy="232" r="7" fill="#3a2a00"/>
+    <circle cx="770" cy="222" r="4" fill="#ffffff" opacity="0.8"/>
+    <circle cx="795" cy="214" r="4" fill="#ffffff" opacity="0.8"/>
+    <path d="M772,266 Q785,282 800,268" fill="none" stroke="#3a2a00" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="755" cy="268" r="6" fill="#ff9da6" opacity="0.8"/>
+    <circle cx="808" cy="262" r="6" fill="#ff9da6" opacity="0.8"/>
+    <g stroke="#d98a00" stroke-width="6" stroke-linecap="round">
+      <line x1="930" y1="350" x2="925" y2="372"/>
+      <line x1="895" y1="352" x2="892" y2="374"/>
+      <line x1="860" y1="350" x2="858" y2="372"/>
+    </g>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-weight="bold" fill="#ffffff">
+    <text x="70" y="95" font-size="70" opacity="0.95" transform="rotate(-8 70 95)">A</text>
+    <text x="250" y="180" font-size="56" opacity="0.85" transform="rotate(6 250 180)">B</text>
+    <text x="560" y="300" font-size="60" opacity="0.9" transform="rotate(-5 560 300)">C</text>
+    <text x="470" y="220" font-size="42" opacity="0.8" transform="rotate(8 470 220)">D</text>
+    <text x="640" y="430" font-size="50" opacity="0.85" transform="rotate(4 640 430)">E</text>
+  </g>
+
+  <g>
+    <rect x="700" y="420" width="250" height="52" rx="26" fill="#ffffff" opacity="0.95"/>
+    <text x="717" y="454" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#f0a500">Hello! Let's learn ♥</text>
+  </g>
+
+  <g fill="#ffffff">
+    <path d="M430 130 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 Z"/>
+    <path d="M590 380 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 Z"/>
+    <path d="M1130 90 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5 Z"/>
+    <path d="M1030 340 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 Z"/>
+    <path d="M70 330 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4 Z"/>
+  </g>
+</svg>

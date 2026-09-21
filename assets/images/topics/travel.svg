@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề Travel">
+  <defs>
+    <linearGradient id="bgT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ec8f7"/><stop offset="1" stop-color="#d9f2ff"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgT)"/>
+  <circle cx="330" cy="55" r="30" fill="#ffd34d"/>
+  <circle cx="300" cy="50" r="45" fill="#ffffff" opacity="0.3"/>
+  <path d="M50,200 Q120,160 200,195 Q280,230 350,185" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="10 8"/>
+  <ellipse cx="180" cy="150" rx="95" ry="34" fill="#4d94cc"/>
+  <g>
+    <path d="M180,165 L40,165 L40,150 Q180,130 180,150 Z" fill="#e8f4ff"/>
+    <path d="M180,165 L320,165 L320,150 Q180,130 180,150 Z" fill="#ffffff"/>
+    <path d="M40,165 L320,165 L320,175 L40,175 Z" fill="#3b7fb8"/>
+    <ellipse cx="185" cy="130" rx="7" ry="14" fill="#8c3f2b"/>
+    <path d="M60,138 Q70,150 80,138 Q90,150 100,138" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.55"/>
+  </g>
+  <g fill="#ffffff" opacity="0.85">
+    <circle cx="90" cy="60" r="12"/><circle cx="115" cy="48" r="16"/><circle cx="142" cy="60" r="12"/>
+  </g>
+</svg>
