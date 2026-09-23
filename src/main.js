@@ -17,9 +17,7 @@ const NAV_LINKS = [
   { href: 'index.html', label: 'Trang chủ', active: true },
   { href: 'learn.html', label: 'Học từ vựng' },
   { href: 'quiz.html', label: 'Quiz' },
-  { href: 'dashboard.html', label: 'Dashboard' },
-  { href: 'login.html', label: 'Đăng nhập' },
-  { href: 'admin.html', label: 'Admin' }
+  { href: 'login.html', label: 'Đăng nhập' }
 ]
 
 const WORD_COUNT = 50
@@ -140,7 +138,7 @@ document.querySelector('#app').innerHTML = `
       <a href="index.html">Trang chủ</a>
       <a href="learn.html">Học từ vựng</a>
       <a href="quiz.html">Quiz</a>
-      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
     </div>
     <div class="footer-contact">
       <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
