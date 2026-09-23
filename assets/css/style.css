@@ -312,6 +312,13 @@ img {
   margin: 12px 0 0;
 }
 
+.login-help {
+  text-align: center;
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 16px;
+}
+
 .login-btn {
   width: 100%;
   margin-top: 22px;
