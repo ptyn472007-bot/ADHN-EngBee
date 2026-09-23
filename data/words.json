@@ -1,3 +1,3204 @@
 {
-  "words": []
+  "words": [
+    {
+      "topic": "travel",
+      "en": "journey",
+      "ipa": "/ˈdʒɜːrni/",
+      "vi": "hành trình",
+      "ex": "The journey through the mountains was unforgettable.",
+      "exvi": "Chuyến đi qua những ngọn núi thật khó quên."
+    },
+    {
+      "topic": "travel",
+      "en": "destination",
+      "ipa": "/ˌdestɪˈneɪʃn/",
+      "vi": "điểm đến",
+      "ex": "Our destination is Tokyo, Japan.",
+      "exvi": "Điểm đến của chúng tôi là Tokyo, Nhật Bản."
+    },
+    {
+      "topic": "travel",
+      "en": "luggage",
+      "ipa": "/ˈlʌɡɪdʒ/",
+      "vi": "hành lý",
+      "ex": "Do not forget to tag your luggage.",
+      "exvi": "Đừng quên dán thẻ hành lý."
+    },
+    {
+      "topic": "travel",
+      "en": "passport",
+      "ipa": "/ˈpɑːspɔːrt/",
+      "vi": "hộ chiếu",
+      "ex": "Keep your passport safe at all times.",
+      "exvi": "Hãy giữ hộ chiếu cẩn thận mọi lúc."
+    },
+    {
+      "topic": "travel",
+      "en": "ticket",
+      "ipa": "/ˈtɪkɪt/",
+      "vi": "vé",
+      "ex": "I booked a ticket to Da Nang.",
+      "exvi": "Tôi đã đặt một vé đi Đà Nẵng."
+    },
+    {
+      "topic": "travel",
+      "en": "airport",
+      "ipa": "/ˈerpɔːrt/",
+      "vi": "sân bay",
+      "ex": "The airport was busy on the holiday.",
+      "exvi": "Sân bay đông đúc vào ngày lễ."
+    },
+    {
+      "topic": "travel",
+      "en": "flight",
+      "ipa": "/flaɪt/",
+      "vi": "chuyến bay",
+      "ex": "My flight leaves at nine in the morning.",
+      "exvi": "Chuyến bay của tôi khởi hành lúc chín giờ sáng."
+    },
+    {
+      "topic": "travel",
+      "en": "hotel",
+      "ipa": "/hoʊˈtel/",
+      "vi": "khách sạn",
+      "ex": "We stayed at a five-star hotel.",
+      "exvi": "Chúng tôi ở một khách sạn năm sao."
+    },
+    {
+      "topic": "travel",
+      "en": "resort",
+      "ipa": "/rɪˈzɔːrt/",
+      "vi": "khu nghỉ dưỡng",
+      "ex": "The resort has its own private beach.",
+      "exvi": "Khu nghỉ dưỡng có bãi biển riêng."
+    },
+    {
+      "topic": "travel",
+      "en": "beach",
+      "ipa": "/biːtʃ/",
+      "vi": "bãi biển",
+      "ex": "Let us relax on the beach this afternoon.",
+      "exvi": "Chiều nay chúng ta hãy thư giãn trên bãi biển."
+    },
+    {
+      "topic": "travel",
+      "en": "island",
+      "ipa": "/ˈaɪlənd/",
+      "vi": "hòn đảo",
+      "ex": "Phu Quoc is a beautiful island.",
+      "exvi": "Phú Quốc là một hòn đảo xinh đẹp."
+    },
+    {
+      "topic": "travel",
+      "en": "map",
+      "ipa": "/mæp/",
+      "vi": "bản đồ",
+      "ex": "Use the map to find the museum.",
+      "exvi": "Dùng bản đồ để tìm bảo tàng."
+    },
+    {
+      "topic": "travel",
+      "en": "guide",
+      "ipa": "/ɡaɪd/",
+      "vi": "hướng dẫn viên",
+      "ex": "Our guide spoke three languages.",
+      "exvi": "Hướng dẫn viên của chúng tôi nói được ba thứ tiếng."
+    },
+    {
+      "topic": "travel",
+      "en": "tourist",
+      "ipa": "/ˈtʊərɪst/",
+      "vi": "khách du lịch",
+      "ex": "The city is full of tourists in summer.",
+      "exvi": "Thành phố đầy khách du lịch vào mùa hè."
+    },
+    {
+      "topic": "travel",
+      "en": "cruise",
+      "ipa": "/kruːz/",
+      "vi": "du thuyền",
+      "ex": "We took a cruise around Ha Long Bay.",
+      "exvi": "Chúng tôi đi du thuyền quanh vịnh Hạ Long."
+    },
+    {
+      "topic": "travel",
+      "en": "backpack",
+      "ipa": "/ˈbækpæk/",
+      "vi": "ba lô",
+      "ex": "He packed his backpack for the trip.",
+      "exvi": "Anh ấy đóng ba lô cho chuyến đi."
+    },
+    {
+      "topic": "travel",
+      "en": "souvenir",
+      "ipa": "/ˌsuːvəˈnɪr/",
+      "vi": "quà lưu niệm",
+      "ex": "I bought a souvenir for my mother.",
+      "exvi": "Tôi mua một món quà lưu niệm cho mẹ."
+    },
+    {
+      "topic": "travel",
+      "en": "visa",
+      "ipa": "/ˈviːzə/",
+      "vi": "thị thực",
+      "ex": "She applied for a visa to the USA.",
+      "exvi": "Cô ấy đã xin thị thực sang Mỹ."
+    },
+    {
+      "topic": "travel",
+      "en": "currency",
+      "ipa": "/ˈkɜːrənsi/",
+      "vi": "tiền tệ",
+      "ex": "You need local currency for payment.",
+      "exvi": "Bạn cần tiền địa phương để thanh toán."
+    },
+    {
+      "topic": "travel",
+      "en": "exchange",
+      "ipa": "/ɪksˈtʃeɪndʒ/",
+      "vi": "đổi tiền",
+      "ex": "Where can I exchange foreign money?",
+      "exvi": "Tôi có thể đổi ngoại tệ ở đâu?"
+    },
+    {
+      "topic": "travel",
+      "en": "departure",
+      "ipa": "/dɪˈpɑːrtʃər/",
+      "vi": "sự khởi hành",
+      "ex": "The departure time is ten o'clock.",
+      "exvi": "Giờ khởi hành là mười giờ."
+    },
+    {
+      "topic": "travel",
+      "en": "arrival",
+      "ipa": "/əˈraɪvl/",
+      "vi": "sự đến",
+      "ex": "Our arrival was delayed by fog.",
+      "exvi": "Sự đến của chúng tôi bị hoãn vì sương mù."
+    },
+    {
+      "topic": "travel",
+      "en": "delay",
+      "ipa": "/dɪˈleɪ/",
+      "vi": "sự trễ",
+      "ex": "Sorry for the delay - the train is late.",
+      "exvi": "Xin lỗi vì sự trễ - tàu đến muộn."
+    },
+    {
+      "topic": "travel",
+      "en": "boarding",
+      "ipa": "/ˈbɔːrdɪŋ/",
+      "vi": "lên máy bay",
+      "ex": "Boarding starts at gate B2.",
+      "exvi": "Việc lên máy bay bắt đầu tại cổng B2."
+    },
+    {
+      "topic": "travel",
+      "en": "gate",
+      "ipa": "/ɡeɪt/",
+      "vi": "cổng",
+      "ex": "Passengers should go to gate C1.",
+      "exvi": "Hành khách nên đến cổng C1."
+    },
+    {
+      "topic": "travel",
+      "en": "lounge",
+      "ipa": "/laʊndʒ/",
+      "vi": "phòng chờ",
+      "ex": "We waited in the airport lounge.",
+      "exvi": "Chúng tôi chờ trong phòng chờ sân bay."
+    },
+    {
+      "topic": "travel",
+      "en": "seatbelt",
+      "ipa": "/ˈsiːtbelt/",
+      "vi": "dây an toàn",
+      "ex": "Fasten your seatbelt during landing.",
+      "exvi": "Thắt dây an toàn khi hạ cánh."
+    },
+    {
+      "topic": "travel",
+      "en": "cabin",
+      "ipa": "/ˈkæbɪn/",
+      "vi": "khoang máy bay",
+      "ex": "The cabin crew served drinks.",
+      "exvi": "Phi hành đoàn phục vụ đồ uống."
+    },
+    {
+      "topic": "travel",
+      "en": "pilot",
+      "ipa": "/ˈpaɪlət/",
+      "vi": "phi công",
+      "ex": "The pilot announced the landing time.",
+      "exvi": "Phi công thông báo thời gian hạ cánh."
+    },
+    {
+      "topic": "travel",
+      "en": "crew",
+      "ipa": "/kruː/",
+      "vi": "phi hành đoàn",
+      "ex": "The crew welcomed everyone on board.",
+      "exvi": "Phi hành đoàn chào đón mọi người lên máy bay."
+    },
+    {
+      "topic": "travel",
+      "en": "restaurant",
+      "ipa": "/ˈrestrɑːnt/",
+      "vi": "nhà hàng",
+      "ex": "This restaurant serves fresh seafood.",
+      "exvi": "Nhà hàng này phục vụ hải sản tươi."
+    },
+    {
+      "topic": "travel",
+      "en": "cuisine",
+      "ipa": "/kwɪˈziːn/",
+      "vi": "ẩm thực",
+      "ex": "Vietnamese cuisine is famous worldwide.",
+      "exvi": "Ẩm thực Việt Nam nổi tiếng khắp thế giới."
+    },
+    {
+      "topic": "travel",
+      "en": "local",
+      "ipa": "/ˈloʊkl/",
+      "vi": "địa phương",
+      "ex": "Try the local food when traveling.",
+      "exvi": "Hãy thử món ăn địa phương khi đi du lịch."
+    },
+    {
+      "topic": "travel",
+      "en": "culture",
+      "ipa": "/ˈkʌltʃər/",
+      "vi": "văn hóa",
+      "ex": "I love learning about new cultures.",
+      "exvi": "Tôi thích tìm hiểu những nền văn hóa mới."
+    },
+    {
+      "topic": "travel",
+      "en": "landmark",
+      "ipa": "/ˈlændmɑːrk/",
+      "vi": "địa danh nổi tiếng",
+      "ex": "The Eiffel Tower is a famous landmark.",
+      "exvi": "Tháp Eiffel là một địa danh nổi tiếng."
+    },
+    {
+      "topic": "travel",
+      "en": "museum",
+      "ipa": "/mjuˈziːəm/",
+      "vi": "bảo tàng",
+      "ex": "The museum is free on Monday.",
+      "exvi": "Bảo tàng miễn phí vào thứ Hai."
+    },
+    {
+      "topic": "travel",
+      "en": "monument",
+      "ipa": "/ˈmɑːnjumənt/",
+      "vi": "tượng đài",
+      "ex": "The monument honors brave soldiers.",
+      "exvi": "Tượng đài tôn vinh những người lính dũng cảm."
+    },
+    {
+      "topic": "travel",
+      "en": "landscape",
+      "ipa": "/ˈlændskeɪp/",
+      "vi": "phong cảnh",
+      "ex": "The landscape here is breathtaking.",
+      "exvi": "Phong cảnh ở đây thật tuyệt đẹp."
+    },
+    {
+      "topic": "travel",
+      "en": "sunset",
+      "ipa": "/ˈsʌnset/",
+      "vi": "hoàng hôn",
+      "ex": "We watched the sunset on the beach.",
+      "exvi": "Chúng tôi ngắm hoàng hôn trên bãi biển."
+    },
+    {
+      "topic": "travel",
+      "en": "sunrise",
+      "ipa": "/ˈsʌnraɪz/",
+      "vi": "bình minh",
+      "ex": "Wake up early to see the sunrise.",
+      "exvi": "Dậy sớm để ngắm bình minh."
+    },
+    {
+      "topic": "travel",
+      "en": "adventure",
+      "ipa": "/ədˈventʃər/",
+      "vi": "sự phiêu lưu",
+      "ex": "Traveling alone is a great adventure.",
+      "exvi": "Đi du lịch một mình là một cuộc phiêu lưu tuyệt vời."
+    },
+    {
+      "topic": "travel",
+      "en": "expedition",
+      "ipa": "/ˌekspəˈdɪʃn/",
+      "vi": "cuộc thám hiểm",
+      "ex": "The expedition crossed the desert.",
+      "exvi": "Cuộc thám hiểm đã băng qua sa mạc."
+    },
+    {
+      "topic": "travel",
+      "en": "itinerary",
+      "ipa": "/aɪˈtɪnəreri/",
+      "vi": "hành trình, kế hoạch đi",
+      "ex": "Here is our itinerary for the week.",
+      "exvi": "Đây là hành trình một tuần của chúng tôi."
+    },
+    {
+      "topic": "travel",
+      "en": "reservation",
+      "ipa": "/ˌrezərˈveɪʃn/",
+      "vi": "sự đặt chỗ",
+      "ex": "I made a reservation at the hotel.",
+      "exvi": "Tôi đã đặt chỗ tại khách sạn."
+    },
+    {
+      "topic": "travel",
+      "en": "accommodation",
+      "ipa": "/əˌkɑːməˈdeɪʃn/",
+      "vi": "chỗ ở",
+      "ex": "The accommodation includes breakfast.",
+      "exvi": "Chỗ ở đã bao gồm bữa sáng."
+    },
+    {
+      "topic": "travel",
+      "en": "translator",
+      "ipa": "/trænzˈleɪtər/",
+      "vi": "người phiên dịch",
+      "ex": "We hired a translator for the meeting.",
+      "exvi": "Chúng tôi đã thuê một người phiên dịch cho buổi gặp."
+    },
+    {
+      "topic": "travel",
+      "en": "highway",
+      "ipa": "/ˈhaɪweɪ/",
+      "vi": "đường cao tốc",
+      "ex": "Drive carefully on the highway.",
+      "exvi": "Lái xe cẩn thận trên đường cao tốc."
+    },
+    {
+      "topic": "travel",
+      "en": "railway",
+      "ipa": "/ˈreɪlweɪ/",
+      "vi": "đường sắt",
+      "ex": "The railway connects two big cities.",
+      "exvi": "Đường sắt nối hai thành phố lớn."
+    },
+    {
+      "topic": "travel",
+      "en": "harbor",
+      "ipa": "/ˈhɑːrbər/",
+      "vi": "bến cảng",
+      "ex": "Ships arrive at the harbor every morning.",
+      "exvi": "Tàu cập bến cảng mỗi buổi sáng."
+    },
+    {
+      "topic": "travel",
+      "en": "hostel",
+      "ipa": "/ˈhɑːstl/",
+      "vi": "nhà trọ",
+      "ex": "A hostel is cheaper than a hotel.",
+      "exvi": "Nhà trọ rẻ hơn khách sạn."
+    },
+    {
+      "topic": "food",
+      "en": "breakfast",
+      "ipa": "/ˈbrekfəst/",
+      "vi": "bữa sáng",
+      "ex": "I eat breakfast at seven.",
+      "exvi": "Tôi ăn sáng lúc bảy giờ."
+    },
+    {
+      "topic": "food",
+      "en": "lunch",
+      "ipa": "/lʌntʃ/",
+      "vi": "bữa trưa",
+      "ex": "Let us have lunch together.",
+      "exvi": "Chúng ta cùng ăn trưa nhé."
+    },
+    {
+      "topic": "food",
+      "en": "dinner",
+      "ipa": "/ˈdɪnər/",
+      "vi": "bữa tối",
+      "ex": "Dinner is ready at six.",
+      "exvi": "Bữa tối đã sẵn sàng lúc sáu giờ."
+    },
+    {
+      "topic": "food",
+      "en": "snack",
+      "ipa": "/snæk/",
+      "vi": "đồ ăn vặt",
+      "ex": "I had a snack before bed.",
+      "exvi": "Tôi ăn nhẹ trước khi đi ngủ."
+    },
+    {
+      "topic": "food",
+      "en": "meal",
+      "ipa": "/miːl/",
+      "vi": "bữa ăn",
+      "ex": "This is the best meal I have ever had.",
+      "exvi": "Đây là bữa ăn ngon nhất tôi từng có."
+    },
+    {
+      "topic": "food",
+      "en": "menu",
+      "ipa": "/ˈmenjuː/",
+      "vi": "thực đơn",
+      "ex": "Can I see the menu, please?",
+      "exvi": "Cho tôi xem thực đơn được không?"
+    },
+    {
+      "topic": "food",
+      "en": "ingredient",
+      "ipa": "/ɪnˈɡriːdiənt/",
+      "vi": "nguyên liệu",
+      "ex": "Fresh ingredients make delicious food.",
+      "exvi": "Nguyên liệu tươi tạo nên món ăn ngon."
+    },
+    {
+      "topic": "food",
+      "en": "recipe",
+      "ipa": "/ˈresəpi/",
+      "vi": "công thức nấu ăn",
+      "ex": "This recipe needs two eggs.",
+      "exvi": "Công thức này cần hai quả trứng."
+    },
+    {
+      "topic": "food",
+      "en": "flavor",
+      "ipa": "/ˈfleɪvər/",
+      "vi": "hương vị",
+      "ex": "The soup has a rich flavor.",
+      "exvi": "Món súp có hương vị đậm đà."
+    },
+    {
+      "topic": "food",
+      "en": "taste",
+      "ipa": "/teɪst/",
+      "vi": "vị",
+      "ex": "This tastes sweet and sour.",
+      "exvi": "Món này có vị chua ngọt."
+    },
+    {
+      "topic": "food",
+      "en": "sweet",
+      "ipa": "/swiːt/",
+      "vi": "ngọt",
+      "ex": "The cake is too sweet for me.",
+      "exvi": "Cái bánh ngọt quá đối với tôi."
+    },
+    {
+      "topic": "food",
+      "en": "sour",
+      "ipa": "/ˈsaʊər/",
+      "vi": "chua",
+      "ex": "The lemon is very sour.",
+      "exvi": "Quả chanh rất chua."
+    },
+    {
+      "topic": "food",
+      "en": "bitter",
+      "ipa": "/ˈbɪtər/",
+      "vi": "đắng",
+      "ex": "Coffee can be a little bitter.",
+      "exvi": "Cà phê có thể hơi đắng."
+    },
+    {
+      "topic": "food",
+      "en": "spicy",
+      "ipa": "/ˈspaɪsi/",
+      "vi": "cay",
+      "ex": "Vietnamese food is often spicy.",
+      "exvi": "Đồ ăn Việt Nam thường cay."
+    },
+    {
+      "topic": "food",
+      "en": "salty",
+      "ipa": "/ˈsɔːlti/",
+      "vi": "mặn",
+      "ex": "The soup is too salty.",
+      "exvi": "Món súp quá mặn."
+    },
+    {
+      "topic": "food",
+      "en": "delicious",
+      "ipa": "/dɪˈlɪʃəs/",
+      "vi": "ngon",
+      "ex": "This restaurant has delicious noodles.",
+      "exvi": "Nhà hàng này có món phở ngon."
+    },
+    {
+      "topic": "food",
+      "en": "appetite",
+      "ipa": "/ˈæpɪtaɪt/",
+      "vi": "sự thèm ăn",
+      "ex": "Walking gives me a big appetite.",
+      "exvi": "Đi bộ khiến tôi thèm ăn."
+    },
+    {
+      "topic": "food",
+      "en": "hungry",
+      "ipa": "/ˈhʌŋɡri/",
+      "vi": "đói",
+      "ex": "I am hungry. Let us eat soon.",
+      "exvi": "Tôi đói. Chúng ta ăn sớm thôi."
+    },
+    {
+      "topic": "food",
+      "en": "thirsty",
+      "ipa": "/ˈθɜːrstɪ/",
+      "vi": "khát",
+      "ex": "After running, I am really thirsty.",
+      "exvi": "Sau khi chạy, tôi rất khát."
+    },
+    {
+      "topic": "food",
+      "en": "cook",
+      "ipa": "/kʊk/",
+      "vi": "nấu ăn",
+      "ex": "My father cooks dinner every day.",
+      "exvi": "Bố tôi nấu bữa tối mỗi ngày."
+    },
+    {
+      "topic": "food",
+      "en": "boil",
+      "ipa": "/bɔɪl/",
+      "vi": "luộc, đun sôi",
+      "ex": "Boil the water first.",
+      "exvi": "Đun sôi nước trước."
+    },
+    {
+      "topic": "food",
+      "en": "fry",
+      "ipa": "/fraɪ/",
+      "vi": "chiên, rán",
+      "ex": "We fry the fish with oil.",
+      "exvi": "Chúng tôi chiên cá với dầu."
+    },
+    {
+      "topic": "food",
+      "en": "steam",
+      "ipa": "/stiːm/",
+      "vi": "hấp",
+      "ex": "Steam the vegetables to keep nutrients.",
+      "exvi": "Hấp rau để giữ chất dinh dưỡng."
+    },
+    {
+      "topic": "food",
+      "en": "bake",
+      "ipa": "/beɪk/",
+      "vi": "nướng bằng lò",
+      "ex": "Mom bakes bread every weekend.",
+      "exvi": "Mẹ nướng bánh mì mỗi cuối tuần."
+    },
+    {
+      "topic": "food",
+      "en": "grill",
+      "ipa": "/ɡrɪl/",
+      "vi": "nướng vỉ",
+      "ex": "Let us grill some meat outside.",
+      "exvi": "Chúng ta nướng thịt ngoài trời nhé."
+    },
+    {
+      "topic": "food",
+      "en": "chop",
+      "ipa": "/tʃɑːp/",
+      "vi": "thái, băm",
+      "ex": "Chop the onions into small pieces.",
+      "exvi": "Thái hành thành những miếng nhỏ."
+    },
+    {
+      "topic": "food",
+      "en": "slice",
+      "ipa": "/slaɪs/",
+      "vi": "cắt lát",
+      "ex": "Slice the bread thinly.",
+      "exvi": "Cắt bánh mì thành lát mỏng."
+    },
+    {
+      "topic": "food",
+      "en": "mix",
+      "ipa": "/mɪks/",
+      "vi": "trộn",
+      "ex": "Mix the flour with eggs.",
+      "exvi": "Trộn bột với trứng."
+    },
+    {
+      "topic": "food",
+      "en": "stir",
+      "ipa": "/stɜːr/",
+      "vi": "khuấy",
+      "ex": "Stir the soup gently.",
+      "exvi": "Khuấy nhẹ nồi súp."
+    },
+    {
+      "topic": "food",
+      "en": "pour",
+      "ipa": "/pɔːr/",
+      "vi": "rót, đổ",
+      "ex": "Pour some water into the cup.",
+      "exvi": "Rót ít nước vào cốc."
+    },
+    {
+      "topic": "food",
+      "en": "peel",
+      "ipa": "/piːl/",
+      "vi": "gọt vỏ",
+      "ex": "Peel the potatoes before cooking.",
+      "exvi": "Gọt vỏ khoai tây trước khi nấu."
+    },
+    {
+      "topic": "food",
+      "en": "serve",
+      "ipa": "/sɜːrv/",
+      "vi": "phục vụ món ăn",
+      "ex": "Serve the dish while it is hot.",
+      "exvi": "Dọn món ăn khi còn nóng."
+    },
+    {
+      "topic": "food",
+      "en": "diet",
+      "ipa": "/ˈdaɪət/",
+      "vi": "chế độ ăn",
+      "ex": "A balanced diet keeps you healthy.",
+      "exvi": "Một chế độ ăn cân bằng giúp bạn khỏe mạnh."
+    },
+    {
+      "topic": "food",
+      "en": "nutrition",
+      "ipa": "/nuˈtrɪʃn/",
+      "vi": "dinh dưỡng",
+      "ex": "Good nutrition is important for children.",
+      "exvi": "Dinh dưỡng tốt quan trọng với trẻ em."
+    },
+    {
+      "topic": "food",
+      "en": "vegetable",
+      "ipa": "/ˈvedʒtəbl/",
+      "vi": "rau củ",
+      "ex": "Eat vegetables every day.",
+      "exvi": "Ăn rau củ mỗi ngày."
+    },
+    {
+      "topic": "food",
+      "en": "fruit",
+      "ipa": "/fruːt/",
+      "vi": "trái cây",
+      "ex": "Tropical fruit is sweet and fresh.",
+      "exvi": "Trái cây nhiệt đới ngọt và tươi."
+    },
+    {
+      "topic": "food",
+      "en": "rice",
+      "ipa": "/raɪs/",
+      "vi": "gạo, cơm",
+      "ex": "Rice is the main food in Vietnam.",
+      "exvi": "Cơm là thức ăn chính ở Việt Nam."
+    },
+    {
+      "topic": "food",
+      "en": "noodle",
+      "ipa": "/ˈnuːdl/",
+      "vi": "mì, phở",
+      "ex": "I like beef noodles for breakfast.",
+      "exvi": "Tôi thích phở bò cho bữa sáng."
+    },
+    {
+      "topic": "food",
+      "en": "meat",
+      "ipa": "/miːt/",
+      "vi": "thịt",
+      "ex": "This meat needs more salt.",
+      "exvi": "Miếng thịt này cần thêm chút muối."
+    },
+    {
+      "topic": "food",
+      "en": "chicken",
+      "ipa": "/ˈtʃɪkɪn/",
+      "vi": "thịt gà",
+      "ex": "We roasted a whole chicken.",
+      "exvi": "Chúng tôi nướng một con gà nguyên con."
+    },
+    {
+      "topic": "food",
+      "en": "beef",
+      "ipa": "/biːf/",
+      "vi": "thịt bò",
+      "ex": "The beef steak is juicy and tender.",
+      "exvi": "Bò bít tết mọng nước và mềm."
+    },
+    {
+      "topic": "food",
+      "en": "pork",
+      "ipa": "/pɔːrk/",
+      "vi": "thịt lợn",
+      "ex": "Pork fried rice is a popular dish.",
+      "exvi": "Cơm chiên thịt lợn là món ăn phổ biến."
+    },
+    {
+      "topic": "food",
+      "en": "seafood",
+      "ipa": "/ˈsiːfuːd/",
+      "vi": "hải sản",
+      "ex": "Seafood is fresh in coastal cities.",
+      "exvi": "Hải sản tươi ở các thành phố ven biển."
+    },
+    {
+      "topic": "food",
+      "en": "dessert",
+      "ipa": "/dɪˈzɜːrt/",
+      "vi": "món tráng miệng",
+      "ex": "We ordered ice cream for dessert.",
+      "exvi": "Chúng tôi gọi kem làm món tráng miệng."
+    },
+    {
+      "topic": "food",
+      "en": "beverage",
+      "ipa": "/ˈbevərɪdʒ/",
+      "vi": "đồ uống",
+      "ex": "Tea is a popular beverage here.",
+      "exvi": "Trà là đồ uống phổ biến ở đây."
+    },
+    {
+      "topic": "food",
+      "en": "refreshment",
+      "ipa": "/rɪˈfreʃmənt/",
+      "vi": "thức uống giải khát",
+      "ex": "Cold drinks are perfect refreshments.",
+      "exvi": "Đồ uống lạnh là thức giải khát tuyệt vời."
+    },
+    {
+      "topic": "food",
+      "en": "leftover",
+      "ipa": "/ˈleftoʊvər/",
+      "vi": "thức ăn thừa",
+      "ex": "I stored the leftovers in the fridge.",
+      "exvi": "Tôi cất thức ăn thừa vào tủ lạnh."
+    },
+    {
+      "topic": "food",
+      "en": "buffet",
+      "ipa": "/bəˈfeɪ/",
+      "vi": "tiệc tự chọn",
+      "ex": "The hotel serves a buffet breakfast.",
+      "exvi": "Khách sạn phục vụ bữa sáng tự chọn."
+    },
+    {
+      "topic": "food",
+      "en": "takeaway",
+      "ipa": "/ˈteɪkəweɪ/",
+      "vi": "đồ mang đi",
+      "ex": "Let us order takeaway tonight.",
+      "exvi": "Tối nay chúng ta gọi đồ mang đi nhé."
+    },
+    {
+      "topic": "food",
+      "en": "tip",
+      "ipa": "/tɪp/",
+      "vi": "tiền boa",
+      "ex": "Leaving a tip is common there.",
+      "exvi": "Để lại tiền boa là điều phổ biến ở đó."
+    },
+    {
+      "topic": "work",
+      "en": "job",
+      "ipa": "/dʒɑːb/",
+      "vi": "công việc",
+      "ex": "She found a new job in Hanoi.",
+      "exvi": "Cô ấy tìm được một công việc mới ở Hà Nội."
+    },
+    {
+      "topic": "work",
+      "en": "career",
+      "ipa": "/kəˈrɪr/",
+      "vi": "sự nghiệp",
+      "ex": "He is building a career in IT.",
+      "exvi": "Anh ấy đang xây dựng sự nghiệp trong ngành IT."
+    },
+    {
+      "topic": "work",
+      "en": "office",
+      "ipa": "/ˈɔːfɪs/",
+      "vi": "văn phòng",
+      "ex": "The office opens at eight in the morning.",
+      "exvi": "Văn phòng mở cửa lúc tám giờ sáng."
+    },
+    {
+      "topic": "work",
+      "en": "manager",
+      "ipa": "/ˈmænɪdʒər/",
+      "vi": "quản lý",
+      "ex": "The manager leads our team.",
+      "exvi": "Quản lý dẫn dắt đội của chúng tôi."
+    },
+    {
+      "topic": "work",
+      "en": "colleague",
+      "ipa": "/ˈkɑːliːɡ/",
+      "vi": "đồng nghiệp",
+      "ex": "My colleagues are very friendly.",
+      "exvi": "Đồng nghiệp của tôi rất thân thiện."
+    },
+    {
+      "topic": "work",
+      "en": "boss",
+      "ipa": "/bɔːs/",
+      "vi": "sếp",
+      "ex": "My boss approved the plan.",
+      "exvi": "Sếp của tôi đã duyệt kế hoạch."
+    },
+    {
+      "topic": "work",
+      "en": "employee",
+      "ipa": "/ɪmˈplɔɪiː/",
+      "vi": "nhân viên",
+      "ex": "Every employee gets a bonus.",
+      "exvi": "Mọi nhân viên đều nhận được tiền thưởng."
+    },
+    {
+      "topic": "work",
+      "en": "employer",
+      "ipa": "/ɪmˈplɔɪər/",
+      "vi": "người sử dụng lao động",
+      "ex": "The employer provides health insurance.",
+      "exvi": "Người sử dụng lao động cung cấp bảo hiểm y tế."
+    },
+    {
+      "topic": "work",
+      "en": "salary",
+      "ipa": "/ˈsæləri/",
+      "vi": "lương",
+      "ex": "The salary is paid monthly.",
+      "exvi": "Lương được trả hằng tháng."
+    },
+    {
+      "topic": "work",
+      "en": "wage",
+      "ipa": "/weɪdʒ/",
+      "vi": "tiền công",
+      "ex": "Workers demanded higher wages.",
+      "exvi": "Công nhân đòi tăng tiền công."
+    },
+    {
+      "topic": "work",
+      "en": "income",
+      "ipa": "/ˈɪnkʌm/",
+      "vi": "thu nhập",
+      "ex": "Her income increased last year.",
+      "exvi": "Thu nhập của cô ấy tăng lên năm ngoái."
+    },
+    {
+      "topic": "work",
+      "en": "meeting",
+      "ipa": "/ˈmiːtɪŋ/",
+      "vi": "cuộc họp",
+      "ex": "We have a meeting at ten o'clock.",
+      "exvi": "Chúng tôi có một cuộc họp lúc mười giờ."
+    },
+    {
+      "topic": "work",
+      "en": "deadline",
+      "ipa": "/ˈdedlaɪn/",
+      "vi": "hạn chót",
+      "ex": "The deadline is next Friday.",
+      "exvi": "Hạn chót là thứ Sáu tuần sau."
+    },
+    {
+      "topic": "work",
+      "en": "task",
+      "ipa": "/tæsk/",
+      "vi": "nhiệm vụ",
+      "ex": "Finish this task before noon.",
+      "exvi": "Hoàn thành nhiệm vụ này trước buổi trưa."
+    },
+    {
+      "topic": "work",
+      "en": "project",
+      "ipa": "/ˈprɑːdʒekt/",
+      "vi": "dự án",
+      "ex": "The project took six months.",
+      "exvi": "Dự án mất sáu tháng để hoàn thành."
+    },
+    {
+      "topic": "work",
+      "en": "report",
+      "ipa": "/rɪˈpɔːrt/",
+      "vi": "báo cáo",
+      "ex": "Please send me the report by email.",
+      "exvi": "Hãy gửi cho tôi báo cáo qua email."
+    },
+    {
+      "topic": "work",
+      "en": "teamwork",
+      "ipa": "/ˈtiːmwɜːrk/",
+      "vi": "làm việc nhóm",
+      "ex": "Teamwork helps us finish faster.",
+      "exvi": "Làm việc nhóm giúp chúng ta hoàn thành nhanh hơn."
+    },
+    {
+      "topic": "work",
+      "en": "schedule",
+      "ipa": "/ˈskedʒuːl/",
+      "vi": "lịch trình",
+      "ex": "Check the schedule before traveling.",
+      "exvi": "Kiểm tra lịch trình trước khi đi."
+    },
+    {
+      "topic": "work",
+      "en": "overtime",
+      "ipa": "/ˈoʊvərtaɪm/",
+      "vi": "làm thêm giờ",
+      "ex": "I worked overtime this week.",
+      "exvi": "Tuần này tôi đã làm thêm giờ."
+    },
+    {
+      "topic": "work",
+      "en": "vacation",
+      "ipa": "/veɪˈkeɪʃn/",
+      "vi": "kỳ nghỉ",
+      "ex": "I need a vacation after this project.",
+      "exvi": "Tôi cần một kỳ nghỉ sau dự án này."
+    },
+    {
+      "topic": "work",
+      "en": "training",
+      "ipa": "/ˈtreɪnɪŋ/",
+      "vi": "đào tạo",
+      "ex": "New staff receive online training.",
+      "exvi": "Nhân viên mới được đào tạo trực tuyến."
+    },
+    {
+      "topic": "work",
+      "en": "skill",
+      "ipa": "/skɪl/",
+      "vi": "kỹ năng",
+      "ex": "Communication is an important skill.",
+      "exvi": "Giao tiếp là một kỹ năng quan trọng."
+    },
+    {
+      "topic": "work",
+      "en": "experience",
+      "ipa": "/ɪkˈspɪriəns/",
+      "vi": "kinh nghiệm",
+      "ex": "She has five years of experience.",
+      "exvi": "Cô ấy có năm năm kinh nghiệm."
+    },
+    {
+      "topic": "work",
+      "en": "interview",
+      "ipa": "/ˈɪntərvjuː/",
+      "vi": "phỏng vấn",
+      "ex": "He has a job interview tomorrow.",
+      "exvi": "Anh ấy có một buổi phỏng vấn xin việc ngày mai."
+    },
+    {
+      "topic": "work",
+      "en": "resume",
+      "ipa": "/ˈrezəmeɪ/",
+      "vi": "sơ yếu lý lịch",
+      "ex": "Send your resume to our email.",
+      "exvi": "Gửi sơ yếu lý lịch của bạn đến email của chúng tôi."
+    },
+    {
+      "topic": "work",
+      "en": "apply",
+      "ipa": "/əˈplaɪ/",
+      "vi": "nộp đơn xin việc",
+      "ex": "You can apply for this position online.",
+      "exvi": "Bạn có thể nộp đơn xin vị trí này trực tuyến."
+    },
+    {
+      "topic": "work",
+      "en": "hire",
+      "ipa": "/ˈhaɪər/",
+      "vi": "tuyển dụng",
+      "ex": "The company plans to hire more staff.",
+      "exvi": "Công ty dự định tuyển thêm nhân viên."
+    },
+    {
+      "topic": "work",
+      "en": "fire",
+      "ipa": "/ˈfaɪər/",
+      "vi": "sa thải",
+      "ex": "He was fired for being late often.",
+      "exvi": "Anh ấy bị sa thải vì hay đi muộn."
+    },
+    {
+      "topic": "work",
+      "en": "quit",
+      "ipa": "/kwɪt/",
+      "vi": "nghỉ việc",
+      "ex": "She decided to quit her old job.",
+      "exvi": "Cô ấy quyết định nghỉ công việc cũ."
+    },
+    {
+      "topic": "work",
+      "en": "retire",
+      "ipa": "/rɪˈtaɪər/",
+      "vi": "về hưu",
+      "ex": "My uncle will retire next year.",
+      "exvi": "Chú tôi sẽ về hưu vào năm sau."
+    },
+    {
+      "topic": "work",
+      "en": "promote",
+      "ipa": "/prəˈmoʊt/",
+      "vi": "thăng chức",
+      "ex": "He was promoted to manager.",
+      "exvi": "Anh ấy được thăng chức làm quản lý."
+    },
+    {
+      "topic": "work",
+      "en": "coworker",
+      "ipa": "/ˈkoʊwɜːrkər/",
+      "vi": "bạn đồng nghiệp",
+      "ex": "My coworker helps me a lot.",
+      "exvi": "Bạn đồng nghiệp giúp tôi rất nhiều."
+    },
+    {
+      "topic": "work",
+      "en": "presentation",
+      "ipa": "/ˌpriːzenˈteɪʃn/",
+      "vi": "bài thuyết trình",
+      "ex": "Her presentation was very clear.",
+      "exvi": "Bài thuyết trình của cô ấy rất rõ ràng."
+    },
+    {
+      "topic": "work",
+      "en": "negotiation",
+      "ipa": "/nɪˌɡoʊʃiˈeɪʃn/",
+      "vi": "sự đàm phán",
+      "ex": "The negotiation lasted for hours.",
+      "exvi": "Cuộc đàm phán kéo dài nhiều giờ."
+    },
+    {
+      "topic": "work",
+      "en": "contract",
+      "ipa": "/ˈkɑːntrækt/",
+      "vi": "hợp đồng",
+      "ex": "Sign the contract before starting work.",
+      "exvi": "Ký hợp đồng trước khi bắt đầu công việc."
+    },
+    {
+      "topic": "work",
+      "en": "department",
+      "ipa": "/dɪˈpɑːrtmənt/",
+      "vi": "phòng ban",
+      "ex": "She works in the sales department.",
+      "exvi": "Cô ấy làm việc ở phòng kinh doanh."
+    },
+    {
+      "topic": "work",
+      "en": "industry",
+      "ipa": "/ˈɪndəstri/",
+      "vi": "ngành công nghiệp",
+      "ex": "Tourism is a growing industry.",
+      "exvi": "Du lịch là một ngành đang phát triển."
+    },
+    {
+      "topic": "work",
+      "en": "company",
+      "ipa": "/ˈkʌmpəni/",
+      "vi": "công ty",
+      "ex": "He started his own company.",
+      "exvi": "Anh ấy thành lập công ty riêng."
+    },
+    {
+      "topic": "work",
+      "en": "business",
+      "ipa": "/ˈbɪznəs/",
+      "vi": "việc kinh doanh",
+      "ex": "Running a business takes effort.",
+      "exvi": "Kinh doanh đòi hỏi sự nỗ lực."
+    },
+    {
+      "topic": "work",
+      "en": "startup",
+      "ipa": "/ˈstɑːrtʌp/",
+      "vi": "công ty khởi nghiệp",
+      "ex": "The startup grew very fast.",
+      "exvi": "Công ty khởi nghiệp phát triển rất nhanh."
+    },
+    {
+      "topic": "work",
+      "en": "invest",
+      "ipa": "/ɪnˈvest/",
+      "vi": "đầu tư",
+      "ex": "They invested money in the project.",
+      "exvi": "Họ đầu tư tiền vào dự án."
+    },
+    {
+      "topic": "work",
+      "en": "profit",
+      "ipa": "/ˈprɑːfɪt/",
+      "vi": "lợi nhuận",
+      "ex": "The company made a big profit.",
+      "exvi": "Công ty thu được một khoản lợi nhuận lớn."
+    },
+    {
+      "topic": "work",
+      "en": "customer",
+      "ipa": "/ˈkʌstəmər/",
+      "vi": "khách hàng",
+      "ex": "The customer asked for a refund.",
+      "exvi": "Khách hàng yêu cầu được hoàn tiền."
+    },
+    {
+      "topic": "work",
+      "en": "client",
+      "ipa": "/ˈklaɪənt/",
+      "vi": "khách hàng dịch vụ",
+      "ex": "She meets clients every Friday.",
+      "exvi": "Cô ấy gặp khách hàng mỗi thứ Sáu."
+    },
+    {
+      "topic": "work",
+      "en": "supplier",
+      "ipa": "/səˈplaɪər/",
+      "vi": "nhà cung cấp",
+      "ex": "The supplier delivered the goods on time.",
+      "exvi": "Nhà cung cấp đã giao hàng đúng hạn."
+    },
+    {
+      "topic": "work",
+      "en": "document",
+      "ipa": "/ˈdɑːkjumənt/",
+      "vi": "tài liệu",
+      "ex": "Please sign this document.",
+      "exvi": "Vui lòng ký tài liệu này."
+    },
+    {
+      "topic": "work",
+      "en": "equipment",
+      "ipa": "/ɪˈkwɪpmənt/",
+      "vi": "thiết bị",
+      "ex": "The office has modern equipment.",
+      "exvi": "Văn phòng có thiết bị hiện đại."
+    },
+    {
+      "topic": "work",
+      "en": "workspace",
+      "ipa": "/ˈwɜːrkspeɪs/",
+      "vi": "không gian làm việc",
+      "ex": "My workspace is quiet and clean.",
+      "exvi": "Không gian làm việc của tôi yên tĩnh và sạch sẽ."
+    },
+    {
+      "topic": "work",
+      "en": "productivity",
+      "ipa": "/ˌproʊdʌkˈtɪvəti/",
+      "vi": "năng suất",
+      "ex": "Good rest improves productivity.",
+      "exvi": "Nghỉ ngơi tốt giúp tăng năng suất."
+    },
+    {
+      "topic": "work",
+      "en": "remote",
+      "ipa": "/rɪˈmoʊt/",
+      "vi": "từ xa",
+      "ex": "Many people work remote from home.",
+      "exvi": "Nhiều người làm việc từ xa tại nhà."
+    },
+    {
+      "topic": "school",
+      "en": "teacher",
+      "ipa": "/ˈtiːtʃər/",
+      "vi": "giáo viên",
+      "ex": "The teacher explains carefully.",
+      "exvi": "Giáo viên giảng giải rất cẩn thận."
+    },
+    {
+      "topic": "school",
+      "en": "student",
+      "ipa": "/ˈstuːdnt/",
+      "vi": "học sinh",
+      "ex": "Every student must finish homework.",
+      "exvi": "Mỗi học sinh phải làm xong bài tập về nhà."
+    },
+    {
+      "topic": "school",
+      "en": "classroom",
+      "ipa": "/ˈklæsruːm/",
+      "vi": "phòng học",
+      "ex": "The classroom is bright and spacious.",
+      "exvi": "Phòng học sáng sủa và rộng rãi."
+    },
+    {
+      "topic": "school",
+      "en": "lesson",
+      "ipa": "/ˈlesn/",
+      "vi": "bài học",
+      "ex": "Today's lesson is about grammar.",
+      "exvi": "Bài học hôm nay nói về ngữ pháp."
+    },
+    {
+      "topic": "school",
+      "en": "homework",
+      "ipa": "/ˈhoʊmwɜːrk/",
+      "vi": "bài tập về nhà",
+      "ex": "I finished my homework early.",
+      "exvi": "Tôi làm xong bài tập về nhà sớm."
+    },
+    {
+      "topic": "school",
+      "en": "exam",
+      "ipa": "/ɪɡˈzæm/",
+      "vi": "kỳ thi",
+      "ex": "The final exam is in June.",
+      "exvi": "Kỳ thi cuối kỳ diễn ra vào tháng Sáu."
+    },
+    {
+      "topic": "school",
+      "en": "test",
+      "ipa": "/test/",
+      "vi": "bài kiểm tra",
+      "ex": "We have a math test tomorrow.",
+      "exvi": "Ngày mai chúng tôi có bài kiểm tra toán."
+    },
+    {
+      "topic": "school",
+      "en": "grade",
+      "ipa": "/ɡreɪd/",
+      "vi": "điểm số",
+      "ex": "She got a high grade in English.",
+      "exvi": "Cô ấy được điểm cao môn tiếng Anh."
+    },
+    {
+      "topic": "school",
+      "en": "score",
+      "ipa": "/skɔːr/",
+      "vi": "số điểm",
+      "ex": "His score was ninety out of a hundred.",
+      "exvi": "Điểm của anh ấy là chín mươi trên một trăm."
+    },
+    {
+      "topic": "school",
+      "en": "learn",
+      "ipa": "/lɜːrn/",
+      "vi": "học hỏi",
+      "ex": "We learn new words every day.",
+      "exvi": "Chúng tôi học từ mới mỗi ngày."
+    },
+    {
+      "topic": "school",
+      "en": "study",
+      "ipa": "/ˈstʌdi/",
+      "vi": "học tập",
+      "ex": "I study for two hours every night.",
+      "exvi": "Tôi học tập hai giờ mỗi tối."
+    },
+    {
+      "topic": "school",
+      "en": "understand",
+      "ipa": "/ˌʌndərˈstænd/",
+      "vi": "hiểu",
+      "ex": "Do you understand the lesson?",
+      "exvi": "Bạn có hiểu bài học không?"
+    },
+    {
+      "topic": "school",
+      "en": "remember",
+      "ipa": "/rɪˈmembər/",
+      "vi": "ghi nhớ",
+      "ex": "Try to remember these formulas.",
+      "exvi": "Cố gắng ghi nhớ những công thức này."
+    },
+    {
+      "topic": "school",
+      "en": "forget",
+      "ipa": "/fərˈɡet/",
+      "vi": "quên",
+      "ex": "Do not forget to bring your books.",
+      "exvi": "Đừng quên mang sách vở bạn nhé."
+    },
+    {
+      "topic": "school",
+      "en": "knowledge",
+      "ipa": "/ˈnɑːlɪdʒ/",
+      "vi": "kiến thức",
+      "ex": "Reading gives us more knowledge.",
+      "exvi": "Đọc sách mang lại cho ta nhiều kiến thức."
+    },
+    {
+      "topic": "school",
+      "en": "subject",
+      "ipa": "/ˈsʌbdʒɪkt/",
+      "vi": "môn học",
+      "ex": "Math is my favorite subject.",
+      "exvi": "Toán là môn học tôi yêu thích."
+    },
+    {
+      "topic": "school",
+      "en": "mathematics",
+      "ipa": "/ˌmæθəˈmætɪks/",
+      "vi": "toán học",
+      "ex": "Mathematics builds logical thinking.",
+      "exvi": "Toán học rèn luyện tư duy logic."
+    },
+    {
+      "topic": "school",
+      "en": "literature",
+      "ipa": "/ˈlɪtərətʃər/",
+      "vi": "văn học",
+      "ex": "Literature helps us understand people.",
+      "exvi": "Văn học giúp ta hiểu con người."
+    },
+    {
+      "topic": "school",
+      "en": "history",
+      "ipa": "/ˈhɪstəri/",
+      "vi": "lịch sử",
+      "ex": "History shows us the past.",
+      "exvi": "Lịch sử cho ta thấy quá khứ."
+    },
+    {
+      "topic": "school",
+      "en": "geography",
+      "ipa": "/dʒiˈɑːɡrəfi/",
+      "vi": "địa lý",
+      "ex": "Geography studies countries and maps.",
+      "exvi": "Địa lý nghiên cứu các quốc gia và bản đồ."
+    },
+    {
+      "topic": "school",
+      "en": "biology",
+      "ipa": "/baɪˈɑːlədʒi/",
+      "vi": "sinh học",
+      "ex": "Biology explains how living things work.",
+      "exvi": "Sinh học giải thích cách sinh vật hoạt động."
+    },
+    {
+      "topic": "school",
+      "en": "chemistry",
+      "ipa": "/ˈkemɪstri/",
+      "vi": "hóa học",
+      "ex": "Chemistry involves experiments in the lab.",
+      "exvi": "Hóa học liên quan đến thí nghiệm trong phòng thí nghiệm."
+    },
+    {
+      "topic": "school",
+      "en": "physics",
+      "ipa": "/ˈfɪzɪks/",
+      "vi": "vật lý",
+      "ex": "Physics explains motion and energy.",
+      "exvi": "Vật lý giải thích chuyển động và năng lượng."
+    },
+    {
+      "topic": "school",
+      "en": "science",
+      "ipa": "/ˈsaɪəns/",
+      "vi": "khoa học",
+      "ex": "Science opens the door to discovery.",
+      "exvi": "Khoa học mở ra cánh cửa khám phá."
+    },
+    {
+      "topic": "school",
+      "en": "library",
+      "ipa": "/ˈlaɪbreri/",
+      "vi": "thư viện",
+      "ex": "I borrow books from the library.",
+      "exvi": "Tôi mượn sách từ thư viện."
+    },
+    {
+      "topic": "school",
+      "en": "textbook",
+      "ipa": "/ˈtekstbʊk/",
+      "vi": "sách giáo khoa",
+      "ex": "Open your textbook to page ten.",
+      "exvi": "Mở sách giáo khoa đến trang mười."
+    },
+    {
+      "topic": "school",
+      "en": "notebook",
+      "ipa": "/ˈnoʊtbʊk/",
+      "vi": "vở ghi",
+      "ex": "Write the notes in your notebook.",
+      "exvi": "Ghi chú vào vở của bạn."
+    },
+    {
+      "topic": "school",
+      "en": "pen",
+      "ipa": "/pen/",
+      "vi": "bút mực",
+      "ex": "May I borrow your pen?",
+      "exvi": "Cho tôi mượn cây bút mực được không?"
+    },
+    {
+      "topic": "school",
+      "en": "pencil",
+      "ipa": "/ˈpensl/",
+      "vi": "bút chì",
+      "ex": "Draw the picture with a pencil.",
+      "exvi": "Vẽ bức tranh bằng bút chì."
+    },
+    {
+      "topic": "school",
+      "en": "eraser",
+      "ipa": "/ɪˈreɪsər/",
+      "vi": "cục tẩy",
+      "ex": "Use an eraser to fix the mistake.",
+      "exvi": "Dùng cục tẩy để sửa lỗi sai."
+    },
+    {
+      "topic": "school",
+      "en": "ruler",
+      "ipa": "/ˈruːlər/",
+      "vi": "thước kẻ",
+      "ex": "Draw a straight line with a ruler.",
+      "exvi": "Kẻ một đường thẳng bằng thước."
+    },
+    {
+      "topic": "school",
+      "en": "schoolbag",
+      "ipa": "/ˈskuːlbæɡ/",
+      "vi": "cặp sách",
+      "ex": "My schoolbag is heavy today.",
+      "exvi": "Cặp sách của tôi hôm nay nặng."
+    },
+    {
+      "topic": "school",
+      "en": "board",
+      "ipa": "/bɔːrd/",
+      "vi": "bảng",
+      "ex": "The teacher wrote on the board.",
+      "exvi": "Giáo viên viết lên bảng."
+    },
+    {
+      "topic": "school",
+      "en": "chalk",
+      "ipa": "/tʃɔːk/",
+      "vi": "phấn",
+      "ex": "Use chalk to write on the board.",
+      "exvi": "Dùng phấn để viết lên bảng."
+    },
+    {
+      "topic": "school",
+      "en": "timetable",
+      "ipa": "/ˈtaɪmteɪbl/",
+      "vi": "thời khóa biểu",
+      "ex": "Check the timetable for Monday.",
+      "exvi": "Kiểm tra thời khóa biểu của thứ Hai."
+    },
+    {
+      "topic": "school",
+      "en": "semester",
+      "ipa": "/sɪˈmestər/",
+      "vi": "học kỳ",
+      "ex": "This semester is quite busy.",
+      "exvi": "Học kỳ này khá bận rộn."
+    },
+    {
+      "topic": "school",
+      "en": "graduation",
+      "ipa": "/ˌɡrædʒuˈeɪʃn/",
+      "vi": "lễ tốt nghiệp",
+      "ex": "Graduation is a proud moment.",
+      "exvi": "Lễ tốt nghiệp là một khoảnh khắc tự hào."
+    },
+    {
+      "topic": "school",
+      "en": "degree",
+      "ipa": "/dɪˈɡriː/",
+      "vi": "bằng cấp",
+      "ex": "She earned a degree in medicine.",
+      "exvi": "Cô ấy có bằng y khoa."
+    },
+    {
+      "topic": "school",
+      "en": "university",
+      "ipa": "/ˌjuːnɪˈvɜːrsəti/",
+      "vi": "trường đại học",
+      "ex": "He studies at the university downtown.",
+      "exvi": "Anh ấy học ở trường đại học trong trung tâm."
+    },
+    {
+      "topic": "school",
+      "en": "college",
+      "ipa": "/ˈkɑːlɪdʒ/",
+      "vi": "trường cao đẳng",
+      "ex": "She attends a community college.",
+      "exvi": "Cô ấy theo học một trường cao đẳng cộng đồng."
+    },
+    {
+      "topic": "school",
+      "en": "scholarship",
+      "ipa": "/ˈskɑːlərʃɪp/",
+      "vi": "học bổng",
+      "ex": "He won a full scholarship abroad.",
+      "exvi": "Anh ấy giành được học bổng toàn phần du học."
+    },
+    {
+      "topic": "school",
+      "en": "classmate",
+      "ipa": "/ˈklæsmeɪt/",
+      "vi": "bạn cùng lớp",
+      "ex": "My classmates are kind and helpful.",
+      "exvi": "Bạn cùng lớp của tôi tốt bụng và hay giúp đỡ."
+    },
+    {
+      "topic": "school",
+      "en": "principal",
+      "ipa": "/ˈprɪnsəpl/",
+      "vi": "hiệu trưởng",
+      "ex": "The principal greeted the new students.",
+      "exvi": "Hiệu trưởng đã chào đón các học sinh mới."
+    },
+    {
+      "topic": "school",
+      "en": "attendance",
+      "ipa": "/əˈtendəns/",
+      "vi": "sự chuyên cần",
+      "ex": "Attendance is checked every morning.",
+      "exvi": "Việc điểm danh được kiểm tra mỗi buổi sáng."
+    },
+    {
+      "topic": "school",
+      "en": "discipline",
+      "ipa": "/ˈdɪsəplɪn/",
+      "vi": "kỷ luật",
+      "ex": "Good discipline leads to success.",
+      "exvi": "Kỷ luật tốt dẫn đến thành công."
+    },
+    {
+      "topic": "school",
+      "en": "concentrate",
+      "ipa": "/ˈkɑːnsntreɪt/",
+      "vi": "tập trung",
+      "ex": "You must concentrate during the lesson.",
+      "exvi": "Bạn phải tập trung trong giờ học."
+    },
+    {
+      "topic": "school",
+      "en": "question",
+      "ipa": "/ˈkwestʃən/",
+      "vi": "câu hỏi",
+      "ex": "Raise your hand to ask a question.",
+      "exvi": "Giơ tay để đặt câu hỏi."
+    },
+    {
+      "topic": "school",
+      "en": "answer",
+      "ipa": "/ˈænsər/",
+      "vi": "câu trả lời",
+      "ex": "Your answer is absolutely correct.",
+      "exvi": "Câu trả lời của bạn hoàn toàn đúng."
+    },
+    {
+      "topic": "school",
+      "en": "mistake",
+      "ipa": "/mɪˈsteɪk/",
+      "vi": "lỗi sai",
+      "ex": "Do not be afraid to make mistakes.",
+      "exvi": "Đừng sợ mắc lỗi sai."
+    },
+    {
+      "topic": "school",
+      "en": "dictionary",
+      "ipa": "/ˈdɪkʃəneri/",
+      "vi": "từ điển",
+      "ex": "Look up the word in the dictionary.",
+      "exvi": "Tra từ đó trong từ điển."
+    },
+    {
+      "topic": "nature",
+      "en": "nature",
+      "ipa": "/ˈneɪtʃər/",
+      "vi": "thiên nhiên",
+      "ex": "We should protect nature.",
+      "exvi": "Chúng ta nên bảo vệ thiên nhiên."
+    },
+    {
+      "topic": "nature",
+      "en": "environment",
+      "ipa": "/ɪnˈvaɪrənmənt/",
+      "vi": "môi trường",
+      "ex": "Keep the environment clean.",
+      "exvi": "Giữ môi trường sạch sẽ."
+    },
+    {
+      "topic": "nature",
+      "en": "forest",
+      "ipa": "/ˈfɔːrɪst/",
+      "vi": "khu rừng",
+      "ex": "The forest is home to many animals.",
+      "exvi": "Khu rừng là nhà của nhiều loài động vật."
+    },
+    {
+      "topic": "nature",
+      "en": "mountain",
+      "ipa": "/ˈmaʊntn/",
+      "vi": "ngọn núi",
+      "ex": "They climbed the highest mountain.",
+      "exvi": "Họ trèo lên đỉnh núi cao nhất."
+    },
+    {
+      "topic": "nature",
+      "en": "river",
+      "ipa": "/ˈrɪvər/",
+      "vi": "dòng sông",
+      "ex": "The river flows to the sea.",
+      "exvi": "Dòng sông chảy ra biển."
+    },
+    {
+      "topic": "nature",
+      "en": "lake",
+      "ipa": "/leɪk/",
+      "vi": "hồ",
+      "ex": "We swam in the clear lake.",
+      "exvi": "Chúng tôi bơi trong hồ nước trong xanh."
+    },
+    {
+      "topic": "nature",
+      "en": "ocean",
+      "ipa": "/ˈoʊʃn/",
+      "vi": "đại dương",
+      "ex": "The ocean covers most of Earth.",
+      "exvi": "Đại dương bao phủ hầu hết Trái Đất."
+    },
+    {
+      "topic": "nature",
+      "en": "sea",
+      "ipa": "/siː/",
+      "vi": "biển",
+      "ex": "The sea is calm today.",
+      "exvi": "Biển hôm nay rất yên ả."
+    },
+    {
+      "topic": "nature",
+      "en": "sky",
+      "ipa": "/skaɪ/",
+      "vi": "bầu trời",
+      "ex": "The sky is full of stars tonight.",
+      "exvi": "Bầu trời đầy sao đêm nay."
+    },
+    {
+      "topic": "nature",
+      "en": "cloud",
+      "ipa": "/klaʊd/",
+      "vi": "đám mây",
+      "ex": "Dark clouds bring rain.",
+      "exvi": "Mây đen kéo mưa đến."
+    },
+    {
+      "topic": "nature",
+      "en": "rainbow",
+      "ipa": "/ˈreɪnboʊ/",
+      "vi": "cầu vồng",
+      "ex": "A rainbow appeared after the rain.",
+      "exvi": "Cầu vồng hiện lên sau cơn mưa."
+    },
+    {
+      "topic": "nature",
+      "en": "sun",
+      "ipa": "/sʌn/",
+      "vi": "mặt trời",
+      "ex": "The sun rises in the east.",
+      "exvi": "Mặt trời mọc ở hướng đông."
+    },
+    {
+      "topic": "nature",
+      "en": "moon",
+      "ipa": "/muːn/",
+      "vi": "mặt trăng",
+      "ex": "The moon glows at night.",
+      "exvi": "Mặt trăng tỏa sáng trong đêm."
+    },
+    {
+      "topic": "nature",
+      "en": "star",
+      "ipa": "/stɑːr/",
+      "vi": "ngôi sao",
+      "ex": "The stars sparkle in the night sky.",
+      "exvi": "Những ngôi sao lấp lánh trên bầu trời đêm."
+    },
+    {
+      "topic": "nature",
+      "en": "wind",
+      "ipa": "/wɪnd/",
+      "vi": "gió",
+      "ex": "The wind blows the leaves away.",
+      "exvi": "Gió thổi lá bay đi."
+    },
+    {
+      "topic": "nature",
+      "en": "rain",
+      "ipa": "/reɪn/",
+      "vi": "mưa",
+      "ex": "The rain lasted all afternoon.",
+      "exvi": "Cơn mưa kéo dài cả buổi chiều."
+    },
+    {
+      "topic": "nature",
+      "en": "snow",
+      "ipa": "/snoʊ/",
+      "vi": "tuyết",
+      "ex": "The children played in the snow.",
+      "exvi": "Bọn trẻ chơi đùa trong tuyết."
+    },
+    {
+      "topic": "nature",
+      "en": "storm",
+      "ipa": "/stɔːrm/",
+      "vi": "cơn bão",
+      "ex": "The storm damaged many houses.",
+      "exvi": "Cơn bão đã tàn phá nhiều ngôi nhà."
+    },
+    {
+      "topic": "nature",
+      "en": "thunder",
+      "ipa": "/ˈθʌndər/",
+      "vi": "sấm",
+      "ex": "Thunder followed the lightning.",
+      "exvi": "Sấm vang lên sau tia chớp."
+    },
+    {
+      "topic": "nature",
+      "en": "season",
+      "ipa": "/ˈsiːzn/",
+      "vi": "mùa",
+      "ex": "Spring is my favorite season.",
+      "exvi": "Mùa xuân là mùa tôi yêu thích."
+    },
+    {
+      "topic": "nature",
+      "en": "spring",
+      "ipa": "/sprɪŋ/",
+      "vi": "mùa xuân",
+      "ex": "Flowers bloom in spring.",
+      "exvi": "Hoa nở vào mùa xuân."
+    },
+    {
+      "topic": "nature",
+      "en": "summer",
+      "ipa": "/ˈsʌmər/",
+      "vi": "mùa hè",
+      "ex": "Summer is hot and sunny.",
+      "exvi": "Mùa hè nóng và nhiều nắng."
+    },
+    {
+      "topic": "nature",
+      "en": "autumn",
+      "ipa": "/ˈɔːtəm/",
+      "vi": "mùa thu",
+      "ex": "Leaves turn yellow in autumn.",
+      "exvi": "Lá chuyển vàng vào mùa thu."
+    },
+    {
+      "topic": "nature",
+      "en": "winter",
+      "ipa": "/ˈwɪntər/",
+      "vi": "mùa đông",
+      "ex": "Winter mornings are cold here.",
+      "exvi": "Buổi sáng mùa đông ở đây rất lạnh."
+    },
+    {
+      "topic": "nature",
+      "en": "plant",
+      "ipa": "/plænt/",
+      "vi": "cây, thực vật",
+      "ex": "This plant needs a lot of sunlight.",
+      "exvi": "Cây này cần nhiều ánh nắng mặt trời."
+    },
+    {
+      "topic": "nature",
+      "en": "tree",
+      "ipa": "/triː/",
+      "vi": "cái cây",
+      "ex": "The tree gives us fresh air.",
+      "exvi": "Cái cây cho chúng ta không khí trong lành."
+    },
+    {
+      "topic": "nature",
+      "en": "flower",
+      "ipa": "/ˈflaʊər/",
+      "vi": "bông hoa",
+      "ex": "She planted roses and flowers.",
+      "exvi": "Cô ấy trồng hoa hồng và các loài hoa."
+    },
+    {
+      "topic": "nature",
+      "en": "grass",
+      "ipa": "/ɡræs/",
+      "vi": "cỏ",
+      "ex": "We sat on the soft grass.",
+      "exvi": "Chúng tôi ngồi trên bãi cỏ mềm."
+    },
+    {
+      "topic": "nature",
+      "en": "leaf",
+      "ipa": "/liːf/",
+      "vi": "chiếc lá",
+      "ex": "A green leaf fell to the ground.",
+      "exvi": "Một chiếc lá xanh rơi xuống đất."
+    },
+    {
+      "topic": "nature",
+      "en": "root",
+      "ipa": "/ruːt/",
+      "vi": "rễ cây",
+      "ex": "The tree roots are very deep.",
+      "exvi": "Rễ của cái cây này rất sâu."
+    },
+    {
+      "topic": "nature",
+      "en": "branch",
+      "ipa": "/bræntʃ/",
+      "vi": "cành cây",
+      "ex": "A bird sat on the branch.",
+      "exvi": "Một con chim đậu trên cành cây."
+    },
+    {
+      "topic": "nature",
+      "en": "animal",
+      "ipa": "/ˈænɪml/",
+      "vi": "động vật",
+      "ex": "Many animals live in the wild.",
+      "exvi": "Nhiều loài động vật sống hoang dã."
+    },
+    {
+      "topic": "nature",
+      "en": "bird",
+      "ipa": "/bɜːrd/",
+      "vi": "con chim",
+      "ex": "Birds sing at dawn.",
+      "exvi": "Chim hót lúc rạng đông."
+    },
+    {
+      "topic": "nature",
+      "en": "butterfly",
+      "ipa": "/ˈbʌtərflaɪ/",
+      "vi": "con bướm",
+      "ex": "The butterfly landed on a flower.",
+      "exvi": "Con bướm đậu trên một bông hoa."
+    },
+    {
+      "topic": "nature",
+      "en": "bee",
+      "ipa": "/biː/",
+      "vi": "con ong",
+      "ex": "Bees make sweet honey.",
+      "exvi": "Ong tạo ra mật ngọt."
+    },
+    {
+      "topic": "nature",
+      "en": "fish",
+      "ipa": "/fɪʃ/",
+      "vi": "con cá",
+      "ex": "Colorful fish swim in the river.",
+      "exvi": "Những con cá sặc sỡ bơi trong sông."
+    },
+    {
+      "topic": "nature",
+      "en": "turtle",
+      "ipa": "/ˈtɜːrtl/",
+      "vi": "con rùa",
+      "ex": "The turtle walks very slowly.",
+      "exvi": "Con rùa bò rất chậm."
+    },
+    {
+      "topic": "nature",
+      "en": "wildlife",
+      "ipa": "/ˈwaɪldlaɪf/",
+      "vi": "động vật hoang dã",
+      "ex": "This park protects local wildlife.",
+      "exvi": "Công viên này bảo vệ động vật hoang dã địa phương."
+    },
+    {
+      "topic": "nature",
+      "en": "habitat",
+      "ipa": "/ˈhæbɪtæt/",
+      "vi": "môi trường sống",
+      "ex": "The forest is their natural habitat.",
+      "exvi": "Khu rừng là môi trường sống tự nhiên của chúng."
+    },
+    {
+      "topic": "nature",
+      "en": "ecosystem",
+      "ipa": "/ˈiːkoʊsɪstəm/",
+      "vi": "hệ sinh thái",
+      "ex": "Coral reefs are a rich ecosystem.",
+      "exvi": "Rạn san hô là một hệ sinh thái phong phú."
+    },
+    {
+      "topic": "nature",
+      "en": "climate",
+      "ipa": "/ˈklaɪmət/",
+      "vi": "khí hậu",
+      "ex": "The climate here is warm and wet.",
+      "exvi": "Khí hậu ở đây nóng và ẩm."
+    },
+    {
+      "topic": "nature",
+      "en": "weather",
+      "ipa": "/ˈweðər/",
+      "vi": "thời tiết",
+      "ex": "The weather changed quickly.",
+      "exvi": "Thời tiết thay đổi rất nhanh."
+    },
+    {
+      "topic": "nature",
+      "en": "pollution",
+      "ipa": "/pəˈluːʃn/",
+      "vi": "ô nhiễm",
+      "ex": "Air pollution is a serious problem.",
+      "exvi": "Ô nhiễm không khí là một vấn đề nghiêm trọng."
+    },
+    {
+      "topic": "nature",
+      "en": "recycle",
+      "ipa": "/ˌriːˈsaɪkl/",
+      "vi": "tái chế",
+      "ex": "We should recycle paper and plastic.",
+      "exvi": "Chúng ta nên tái chế giấy và nhựa."
+    },
+    {
+      "topic": "nature",
+      "en": "resource",
+      "ipa": "/ˈriːsɔːrs/",
+      "vi": "tài nguyên",
+      "ex": "Forests are valuable natural resources.",
+      "exvi": "Rừng là tài nguyên thiên nhiên quý giá."
+    },
+    {
+      "topic": "nature",
+      "en": "desert",
+      "ipa": "/ˈdezərt/",
+      "vi": "sa mạc",
+      "ex": "Few plants grow in the desert.",
+      "exvi": "Ít cây cối có thể mọc ở sa mạc."
+    },
+    {
+      "topic": "nature",
+      "en": "hill",
+      "ipa": "/hɪl/",
+      "vi": "đồi",
+      "ex": "We walked up the green hill.",
+      "exvi": "Chúng tôi đi lên ngọn đồi xanh."
+    },
+    {
+      "topic": "nature",
+      "en": "cave",
+      "ipa": "/keɪv/",
+      "vi": "hang động",
+      "ex": "The cave is dark and cool.",
+      "exvi": "Hang động tối và mát mẻ."
+    },
+    {
+      "topic": "nature",
+      "en": "waterfall",
+      "ipa": "/ˈwɔːtərfɔːl/",
+      "vi": "thác nước",
+      "ex": "The waterfall roars loudly.",
+      "exvi": "Thác nước gầm vang dữ dội."
+    },
+    {
+      "topic": "nature",
+      "en": "soil",
+      "ipa": "/sɔɪl/",
+      "vi": "đất trồng",
+      "ex": "Rich soil helps plants grow.",
+      "exvi": "Đất giàu dinh dưỡng giúp cây phát triển."
+    },
+    {
+      "topic": "sports",
+      "en": "sport",
+      "ipa": "/spɔːrt/",
+      "vi": "thể thao",
+      "ex": "Sport keeps our body healthy.",
+      "exvi": "Thể thao giữ cho cơ thể khỏe mạnh."
+    },
+    {
+      "topic": "sports",
+      "en": "exercise",
+      "ipa": "/ˈeksərsaɪz/",
+      "vi": "tập luyện",
+      "ex": "Morning exercise wakes up my body.",
+      "exvi": "Tập luyện buổi sáng đánh thức cơ thể tôi."
+    },
+    {
+      "topic": "sports",
+      "en": "team",
+      "ipa": "/tiːm/",
+      "vi": "đội nhóm",
+      "ex": "Our team won the match.",
+      "exvi": "Đội của chúng tôi đã thắng trận đấu."
+    },
+    {
+      "topic": "sports",
+      "en": "player",
+      "ipa": "/ˈpleɪər/",
+      "vi": "cầu thủ",
+      "ex": "Each player trains hard daily.",
+      "exvi": "Mỗi cầu thủ luyện tập chăm chỉ hằng ngày."
+    },
+    {
+      "topic": "sports",
+      "en": "coach",
+      "ipa": "/koʊtʃ/",
+      "vi": "huấn luyện viên",
+      "ex": "The coach gave us new tactics.",
+      "exvi": "Huấn luyện viên đưa ra chiến thuật mới."
+    },
+    {
+      "topic": "sports",
+      "en": "referee",
+      "ipa": "/ˌrefəˈriː/",
+      "vi": "trọng tài",
+      "ex": "The referee blew the whistle.",
+      "exvi": "Trọng tài đã thổi còi."
+    },
+    {
+      "topic": "sports",
+      "en": "match",
+      "ipa": "/mætʃ/",
+      "vi": "trận đấu",
+      "ex": "The match ended in a draw.",
+      "exvi": "Trận đấu kết thúc với tỉ số hòa."
+    },
+    {
+      "topic": "sports",
+      "en": "goal",
+      "ipa": "/ɡoʊl/",
+      "vi": "bàn thắng",
+      "ex": "He scored the winning goal.",
+      "exvi": "Anh ấy ghi bàn thắng quyết định."
+    },
+    {
+      "topic": "sports",
+      "en": "victory",
+      "ipa": "/ˈvɪktəri/",
+      "vi": "chiến thắng",
+      "ex": "Their victory was well deserved.",
+      "exvi": "Chiến thắng của họ hoàn toàn xứng đáng."
+    },
+    {
+      "topic": "sports",
+      "en": "defeat",
+      "ipa": "/dɪˈfiːt/",
+      "vi": "sự thất bại",
+      "ex": "The team suffered a defeat.",
+      "exvi": "Đội bóng đã chịu một thất bại."
+    },
+    {
+      "topic": "sports",
+      "en": "champion",
+      "ipa": "/ˈtʃæmpiən/",
+      "vi": "nhà vô địch",
+      "ex": "She became the swimming champion.",
+      "exvi": "Cô ấy trở thành nhà vô địch bơi lội."
+    },
+    {
+      "topic": "sports",
+      "en": "tournament",
+      "ipa": "/ˈtɜːrnəmənt/",
+      "vi": "giải đấu",
+      "ex": "The tournament lasts two weeks.",
+      "exvi": "Giải đấu kéo dài hai tuần."
+    },
+    {
+      "topic": "sports",
+      "en": "competition",
+      "ipa": "/ˌkɑːmpəˈtɪʃn/",
+      "vi": "cuộc thi",
+      "ex": "Competition is fierce this year.",
+      "exvi": "Sự cạnh tranh năm nay rất gay gắt."
+    },
+    {
+      "topic": "sports",
+      "en": "stadium",
+      "ipa": "/ˈsteɪdiəm/",
+      "vi": "sân vận động",
+      "ex": "The stadium can hold fifty thousand fans.",
+      "exvi": "Sân vận động có thể chứa năm mươi nghìn người hâm mộ."
+    },
+    {
+      "topic": "sports",
+      "en": "field",
+      "ipa": "/fiːld/",
+      "vi": "sân thi đấu",
+      "ex": "Players warmed up on the field.",
+      "exvi": "Các cầu thủ khởi động trên sân."
+    },
+    {
+      "topic": "sports",
+      "en": "track",
+      "ipa": "/træk/",
+      "vi": "đường chạy",
+      "ex": "Runners gathered on the track.",
+      "exvi": "Các vận động viên chạy tập trung trên đường chạy."
+    },
+    {
+      "topic": "sports",
+      "en": "court",
+      "ipa": "/kɔːrt/",
+      "vi": "sân (bóng rổ, quần vợt)",
+      "ex": "Let us play basketball on the court.",
+      "exvi": "Chúng ta chơi bóng rổ trên sân nhé."
+    },
+    {
+      "topic": "sports",
+      "en": "ball",
+      "ipa": "/bɔːl/",
+      "vi": "quả bóng",
+      "ex": "Pass the ball to me.",
+      "exvi": "Chuyền bóng cho tôi."
+    },
+    {
+      "topic": "sports",
+      "en": "kick",
+      "ipa": "/kɪk/",
+      "vi": "đá",
+      "ex": "He kicked the ball into the goal.",
+      "exvi": "Anh ấy sút bóng vào khung thành."
+    },
+    {
+      "topic": "sports",
+      "en": "throw",
+      "ipa": "/θroʊ/",
+      "vi": "ném",
+      "ex": "Throw the ball to the basket.",
+      "exvi": "Ném bóng vào rổ."
+    },
+    {
+      "topic": "sports",
+      "en": "catch",
+      "ipa": "/kætʃ/",
+      "vi": "bắt bóng",
+      "ex": "Catch the ball with both hands.",
+      "exvi": "Bắt bóng bằng cả hai tay."
+    },
+    {
+      "topic": "sports",
+      "en": "run",
+      "ipa": "/rʌn/",
+      "vi": "chạy",
+      "ex": "I run five kilometers every day.",
+      "exvi": "Tôi chạy năm ki-lô-mét mỗi ngày."
+    },
+    {
+      "topic": "sports",
+      "en": "jump",
+      "ipa": "/dʒʌmp/",
+      "vi": "nhảy",
+      "ex": "The player jumped high for the ball.",
+      "exvi": "Cầu thủ nhảy cao để bắt bóng."
+    },
+    {
+      "topic": "sports",
+      "en": "swim",
+      "ipa": "/swɪm/",
+      "vi": "bơi",
+      "ex": "They swim in the pool every morning.",
+      "exvi": "Họ bơi trong hồ bơi mỗi buổi sáng."
+    },
+    {
+      "topic": "sports",
+      "en": "cycling",
+      "ipa": "/ˈsaɪklɪŋ/",
+      "vi": "môn đạp xe",
+      "ex": "Cycling is good for the heart.",
+      "exvi": "Đạp xe rất tốt cho tim."
+    },
+    {
+      "topic": "sports",
+      "en": "boxing",
+      "ipa": "/ˈbɑːksɪŋ/",
+      "vi": "quyền anh",
+      "ex": "Boxing requires strength and speed.",
+      "exvi": "Quyền anh đòi hỏi sức mạnh và tốc độ."
+    },
+    {
+      "topic": "sports",
+      "en": "wrestling",
+      "ipa": "/ˈreslɪŋ/",
+      "vi": "đấu vật",
+      "ex": "Wrestling is popular in some countries.",
+      "exvi": "Đấu vật phổ biến ở một số quốc gia."
+    },
+    {
+      "topic": "sports",
+      "en": "karate",
+      "ipa": "/kəˈrɑːti/",
+      "vi": "võ karate",
+      "ex": "Karate teaches discipline and focus.",
+      "exvi": "Karate dạy kỷ luật và sự tập trung."
+    },
+    {
+      "topic": "sports",
+      "en": "yoga",
+      "ipa": "/ˈjoʊɡə/",
+      "vi": "yoga",
+      "ex": "Yoga helps me relax after work.",
+      "exvi": "Yoga giúp tôi thư giãn sau giờ làm."
+    },
+    {
+      "topic": "sports",
+      "en": "gym",
+      "ipa": "/dʒɪm/",
+      "vi": "phòng tập",
+      "ex": "I go to the gym three times a week.",
+      "exvi": "Tôi đến phòng tập ba lần một tuần."
+    },
+    {
+      "topic": "sports",
+      "en": "marathon",
+      "ipa": "/ˈmærəθɑːn/",
+      "vi": "cuộc thi chạy marathon",
+      "ex": "She ran the city marathon last year.",
+      "exvi": "Cô ấy đã chạy marathon của thành phố năm ngoái."
+    },
+    {
+      "topic": "sports",
+      "en": "opponent",
+      "ipa": "/əˈpoʊnənt/",
+      "vi": "đối thủ",
+      "ex": "He respects every opponent he faces.",
+      "exvi": "Anh ấy tôn trọng mọi đối thủ mình gặp."
+    },
+    {
+      "topic": "sports",
+      "en": "medal",
+      "ipa": "/ˈmedl/",
+      "vi": "huy chương",
+      "ex": "The team won a gold medal.",
+      "exvi": "Đội đã giành được huy chương vàng."
+    },
+    {
+      "topic": "sports",
+      "en": "trophy",
+      "ipa": "/ˈtroʊfi/",
+      "vi": "chiếc cúp",
+      "ex": "The trophy is made of silver.",
+      "exvi": "Chiếc cúp được làm bằng bạc."
+    },
+    {
+      "topic": "sports",
+      "en": "practice",
+      "ipa": "/ˈpræktɪs/",
+      "vi": "luyện tập",
+      "ex": "Practice makes perfect.",
+      "exvi": "Luyện tập tạo nên sự hoàn hảo."
+    },
+    {
+      "topic": "sports",
+      "en": "warmup",
+      "ipa": "/ˈwɔːrm ʌp/",
+      "vi": "khởi động",
+      "ex": "Do a warmup before running.",
+      "exvi": "Khởi động trước khi chạy."
+    },
+    {
+      "topic": "sports",
+      "en": "fitness",
+      "ipa": "/ˈfɪtnəs/",
+      "vi": "sự khỏe khoắn",
+      "ex": "Running improves your fitness.",
+      "exvi": "Chạy bộ cải thiện sức khỏe của bạn."
+    },
+    {
+      "topic": "sports",
+      "en": "health",
+      "ipa": "/helθ/",
+      "vi": "sức khỏe",
+      "ex": "Sport is great for your health.",
+      "exvi": "Thể thao rất tốt cho sức khỏe."
+    },
+    {
+      "topic": "sports",
+      "en": "muscle",
+      "ipa": "/ˈmʌsl/",
+      "vi": "cơ bắp",
+      "ex": "Weight training builds muscle.",
+      "exvi": "Tập tạ giúp phát triển cơ bắp."
+    },
+    {
+      "topic": "sports",
+      "en": "injury",
+      "ipa": "/ˈɪndʒəri/",
+      "vi": "chấn thương",
+      "ex": "He recovered from a knee injury.",
+      "exvi": "Anh ấy đã bình phục sau chấn thương đầu gối."
+    },
+    {
+      "topic": "sports",
+      "en": "goalkeeper",
+      "ipa": "/ˈɡoʊlkiːpər/",
+      "vi": "thủ môn",
+      "ex": "The goalkeeper saved the penalty.",
+      "exvi": "Thủ môn đã cản phá quả phạt đền."
+    },
+    {
+      "topic": "sports",
+      "en": "strength",
+      "ipa": "/streŋθ/",
+      "vi": "sức mạnh",
+      "ex": "Strength matters in weightlifting.",
+      "exvi": "Sức mạnh quan trọng trong môn cử tạ."
+    },
+    {
+      "topic": "sports",
+      "en": "agility",
+      "ipa": "/əˈdʒɪləti/",
+      "vi": "sự nhanh nhẹn",
+      "ex": "Agility helps in badminton.",
+      "exvi": "Sự nhanh nhẹn giúp ích trong môn cầu lông."
+    },
+    {
+      "topic": "sports",
+      "en": "endurance",
+      "ipa": "/ɪnˈdʊrəns/",
+      "vi": "sức bền",
+      "ex": "Long races test your endurance.",
+      "exvi": "Những cuộc đua dài thử thách sức bền của bạn."
+    },
+    {
+      "topic": "sports",
+      "en": "spectator",
+      "ipa": "/ˈspekteɪtər/",
+      "vi": "khán giả",
+      "ex": "Spectators cheered loudly.",
+      "exvi": "Khán giả cổ vũ rất lớn."
+    },
+    {
+      "topic": "sports",
+      "en": "final",
+      "ipa": "/ˈfaɪnl/",
+      "vi": "trận chung kết",
+      "ex": "The final was exciting to watch.",
+      "exvi": "Trận chung kết xem rất gay cấn."
+    },
+    {
+      "topic": "sports",
+      "en": "tie",
+      "ipa": "/taɪ/",
+      "vi": "trận hòa",
+      "ex": "The game ended in a tie.",
+      "exvi": "Trận đấu kết thúc với tỉ số hòa."
+    },
+    {
+      "topic": "sports",
+      "en": "whistle",
+      "ipa": "/ˈwɪsl/",
+      "vi": "còi",
+      "ex": "The referee blew the final whistle.",
+      "exvi": "Trọng tài thổi còi kết thúc trận đấu."
+    },
+    {
+      "topic": "sports",
+      "en": "jersey",
+      "ipa": "/ˈdʒɜːrzi/",
+      "vi": "áo thi đấu",
+      "ex": "Players wear matching jerseys.",
+      "exvi": "Các cầu thủ mặc áo thi đấu đồng bộ."
+    },
+    {
+      "topic": "sports",
+      "en": "championship",
+      "ipa": "/ˈtʃæmpiənʃɪp/",
+      "vi": "chức vô địch",
+      "ex": "They are fighting for the championship title.",
+      "exvi": "Họ đang tranh giành chức vô địch."
+    },
+    {
+      "topic": "health",
+      "en": "health",
+      "ipa": "/helθ/",
+      "vi": "sức khỏe",
+      "ex": "Health is more important than money.",
+      "exvi": "Sức khỏe quan trọng hơn tiền bạc."
+    },
+    {
+      "topic": "health",
+      "en": "healthy",
+      "ipa": "/ˈhelθi/",
+      "vi": "khỏe mạnh",
+      "ex": "Eating well keeps you healthy.",
+      "exvi": "Ăn uống tốt giữ cho bạn khỏe mạnh."
+    },
+    {
+      "topic": "health",
+      "en": "sick",
+      "ipa": "/sɪk/",
+      "vi": "bị bệnh",
+      "ex": "He stayed home because he was sick.",
+      "exvi": "Anh ấy ở nhà vì bị bệnh."
+    },
+    {
+      "topic": "health",
+      "en": "illness",
+      "ipa": "/ˈɪlnəs/",
+      "vi": "bệnh tật",
+      "ex": "Good habits reduce illness.",
+      "exvi": "Thói quen tốt giúp giảm bệnh tật."
+    },
+    {
+      "topic": "health",
+      "en": "disease",
+      "ipa": "/dɪˈziːz/",
+      "vi": "căn bệnh",
+      "ex": "Heart disease is common nowadays.",
+      "exvi": "Bệnh tim phổ biến trong thời nay."
+    },
+    {
+      "topic": "health",
+      "en": "symptom",
+      "ipa": "/ˈsɪmptəm/",
+      "vi": "triệu chứng",
+      "ex": "A fever is a common symptom.",
+      "exvi": "Sốt là một triệu chứng phổ biến."
+    },
+    {
+      "topic": "health",
+      "en": "pain",
+      "ipa": "/peɪn/",
+      "vi": "cơn đau",
+      "ex": "I have a sharp pain in my back.",
+      "exvi": "Tôi bị một cơn đau nhói ở lưng."
+    },
+    {
+      "topic": "health",
+      "en": "ache",
+      "ipa": "/eɪk/",
+      "vi": "cơn đau âm ỉ",
+      "ex": "He has a stomach ache.",
+      "exvi": "Anh ấy bị đau bụng."
+    },
+    {
+      "topic": "health",
+      "en": "headache",
+      "ipa": "/ˈhedeɪk/",
+      "vi": "đau đầu",
+      "ex": "Take a rest if you have a headache.",
+      "exvi": "Hãy nghỉ ngơi nếu bạn bị đau đầu."
+    },
+    {
+      "topic": "health",
+      "en": "fever",
+      "ipa": "/ˈfiːvər/",
+      "vi": "sốt",
+      "ex": "She has a high fever tonight.",
+      "exvi": "Cô ấy sốt cao đêm nay."
+    },
+    {
+      "topic": "health",
+      "en": "cough",
+      "ipa": "/kɔːf/",
+      "vi": "ho",
+      "ex": "The cough kept me awake.",
+      "exvi": "Cơn ho làm tôi mất ngủ."
+    },
+    {
+      "topic": "health",
+      "en": "cold",
+      "ipa": "/koʊld/",
+      "vi": "cảm lạnh",
+      "ex": "I caught a cold last week.",
+      "exvi": "Tôi bị cảm lạnh tuần trước."
+    },
+    {
+      "topic": "health",
+      "en": "flu",
+      "ipa": "/fluː/",
+      "vi": "cúm",
+      "ex": "The flu spreads quickly in winter.",
+      "exvi": "Bệnh cúm lây lan nhanh vào mùa đông."
+    },
+    {
+      "topic": "health",
+      "en": "doctor",
+      "ipa": "/ˈdɑːktər/",
+      "vi": "bác sĩ",
+      "ex": "See a doctor if the pain continues.",
+      "exvi": "Hãy gặp bác sĩ nếu cơn đau tiếp diễn."
+    },
+    {
+      "topic": "health",
+      "en": "nurse",
+      "ipa": "/nɜːrs/",
+      "vi": "y tá",
+      "ex": "The nurse gave me some medicine.",
+      "exvi": "Y tá đưa cho tôi ít thuốc."
+    },
+    {
+      "topic": "health",
+      "en": "hospital",
+      "ipa": "/ˈhɑːspɪtl/",
+      "vi": "bệnh viện",
+      "ex": "He was taken to the hospital.",
+      "exvi": "Anh ấy được đưa đến bệnh viện."
+    },
+    {
+      "topic": "health",
+      "en": "clinic",
+      "ipa": "/ˈklɪnɪk/",
+      "vi": "phòng khám",
+      "ex": "The clinic opens at seven.",
+      "exvi": "Phòng khám mở cửa lúc bảy giờ."
+    },
+    {
+      "topic": "health",
+      "en": "medicine",
+      "ipa": "/ˈmedɪsn/",
+      "vi": "thuốc",
+      "ex": "Take this medicine after meals.",
+      "exvi": "Uống thuốc này sau bữa ăn."
+    },
+    {
+      "topic": "health",
+      "en": "tablet",
+      "ipa": "/ˈtæblət/",
+      "vi": "viên thuốc",
+      "ex": "Take one tablet every four hours.",
+      "exvi": "Uống một viên mỗi bốn giờ."
+    },
+    {
+      "topic": "health",
+      "en": "prescription",
+      "ipa": "/prɪˈskrɪpʃn/",
+      "vi": "đơn thuốc",
+      "ex": "The doctor wrote a prescription.",
+      "exvi": "Bác sĩ đã viết đơn thuốc."
+    },
+    {
+      "topic": "health",
+      "en": "patient",
+      "ipa": "/ˈpeɪʃnt/",
+      "vi": "bệnh nhân",
+      "ex": "The patient is resting calmly.",
+      "exvi": "Bệnh nhân đang nghỉ ngơi yên tĩnh."
+    },
+    {
+      "topic": "health",
+      "en": "surgery",
+      "ipa": "/ˈsɜːrdʒəri/",
+      "vi": "phẫu thuật",
+      "ex": "The surgery was successful.",
+      "exvi": "Ca phẫu thuật đã thành công."
+    },
+    {
+      "topic": "health",
+      "en": "treatment",
+      "ipa": "/ˈtriːtmənt/",
+      "vi": "điều trị",
+      "ex": "This treatment works very well.",
+      "exvi": "Phương pháp điều trị này rất hiệu quả."
+    },
+    {
+      "topic": "health",
+      "en": "vaccine",
+      "ipa": "/vækˈsiːn/",
+      "vi": "vắc-xin",
+      "ex": "The vaccine protects against flu.",
+      "exvi": "Vắc-xin bảo vệ chống lại bệnh cúm."
+    },
+    {
+      "topic": "health",
+      "en": "immune",
+      "ipa": "/ɪˈmjuːn/",
+      "vi": "miễn dịch",
+      "ex": "Sleep helps boost your immune system.",
+      "exvi": "Ngủ đủ giúp tăng cường hệ miễn dịch."
+    },
+    {
+      "topic": "health",
+      "en": "rest",
+      "ipa": "/rest/",
+      "vi": "nghỉ ngơi",
+      "ex": "Your body needs rest after work.",
+      "exvi": "Cơ thể bạn cần nghỉ ngơi sau khi làm việc."
+    },
+    {
+      "topic": "health",
+      "en": "sleep",
+      "ipa": "/sliːp/",
+      "vi": "giấc ngủ",
+      "ex": "Eight hours of sleep is ideal.",
+      "exvi": "Tám giờ ngủ là lý tưởng."
+    },
+    {
+      "topic": "health",
+      "en": "toothache",
+      "ipa": "/ˈtuːθeɪk/",
+      "vi": "đau răng",
+      "ex": "The toothache made him cry.",
+      "exvi": "Cơn đau răng làm cậu ấy khóc."
+    },
+    {
+      "topic": "health",
+      "en": "stomach",
+      "ipa": "/ˈstʌmək/",
+      "vi": "dạ dày",
+      "ex": "I have pains in my stomach.",
+      "exvi": "Tôi bị đau ở vùng dạ dày."
+    },
+    {
+      "topic": "health",
+      "en": "blood",
+      "ipa": "/blʌd/",
+      "vi": "máu",
+      "ex": "He gave blood at the hospital.",
+      "exvi": "Anh ấy đã hiến máu tại bệnh viện."
+    },
+    {
+      "topic": "health",
+      "en": "heart",
+      "ipa": "/hɑːrt/",
+      "vi": "trái tim",
+      "ex": "Regular walking is good for the heart.",
+      "exvi": "Đi bộ đều đặn tốt cho trái tim."
+    },
+    {
+      "topic": "health",
+      "en": "lung",
+      "ipa": "/lʌŋ/",
+      "vi": "phổi",
+      "ex": "Smoking damages your lungs.",
+      "exvi": "Hút thuốc gây hại cho phổi."
+    },
+    {
+      "topic": "health",
+      "en": "brain",
+      "ipa": "/breɪn/",
+      "vi": "não",
+      "ex": "Sleep helps the brain recover.",
+      "exvi": "Ngủ giúp não bộ phục hồi."
+    },
+    {
+      "topic": "health",
+      "en": "pressure",
+      "ipa": "/ˈpreʃər/",
+      "vi": "huyết áp",
+      "ex": "High blood pressure needs attention.",
+      "exvi": "Huyết áp cao cần được quan tâm."
+    },
+    {
+      "topic": "health",
+      "en": "diabetes",
+      "ipa": "/ˌdaɪəˈbiːtiːz/",
+      "vi": "bệnh tiểu đường",
+      "ex": "Diet matters for people with diabetes.",
+      "exvi": "Chế độ ăn quan trọng với người bị tiểu đường."
+    },
+    {
+      "topic": "health",
+      "en": "checkup",
+      "ipa": "/ˈtʃek ʌp/",
+      "vi": "kiểm tra sức khỏe",
+      "ex": "I have an annual checkup soon.",
+      "exvi": "Tôi sắp có buổi kiểm tra sức khỏe định kỳ."
+    },
+    {
+      "topic": "health",
+      "en": "ambulance",
+      "ipa": "/ˈæmbjələns/",
+      "vi": "xe cứu thương",
+      "ex": "Call an ambulance right away!",
+      "exvi": "Hãy gọi xe cứu thương ngay lập tức!"
+    },
+    {
+      "topic": "health",
+      "en": "emergency",
+      "ipa": "/ɪˈmɜːrdʒənsi/",
+      "vi": "cấp cứu",
+      "ex": "Go to the emergency room.",
+      "exvi": "Hãy đến phòng cấp cứu."
+    },
+    {
+      "topic": "health",
+      "en": "recovery",
+      "ipa": "/rɪˈkʌvəri/",
+      "vi": "sự phục hồi",
+      "ex": "His recovery took a few weeks.",
+      "exvi": "Sự phục hồi của anh ấy mất vài tuần."
+    },
+    {
+      "topic": "health",
+      "en": "broken",
+      "ipa": "/ˈbroʊkən/",
+      "vi": "bị gãy",
+      "ex": "He has a broken arm.",
+      "exvi": "Anh ấy bị gãy tay."
+    },
+    {
+      "topic": "health",
+      "en": "bandage",
+      "ipa": "/ˈbændɪdʒ/",
+      "vi": "băng gạc",
+      "ex": "Wrap the wound with a bandage.",
+      "exvi": "Băng vết thương bằng gạc."
+    },
+    {
+      "topic": "health",
+      "en": "wound",
+      "ipa": "/wuːnd/",
+      "vi": "vết thương",
+      "ex": "Keep the wound clean and dry.",
+      "exvi": "Giữ vết thương sạch và khô."
+    },
+    {
+      "topic": "health",
+      "en": "dental",
+      "ipa": "/ˈdentl/",
+      "vi": "thuộc về răng",
+      "ex": "Good dental habits prevent cavities.",
+      "exvi": "Thói quen chăm sóc răng tốt ngăn ngừa sâu răng."
+    },
+    {
+      "topic": "health",
+      "en": "vision",
+      "ipa": "/ˈvɪʒn/",
+      "vi": "thị lực",
+      "ex": "Eye rest protects your vision.",
+      "exvi": "Cho mắt nghỉ ngơi bảo vệ thị lực của bạn."
+    },
+    {
+      "topic": "health",
+      "en": "digestion",
+      "ipa": "/daɪˈdʒestʃən/",
+      "vi": "sự tiêu hóa",
+      "ex": "Fiber helps healthy digestion.",
+      "exvi": "Chất xơ hỗ trợ tiêu hóa khỏe mạnh."
+    },
+    {
+      "topic": "health",
+      "en": "immunity",
+      "ipa": "/ɪˈmjuːnəti/",
+      "vi": "khả năng miễn dịch",
+      "ex": "Fruits boost your immunity.",
+      "exvi": "Trái cây tăng cường khả năng miễn dịch."
+    },
+    {
+      "topic": "health",
+      "en": "vitamin",
+      "ipa": "/ˈvaɪtəmɪn/",
+      "vi": "vitamin",
+      "ex": "Oranges are rich in vitamin C.",
+      "exvi": "Cam rất giàu vitamin C."
+    },
+    {
+      "topic": "health",
+      "en": "anxiety",
+      "ipa": "/æŋˈzaɪəti/",
+      "vi": "sự lo âu",
+      "ex": "Deep breathing reduces anxiety.",
+      "exvi": "Hít thở sâu làm giảm lo âu."
+    },
+    {
+      "topic": "health",
+      "en": "stress",
+      "ipa": "/stres/",
+      "vi": "căng thẳng",
+      "ex": "Too much stress harms the body.",
+      "exvi": "Quá nhiều căng thẳng gây hại cho cơ thể."
+    },
+    {
+      "topic": "health",
+      "en": "hydration",
+      "ipa": "/haɪˈdreɪʃn/",
+      "vi": "sự bổ sung nước",
+      "ex": "Hydration is key in hot weather.",
+      "exvi": "Bổ sung nước rất quan trọng khi trời nóng."
+    },
+    {
+      "topic": "technology",
+      "en": "technology",
+      "ipa": "/tekˈnɑːlədʒi/",
+      "vi": "công nghệ",
+      "ex": "Technology changes our daily life.",
+      "exvi": "Công nghệ thay đổi cuộc sống hằng ngày."
+    },
+    {
+      "topic": "technology",
+      "en": "computer",
+      "ipa": "/kəmˈpjuːtər/",
+      "vi": "máy tính",
+      "ex": "My computer is very fast.",
+      "exvi": "Máy tính của tôi rất nhanh."
+    },
+    {
+      "topic": "technology",
+      "en": "laptop",
+      "ipa": "/ˈlæptɑːp/",
+      "vi": "máy tính xách tay",
+      "ex": "She carries her laptop to work.",
+      "exvi": "Cô ấy mang máy tính xách tay đi làm."
+    },
+    {
+      "topic": "technology",
+      "en": "smartphone",
+      "ipa": "/ˈsmɑːrtfoʊn/",
+      "vi": "điện thoại thông minh",
+      "ex": "He checks news on his smartphone.",
+      "exvi": "Anh ấy đọc tin tức trên điện thoại thông minh."
+    },
+    {
+      "topic": "technology",
+      "en": "device",
+      "ipa": "/dɪˈvaɪs/",
+      "vi": "thiết bị",
+      "ex": "This device connects to Wi-Fi.",
+      "exvi": "Thiết bị này kết nối với Wi-Fi."
+    },
+    {
+      "topic": "technology",
+      "en": "internet",
+      "ipa": "/ˈɪntərnet/",
+      "vi": "internet",
+      "ex": "The internet connects people worldwide.",
+      "exvi": "Internet kết nối mọi người trên toàn thế giới."
+    },
+    {
+      "topic": "technology",
+      "en": "network",
+      "ipa": "/ˈnetwɜːrk/",
+      "vi": "mạng lưới",
+      "ex": "The office network is secure.",
+      "exvi": "Mạng lưới của văn phòng rất an toàn."
+    },
+    {
+      "topic": "technology",
+      "en": "website",
+      "ipa": "/ˈwebsaɪt/",
+      "vi": "trang web",
+      "ex": "Visit our website for details.",
+      "exvi": "Truy cập trang web của chúng tôi để biết chi tiết."
+    },
+    {
+      "topic": "technology",
+      "en": "software",
+      "ipa": "/ˈsɔːftwer/",
+      "vi": "phần mềm",
+      "ex": "This software edits photos easily.",
+      "exvi": "Phần mềm này chỉnh sửa ảnh rất dễ dàng."
+    },
+    {
+      "topic": "technology",
+      "en": "hardware",
+      "ipa": "/ˈhɑːrdwer/",
+      "vi": "phần cứng",
+      "ex": "Good hardware supports heavy tasks.",
+      "exvi": "Phần cứng tốt hỗ trợ các tác vụ nặng."
+    },
+    {
+      "topic": "technology",
+      "en": "keyboard",
+      "ipa": "/ˈkiːbɔːrd/",
+      "vi": "bàn phím",
+      "ex": "The keyboard has a soft touch.",
+      "exvi": "Bàn phím có độ êm tay."
+    },
+    {
+      "topic": "technology",
+      "en": "screen",
+      "ipa": "/skriːn/",
+      "vi": "màn hình",
+      "ex": "The screen is very clear.",
+      "exvi": "Màn hình rất nét."
+    },
+    {
+      "topic": "technology",
+      "en": "mouse",
+      "ipa": "/maʊs/",
+      "vi": "chuột máy tính",
+      "ex": "Move the mouse to click.",
+      "exvi": "Di chuyển chuột để nhấp chuột."
+    },
+    {
+      "topic": "technology",
+      "en": "printer",
+      "ipa": "/ˈprɪntər/",
+      "vi": "máy in",
+      "ex": "Print the report with the printer.",
+      "exvi": "In báo cáo bằng máy in."
+    },
+    {
+      "topic": "technology",
+      "en": "camera",
+      "ipa": "/ˈkæmərə/",
+      "vi": "máy ảnh",
+      "ex": "The camera has great zoom.",
+      "exvi": "Máy ảnh có khả năng phóng to tuyệt vời."
+    },
+    {
+      "topic": "technology",
+      "en": "headphone",
+      "ipa": "/ˈhedfoʊn/",
+      "vi": "tai nghe",
+      "ex": "Wear headphones in the library.",
+      "exvi": "Hãy đeo tai nghe trong thư viện."
+    },
+    {
+      "topic": "technology",
+      "en": "battery",
+      "ipa": "/ˈbætəri/",
+      "vi": "pin",
+      "ex": "My phone battery is low.",
+      "exvi": "Pin điện thoại của tôi sắp hết."
+    },
+    {
+      "topic": "technology",
+      "en": "charger",
+      "ipa": "/ˈtʃɑːrdʒər/",
+      "vi": "bộ sạc",
+      "ex": "I forgot my phone charger.",
+      "exvi": "Tôi quên bộ sạc điện thoại rồi."
+    },
+    {
+      "topic": "technology",
+      "en": "cable",
+      "ipa": "/ˈkeɪbl/",
+      "vi": "dây cáp",
+      "ex": "Connect the cable to the port.",
+      "exvi": "Cắm dây cáp vào cổng."
+    },
+    {
+      "topic": "technology",
+      "en": "wireless",
+      "ipa": "/ˈwaɪərləs/",
+      "vi": "không dây",
+      "ex": "This mouse works wirelessly.",
+      "exvi": "Chuột này hoạt động không dây."
+    },
+    {
+      "topic": "technology",
+      "en": "digital",
+      "ipa": "/ˈdɪdʒɪtl/",
+      "vi": "kỹ thuật số",
+      "ex": "Digital books are easy to carry.",
+      "exvi": "Sách kỹ thuật số dễ mang theo."
+    },
+    {
+      "topic": "technology",
+      "en": "data",
+      "ipa": "/ˈdeɪtə/",
+      "vi": "dữ liệu",
+      "ex": "Save your data before closing.",
+      "exvi": "Lưu dữ liệu của bạn trước khi đóng."
+    },
+    {
+      "topic": "technology",
+      "en": "algorithm",
+      "ipa": "/ˈælɡərɪðəm/",
+      "vi": "thuật toán",
+      "ex": "The algorithm recommends videos for you.",
+      "exvi": "Thuật toán gợi ý video cho bạn."
+    },
+    {
+      "topic": "technology",
+      "en": "application",
+      "ipa": "/ˌæplɪˈkeɪʃn/",
+      "vi": "ứng dụng",
+      "ex": "Download the mobile application.",
+      "exvi": "Hãy tải ứng dụng di động."
+    },
+    {
+      "topic": "technology",
+      "en": "program",
+      "ipa": "/ˈproʊɡræm/",
+      "vi": "chương trình",
+      "ex": "She wrote a new program.",
+      "exvi": "Cô ấy đã viết một chương trình mới."
+    },
+    {
+      "topic": "technology",
+      "en": "code",
+      "ipa": "/koʊd/",
+      "vi": "mã lập trình",
+      "ex": "Fix the code, please.",
+      "exvi": "Hãy sửa đoạn mã giúp tôi."
+    },
+    {
+      "topic": "technology",
+      "en": "developer",
+      "ipa": "/dɪˈveləpər/",
+      "vi": "nhà phát triển",
+      "ex": "The developer updates the app weekly.",
+      "exvi": "Nhà phát triển cập nhật ứng dụng hằng tuần."
+    },
+    {
+      "topic": "technology",
+      "en": "robot",
+      "ipa": "/ˈroʊbɑːt/",
+      "vi": "rô-bốt",
+      "ex": "The robot assembles cars quickly.",
+      "exvi": "Rô-bốt lắp ráp ô tô rất nhanh."
+    },
+    {
+      "topic": "technology",
+      "en": "machine",
+      "ipa": "/məˈʃiːn/",
+      "vi": "cỗ máy",
+      "ex": "This machine runs nonstop.",
+      "exvi": "Cỗ máy này chạy không ngừng."
+    },
+    {
+      "topic": "technology",
+      "en": "monitor",
+      "ipa": "/ˈmɑːnɪtər/",
+      "vi": "màn hình máy tính",
+      "ex": "He has two monitors on his desk.",
+      "exvi": "Anh ấy có hai màn hình máy tính trên bàn."
+    },
+    {
+      "topic": "technology",
+      "en": "password",
+      "ipa": "/ˈpæswɜːrd/",
+      "vi": "mật khẩu",
+      "ex": "Keep your password secret.",
+      "exvi": "Hãy giữ bí mật mật khẩu của bạn."
+    },
+    {
+      "topic": "technology",
+      "en": "account",
+      "ipa": "/əˈkaʊnt/",
+      "vi": "tài khoản",
+      "ex": "Create an account to save progress.",
+      "exvi": "Tạo tài khoản để lưu tiến trình."
+    },
+    {
+      "topic": "technology",
+      "en": "email",
+      "ipa": "/ˈiːmeɪl/",
+      "vi": "thư điện tử",
+      "ex": "I received an important email.",
+      "exvi": "Tôi nhận được một email quan trọng."
+    },
+    {
+      "topic": "technology",
+      "en": "message",
+      "ipa": "/ˈmesɪdʒ/",
+      "vi": "tin nhắn",
+      "ex": "Send me a message when you arrive.",
+      "exvi": "Hãy nhắn tin cho tôi khi bạn đến nơi."
+    },
+    {
+      "topic": "technology",
+      "en": "online",
+      "ipa": "/ˌɑːnˈlaɪn/",
+      "vi": "trực tuyến",
+      "ex": "The class is held online.",
+      "exvi": "Lớp học được tổ chức trực tuyến."
+    },
+    {
+      "topic": "technology",
+      "en": "download",
+      "ipa": "/ˌdaʊnˈloʊd/",
+      "vi": "tải xuống",
+      "ex": "Download the file from the link.",
+      "exvi": "Tải tệp từ liên kết xuống."
+    },
+    {
+      "topic": "technology",
+      "en": "upload",
+      "ipa": "/ˌʌpˈloʊd/",
+      "vi": "tải lên",
+      "ex": "Upload your photos to the drive.",
+      "exvi": "Tải ảnh của bạn lên ổ đĩa."
+    },
+    {
+      "topic": "technology",
+      "en": "update",
+      "ipa": "/ˌʌpˈdeɪt/",
+      "vi": "cập nhật",
+      "ex": "Always update your software.",
+      "exvi": "Hãy luôn cập nhật phần mềm của bạn."
+    },
+    {
+      "topic": "technology",
+      "en": "security",
+      "ipa": "/sɪˈkjʊrəti/",
+      "vi": "bảo mật",
+      "ex": "Security protects your information.",
+      "exvi": "Bảo mật bảo vệ thông tin của bạn."
+    },
+    {
+      "topic": "technology",
+      "en": "privacy",
+      "ipa": "/ˈpraɪvəsi/",
+      "vi": "quyền riêng tư",
+      "ex": "Respect others' privacy online.",
+      "exvi": "Hãy tôn trọng quyền riêng tư của người khác khi trực tuyến."
+    },
+    {
+      "topic": "technology",
+      "en": "search",
+      "ipa": "/sɜːrtʃ/",
+      "vi": "tìm kiếm",
+      "ex": "Search the topic on the web.",
+      "exvi": "Tìm kiếm chủ đề đó trên web."
+    },
+    {
+      "topic": "technology",
+      "en": "browser",
+      "ipa": "/ˈbraʊzər/",
+      "vi": "trình duyệt",
+      "ex": "Open the page in your browser.",
+      "exvi": "Mở trang trong trình duyệt của bạn."
+    },
+    {
+      "topic": "technology",
+      "en": "cloud",
+      "ipa": "/klaʊd/",
+      "vi": "lưu trữ đám mây",
+      "ex": "Store files in the cloud.",
+      "exvi": "Lưu trữ tệp trên đám mây."
+    },
+    {
+      "topic": "technology",
+      "en": "database",
+      "ipa": "/ˈdeɪtəbeɪs/",
+      "vi": "cơ sở dữ liệu",
+      "ex": "The database stores user records.",
+      "exvi": "Cơ sở dữ liệu lưu trữ hồ sơ người dùng."
+    },
+    {
+      "topic": "technology",
+      "en": "simulation",
+      "ipa": "/ˌsɪmjuˈleɪʃn/",
+      "vi": "mô phỏng",
+      "ex": "The flight simulation feels real.",
+      "exvi": "Mô phỏng chuyến bay cảm giác rất thật."
+    },
+    {
+      "topic": "technology",
+      "en": "innovation",
+      "ipa": "/ˌɪnəˈveɪʃn/",
+      "vi": "sự đổi mới",
+      "ex": "Innovation drives the tech industry.",
+      "exvi": "Sự đổi mới thúc đẩy ngành công nghệ."
+    },
+    {
+      "topic": "technology",
+      "en": "graphics",
+      "ipa": "/ˈɡræfɪks/",
+      "vi": "đồ họa",
+      "ex": "The game has amazing graphics.",
+      "exvi": "Trò chơi có đồ họa tuyệt đẹp."
+    },
+    {
+      "topic": "technology",
+      "en": "audio",
+      "ipa": "/ˈɔːdioʊ/",
+      "vi": "âm thanh",
+      "ex": "Adjust the audio volume, please.",
+      "exvi": "Vui lòng điều chỉnh âm lượng tiếng."
+    },
+    {
+      "topic": "technology",
+      "en": "video",
+      "ipa": "/ˈvɪdioʊ/",
+      "vi": "video",
+      "ex": "Watch the video to learn more.",
+      "exvi": "Xem video để học thêm."
+    },
+    {
+      "topic": "technology",
+      "en": "virtual",
+      "ipa": "/ˈvɜːrtʃuəl/",
+      "vi": "ảo, thực tế ảo",
+      "ex": "We explored a virtual museum.",
+      "exvi": "Chúng tôi khám phá một bảo tàng ảo."
+    }
+  ]
 }
