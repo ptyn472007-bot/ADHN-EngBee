@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề School">
+  <defs>
+    <linearGradient id="bgS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd07a"/><stop offset="1" stop-color="#fff1c9"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgS)"/>
+  <g>
+    <path d="M200,95 L300,60 L300,120 L200,155 Z" fill="#8a4a2b"/>
+    <path d="M200,95 L100,60 L100,120 L200,155 Z" fill="#a85c38"/>
+    <path d="M300,60 L320,52 L320,112 L300,120 Z" fill="#6e3820"/>
+    <path d="M100,60 L80,52 L80,112 L100,120 Z" fill="#8a4a2b"/>
+    <rect x="200" y="95" width="4" height="60" fill="#5c2f1a"/>
+  </g>
+  <g fill="#ffffff">
+    <rect x="82" y="150" width="236" height="10" rx="5"/>
+    <rect x="82" y="166" width="196" height="10" rx="5"/>
+    <rect x="82" y="182" width="220" height="10" rx="5"/>
+  </g>
+  <circle cx="180" cy="70" r="6" fill="#ffffff" opacity="0.8"/>
+  <circle cx="280" cy="85" r="4" fill="#ffffff" opacity="0.7"/>
+</svg>

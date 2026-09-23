@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EngBee - Quản trị</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+        <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="30" fill="#fff3cc"/>
+          <ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/>
+          <rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
+          <rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
+          <circle cx="15" cy="38" r="11" fill="#f5b200"/>
+          <circle cx="12" cy="34" r="2" fill="#3a2a00"/>
+          <circle cx="18" cy="32" r="2" fill="#3a2a00"/>
+          <path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
+          <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
+        </svg>
+        <span>EngBee</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="flashcard.html">Học từ vựng</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="admin.html" class="active">Quản trị</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="login-view" class="login-section">
+      <div class="container">
+        <div class="login-card">
+          <h2>Đăng nhập quản trị</h2>
+          <p class="login-note">Chỉ dành cho quản trị viên EngBee</p>
+          <form id="login-form" class="login-form" novalidate>
+            <label for="username">Tên đăng nhập</label>
+            <input type="text" id="username" name="username" placeholder="admin" autocomplete="username" required>
+
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+
+            <p id="login-error" class="login-error" hidden>Sai tên đăng nhập hoặc mật khẩu.</p>
+
+            <button type="submit" class="btn-primary login-btn">Đăng nhập</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin-view" class="admin-section" hidden>
+      <div class="container">
+        <div class="admin-header">
+          <h2>Trang quản trị EngBee</h2>
+          <button id="logout-btn" type="button" class="btn-secondary">Đăng xuất</button>
+        </div>
+        <p>Chào mừng quản trị viên! Chức năng quản trị (thêm/sửa/xóa từ vựng, quản lý chủ đề...) sẽ được bổ sung sau.</p>
+        <div class="admin-placeholder">
+          <p>Khu vực quản trị (placeholder)</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-logo">EngBee</p>
+      <p>Website học từ vựng tiếng Anh</p>
+      <p class="footer-copy">&copy; 2026 EngBee</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
