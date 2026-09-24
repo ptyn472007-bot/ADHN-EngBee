@@ -1,0 +1,338 @@
+/* ==========================================
+   EngBee - quiz.css (trang Quiz)
+   ========================================== */
+
+.quiz-body {
+  --g1: #f0a500;
+  --g2: #ff7e00;
+  padding: 34px 0 70px;
+}
+
+/* ---------- Khung chung ---------- */
+.quiz-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 12px 32px rgba(31, 41, 55, 0.08);
+}
+
+.quiz-card h2 {
+  text-align: center;
+  font-size: clamp(1.4rem, 3vw, 1.7rem);
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* Moi man hinh chi hien khi co class active */
+.qz-screen {
+  display: none;
+  animation: popIn 0.35s ease;
+}
+
+.qz-screen.active {
+  display: block;
+}
+
+/* ---------- Man hinh bat dau ---------- */
+.qz-sub {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.qz-best {
+  margin-top: 26px;
+  text-align: center;
+  background: #fff8e6;
+  border: 1px dashed #f0c060;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.qz-best-label {
+  font-size: 0.85rem;
+  color: #b07f00;
+  margin-bottom: 4px;
+}
+
+.qz-best-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #f0a500;
+}
+
+/* ---------- Nut chinh ---------- */
+.btn-summit {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, var(--g1, #f0a500), var(--g2, #ff7e00));
+  color: #fff;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1.05rem;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(240, 165, 0, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  min-height: 52px;
+}
+
+.btn-summit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(240, 165, 0, 0.45);
+}
+
+.btn-summit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Thanh tien trinh ---------- */
+.qz-progress-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.qz-progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: #eef1f8;
+  overflow: hidden;
+}
+
+.qz-progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--g1, #f0a500), var(--g2, #ff7e00));
+  transition: width 0.4s ease;
+}
+
+/* ---------- Cau hoi ---------- */
+.qz-question-box {
+  margin: 20px 0 18px;
+  background: #fff8e6;
+  border-radius: 16px;
+  padding: 22px 18px;
+  text-align: center;
+}
+
+.qz-q-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b07f00;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.qz-word {
+  font-size: clamp(1.8rem, 6vw, 2.4rem);
+  font-weight: 800;
+  color: #222;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qz-ipa {
+  color: #9aa3b2;
+  font-size: 1rem;
+  margin-top: 6px;
+}
+
+.qz-speak {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.qz-speak:hover {
+  transform: scale(1.15);
+}
+
+/* ---------- Dap an ---------- */
+.qz-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qz-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f9fafb;
+  border: 2px solid #eef0f6;
+  border-radius: 14px;
+  padding: 13px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #1f2937;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.qz-option:hover:not(.locked) {
+  border-color: var(--g1, #f0a500);
+  background: #fff8e6;
+  transform: translateX(4px);
+}
+
+.qz-letter {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* Dung / sai sau khi chon */
+.qz-option.correct {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.qz-option.correct .qz-letter {
+  background: #22c55e;
+}
+
+.qz-option.wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.qz-option.wrong .qz-letter {
+  background: #ef4444;
+}
+
+.qz-option.locked {
+  cursor: default;
+  transform: none;
+}
+
+.qz-option.locked:hover {
+  transform: none;
+}
+
+/* ---------- Phan hoi ---------- */
+.qz-feedback {
+  margin-top: 16px;
+  font-weight: 800;
+  font-size: 1rem;
+  min-height: 24px;
+  text-align: center;
+}
+
+.qz-feedback.correct { color: #16a34a; }
+.qz-feedback.wrong { color: #dc2626; }
+
+/* ---------- Man hinh ket qua ---------- */
+.qz-result-grid {
+  display: flex;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.qz-result-item {
+  flex: 1;
+  background: #f6f7fb;
+  border-radius: 14px;
+  padding: 18px 8px;
+  text-align: center;
+}
+
+.qz-result-item.qz-result-highlight {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+}
+
+.qz-result-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+.qz-result-value {
+  display: block;
+  font-size: clamp(1.8rem, 5vw, 2.2rem);
+  font-weight: 800;
+}
+
+.qz-message {
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.qz-best-result {
+  text-align: center;
+  color: #b07f00;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .quiz-body {
+    padding: 24px 0 60px;
+  }
+
+  .quiz-card {
+    padding: 22px 16px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .qz-result-grid {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .qz-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 16px;
+    text-align: left;
+  }
+
+  .qz-result-label {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .qz-result-value {
+    font-size: 1.4rem;
+  }
+}
