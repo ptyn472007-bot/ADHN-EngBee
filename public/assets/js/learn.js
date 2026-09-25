@@ -6,6 +6,15 @@
   var pageTopic = (typeof window.ENG_BEE_TOPIC !== "undefined" && window.ENG_BEE_TOPIC) || "";
   var STORAGE_PREFIX = "engbee_learned_";
 
+  // Gắn tên người dùng vào khóa để mỗi tài khoản có dữ liệu riêng
+  function userScope() {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  }
+
   function topicById(id) {
     for (var i = 0; i < topics.length; i++) {
       if (topics[i].id === id) return topics[i];
@@ -28,7 +37,7 @@
 
   function loadSet(id) {
     try {
-      var arr = JSON.parse(localStorage.getItem(STORAGE_PREFIX + id) || "null");
+      var arr = JSON.parse(localStorage.getItem(STORAGE_PREFIX + userScope() + "_" + id) || "null");
       return Array.isArray(arr)
         ? arr.filter(function (x) { return typeof x === "number" && x >= 0 && x < total; })
         : [];
@@ -41,7 +50,7 @@
 
   function saveSet() {
     try {
-      localStorage.setItem(STORAGE_PREFIX + currentTopic.id, JSON.stringify(mastered));
+      localStorage.setItem(STORAGE_PREFIX + userScope() + "_" + currentTopic.id, JSON.stringify(mastered));
     } catch (e) { /* lưu trữ không khả dụng */ }
   }
 

@@ -17,14 +17,30 @@ const NAV_LINKS = [
   { href: 'index.html', label: 'Trang chủ', active: true },
   { href: 'learn.html', label: 'Học từ vựng' },
   { href: 'quiz.html', label: 'Quiz' },
+  { href: 'dashboard.html', label: 'Dashboard' },
   { href: 'login.html', label: 'Đăng nhập' }
 ]
 
 const WORD_COUNT = 50
 
+function currentUserName() {
+  try {
+    const p = JSON.parse(localStorage.getItem('engbee_user') || 'null')
+    if (p && typeof p.name === 'string' && p.name.trim()) return p.name.trim()
+  } catch {
+    // bỏ qua
+  }
+  return 'guest'
+}
+
+// Key lưu học được gắn tên người dùng để mỗi tài khoản có dữ liệu riêng
+function learnedKey(id) {
+  return 'engbee_learned_' + currentUserName() + '_' + id
+}
+
 function learnedOf(id) {
   try {
-    const arr = JSON.parse(localStorage.getItem('eb_learned_' + id) || '[]')
+    const arr = JSON.parse(localStorage.getItem(learnedKey(id)) || '[]')
     return Array.isArray(arr) ? Math.min(arr.length, WORD_COUNT) : 0
   } catch {
     return 0
@@ -138,6 +154,7 @@ document.querySelector('#app').innerHTML = `
       <a href="index.html">Trang chủ</a>
       <a href="learn.html">Học từ vựng</a>
       <a href="quiz.html">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
       <a href="login.html">Đăng nhập</a>
     </div>
     <div class="footer-contact">

@@ -1,33 +1,40 @@
-// EngBee - login.js (demo đăng nhập người dùng, không có backend)
+// EngBee - login.js (nhập tên hiển thị, không cần mật khẩu)
 (function () {
   "use strict";
 
-  var USER_KEY = "engbee_user_session";
-
-  // Tài khoản demo (chỉ dùng cho front-end, không bảo mật thật)
-  var USER_ACCOUNT = {
-    username: "user",
-    password: "user123"
-  };
+  var NAME_KEY = "engbee_user";
 
   var loginForm = document.getElementById("login-form");
   var loginError = document.getElementById("login-error");
+  var nameInput = document.getElementById("display-name");
+
+  // Điền sẵn tên đã lưu (nếu có) khi mở lại trang
+  try {
+    var saved = JSON.parse(localStorage.getItem(NAME_KEY) || "null");
+    if (saved && typeof saved.name === "string") {
+      nameInput.value = saved.name;
+    }
+  } catch (e) {
+    /* bỏ qua dữ liệu lỗi */
+  }
 
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    var username = document.getElementById("username").value.trim();
-    var password = document.getElementById("password").value;
+    var name = nameInput.value.trim();
 
-    if (
-      username === USER_ACCOUNT.username &&
-      password === USER_ACCOUNT.password
-    ) {
-      localStorage.setItem(USER_KEY, "1");
-      loginError.hidden = true;
-      window.location.href = "dashboard.html";
-    } else {
+    if (!name) {
       loginError.hidden = false;
+      nameInput.focus();
+      return;
     }
+
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: name }));
+    loginError.hidden = true;
+    window.location.href = "index.html";
+  });
+
+  nameInput.addEventListener("input", function () {
+    loginError.hidden = true;
   });
 })();

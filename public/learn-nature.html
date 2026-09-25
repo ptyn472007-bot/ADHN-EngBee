@@ -759,6 +759,7 @@ body {
       <a href="index.html">Trang chu</a>
       <a href="learn.html" class="active">Hoc tu vung</a>
       <a href="quiz.html">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
       <a href="login.html">Dang nhap</a>
       </nav>
   </div>
@@ -866,7 +867,13 @@ body {
   var TVI = "Thiên nhiên";
   var GRAD = ["#56ab2f","#a8e063"];
   var TOTAL = WORDS.length;
-  var KEY = "eb_learned_" + TID;
+  var KEY = "engbee_learned_" + (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  })() + "_" + TID;
 
   function qs(s){ return document.querySelector(s); }
 

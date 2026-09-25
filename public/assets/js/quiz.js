@@ -16,7 +16,16 @@
   });
 
   var TOTAL = 10;                   // số câu hỏi mỗi lượt chơi
-  var SCORE_KEY = "engbee_quiz_best"; // khóa lưu điểm trong LocalStorage
+  // Khóa LocalStorage được gắn tên người dùng để mỗi tài khoản có dữ liệu riêng
+  function userScope() {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  }
+  var SCORE_KEY = "engbee_quiz_best_" + userScope();      // khóa lưu điểm trong LocalStorage
+  var HISTORY_KEY = "engbee_quiz_history_" + userScope(); // khóa lưu lịch sử điểm
 
   // ------- Biến trạng thái -------
   var questions = [];   // danh sách câu hỏi đã random
@@ -110,6 +119,30 @@
     var best = getSavedScore();
     document.getElementById("saved-score").textContent =
       best === null ? "Chưa có điểm nào" : best + " điểm";
+  }
+
+  // ------- Lịch sử điểm Quiz -------
+
+  function getHistory() {
+    try {
+      var arr = JSON.parse(localStorage.getItem(HISTORY_KEY) || "null");
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  // Ghi thêm 1 lần chơi vào lịch sử, giữ tối đa 20 lần gần nhất
+  function saveHistory(finalScore) {
+    var history = getHistory();
+    history.push({
+      date: new Date().toISOString().slice(0, 10),
+      score: finalScore
+    });
+    if (history.length > 20) history = history.slice(-20);
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    } catch (e) { /* lưu trữ không khả dụng */ }
   }
 
   // Phát âm từ vựng bằng công cụ đọc của trình duyệt
@@ -252,6 +285,7 @@
 
     // Lưu điểm vào LocalStorage nếu cao hơn điểm cũ
     var isNewBest = saveScore(finalScore);
+    saveHistory(finalScore); // lưu lượt chơi này vào lịch sử
     var best = getSavedScore();
     document.getElementById("qz-best-result").textContent =
       "Điểm cao nhất của bạn: " + best + " điểm" +
