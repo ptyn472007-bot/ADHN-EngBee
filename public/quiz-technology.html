@@ -370,11 +370,8 @@ main{flex:1}
     qs("#btn-speak").addEventListener("click",function(){
       if(answers[idx])speak(answers[idx].word.en);
     });
-    qs("#btn-restart-topics").addEventListener("click",function(){
-      qs("#btn-start").scrollIntoView({behavior:"smooth",block:"center"});
-    });
   }
-  if(WORDS&&WORDS.length){bind();buildStart();}
+  if(WORDS&&WORDS.length){bind();buildStart();startQuiz();}
 })();
 
 </script>
