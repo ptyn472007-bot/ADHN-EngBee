@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Quiz tu vung chu de Technology</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ===== EngBee quiz.css (self-contained) ===== */
+.quiz-hero{position:relative;overflow:hidden;color:#fff;padding:52px 0 40px;background:linear-gradient(135deg,var(--g1,#f0a500),var(--g2,#ff7e00))}
+.quiz-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,rgba(255,255,255,.35),transparent 55%),radial-gradient(circle at 8% 120%,rgba(255,255,255,.25),transparent 45%);pointer-events:none}
+.deco{position:absolute;border-radius:50%;background:rgba(255,255,255,.14);pointer-events:none}
+.deco-a{width:220px;height:220px;top:-70px;right:-40px}
+.deco-b{width:140px;height:140px;bottom:-50px;left:-30px}
+.quiz-hero-inner{position:relative;z-index:1;text-align:center}
+.quiz-hero .eyebrow{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);padding:6px 18px;border-radius:999px;font-size:.85rem;font-weight:600;letter-spacing:.4px;margin-bottom:14px;backdrop-filter:blur(4px)}
+.quiz-hero h1{font-size:clamp(1.6rem,4.5vw,2.5rem);font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.18)}
+.hero-sub{max-width:620px;margin:12px auto 0;color:rgba(255,255,255,.95);font-size:clamp(.95rem,2vw,1.05rem)}
+.topic-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px}
+.topic-pill{display:flex;align-items:center;gap:10px;border:none;cursor:pointer;background:#fff;color:var(--ink,#1f2937);text-decoration:none;padding:8px 18px 8px 8px;border-radius:999px;font-family:inherit;font-size:.95rem;box-shadow:0 4px 14px rgba(0,0,0,.12);transition:transform .2s,box-shadow .2s;min-height:52px}
+.topic-pill:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.topic-pill.active{color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(-3px)}
+.pill-badge{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;flex:none;background:linear-gradient(135deg,#f0a500,#ff7e00)}
+.pill-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.pill-text strong{font-size:.95rem;font-weight:700}
+.pill-text small{font-size:.72rem;opacity:.78}
+.topic-pill.active .pill-badge{background:rgba(255,255,255,.28)!important}
+.quiz-wrap{padding:36px 0 80px}
+.quiz-card{background:#fff;border:1px solid #eef0f6;border-radius:22px;box-shadow:0 16px 48px rgba(16,26,51,.10);padding:30px 28px;max-width:760px;margin:0 auto}
+.qz-screen{display:none}
+.qz-screen.active{display:block;animation:qzIn .35s ease}
+@keyframes qzIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qz-start{border-radius:16px;background:#fff}
+.qz-start-head{text-align:center;margin-bottom:26px;padding:10px 0 4px}
+.qz-start-head h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800}
+.qz-start-head p{color:#6b7280;margin-top:6px;font-size:.95rem}
+.qz-start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px}
+.qz-stat{border:1px solid #eef0f6;border-radius:16px;padding:16px 18px;text-align:center;background:linear-gradient(180deg,#fff, #fafbfe)}
+.qz-stat b{display:block;font-size:1.7rem;font-weight:800}
+.qz-stat span{color:#6b7280;font-size:.82rem;font-weight:600}
+.qz-stat.hot b{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qz-start-cta{text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;border-radius:14px;padding:14px 26px;transition:transform .2s,box-shadow .2s,opacity .2s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-start{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 10px 24px rgba(16,26,51,.18);font-size:1.08rem;padding:16px 40px}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(16,26,51,.22)}
+.btn-plain{background:#eef1f8;color:#374151}
+.btn-amber{background:linear-gradient(135deg,#f0a500,#ff7e00);color:#fff}
+.btn-ghost{background:transparent;color:#6b7280;border:1px solid #d8dcea}
+.qz-history{margin-top:26px;border-top:1px dashed #e8e2d4;padding-top:18px}
+.qz-history h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.6px;color:#9aa1b5;margin-bottom:10px;font-weight:700}
+.qz-history-list{display:flex;flex-direction:column;gap:8px}
+.qz-history-row{display:flex;align-items:center;gap:12px;background:#f7f8fc;border:1px solid #eef0f6;border-radius:12px;padding:10px 14px;font-size:.9rem}
+.qz-history-row .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.qz-history-row .score{font-weight:800;color:var(--ink,#1f2937);margin-left:auto}
+.qz-history-row .date{color:#9aa1b5;font-size:.78rem}
+.qz-empty{color:#9aa1b5;font-size:.88rem}
+/* ---- question ---- */
+.qz-q-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.qz-progress-pill{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-weight:800;font-size:.82rem;padding:6px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.14)}
+.qz-progress{flex:1;height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
+.qz-progress-fill{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .35s ease}
+.qz-score-pill{font-size:.82rem;font-weight:700;color:#374151;background:#eef1f8;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.qz-word{border:1px solid #eef0f6;border-radius:18px;padding:26px 20px;text-align:center;background:linear-gradient(180deg,#fff,#fafbfe);margin-bottom:18px;position:relative}
+.qz-word-flag{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;color:#9aa1b5;background:#f2f4f9;padding:4px 10px;border-radius:999px;letter-spacing:.4px}
+.qz-word-ipa{font-size:1.05rem;color:#6b7280;margin-top:4px}
+.qz-word-en{font-size:clamp(1.7rem,5vw,2.3rem);font-weight:800}
+.qz-speak{display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:700;color:#374151;background:#fff;border:1px solid #d8dcea;border-radius:999px;padding:8px 18px;margin-top:12px;transition:all .2s}
+.qz-speak:hover{background:#eef1f8;transform:translateY(-1px)}
+.qz-answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.qz-answers{grid-template-columns:1fr}}
+.qz-answer{border:2px solid #e3e7f0;background:#fff;border-radius:14px;padding:14px 16px;font-family:inherit;font-size:1rem;font-weight:600;color:var(--ink,#1f2937);cursor:pointer;text-align:left;transition:all .18s;position:relative;min-height:56px;display:flex;align-items:center;gap:12px}
+.qz-answer .qz-lbl{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#eef1f8;color:#374151;font-weight:800;font-size:.9rem;flex:none}
+.qz-answer .qz-val{flex:1}
+.qz-answer:hover:not(:disabled){border-color:var(--g1);transform:translateY(-2px);box-shadow:0 6px 16px rgba(16,26,51,.08)}
+.qz-answer:disabled{cursor:default}
+.qz-answer.correct{border-color:#22b573;background:#e9f9ef;color:#157a4d}
+.qz-answer.correct::after{content:"✓";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:800;color:#22b573}
+.qz-answer.wrong{border-color:#ef4444;background:#fdecec;color:#b91c1c}
+.qz-answer.wrong::after{content:"✕";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:800;color:#ef4444}
+.qz-feedback{border-radius:14px;padding:14px 18px;margin-top:16px;font-weight:600;display:none}
+.qz-feedback.show{display:block;animation:qzIn .3s ease}
+.qz-feedback.good{background:#e9f9ef;color:#157a4d;border:1px solid #b8ecd0}
+.qz-feedback.bad{background:#fdecec;color:#b91c1c;border:1px solid #f6c6c6}
+.qz-feedback strong{font-weight:800}
+.qz-next-row{display:flex;justify-content:flex-end;margin-top:18px}
+.btn-next{background:#fff;color:#4b5563;border:1px solid #c3cad9;box-shadow:0 4px 12px rgba(16,26,51,.08);pointer-events:none}
+.btn-next.ready{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(16,26,51,.18);pointer-events:auto}
+.btn-next.ready:hover{transform:translateY(-2px)}
+.qz-hint{text-align:center;color:#9aa1b5;font-size:.82rem;margin-top:16px}
+.qz-ex{margin-top:8px;font-size:.88rem;font-weight:400;opacity:.92;border-top:1px dashed rgba(21,122,77,.3);padding-top:8px}
+/* ---- result ---- */
+.qz-result{padding:6px 0}
+.qz-score-ring{width:150px;height:150px;margin:0 auto 18px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--g1) calc(var(--p,0)*1%), #eef1f8 0)}
+.qz-score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+.qz-score-ring b{position:relative;font-size:2rem;font-weight:800}
+.qz-score-ring span{position:relative;font-size:.75rem;color:#9aa1b5;font-weight:700;letter-spacing:.5px}
+.qz-result-title{text-align:center}
+.qz-result-title h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800}
+.qz-result-title p{color:#6b7280;margin-top:4px}
+.qz-result-title .flag{display:inline-block;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-size:.8rem;font-weight:800;padding:6px 16px;border-radius:999px;margin-top:12px}
+.qz-result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.qz-result-stats .qz-stat{padding:14px 10px}
+.qz-result-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+</style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khoa hoc Tieng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chu</a>
+      <a href="learn.html">Hoc tu vung</a>
+      <a href="quiz.html" class="active">Quiz</a>
+      <a href="login.html">Dang nhap</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="quiz-hero" style="--g1:#30cfd0;--g2:#330867">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="quiz-hero-inner">
+        <p class="eyebrow">Quiz - Công nghệ · 10 cau hoi · 4 lua chon</p>
+        <h1>Quiz từ vựng chủ đề Technology</h1>
+        <p class="hero-sub">50 từ trong chủ đề Technology được trộn ngẫu nhiên thành 10 câu hỏi, mỗi câu có 4 lựa chọn. Trả lời đúng càng nhiều càng tốt — điểm số sẽ được lưu lại để bạn luyện tập.</p>
+        <div class="topic-pills"><a class="topic-pill" href="quiz-all.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f0a500,#ff7e00)">⚡</span><span class="pill-text"><strong>Quiz tổng hợp</strong><small>12 chủ đề - 600 từ</small></span></a><a class="topic-pill" href="quiz-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="quiz-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="quiz-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="quiz-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="quiz-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill" href="quiz-sports.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="quiz-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill active" href="quiz-technology.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="quiz-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="quiz-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="quiz-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="quiz-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container quiz-wrap" style="--g1:#30cfd0;--g2:#330867">
+    <div class="quiz-card">
+
+      <div id="qz-start" class="qz-screen qz-start active">
+        <div class="qz-start-head">
+          <h2>Quiz Technology</h2>
+          <p>10 câu hỏi trắc nghiệm · chấm điểm tự động · có nghe phát âm</p>
+        </div>
+        <div class="qz-start-grid">
+          <div class="qz-stat hot"><b id="best-score">0%</b><span>TỐT NHẤT</span></div>
+          <div class="qz-stat"><b id="quiz-count">0</b><span>LƯỢT ĐÃ LÀM</span></div>
+          <div class="qz-stat"><b>50</b><span>SỐ TỪ KHO</span></div>
+        </div>
+        <div class="qz-start-cta">
+          <button type="button" class="btn btn-start" id="btn-start">▶ Bắt đầu quiz (10 câu)</button>
+          <p class="qz-hint" id="quiz-total-note" style="margin-top:12px"></p>
+        </div>
+        <div class="qz-history">
+          <h3>Lịch sử gần đây</h3>
+          <div class="qz-history-list" id="start-history"></div>
+        </div>
+      </div>
+
+      <div id="qz-question" class="qz-screen">
+        <div class="qz-q-top">
+          <span class="qz-progress-pill" id="q-progress">1 / 10</span>
+          <div class="qz-progress"><span class="qz-progress-fill" id="qz-progress-fill"></span></div>
+          <span class="qz-score-pill" id="q-score">0 dung</span>
+        </div>
+        <div class="qz-word">
+          <span class="qz-word-flag" id="qz-learn-tag">Technology</span>
+          <div class="qz-word-en" id="qz-word-en">travel</div>
+          <div class="qz-word-ipa" id="qz-word-ipa">/ˈtrævl/</div>
+          <button type="button" class="qz-speak" id="btn-speak">🔊 Nghe phát âm</button>
+        </div>
+        <div class="qz-answers" id="qz-answers"></div>
+        <div class="qz-feedback" id="qz-feedback"></div>
+        <p class="qz-hint" id="qz-hint">Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.</p>
+        <div class="qz-next-row">
+          <button type="button" class="btn btn-next" id="btn-next">Câu tiếp →</button>
+        </div>
+      </div>
+
+      <div id="qz-result" class="qz-screen qz-result">
+        <div class="qz-score-ring" id="qz-score-ring" style="--p:0">
+          <b id="score-num">0%</b>
+          <span>ĐIỂM SỐ</span>
+        </div>
+        <div class="qz-result-title">
+          <h2 id="rz-head"></h2>
+          <p id="rz-mode" style="font-weight:700"></p>
+          <span class="flag" id="rz-record"></span>
+          <p id="rz-note" style="margin-top:10px"></p>
+        </div>
+        <div class="qz-result-stats">
+          <div class="qz-stat"><b id="score-detail">0 / 0</b><span>CÂU ĐÚNG</span></div>
+          <div class="qz-stat"><b id="best-score-end">0%</b><span>TỐT NHẤT</span></div>
+        </div>
+        <div class="qz-result-actions">
+          <button type="button" class="btn btn-start" id="btn-restart" style="font-size:.95rem;padding:12px 24px">🔄 Làm lại quiz</button>
+          <a class="btn btn-amber" href="quiz.html" style="font-size:.95rem;padding:12px 24px">🎯 Chọn chủ đề khác</a>
+          <a class="btn btn-plain" href="learn.html" style="font-size:.95rem;padding:12px 24px">📖 Học từ vựng</a>
+        </div>
+        <div class="qz-history">
+          <h3>Lịch sử gần đây của hình thức này</h3>
+          <div class="qz-history-list" id="end-history"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website hoc tu vung tieng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SDT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+
+<script>
+// ===== EngBee quiz logic (self-contained) =====
+(function(){
+  "use strict";
+  function qs(s){return document.querySelector(s);}
+  var WORDS = [{"en":"technology","ipa":"/tekˈnɑːlədʒi/","vi":"công nghệ","ex":"Technology changes our daily life.","exvi":"Công nghệ thay đổi cuộc sống hằng ngày."},{"en":"computer","ipa":"/kəmˈpjuːtər/","vi":"máy tính","ex":"My computer is very fast.","exvi":"Máy tính của tôi rất nhanh."},{"en":"laptop","ipa":"/ˈlæptɑːp/","vi":"máy tính xách tay","ex":"She carries her laptop to work.","exvi":"Cô ấy mang máy tính xách tay đi làm."},{"en":"smartphone","ipa":"/ˈsmɑːrtfoʊn/","vi":"điện thoại thông minh","ex":"He checks news on his smartphone.","exvi":"Anh ấy đọc tin tức trên điện thoại thông minh."},{"en":"device","ipa":"/dɪˈvaɪs/","vi":"thiết bị","ex":"This device connects to Wi-Fi.","exvi":"Thiết bị này kết nối với Wi-Fi."},{"en":"internet","ipa":"/ˈɪntərnet/","vi":"internet","ex":"The internet connects people worldwide.","exvi":"Internet kết nối mọi người trên toàn thế giới."},{"en":"network","ipa":"/ˈnetwɜːrk/","vi":"mạng lưới","ex":"The office network is secure.","exvi":"Mạng lưới của văn phòng rất an toàn."},{"en":"website","ipa":"/ˈwebsaɪt/","vi":"trang web","ex":"Visit our website for details.","exvi":"Truy cập trang web của chúng tôi để biết chi tiết."},{"en":"software","ipa":"/ˈsɔːftwer/","vi":"phần mềm","ex":"This software edits photos easily.","exvi":"Phần mềm này chỉnh sửa ảnh rất dễ dàng."},{"en":"hardware","ipa":"/ˈhɑːrdwer/","vi":"phần cứng","ex":"Good hardware supports heavy tasks.","exvi":"Phần cứng tốt hỗ trợ các tác vụ nặng."},{"en":"keyboard","ipa":"/ˈkiːbɔːrd/","vi":"bàn phím","ex":"The keyboard has a soft touch.","exvi":"Bàn phím có độ êm tay."},{"en":"screen","ipa":"/skriːn/","vi":"màn hình","ex":"The screen is very clear.","exvi":"Màn hình rất nét."},{"en":"mouse","ipa":"/maʊs/","vi":"chuột máy tính","ex":"Move the mouse to click.","exvi":"Di chuyển chuột để nhấp chuột."},{"en":"printer","ipa":"/ˈprɪntər/","vi":"máy in","ex":"Print the report with the printer.","exvi":"In báo cáo bằng máy in."},{"en":"camera","ipa":"/ˈkæmərə/","vi":"máy ảnh","ex":"The camera has great zoom.","exvi":"Máy ảnh có khả năng phóng to tuyệt vời."},{"en":"headphone","ipa":"/ˈhedfoʊn/","vi":"tai nghe","ex":"Wear headphones in the library.","exvi":"Hãy đeo tai nghe trong thư viện."},{"en":"battery","ipa":"/ˈbætəri/","vi":"pin","ex":"My phone battery is low.","exvi":"Pin điện thoại của tôi sắp hết."},{"en":"charger","ipa":"/ˈtʃɑːrdʒər/","vi":"bộ sạc","ex":"I forgot my phone charger.","exvi":"Tôi quên bộ sạc điện thoại rồi."},{"en":"cable","ipa":"/ˈkeɪbl/","vi":"dây cáp","ex":"Connect the cable to the port.","exvi":"Cắm dây cáp vào cổng."},{"en":"wireless","ipa":"/ˈwaɪərləs/","vi":"không dây","ex":"This mouse works wirelessly.","exvi":"Chuột này hoạt động không dây."},{"en":"digital","ipa":"/ˈdɪdʒɪtl/","vi":"kỹ thuật số","ex":"Digital books are easy to carry.","exvi":"Sách kỹ thuật số dễ mang theo."},{"en":"data","ipa":"/ˈdeɪtə/","vi":"dữ liệu","ex":"Save your data before closing.","exvi":"Lưu dữ liệu của bạn trước khi đóng."},{"en":"algorithm","ipa":"/ˈælɡərɪðəm/","vi":"thuật toán","ex":"The algorithm recommends videos for you.","exvi":"Thuật toán gợi ý video cho bạn."},{"en":"application","ipa":"/ˌæplɪˈkeɪʃn/","vi":"ứng dụng","ex":"Download the mobile application.","exvi":"Hãy tải ứng dụng di động."},{"en":"program","ipa":"/ˈproʊɡræm/","vi":"chương trình","ex":"She wrote a new program.","exvi":"Cô ấy đã viết một chương trình mới."},{"en":"code","ipa":"/koʊd/","vi":"mã lập trình","ex":"Fix the code, please.","exvi":"Hãy sửa đoạn mã giúp tôi."},{"en":"developer","ipa":"/dɪˈveləpər/","vi":"nhà phát triển","ex":"The developer updates the app weekly.","exvi":"Nhà phát triển cập nhật ứng dụng hằng tuần."},{"en":"robot","ipa":"/ˈroʊbɑːt/","vi":"rô-bốt","ex":"The robot assembles cars quickly.","exvi":"Rô-bốt lắp ráp ô tô rất nhanh."},{"en":"machine","ipa":"/məˈʃiːn/","vi":"cỗ máy","ex":"This machine runs nonstop.","exvi":"Cỗ máy này chạy không ngừng."},{"en":"monitor","ipa":"/ˈmɑːnɪtər/","vi":"màn hình máy tính","ex":"He has two monitors on his desk.","exvi":"Anh ấy có hai màn hình máy tính trên bàn."},{"en":"password","ipa":"/ˈpæswɜːrd/","vi":"mật khẩu","ex":"Keep your password secret.","exvi":"Hãy giữ bí mật mật khẩu của bạn."},{"en":"account","ipa":"/əˈkaʊnt/","vi":"tài khoản","ex":"Create an account to save progress.","exvi":"Tạo tài khoản để lưu tiến trình."},{"en":"email","ipa":"/ˈiːmeɪl/","vi":"thư điện tử","ex":"I received an important email.","exvi":"Tôi nhận được một email quan trọng."},{"en":"message","ipa":"/ˈmesɪdʒ/","vi":"tin nhắn","ex":"Send me a message when you arrive.","exvi":"Hãy nhắn tin cho tôi khi bạn đến nơi."},{"en":"online","ipa":"/ˌɑːnˈlaɪn/","vi":"trực tuyến","ex":"The class is held online.","exvi":"Lớp học được tổ chức trực tuyến."},{"en":"download","ipa":"/ˌdaʊnˈloʊd/","vi":"tải xuống","ex":"Download the file from the link.","exvi":"Tải tệp từ liên kết xuống."},{"en":"upload","ipa":"/ˌʌpˈloʊd/","vi":"tải lên","ex":"Upload your photos to the drive.","exvi":"Tải ảnh của bạn lên ổ đĩa."},{"en":"update","ipa":"/ˌʌpˈdeɪt/","vi":"cập nhật","ex":"Always update your software.","exvi":"Hãy luôn cập nhật phần mềm của bạn."},{"en":"security","ipa":"/sɪˈkjʊrəti/","vi":"bảo mật","ex":"Security protects your information.","exvi":"Bảo mật bảo vệ thông tin của bạn."},{"en":"privacy","ipa":"/ˈpraɪvəsi/","vi":"quyền riêng tư","ex":"Respect others' privacy online.","exvi":"Hãy tôn trọng quyền riêng tư của người khác khi trực tuyến."},{"en":"search","ipa":"/sɜːrtʃ/","vi":"tìm kiếm","ex":"Search the topic on the web.","exvi":"Tìm kiếm chủ đề đó trên web."},{"en":"browser","ipa":"/ˈbraʊzər/","vi":"trình duyệt","ex":"Open the page in your browser.","exvi":"Mở trang trong trình duyệt của bạn."},{"en":"cloud","ipa":"/klaʊd/","vi":"lưu trữ đám mây","ex":"Store files in the cloud.","exvi":"Lưu trữ tệp trên đám mây."},{"en":"database","ipa":"/ˈdeɪtəbeɪs/","vi":"cơ sở dữ liệu","ex":"The database stores user records.","exvi":"Cơ sở dữ liệu lưu trữ hồ sơ người dùng."},{"en":"simulation","ipa":"/ˌsɪmjuˈleɪʃn/","vi":"mô phỏng","ex":"The flight simulation feels real.","exvi":"Mô phỏng chuyến bay cảm giác rất thật."},{"en":"innovation","ipa":"/ˌɪnəˈveɪʃn/","vi":"sự đổi mới","ex":"Innovation drives the tech industry.","exvi":"Sự đổi mới thúc đẩy ngành công nghệ."},{"en":"graphics","ipa":"/ˈɡræfɪks/","vi":"đồ họa","ex":"The game has amazing graphics.","exvi":"Trò chơi có đồ họa tuyệt đẹp."},{"en":"audio","ipa":"/ˈɔːdioʊ/","vi":"âm thanh","ex":"Adjust the audio volume, please.","exvi":"Vui lòng điều chỉnh âm lượng tiếng."},{"en":"video","ipa":"/ˈvɪdioʊ/","vi":"video","ex":"Watch the video to learn more.","exvi":"Xem video để học thêm."},{"en":"virtual","ipa":"/ˈvɜːrtʃuəl/","vi":"ảo, thực tế ảo","ex":"We explored a virtual museum.","exvi":"Chúng tôi khám phá một bảo tàng ảo."}];
+  var TID = "technology", TNAME = "Technology", G1 = "#30cfd0", G2 = "#330867";
+  var N = 10;
+  var KEY = "eb_quiz_history";
+  var QUIZ_COUNT = 0; // số lượt làm của chủ đề này
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function getHistory(){try{return JSON.parse(localStorage.getItem(KEY)||"[]");}catch(e){return [];}}
+  function saveHistory(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(0,60)));}catch(e){}}
+  function myHistory(){return getHistory().filter(function(x){return x.mode===TID;});}
+  function best(){var h=myHistory(),b=0;for(var i=0;i<h.length;i++)if(h[i].pct>b)b=h[i].pct;return b;}
+  function speak(word){try{var u=new SpeechSynthesisUtterance(word);u.lang="en-US";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+  function fmt(ts){var d=new Date(ts),p=function(x){return x<10?"0"+x:x;};return p(d.getDate())+"/"+p(d.getMonth()+1)+"/"+d.getFullYear()+" "+p(d.getHours())+":"+p(d.getMinutes());}
+  function esc(s){return String(s==null?"":s).replace(/[<>&"]/g,function(c){return c==="<"?"&lt;":c===">"?"&gt;":c==="&"?"&amp;":"&quot;";});}
+  function pctLabel(p){if(p===100)return"Chuẩn không cần chỉnh! Giữ vững phong độ này nhé!";if(p>=80)return"Kết quả rất tốt, luyện thêm để đạt 100%!";if(p>=60)return"Khá ổn, xem lại từ vựng và làm lại nhé.";if(p>=40)return"Cần ôn nhiều hơn. Mở trang Học từ vựng để ghi nhớ.";return"Hãy cố gắng thêm. Xem lại từ vựng trước khi làm lại nhé.";}
+  function rzTitle(p){if(p===100)return"Chúc mừng! Bạn đã hoàn thành xuất sắc";if(p>=80)return"Rất tốt! Gần đạt điểm tuyệt đối rồi";if(p>=60)return"Kết quả khá ổn, tiếp tục luyện tập";if(p>=40)return"Oh điểm vẫn còn thấp, đừng nản nhé";return"Chưa đạt, hãy thử lại ngay nhé";}
+  var idx=0,correct=0,picked=false,answers=[];
+
+  function show(which){
+    qs("#qz-start").classList.toggle("active",which==="start");
+    qs("#qz-question").classList.toggle("active",which==="q");
+    qs("#qz-result").classList.toggle("active",which==="result");
+  }
+  function renderHistoryRows(rows,container){
+    container.innerHTML="";
+    if(!rows.length){container.innerHTML='<div class="qz-empty">Chua co lan lam nao cho hinh thuc nay.</div>';return;}
+    rows.forEach(function(r){
+      var d=document.createElement("div");d.className="qz-history-row";
+      var dot=document.createElement("span");dot.className="dot";dot.style.background="linear-gradient(135deg,"+G1+","+G2+")";
+      var lab=document.createElement("span");lab.textContent=r.pct===100?"Hoan thanh":"Diem "+r.correct+"/"+r.total+" ("+r.pct+"%)";
+      var score=document.createElement("span");score.className="score";score.textContent=r.pct+"%";
+      var date=document.createElement("span");date.className="date";date.textContent=fmt(r.ts);
+      d.appendChild(dot);d.appendChild(lab);d.appendChild(score);d.appendChild(date);
+      container.appendChild(d);
+    });
+  }
+  function buildStart(){
+    var h=myHistory();
+    qs("#best-score").textContent=best()>0?best()+"%":"0%";
+    qs("#quiz-count").textContent=h.length+"";
+    qs("#quiz-total-note").textContent=h.length?"Da lam "+h.length+" lan. Gan nhat: "+fmt(h[0].ts):"Chua lam lan nao. Bat dau ngay!";
+    renderHistoryRows(h.slice(0,5),qs("#start-history"));
+  }
+  function startQuiz(){
+    var pool=shuffle(WORDS.slice()).slice(0,N);
+    answers=pool.map(function(w){
+      var poolVi=shuffle(WORDS.map(function(x){return x.vi;}));
+      var dis=[];
+      for(var i=0;i<poolVi.length&&dis.length<3;i++){
+        var v=poolVi[i];
+        if(v!==w.vi&&dis.indexOf(v)===-1)dis.push(v);
+      }
+      return {word:w,opts:shuffle(dis.concat([w.vi]))};
+    });
+    idx=0;correct=0;picked=false;
+    show("q");renderQ();
+  }
+  function renderQ(){
+    var a=answers[idx];
+    qs("#q-progress").textContent=(idx+1)+" / "+N;
+    var fill=qs("#qz-progress-fill");
+    fill.style.width=((idx)/N*100)+"%";
+    qs("#q-score").textContent=correct+" dung";
+    qs("#qz-learn-tag").textContent=TNAME;
+    qs("#qz-word-en").textContent=a.word.en;
+    qs("#qz-word-ipa").textContent=a.word.ipa||"";
+    var box=qs("#qz-answers");box.innerHTML="";
+    var label=["A","B","C","D"];
+    a.opts.forEach(function(vi,i){
+      var b=document.createElement("button");
+      b.type="button";b.className="qz-answer";
+      var l=document.createElement("span");l.className="qz-lbl";l.textContent=label[i];
+      var v=document.createElement("span");v.className="qz-val";v.textContent=vi;
+      b.appendChild(l);b.appendChild(v);
+      b.addEventListener("click",onAnswer);
+      box.appendChild(b);
+    });
+    qs("#qz-feedback").className="qz-feedback";qs("#qz-feedback").textContent="";
+    var nb=qs("#btn-next");nb.classList.remove("ready");
+    nb.textContent=(idx+1)<N?"Câu tiếp →":"Câu cuối — chọn đáp án →";
+    qs("#qz-hint").textContent=(idx+1)<N?"Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.":"Đây là câu cuối cùng! Chọn 1 đáp án rồi bấm nút để xem kết quả.";
+    picked=false;
+  }
+  function onAnswer(ev){
+    if(picked)return;
+    var btn=ev.currentTarget;var it=answers[idx];picked=true;
+    var btns=qs("#qz-answers").querySelectorAll(".qz-answer");
+    for(var i=0;i<btns.length;i++)btns[i].disabled=true;
+    var chosen=btn.querySelector(".qz-val").textContent;
+    var fb=qs("#qz-feedback");
+    if(chosen===it.word.vi){
+      btn.classList.add("correct");correct++;
+      fb.className="qz-feedback show good";fb.innerHTML="Chính xác! <strong>"+esc(it.word.en)+"</strong> nghĩa là <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+    }else{
+      btn.classList.add("wrong");
+      for(var j=0;j<btns.length;j++)if(btns[j].querySelector(".qz-val").textContent===it.word.vi)btns[j].classList.add("correct");
+      fb.className="qz-feedback show bad";fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+    }
+    speak(it.word.en);
+    qs("#q-score").textContent=correct+" dung";
+    var nb=qs("#btn-next");nb.classList.add("ready");
+    nb.textContent=(idx+1)>=N?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+N+") →";
+    qs("#qz-hint").textContent=((btn.className.indexOf("correct")>=0)?"Đúng rồi ✓ ":"Sai rồi, đáp án đúng đã được tô xanh. ")+"Bấm nút bên phải để tiếp tục.";
+  }
+  function finish(){
+    var pct=Math.round(100*correct/N);
+    var ring=qs("#qz-score-ring");ring.style.setProperty("--p",pct);
+    qs("#score-num").textContent=pct+"%";
+    qs("#score-detail").textContent=correct+" / "+N+" cau dung";
+    qs("#rz-head").textContent=rzTitle(pct);
+    qs("#rz-mode").textContent=TNAME;
+    qs("#rz-note").textContent=pctLabel(pct);
+    var h=getHistory();var newRec={ts:Date.now(),mode:TID,topicId:TID,modeName:TNAME,correct:correct,total:N,pct:pct};
+    h.unshift(newRec);saveHistory(h);
+    var flag=qs("#rz-record");
+    if(pct===bestForNew(h)){flag.textContent="Ky luc moi cua hinh thuc nay: "+pct+"%";flag.style.display="inline-block";}else{flag.style.display="none";}
+    qs("#best-score-end").textContent=best()+"%";
+    renderHistoryRows(h.filter(function(x){return x.mode===TID;}).slice(0,6),qs("#end-history"));
+    show("result");
+  }
+  function bestForNew(h){var b=0;for(var i=0;i<h.length;i++)if(h[i].mode===TID&&h[i].pct>b)b=h[i].pct;return b;}
+  function bind(){
+    qs("#btn-start").addEventListener("click",startQuiz);
+    qs("#btn-next").addEventListener("click",function(){
+      if(!qs("#btn-next").classList.contains("ready"))return;
+      idx++;
+      if(idx<N)renderQ();else finish();
+    });
+    qs("#btn-restart").addEventListener("click",startQuiz);
+    qs("#btn-speak").addEventListener("click",function(){
+      if(answers[idx])speak(answers[idx].word.en);
+    });
+  }
+  if(WORDS&&WORDS.length){bind();buildStart();startQuiz();}
+})();
+
+</script>
+</body>
+</html>
