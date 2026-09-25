@@ -1,0 +1,626 @@
+/* ==========================================================
+   Quiz JavaScript - style.css
+   Giao diện hiện đại: nền gradient tối, thẻ trắng bo góc,
+   animation mượt, responsive trên máy tính và điện thoại.
+   ========================================================== */
+
+:root {
+  --primary: #6366f1;
+  --primary-deep: #4f46e5;
+  --purple: #a855f7;
+  --grad: linear-gradient(135deg, #6366f1, #a855f7);
+  --grad-soft: linear-gradient(135deg, #eef2ff, #faf5ff);
+
+  --success: #16a34a;
+  --success-bg: #ecfdf3;
+  --success-border: #86efac;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --danger-border: #fca5a5;
+
+  --ink: #1e1b4b;
+  --muted: #64748b;
+  --card: #ffffff;
+  --track: #e8ecff;
+  --ring: rgba(99, 102, 241, 0.18);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  color: var(--ink);
+  background:
+    radial-gradient(1000px 520px at 15% -10%, rgba(99, 102, 241, 0.5), transparent 60%),
+    radial-gradient(820px 460px at 110% 15%, rgba(168, 85, 247, 0.45), transparent 60%),
+    radial-gradient(760px 520px at 50% 120%, rgba(236, 72, 153, 0.3), transparent 60%),
+    linear-gradient(160deg, #1e1b4b, #312e81 55%, #4c1d95);
+  overflow-x: hidden;
+}
+
+/* ---------- Khối màu trang trí trôi nổi trên nền ---------- */
+.bg-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  animation: blobFloat 16s ease-in-out infinite;
+}
+
+.bg-blob-a {
+  width: 340px;
+  height: 340px;
+  background: #818cf8;
+  top: -100px;
+  left: -80px;
+}
+
+.bg-blob-b {
+  width: 300px;
+  height: 300px;
+  background: #c084fc;
+  bottom: -120px;
+  right: -60px;
+  animation-delay: -6s;
+}
+
+.bg-blob-c {
+  width: 260px;
+  height: 260px;
+  background: #f472b6;
+  top: 40%;
+  left: 55%;
+  opacity: 0.22;
+  animation-delay: -11s;
+}
+
+@keyframes blobFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-30px) scale(1.06); }
+}
+
+/* ---------- Khung quiz ---------- */
+.quiz-container {
+  position: relative;
+  z-index: 1;
+  background: var(--card);
+  width: 100%;
+  max-width: 660px;
+  border-radius: 28px;
+  box-shadow: 0 24px 60px -12px rgba(17, 15, 55, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  padding: 40px 36px;
+  overflow: hidden;
+}
+
+/* Thanh gradient nhỏ trên cùng thẻ */
+.quiz-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--grad);
+}
+
+/* ---------- Các màn hình (chỉ màn hình active hiển thị) ---------- */
+.screen {
+  display: none;
+  position: relative;
+}
+
+.screen.active {
+  display: block;
+  animation: fadeUp 0.45s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Màn hình bắt đầu ---------- */
+.quiz-icon {
+  width: 88px;
+  height: 88px;
+  margin: 6px auto 18px;
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+  border-radius: 28px;
+  background: var(--grad);
+  box-shadow: 0 16px 30px -10px rgba(99, 102, 241, 0.55);
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+h1 {
+  font-size: clamp(30px, 6vw, 40px);
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+h1 span {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 460px;
+  margin: 0 auto 28px;
+}
+
+.subtitle strong { color: var(--ink); }
+
+/* ---------- Nút bấm ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 22px;
+  border: none;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.btn-primary {
+  background: var(--grad);
+  box-shadow: 0 14px 28px -10px rgba(99, 102, 241, 0.55);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -10px rgba(99, 102, 241, 0.65);
+}
+
+.btn:active:not(:disabled) { transform: scale(0.98); }
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-arrow { transition: transform 0.18s ease; }
+.btn:hover:not(:disabled) .btn-arrow { transform: translateX(4px); }
+.btn-restart:hover:not(:disabled) .btn-arrow { transform: rotate(40deg); }
+
+/* Nhịp phát sáng của nút Bắt đầu */
+.btn-start-pulse { animation: btnPulse 2.4s ease-in-out infinite; }
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 14px 28px -10px rgba(99, 102, 241, 0.55); }
+  50%      { box-shadow: 0 18px 42px -8px rgba(168, 85, 247, 0.7); }
+}
+
+.actions { margin-top: 22px; }
+
+/* ---------- Điểm cao nhất (màn hình bắt đầu) ---------- */
+.best-score {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  background: linear-gradient(135deg, #fffbeb, #fff7ed);
+  border: 1.5px dashed #fde68a;
+  border-radius: 16px;
+  padding: 14px 18px;
+}
+
+.best-score-icon { font-size: 30px; flex: none; }
+
+.best-score h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #b45309;
+  margin-bottom: 2px;
+}
+
+#saved-score { font-size: 18px; font-weight: 800; color: #d97706; }
+
+/* ---------- Thanh tiến trình ---------- */
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5b21b6;
+  background: #f3f0ff;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.pill-score {
+  color: #b45309;
+  background: #fff7ed;
+}
+
+.progress-bar {
+  height: 11px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(30, 27, 75, 0.06);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--grad);
+  position: relative;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+/* Hiệu ứng sáng chạy ngang thanh tiến trình */
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.5) 50%, transparent 80%);
+  animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* ---------- Khung câu hỏi ---------- */
+.question-box {
+  margin: 22px 0 18px;
+  background: var(--grad-soft);
+  border: 1px solid #e4e9ff;
+  border-left: 6px solid var(--primary);
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+
+.q-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8b5cf6;
+  margin-bottom: 6px;
+}
+
+#question-text {
+  font-size: clamp(17px, 3.6vw, 20px);
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+/* ---------- Danh sách đáp án ---------- */
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid #e6e9ff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s;
+  animation: answerIn 0.4s ease both;
+}
+
+/* Đáp án trượt vào lần lượt khi đổi câu */
+@keyframes answerIn {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.answer-option:hover:not(.locked) {
+  border-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: 0 8px 20px -8px var(--ring);
+}
+
+.answer-letter {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 4px 10px -4px rgba(99, 102, 241, 0.6);
+}
+
+.answer-text { flex: 1; }
+
+/* Dấu ✓ / ✕ hiện ra sau khi trả lời */
+.answer-icon {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Trạng thái sau khi trả lời */
+.answer-option.correct {
+  border-color: var(--success-border);
+  background: var(--success-bg);
+  animation: correctPop 0.3s ease;
+}
+
+.answer-option.correct .answer-letter { background: var(--success); }
+.answer-option.correct .answer-icon { display: flex; background: var(--success); }
+
+.answer-option.wrong {
+  border-color: var(--danger-border);
+  background: var(--danger-bg);
+  animation: shake 0.4s ease;
+}
+
+.answer-option.wrong .answer-letter { background: var(--danger); }
+.answer-option.wrong .answer-icon { display: flex; background: var(--danger); }
+
+.answer-option.locked { cursor: default; }
+.answer-option.locked:hover { transform: none; box-shadow: none; }
+
+@keyframes correctPop {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-7px); }
+  50%      { transform: translateX(6px); }
+  75%      { transform: translateX(-4px); }
+}
+
+/* ---------- Phản hồi đúng/sai ---------- */
+.feedback {
+  margin-top: 16px;
+  min-height: 26px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  animation: fadeUp 0.3s ease;
+}
+
+.feedback.correct { color: var(--success); }
+.feedback.wrong { color: var(--danger); }
+
+/* ---------- Màn hình kết quả ---------- */
+.result-head {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.result-eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #8b5cf6;
+  margin-bottom: 6px;
+}
+
+.result-head h2 { font-size: clamp(22px, 4vw, 28px); font-weight: 800; }
+
+/* Bảng điểm vòng tròn */
+.score-dial {
+  width: 158px;
+  height: 158px;
+  margin: 6px auto 22px;
+  border-radius: 50%;
+  background: conic-gradient(var(--primary) calc(var(--score, 0) * 1%), #ebeeff 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 18px 40px -14px rgba(99, 102, 241, 0.55);
+  animation: dialIn 0.6s ease both;
+}
+
+.score-dial::before {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 2px 8px rgba(30, 27, 75, 0.06);
+}
+
+.score-dial > * { position: relative; z-index: 1; }
+
+.score-number {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.score-over {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.score-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #a78bfa;
+  margin-top: 2px;
+}
+
+@keyframes dialIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.result-card {
+  display: flex;
+  gap: 12px;
+  margin: 0 0 20px;
+}
+
+.result-item {
+  flex: 1;
+  background: #f6f7ff;
+  border: 1px solid #e7eaff;
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.result-emoji { display: block; font-size: 22px; margin-bottom: 6px; }
+
+.result-item.highlight {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 14px 26px -12px rgba(99, 102, 241, 0.6);
+}
+
+.result-label {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.result-value {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.result-message {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.best-score-result {
+  text-align: center;
+  color: #b45309;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* ---------- Confetti (pháo giấy emoji) ---------- */
+.confetti-box {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+  top: -24px;
+  animation: confettiFall 1.6s ease-out forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translate(var(--dx, 0px), 230px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- Responsive trên điện thoại ---------- */
+@media (max-width: 520px) {
+  body { padding: 14px 12px; }
+
+  .quiz-container {
+    padding: 30px 18px;
+    border-radius: 22px;
+  }
+
+  .score-dial { width: 140px; height: 140px; }
+
+  .result-card {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+    padding: 11px 16px;
+  }
+
+  .result-emoji { font-size: 18px; margin-bottom: 0; }
+  .result-label { margin-bottom: 0; font-size: 13px; }
+  .result-value { font-size: 20px; }
+}

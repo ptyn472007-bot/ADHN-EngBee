@@ -1,12 +1,147 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=learn.html">
-  <title>EngBee - Học từ vựng</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Flashcard học từ vựng</title>
+<link rel="stylesheet" href="assets/css/learn.css">
+<style>
+  /* Điều chỉnh riêng cho trang Flashcard */
+
+  body.small-hero .learn-hero { padding: 40px 0 26px; }
+  body.small-hero h1 { font-size: clamp(1.4rem, 4vw, 2.1rem); }
+  body.small-hero .hero-sub { margin-top: 8px; }
+
+  .fc-body { padding: 26px 0 70px; }
+
+  .fc-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: #fff;
+    border: 1px solid #eef0f6;
+    border-radius: 16px;
+    padding: 12px 16px;
+    box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
+    margin-bottom: 22px;
+  }
+
+  .fc-toolbar .progress-wrap { flex: 1; min-width: 180px; display: flex; align-items: center; gap: 10px; }
+  .fc-toolbar .progress-bar { flex: 1; height: 10px; border-radius: 999px; background: #eef1f8; overflow: hidden; }
+  .fc-toolbar .progress-fill { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--g1, #4facfe), var(--g2, #00f2fe)); transition: width 0.4s ease; }
+  .fc-toolbar .progress-text { font-size: 0.85rem; font-weight: 700; color: var(--ink); white-space: nowrap; }
+
+  .fc-toolbar .btn-ghost { border: 1px solid #e3e7f0; background: #fff; color: #6b7280; font-family: inherit; font-weight: 600; font-size: 0.85rem; padding: 9px 14px; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .fc-toolbar .btn-ghost:hover { border-color: #f2a900; color: #b07f00; background: #fff8e6; }
+
+  .fc-feedback {
+    display: flex; align-items: center; gap: 14px;
+    border-radius: 14px; padding: 14px 18px; color: #fff; font-weight: 600;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18); margin-bottom: 22px; animation: popIn 0.4s ease;
+  }
+  .fc-feedback .fb-badge { background: rgba(255,255,255,0.3); padding: 5px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.4px; white-space: nowrap; }
+</style>
 </head>
-<body>
-  <p>Chuyển đến <a href="learn.html">trang học từ vựng</a>...</p>
+<body class="small-hero">
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="flashcard.html" class="active">Học từ vựng</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="login.html">Đăng nhập</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="learn-hero" id="learn-hero">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="learn-hero-inner">
+        <p class="eyebrow">Flashcard - <span id="hero-name">Travel</span> (<span id="hero-count">50</span> từ)</p>
+        <h1>Học từ vựng bằng <span style="color:#fff">flashcard</span></h1>
+        <p class="hero-sub">Lật thẻ, nghe phát âm, xem phiên âm IPA và ví dụ minh họa. Đánh dấu <strong>Đã thuộc</strong> để theo dõi tiến độ.</p>
+        <div class="topic-pills" id="topic-pills"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fc-body">
+    <div class="container">
+      <div class="fc-toolbar">
+        <div class="progress-wrap" title="Tiến độ học của bạn">
+          <div class="progress-bar"><span class="progress-fill" id="progress-fill"></span></div>
+          <span class="progress-text" id="progress-text">0 / 50</span>
+        </div>
+        <button id="reset-btn" class="btn-ghost" title="Xóa tiến độ chủ đề này">Đặt lại</button>
+      </div>
+
+      <div class="fc-feedback" id="topic-feedback" hidden>
+        <span class="fb-badge">Hoàn thành</span>
+        <span id="fb-text"></span>
+      </div>
+
+      <div class="card-view">
+        <div class="flashcard-shell">
+          <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Thẻ từ vựng - nhấn để lật">
+            <div class="flashcard-face front">
+              <span class="card-badge" id="card-index">1 / 50</span>
+              <button class="speak-btn" id="speak-front" title="Nghe phát âm">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h2 class="word-en" id="word-en">...</h2>
+              <p class="word-ipa" id="word-ipa">...</p>
+              <p class="tap-hint">Nhấn vào thẻ để xem nghĩa và ví dụ</p>
+            </div>
+            <div class="flashcard-face back">
+              <button class="speak-btn small" id="speak-back" title="Nghe phát âm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h3 class="word-vi" id="word-vi">...</h3>
+              <p class="word-ex" id="word-ex">...</p>
+              <p class="word-exvi" id="word-exvi">...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-controls">
+          <button class="ctl-btn" id="prev-btn" title="Từ trước"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Trước</span></button>
+          <button class="ctl-btn primary" id="flip-btn">Lật thẻ</button>
+          <button class="ctl-btn" id="next-btn"><span>Sau</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+
+        <div class="master-bar">
+          <button class="master-btn nope" id="not-mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Chưa thuộc</span></button>
+          <button class="master-btn yes" id="mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Đã thuộc</span></button>
+        </div>
+        <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/flashcard.js"></script>
 </body>
 </html>

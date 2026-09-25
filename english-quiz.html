@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Vocabulary Quiz</title>
+<style>
+/* ==========================================================
+   English Vocabulary Quiz - giao diện hiện đại, responsive
+   ========================================================== */
+:root {
+  --blue: #3b82f6;
+  --indigo: #6366f1;
+  --violet: #8b5cf6;
+  --grad: linear-gradient(135deg, #3b82f6, #6366f1 55%, #8b5cf6);
+  --teal: #14b8a6;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --green-bd: #86efac;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --red-bd: #fca5a5;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --card: #ffffff;
+  --line: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  color: var(--ink);
+  background:
+    radial-gradient(1000px 520px at 12% -10%, rgba(59, 130, 246, 0.45), transparent 60%),
+    radial-gradient(820px 460px at 110% 10%, rgba(139, 92, 246, 0.4), transparent 60%),
+    radial-gradient(700px 500px at 50% 115%, rgba(20, 184, 166, 0.3), transparent 60%),
+    linear-gradient(160deg, #0f172a, #1e1b4b 55%, #312e81);
+  overflow-x: hidden;
+}
+
+/* Khối màu trang trí nền */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatBlob 16s ease-in-out infinite;
+}
+.blob-a { width: 340px; height: 340px; background: #60a5fa; top: -110px; left: -90px; }
+.blob-b { width: 300px; height: 300px; background: #a78bfa; bottom: -120px; right: -70px; animation-delay: -6s; }
+.blob-c { width: 260px; height: 260px; background: #2dd4bf; top: 45%; left: 58%; opacity: 0.2; animation-delay: -11s; }
+@keyframes floatBlob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-30px) scale(1.06); }
+}
+
+/* Thẻ chứa Quiz */
+.quiz-wrap {
+  position: relative;
+  z-index: 1;
+  background: var(--card);
+  width: 100%;
+  max-width: 680px;
+  border-radius: 28px;
+  box-shadow: 0 24px 60px -12px rgba(2, 6, 23, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  padding: 42px 38px;
+  overflow: hidden;
+}
+.quiz-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--grad);
+}
+
+/* Màn hình */
+.screen { display: none; position: relative; }
+.screen.active { display: block; animation: fadeUp 0.45s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Màn hình bắt đầu ---------- */
+.quiz-emoji {
+  width: 90px; height: 90px;
+  margin: 4px auto 18px;
+  display: grid; place-items: center;
+  font-size: 44px;
+  border-radius: 26px;
+  background: var(--grad);
+  box-shadow: 0 16px 30px -10px rgba(59, 130, 246, 0.55);
+  animation: floatIcon 3s ease-in-out infinite;
+}
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+h1 {
+  font-size: clamp(28px, 5.6vw, 38px);
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+h1 em {
+  font-style: normal;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 470px;
+  margin: 0 auto 28px;
+}
+.subtitle strong { color: var(--ink); }
+
+/* Nút */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 22px;
+  border: none;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+.btn-primary {
+  background: var(--grad);
+  box-shadow: 0 14px 28px -10px rgba(59, 130, 246, 0.55);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -10px rgba(59, 130, 246, 0.65);
+}
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn .arr { transition: transform 0.18s ease; }
+.btn:hover:not(:disabled) .arr { transform: translateX(4px); }
+
+.pulse { animation: btnPulse 2.4s ease-in-out infinite; }
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 14px 28px -10px rgba(59, 130, 246, 0.55); }
+  50%      { box-shadow: 0 18px 42px -8px rgba(139, 92, 246, 0.75); }
+}
+
+/* High Score - màn hình bắt đầu */
+.high-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  background: linear-gradient(135deg, #fefce8, #fff7ed);
+  border: 1.5px dashed #fde68a;
+  border-radius: 16px;
+  padding: 14px 18px;
+}
+.high-box .crown { font-size: 30px; flex: none; }
+.high-box small {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #b45309;
+  margin-bottom: 2px;
+}
+.high-box span { font-size: 18px; font-weight: 800; color: #d97706; }
+
+/* ---------- Màn hình câu hỏi ---------- */
+.q-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+.pill.score { color: #b45309; background: #fff7ed; }
+
+.pbar {
+  height: 11px;
+  border-radius: 999px;
+  background: #e0e7ff;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+.pfill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--grad);
+  position: relative;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+.pfill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.5) 50%, transparent 80%);
+  animation: shimmer 1.8s infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+.q-box {
+  margin: 22px 0 18px;
+  background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+  border: 1px solid #dbeafe;
+  border-left: 6px solid var(--blue);
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+.q-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin-bottom: 6px;
+}
+#q-text {
+  font-size: clamp(17px, 3.6vw, 20px);
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Đáp án */
+.answers { display: flex; flex-direction: column; gap: 12px; }
+.opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid #dbeafe;
+  border-radius: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--ink);
+  transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s;
+  animation: optIn 0.4s ease both;
+}
+@keyframes optIn {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.opt:hover:not(.locked) {
+  border-color: var(--blue);
+  transform: translateX(4px);
+  box-shadow: 0 8px 20px -8px rgba(99, 102, 241, 0.2);
+}
+.opt .letter {
+  flex: none;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 4px 10px -4px rgba(59, 130, 246, 0.6);
+}
+.opt .text { flex: 1; }
+.opt .mark {
+  flex: none;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Đúng / sai sau khi chọn */
+.opt.correct {
+  border-color: var(--green-bd);
+  background: var(--green-bg);
+  animation: pop 0.3s ease;
+}
+.opt.correct .letter { background: var(--green); }
+.opt.correct .mark { display: flex; background: var(--green); }
+.opt.wrong {
+  border-color: var(--red-bd);
+  background: var(--red-bg);
+  animation: shake 0.4s ease;
+}
+.opt.wrong .letter { background: var(--red); }
+.opt.wrong .mark { display: flex; background: var(--red); }
+.opt.locked { cursor: default; }
+.opt.locked:hover { transform: none; box-shadow: none; }
+
+@keyframes pop {
+  0%   { transform: scale(0.96); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-7px); }
+  50%      { transform: translateX(6px); }
+  75%      { transform: translateX(-4px); }
+}
+
+.feedback {
+  margin-top: 16px;
+  min-height: 26px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  animation: fadeUp 0.3s ease;
+}
+.feedback.ok { color: var(--green); }
+.feedback.no { color: var(--red); }
+
+.actions { margin-top: 22px; }
+
+/* ---------- Màn hình kết quả ---------- */
+.r-head { text-align: center; margin-bottom: 20px; }
+.r-eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin-bottom: 6px;
+}
+.r-head h2 { font-size: clamp(22px, 4vw, 28px); font-weight: 800; }
+
+/* Vòng tròn điểm số */
+.dial {
+  width: 168px; height: 168px;
+  margin: 4px auto 22px;
+  border-radius: 50%;
+  background: conic-gradient(var(--blue) calc(var(--score) * 1%), #e0e7ff 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 18px 40px -14px rgba(59, 130, 246, 0.55);
+  animation: dialIn 0.6s ease both;
+}
+.dial::before {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+.dial > * { position: relative; z-index: 1; }
+.dial .num {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.dial .total { font-size: 15px; font-weight: 700; color: var(--muted); }
+.dial .lbl {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #818cf8;
+  margin-top: 2px;
+}
+@keyframes dialIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.card3 { display: flex; gap: 12px; margin-bottom: 20px; }
+.stat {
+  flex: 1;
+  background: #f6f7ff;
+  border: 1px solid #e7eaff;
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+}
+.stat .emo { display: block; font-size: 22px; margin-bottom: 6px; }
+.stat.hl {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 14px 26px -12px rgba(59, 130, 246, 0.6);
+}
+.stat small { display: block; font-size: 12px; opacity: 0.8; margin-bottom: 6px; }
+.stat b { display: block; font-size: 26px; font-weight: 800; line-height: 1.1; }
+
+.r-msg { text-align: center; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.r-high { text-align: center; color: #b45309; font-size: 14px; font-weight: 600; margin-bottom: 18px; }
+
+/* Pháo giấy emoji */
+.confetti-box { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.confetti { position: absolute; top: -24px; animation: fall 1.6s ease-out forwards; }
+@keyframes fall {
+  to { transform: translate(var(--dx, 0px), 230px) rotate(360deg); opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px) {
+  body { padding: 14px 12px; }
+  .quiz-wrap { padding: 30px 18px; border-radius: 22px; }
+  .dial { width: 146px; height: 146px; }
+  .card3 { flex-direction: column; gap: 10px; }
+  .stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+    padding: 11px 16px;
+  }
+  .stat .emo { font-size: 18px; margin-bottom: 0; }
+  .stat small { margin-bottom: 0; font-size: 13px; }
+  .stat b { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+<div class="blob blob-c"></div>
+
+<div class="quiz-wrap">
+
+  <!-- ===== Màn hình bắt đầu ===== -->
+  <section id="screen-start" class="screen active">
+    <div class="quiz-emoji">📚</div>
+    <h1>English Vocabulary <em>Quiz</em></h1>
+    <p class="subtitle">
+      Test your vocabulary with <strong>10 questions</strong> from a bank of
+      <strong>25 words</strong>. Every question has <strong>4 options</strong> and only
+      <strong>1 correct answer</strong>. Good luck!
+    </p>
+    <button id="btn-start" class="btn btn-primary pulse">
+      <span>Start Quiz</span><span class="arr">→</span>
+    </button>
+    <div class="high-box">
+      <span class="crown">🏆</span>
+      <div>
+        <small>High Score</small>
+        <span id="hs-start">No record yet</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Màn hình câu hỏi ===== -->
+  <section id="screen-quiz" class="screen">
+    <div class="q-head">
+      <span class="pill" id="q-progress">Question 1/10</span>
+      <span class="pill score" id="q-score">⭐ Score: 0</span>
+    </div>
+    <div class="pbar"><div id="q-pfill" class="pfill"></div></div>
+
+    <div class="q-box">
+      <p class="q-tag">Choose the correct answer</p>
+      <p id="q-text">Question text</p>
+    </div>
+
+    <div id="q-answers" class="answers"></div>
+    <p id="q-feedback" class="feedback"></p>
+
+    <div class="actions">
+      <button id="btn-next" class="btn btn-primary" disabled>
+        <span>Next Question</span><span class="arr">→</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== Màn hình kết quả ===== -->
+  <section id="screen-result" class="screen">
+    <div id="confetti-box" class="confetti-box"></div>
+
+    <div class="r-head">
+      <p class="r-eyebrow">Quiz Finished</p>
+      <h2>Your Result</h2>
+    </div>
+
+    <div class="dial" id="dial">
+      <span id="dial-num" class="num">0</span>
+      <span class="total">/ 10</span>
+      <span class="lbl">Points</span>
+    </div>
+
+    <div class="card3">
+      <div class="stat">
+        <span class="emo">✅</span>
+        <small>Correct</small>
+        <b id="res-correct">0</b>
+      </div>
+      <div class="stat">
+        <span class="emo">❌</span>
+        <small>Wrong</small>
+        <b id="res-wrong">0</b>
+      </div>
+      <div class="stat hl">
+        <span class="emo">🎯</span>
+        <small>Score</small>
+        <b id="res-score">0</b>
+      </div>
+    </div>
+
+    <p id="res-msg" class="r-msg"></p>
+    <p id="res-high" class="r-high"></p>
+
+    <div class="actions">
+      <button id="btn-again" class="btn btn-primary">
+        <span>Try Again</span><span class="arr">↻</span>
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// ==========================================================
+// DỮ LIỆU: ngân hàng 25 câu hỏi từ vựng tiếng Anh
+// Mỗi câu: `q` = nội dung, `answers` = 4 đáp án, `correct` = chỉ số đáp án đúng
+// Kiểu câu: hỏi nghĩa tiếng Việt của từ EN, hoặc hỏi từ EN theo nghĩa tiếng Việt
+// ==========================================================
+const QUESTION_BANK = [
+  { q: 'What is the meaning of "abundant"?',         answers: ['phong phú, dồi dào', 'thiếu thốn', 'hiếm hoi', 'mờ nhạt'], correct: 0 },
+  { q: 'What is the meaning of "achieve"?',          answers: ['đạt được', 'mất đi', 'đợi chờ', 'từ chối'], correct: 0 },
+  { q: 'What is the meaning of "benefit"?',          answers: ['lợi ích', 'chi phí', 'mối nguy', 'thất bại'], correct: 0 },
+  { q: 'What is the meaning of "confident"?',        answers: ['tự tin', 'lo lắng', 'buồn bã', 'mệt mỏi'], correct: 0 },
+  { q: 'What is the meaning of "essential"?',        answers: ['thiết yếu', 'tạm thời', 'hiếm có', 'đắt đỏ'], correct: 0 },
+  { q: 'What is the meaning of "improve"?',          answers: ['cải thiện', 'giảm bớt', 'phá hủy', 'che giấu'], correct: 0 },
+  { q: 'What is the meaning of "opportunity"?',      answers: ['cơ hội', 'sự trễ hạn', 'tai nạn', 'nỗi sợ'], correct: 0 },
+  { q: 'What is the meaning of "require"?',          answers: ['đòi hỏi, yêu cầu', 'cho phép', 'bỏ qua', 'khám phá'], correct: 0 },
+  { q: 'What is the meaning of "successful"?',       answers: ['thành công', 'thất bại', 'bình thường', 'nhanh chóng'], correct: 0 },
+  { q: 'What is the meaning of "valuable"?',         answers: ['có giá trị', 'vô dụng', 'rẻ tiền', 'cổ xưa'], correct: 0 },
+
+  { q: 'Which English word means "phong phú, dồi dào"?',   answers: ['abundant', 'scarce', 'modest', 'quiet'], correct: 0 },
+  { q: 'Which English word means "đạt được, hoàn thành"?', answers: ['achieve', 'avoid', 'accept', 'admit'], correct: 0 },
+  { q: 'Which English word means "lợi ích, điều có ích"?', answers: ['benefit', 'burden', 'barrier', 'budget'], correct: 0 },
+  { q: 'Which English word means "tự tin"?',               answers: ['confident', 'cautious', 'careless', 'clumsy'], correct: 0 },
+  { q: 'Which English word means "thiết yếu, quan trọng"?', answers: ['essential', 'optional', 'occasional', 'obedient'], correct: 0 },
+  { q: 'Which English word means "cải thiện, nâng cao"?',  answers: ['improve', 'ignore', 'impose', 'imagine'], correct: 0 },
+  { q: 'Which English word means "cơ hội, dịp"?',          answers: ['opportunity', 'obstacle', 'opinion', 'overflow'], correct: 0 },
+  { q: 'Which English word means "đòi hỏi, yêu cầu"?',     answers: ['require', 'refuse', 'relax', 'regret'], correct: 0 },
+  { q: 'Which English word means "thành công"?',           answers: ['successful', 'stressful', 'sensitive', 'serious'], correct: 0 },
+  { q: 'Which English word means "có giá trị"?',           answers: ['valuable', 'vulgar', 'valid', 'vivid'], correct: 0 },
+
+  { q: 'What is the meaning of "accurate"?',   answers: ['chính xác', 'thô sơ', 'rụt rè', 'lưu loát'], correct: 0 },
+  { q: 'What is the meaning of "brilliant"?',  answers: ['xuất sắc, tuyệt vời', 'buồn tẻ', 'chậm chạp', 'yếu ớt'], correct: 0 },
+  { q: 'What is the meaning of "curious"?',    answers: ['tò mò', 'lười biếng', 'giận dữ', 'tự hào'], correct: 0 },
+  { q: 'What is the meaning of "determined"?', answers: ['quyết tâm', 'do dự', 'bối rối', 'mơ hồ'], correct: 0 },
+  { q: 'What is the meaning of "generous"?',   answers: ['hào phóng', 'keo kiệt', 'lạnh lùng', 'nhút nhát'], correct: 0 }
+];
+
+// ==========================================================
+// BIẾN TRẠNG THÁI
+// ==========================================================
+const QUIZ_SIZE = 10;              // số câu mỗi lượt
+const STORAGE_KEY = "engVocabHighScore"; // khóa lưu điểm cao LocalStorage
+
+let quiz = [];       // 10 câu được chọn (đã random) của lượt chơi
+let cursor = 0;      // câu đang hiển thị
+let right = 0;       // số câu đúng
+let answered = false;
+let correctEl = null;
+
+// DOM
+const sStart = document.getElementById("screen-start");
+const sQuiz = document.getElementById("screen-quiz");
+const sResult = document.getElementById("screen-result");
+const qText = document.getElementById("q-text");
+const qAnswers = document.getElementById("q-answers");
+const qFeedback = document.getElementById("q-feedback");
+const btnNext = document.getElementById("btn-next");
+const qProgress = document.getElementById("q-progress");
+const qPfill = document.getElementById("q-pfill");
+const qScore = document.getElementById("q-score");
+const hsStart = document.getElementById("hs-start");
+const dial = document.getElementById("dial");
+const dialNum = document.getElementById("dial-num");
+const confettiBox = document.getElementById("confetti-box");
+
+// ==========================================================
+// HÀM TIỆN ÍCH
+// ==========================================================
+
+// Trộn mảng Fisher-Yates (không thay đổi mảng gốc)
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Chuyển giữa các màn hình
+function showScreen(el) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  el.classList.add("active");
+}
+
+// ==========================================================
+// HIGH SCORE / LOCALSTORAGE
+// ==========================================================
+function getHigh() {
+  const v = localStorage.getItem(STORAGE_KEY);
+  return v === null ? 0 : Number(v);
+}
+function saveHigh(n) {
+  if (n > getHigh()) {
+    localStorage.setItem(STORAGE_KEY, String(n));
+    return true; // có kỷ lục mới
+  }
+  return false;
+}
+function renderHighScore() {
+  const h = getHigh();
+  hsStart.textContent = h > 0 ? h + " / " + QUIZ_SIZE + " points" : "No record yet";
+}
+
+// ==========================================================
+// BẮT ĐẦU QUIZ
+// ==========================================================
+function startQuiz() {
+  // Random 10 câu trong 25 câu, mỗi lần chơi là bộ câu khác nhau
+  quiz = shuffle(QUESTION_BANK).slice(0, QUIZ_SIZE);
+  cursor = 0;
+  right = 0;
+  qScore.textContent = "⭐ Score: 0";
+  confettiBox.innerHTML = "";
+  showScreen(sQuiz);
+  renderQuestion();
+}
+
+// ==========================================================
+// HIỂN THỊ CÂU HỎI
+// ==========================================================
+function renderQuestion() {
+  answered = false;
+  btnNext.disabled = true;
+  qFeedback.textContent = "";
+  qFeedback.className = "feedback";
+
+  const current = quiz[cursor];
+
+  // Tiến độ: "Question 3/10" + thanh %
+  qProgress.textContent = "Question " + (cursor + 1) + " / " + QUIZ_SIZE;
+  qPfill.style.width = ((cursor + 1) / QUIZ_SIZE * 100) + "%";
+
+  // Đổi nhãn nút ở câu cuối
+  btnNext.querySelector("span").textContent =
+    cursor === QUIZ_SIZE - 1 ? "View Result" : "Next Question";
+
+  qText.textContent = current.q;
+
+  // 4 đáp án, random thứ tự, gắn chữ A B C D
+  qAnswers.innerHTML = "";
+  const letters = ["A", "B", "C", "D"];
+  const options = shuffle(
+    current.answers.map((text, index) => ({ text, isCorrect: index === current.correct }))
+  );
+
+  correctEl = null;
+  options.forEach((opt, index) => {
+    const div = document.createElement("div");
+    div.className = "opt";
+    div.style.animationDelay = index * 45 + "ms";
+    div.innerHTML =
+      '<span class="letter">' + letters[index] + "</span>" +
+      '<span class="text">' + opt.text + "</span>" +
+      '<span class="mark">✓</span>';
+
+    if (opt.isCorrect) correctEl = div;
+
+    div.addEventListener("click", () => pickAnswer(div, opt.isCorrect));
+    qAnswers.appendChild(div);
+  });
+}
+
+// ==========================================================
+// XỬ LÝ CHỌN ĐÁP ÁN (đúng/sai, khóa, cộng điểm)
+// ==========================================================
+function pickAnswer(el, ok) {
+  if (answered) return; // mỗi câu chỉ chọn 1 lần
+  answered = true;
+
+  // Khóa toàn bộ đáp án
+  qAnswers.querySelectorAll(".opt").forEach(o => o.classList.add("locked"));
+
+  if (ok) {
+    el.classList.add("correct");
+    el.querySelector(".mark").textContent = "✓";
+    qFeedback.textContent = "🎉 Correct! +1 point";
+    qFeedback.classList.add("ok");
+    right++;
+    qScore.textContent = "⭐ Score: " + right;
+  } else {
+    el.classList.add("wrong");
+    el.querySelector(".mark").textContent = "✕";
+    qFeedback.textContent = "😅 Wrong! The correct answer is green";
+    qFeedback.classList.add("no");
+    if (correctEl) {
+      correctEl.classList.add("correct");
+      correctEl.querySelector(".mark").textContent = "✓";
+    }
+  }
+
+  btnNext.disabled = false;
+}
+
+// ==========================================================
+// NÚT NEXT QUESTION
+// ==========================================================
+btnNext.addEventListener("click", () => {
+  cursor++;
+  if (cursor >= QUIZ_SIZE) {
+    showResult(); // hết câu -> màn hình kết quả
+  } else {
+    renderQuestion();
+  }
+});
+
+// ==========================================================
+// MÀN HÌNH KẾT QUẢ
+// ==========================================================
+function showResult() {
+  const wrong = QUIZ_SIZE - right;
+  const points = right; // thang điểm 10
+
+  document.getElementById("res-correct").textContent = right;
+  document.getElementById("res-wrong").textContent = wrong;
+  document.getElementById("res-score").textContent = points + " / " + QUIZ_SIZE;
+
+  // Vòng tròn điểm số
+  dialNum.textContent = points;
+  dial.style.setProperty("--score", (points / QUIZ_SIZE) * 100);
+
+  // Thông báo theo thành tích
+  const msg = document.getElementById("res-msg");
+  const pct = right / QUIZ_SIZE;
+  if (pct >= 0.9)      msg.textContent = "🚀 Excellent! You are a master!";
+  else if (pct >= 0.7) msg.textContent = "🔥 Great job! Keep it up!";
+  else if (pct >= 0.5) msg.textContent = "👍 Not bad! A little more practice.";
+  else                 msg.textContent = "💪 Don't give up. Try again!";
+
+  // Lưu & hiển thị High Score
+  const isNew = saveHigh(points);
+  document.getElementById("res-high").textContent =
+    "🏆 High Score: " + getHigh() + " / " + QUIZ_SIZE +
+    (isNew ? "  (New record!)" : "");
+
+  if (pct >= 0.7) spawnConfetti(26); // pháo giấy khi đạt từ 7/10
+
+  showScreen(sResult);
+}
+
+// Hiệu ứng pháo giấy emoji
+function spawnConfetti(count) {
+  const emojis = ["🎉", "✨", "🎊", "⭐", "💫"];
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    p.className = "confetti";
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + "%";
+    p.style.fontSize = 14 + Math.random() * 12 + "px";
+    p.style.animationDelay = Math.random() * 0.6 + "s";
+    p.style.setProperty("--dx", Math.random() * 80 - 40 + "px");
+    confettiBox.appendChild(p);
+    setTimeout(() => p.remove(), 2200);
+  }
+}
+
+// ==========================================================
+// SỰ KIỆN NÚT BẤM & KHỞI ĐỘNG
+// ==========================================================
+document.getElementById("btn-start").addEventListener("click", startQuiz);
+document.getElementById("btn-again").addEventListener("click", () => {
+  renderHighScore();
+  startQuiz();
+});
+
+renderHighScore(); // hiển thị High Score khi tải trang
+</script>
+</body>
+</html>
