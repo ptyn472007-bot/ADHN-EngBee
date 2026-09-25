@@ -194,8 +194,9 @@ main{flex:1}
         </div>
         <div class="qz-answers" id="qz-answers"></div>
         <div class="qz-feedback" id="qz-feedback"></div>
+        <p class="qz-hint" id="qz-hint">Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.</p>
         <div class="qz-next-row">
-          <button type="button" class="btn btn-next" id="btn-next">Câu tiếp theo →</button>
+          <button type="button" class="btn btn-next" id="btn-next">Chọn đáp án để tiếp tục →</button>
         </div>
       </div>
 
@@ -325,7 +326,10 @@ main{flex:1}
       box.appendChild(b);
     });
     qs("#qz-feedback").className="qz-feedback";qs("#qz-feedback").textContent="";
-    qs("#btn-next").classList.remove("ready");picked=false;
+    var nb=qs("#btn-next");nb.classList.remove("ready");
+    nb.textContent=(idx+1)<N?"Chọn đáp án để tiếp tục →":"Chọn đáp án cuối cùng →";
+    qs("#qz-hint").textContent=(idx+1)<N?"Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.":"Đây là câu cuối cùng! Chọn 1 đáp án rồi bấm nút để xem kết quả.";
+    picked=false;
   }
   function onAnswer(ev){
     if(picked)return;
@@ -344,7 +348,9 @@ main{flex:1}
     }
     speak(it.word.en);
     qs("#q-score").textContent=correct+" dung";
-    qs("#btn-next").classList.add("ready");
+    var nb=qs("#btn-next");nb.classList.add("ready");
+    nb.textContent=(idx+1)>=N?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+N+") →";
+    qs("#qz-hint").textContent=((btn.className.indexOf("correct")>=0)?"Đúng rồi ✓ ":"Sai rồi, đáp án đúng đã được tô xanh. ")+"Bấm nút bên phải để tiếp tục.";
   }
   function finish(){
     var pct=Math.round(100*correct/N);
