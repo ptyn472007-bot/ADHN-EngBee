@@ -106,8 +106,8 @@ main{flex:1}
 .qz-feedback.bad{background:#fdecec;color:#b91c1c;border:1px solid #f6c6c6}
 .qz-feedback strong{font-weight:800}
 .qz-next-row{display:flex;justify-content:flex-end;margin-top:18px}
-.btn-next{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 8px 18px rgba(16,26,51,.16);opacity:.35;pointer-events:none}
-.btn-next.ready{opacity:1;pointer-events:auto}
+.btn-next{background:#fff;color:#4b5563;border:1px solid #c3cad9;box-shadow:0 4px 12px rgba(16,26,51,.08);pointer-events:none}
+.btn-next.ready{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(16,26,51,.18);pointer-events:auto}
 .btn-next.ready:hover{transform:translateY(-2px)}
 .qz-hint{text-align:center;color:#9aa1b5;font-size:.82rem;margin-top:16px}
 .qz-ex{margin-top:8px;font-size:.88rem;font-weight:400;opacity:.92;border-top:1px dashed rgba(21,122,77,.3);padding-top:8px}
@@ -196,7 +196,7 @@ main{flex:1}
         <div class="qz-feedback" id="qz-feedback"></div>
         <p class="qz-hint" id="qz-hint">Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.</p>
         <div class="qz-next-row">
-          <button type="button" class="btn btn-next" id="btn-next">Chọn đáp án để tiếp tục →</button>
+          <button type="button" class="btn btn-next" id="btn-next">Câu tiếp →</button>
         </div>
       </div>
 
@@ -327,7 +327,7 @@ main{flex:1}
     });
     qs("#qz-feedback").className="qz-feedback";qs("#qz-feedback").textContent="";
     var nb=qs("#btn-next");nb.classList.remove("ready");
-    nb.textContent=(idx+1)<N?"Chọn đáp án để tiếp tục →":"Chọn đáp án cuối cùng →";
+    nb.textContent=(idx+1)<N?"Câu tiếp →":"Câu cuối — chọn đáp án →";
     qs("#qz-hint").textContent=(idx+1)<N?"Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.":"Đây là câu cuối cùng! Chọn 1 đáp án rồi bấm nút để xem kết quả.";
     picked=false;
   }
