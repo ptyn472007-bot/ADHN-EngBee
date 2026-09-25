@@ -10,7 +10,11 @@ const TOPICS = [
   { id: 'nature', en: 'Nature', vi: 'Thiên nhiên', emoji: '🌿', g1: '#22c55e', g2: '#14b8a6', desc: 'Từ vựng về thiên nhiên, cây cối, động vật và môi trường xung quanh.' },
   { id: 'sports', en: 'Sports', vi: 'Thể thao', emoji: '⚽', g1: '#10b981', g2: '#0ea5e9', desc: 'Từ vựng về thể thao, các môn vận động và hoạt động rèn luyện sức khỏe.' },
   { id: 'health', en: 'Health', vi: 'Sức khỏe', emoji: '❤️', g1: '#f43f5e', g2: '#ec4899', desc: 'Từ vựng về sức khỏe, bệnh tật, dinh dưỡng và cách chăm sóc cơ thể.' },
-  { id: 'technology', en: 'Technology', vi: 'Công nghệ', emoji: '💻', g1: '#3b82f6', g2: '#8b5cf6', desc: 'Từ vựng về công nghệ, máy tính, internet và các thiết bị điện tử thông minh.' }
+  { id: 'technology', en: 'Technology', vi: 'Công nghệ', emoji: '💻', g1: '#3b82f6', g2: '#8b5cf6', desc: 'Từ vựng về công nghệ, máy tính, internet và các thiết bị điện tử thông minh.' },
+  { id: 'music', en: 'Music', vi: 'Âm nhạc', emoji: '🎵', g1: '#ec4899', g2: '#8b5cf6', desc: 'Từ vựng về âm nhạc, nhạc cụ, ca sĩ và các thể loại nhạc phổ biến.' },
+  { id: 'movie', en: 'Movie', vi: 'Phim ảnh', emoji: '🎬', g1: '#f43f5e', g2: '#ef4444', desc: 'Từ vựng về phim ảnh, diễn viên, đạo diễn và các thể loại phim.' },
+  { id: 'weather', en: 'Weather', vi: 'Thời tiết', emoji: '⛅', g1: '#0ea5e9', g2: '#22d3ee', desc: 'Từ vựng về thời tiết, các hiện tượng tự nhiên và mùa trong năm.' },
+  { id: 'shopping', en: 'Shopping', vi: 'Mua sắm', emoji: '🛍️', g1: '#f97316', g2: '#ef4444', desc: 'Từ vựng về mua sắm, cửa hàng, giá cả và các hình thức thanh toán.' }
 ]
 
 const NAV_LINKS = [
@@ -82,14 +86,14 @@ document.querySelector('#app').innerHTML = `
     <div class="container hero-inner">
       <div class="hero-bee">${BEE_LOGO}</div>
       <h1>Học từ vựng tiếng Anh <span>thông minh</span> cùng EngBee</h1>
-      <p>400 từ vựng chia theo 8 chủ đề quen thuộc, học bằng flashcard lật thẻ, kèm phiên âm, ví dụ và quiz kiểm tra. Mỗi ngày một ít, giỏi dần mỗi ngày!</p>
+      <p>600 từ vựng chia theo 12 chủ đề quen thuộc, học bằng flashcard lật thẻ, kèm phiên âm, ví dụ và quiz kiểm tra. Mỗi ngày một ít, giỏi dần mỗi ngày!</p>
       <div class="hero-actions">
         <a href="learn.html" class="btn-primary">Bắt đầu học <span>→</span></a>
         <a href="#topics" class="btn-ghost">Khám phá chủ đề</a>
       </div>
       <div class="hero-stats">
-        <div><strong>8</strong><span>chủ đề</span></div>
-        <div><strong>400</strong><span>từ vựng</span></div>
+        <div><strong>12</strong><span>chủ đề</span></div>
+        <div><strong>600</strong><span>từ vựng</span></div>
         <div><strong>50</strong><span>từ / chủ đề</span></div>
         <div><strong>100%</strong><span>miễn phí</span></div>
       </div>
