@@ -866,7 +866,13 @@ body {
   var TVI = "Ẩm thực";
   var GRAD = ["#f6d365","#fda085"];
   var TOTAL = WORDS.length;
-  var KEY = "eb_learned_" + TID;
+  var KEY = "engbee_learned_" + (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  })() + "_" + TID;
 
   function qs(s){ return document.querySelector(s); }
 

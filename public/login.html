@@ -37,20 +37,17 @@
     <section class="login-section">
       <div class="container">
         <div class="login-card">
-          <h2>Đăng nhập tài khoản</h2>
-          <p class="login-note">Đăng nhập để lưu tiến độ học tập của bạn</p>
+          <h2>Đăng nhập bằng tên hiển thị</h2>
+          <p class="login-note">Không cần mật khẩu, chỉ cần một cái tên để bắt đầu</p>
           <form id="login-form" class="login-form" novalidate>
-            <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" name="username" placeholder="user" autocomplete="username" required>
+            <label for="display-name">Tên của bạn</label>
+            <input type="text" id="display-name" name="display-name" placeholder="Nhập tên hiển thị" autocomplete="name" maxlength="40" required>
 
-            <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+            <p id="login-error" class="login-error" hidden>Vui lòng nhập tên của bạn.</p>
 
-            <p id="login-error" class="login-error" hidden>Sai tên đăng nhập hoặc mật khẩu.</p>
-
-            <button type="submit" class="btn-primary login-btn">Đăng nhập</button>
+            <button type="submit" class="btn-primary login-btn">Bắt đầu học</button>
           </form>
-          <p class="login-help">Chưa có tài khoản? Đăng ký sẽ được bổ sung sau.</p>
+          <p class="login-help">Bạn đã có tên trước đó? Nhập lại tên để tiếp tục.</p>
         </div>
       </div>
     </section>

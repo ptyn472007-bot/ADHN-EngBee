@@ -26,9 +26,24 @@ const NAV_LINKS = [
 
 const WORD_COUNT = 50
 
+function currentUserName() {
+  try {
+    const p = JSON.parse(localStorage.getItem('engbee_user') || 'null')
+    if (p && typeof p.name === 'string' && p.name.trim()) return p.name.trim()
+  } catch {
+    // bỏ qua
+  }
+  return 'guest'
+}
+
+// Key lưu học được gắn tên người dùng để mỗi tài khoản có dữ liệu riêng
+function learnedKey(id) {
+  return 'engbee_learned_' + currentUserName() + '_' + id
+}
+
 function learnedOf(id) {
   try {
-    const arr = JSON.parse(localStorage.getItem('eb_learned_' + id) || '[]')
+    const arr = JSON.parse(localStorage.getItem(learnedKey(id)) || '[]')
     return Array.isArray(arr) ? Math.min(arr.length, WORD_COUNT) : 0
   } catch {
     return 0
