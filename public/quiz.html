@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/learn.css">
 <link rel="stylesheet" href="assets/css/quiz.css">
-<style>
-  body.small-hero .learn-hero { padding: 40px 0 26px; }
-</style>
 </head>
 <body class="small-hero">
 <header class="navbar">
@@ -35,7 +32,7 @@
       <div class="learn-hero-inner">
         <p class="eyebrow">Quiz</p>
         <h1>Trắc nghiệm từ vựng <span style="color:#fff">EngBee</span></h1>
-        <p class="hero-sub">Mỗi lượt có <strong>10 câu</strong>. Chọn đáp án đúng, xem kết quả và lưu điểm cao nhất của bạn.</p>
+        <p class="hero-sub">Mỗi lượt có <strong>10 câu</strong>. Ôn theo từng chủ đề hoặc làm quiz tổng hợp, xem kết quả và lưu điểm qua từng lượt.</p>
       </div>
     </div>
   </section>
@@ -44,17 +41,24 @@
     <div class="container">
       <div class="quiz-card">
 
-        <!-- Màn hình bắt đầu -->
+        <!-- Màn hình bắt đầu: chọn hình thức -->
         <section id="qz-start" class="qz-screen active">
-          <h2>Bắt đầu Quiz</h2>
+          <h2>Chọn hình thức ôn tập</h2>
           <p class="qz-sub">
-            Câu hỏi được chọn ngẫu nhiên từ <strong><span id="qz-topic-count">8</span> chủ đề</strong>,
-            mỗi câu có <strong>4 đáp án</strong> và chỉ <strong>1 đáp án đúng</strong>.
+            Mỗi lượt có <strong>10 câu</strong>, mỗi câu có <strong>4 đáp án</strong> và chỉ <strong>1 đáp án đúng</strong>. Điểm từng lượt được lưu lại tự động.
           </p>
-          <button id="btn-start" class="btn-summit">Bắt đầu Quiz</button>
+
+          <button id="btn-all" class="btn-quiz-all">
+            <span class="btn-quiz-all-icon">⚡</span>
+            <span class="btn-quiz-all-text">Quiz tổng hợp (12 chủ đề)<small>Trộn ngẫu nhiên 600 từ vựng của tất cả chủ đề</small></span>
+          </button>
+
+          <div class="qz-divider"><span>hoặc ôn theo chủ đề</span></div>
+
+          <div id="qz-topic-grid" class="qz-topic-grid"></div>
 
           <div class="qz-best">
-            <p class="qz-best-label">Điểm cao nhất đã lưu</p>
+            <p class="qz-best-label">Điểm cao nhất quiz tổng hợp</p>
             <p id="saved-score" class="qz-best-value">Chưa có điểm nào</p>
           </div>
         </section>
@@ -70,7 +74,7 @@
           </div>
 
           <div class="qz-question-box">
-            <p class="qz-q-label">Từ này nghĩa là gì?</p>
+            <p class="qz-q-label"><span id="qz-mode-label" class="qz-mode-label">Quiz</span>Từ này nghĩa là gì?</p>
             <p class="qz-word"><span id="qz-word-text">...</span> <button id="btn-speak" class="qz-speak" title="Nghe phát âm">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
             </button></p>
@@ -87,6 +91,7 @@
         <!-- Màn hình kết quả -->
         <section id="qz-result" class="qz-screen">
           <h2>Kết quả Quiz</h2>
+          <p id="qz-result-mode" class="qz-result-mode"></p>
 
           <div class="qz-result-grid">
             <div class="qz-result-item">
@@ -99,14 +104,22 @@
             </div>
             <div class="qz-result-item qz-result-highlight">
               <span class="qz-result-label">Điểm số</span>
-              <span id="qz-final-score" class="qz-result-value">0</span>
+              <span id="qz-final-score" class="qz-result-value">0%</span>
             </div>
           </div>
 
           <p id="qz-message" class="qz-message"></p>
           <p id="qz-best-result" class="qz-best-result"></p>
 
-          <button id="btn-restart" class="btn-summit">Chơi lại</button>
+          <div class="qz-result-actions">
+            <button id="btn-restart" class="btn-summit">Làm bài mới</button>
+            <button id="btn-back" class="btn-ghost-qz">Chọn chủ đề / hình thức</button>
+          </div>
+
+          <div class="qz-history">
+            <h3>Lịch sử điểm gần đây</h3>
+            <div id="qz-history-list" class="qz-history-list"></div>
+          </div>
         </section>
 
       </div>
