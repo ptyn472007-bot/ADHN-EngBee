@@ -110,6 +110,7 @@ main{flex:1}
 .btn-next.ready{opacity:1;pointer-events:auto}
 .btn-next.ready:hover{transform:translateY(-2px)}
 .qz-hint{text-align:center;color:#9aa1b5;font-size:.82rem;margin-top:16px}
+.qz-ex{margin-top:8px;font-size:.88rem;font-weight:400;opacity:.92;border-top:1px dashed rgba(21,122,77,.3);padding-top:8px}
 /* ---- result ---- */
 .qz-result{padding:6px 0}
 .qz-score-ring{width:150px;height:150px;margin:0 auto 18px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--g1) calc(var(--p,0)*1%), #eef1f8 0)}
@@ -204,7 +205,7 @@ main{flex:1}
           <span>ĐIỂM SỐ</span>
         </div>
         <div class="qz-result-title">
-          <h2 class="rz-msg" id="rz-gray"></h2>
+          <h2 id="rz-head"></h2>
           <p id="rz-mode" style="font-weight:700"></p>
           <span class="flag" id="rz-record"></span>
           <p id="rz-note" style="margin-top:10px"></p>
@@ -259,7 +260,9 @@ main{flex:1}
   function best(){var h=myHistory(),b=0;for(var i=0;i<h.length;i++)if(h[i].pct>b)b=h[i].pct;return b;}
   function speak(word){try{var u=new SpeechSynthesisUtterance(word);u.lang="en-US";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
   function fmt(ts){var d=new Date(ts),p=function(x){return x<10?"0"+x:x;};return p(d.getDate())+"/"+p(d.getMonth()+1)+"/"+d.getFullYear()+" "+p(d.getHours())+":"+p(d.getMinutes());}
-  function pctLabel(p){if(p===100)return"You da lam rat tot. Tiep tuc phat huy nhe!";if(p>=80)return"Ket qua kha tot, luyen them de duoc 100%!";if(p>=60)return"Kha on, xem lai tu vung va lam lai nhe.";if(p>=40)return"Can on nhieu hon. Mo trang Hoc tu vung de ghi nho.";return"Hay co gang them. Xem lai tu vung truoc khi lam lai nhe.";}
+  function esc(s){return String(s==null?"":s).replace(/[<>&"]/g,function(c){return c==="<"?"&lt;":c===">"?"&gt;":c==="&"?"&amp;":"&quot;";});}
+  function pctLabel(p){if(p===100)return"Chuẩn không cần chỉnh! Giữ vững phong độ này nhé!";if(p>=80)return"Kết quả rất tốt, luyện thêm để đạt 100%!";if(p>=60)return"Khá ổn, xem lại từ vựng và làm lại nhé.";if(p>=40)return"Cần ôn nhiều hơn. Mở trang Học từ vựng để ghi nhớ.";return"Hãy cố gắng thêm. Xem lại từ vựng trước khi làm lại nhé.";}
+  function rzTitle(p){if(p===100)return"Chúc mừng! Bạn đã hoàn thành xuất sắc";if(p>=80)return"Rất tốt! Gần đạt điểm tuyệt đối rồi";if(p>=60)return"Kết quả khá ổn, tiếp tục luyện tập";if(p>=40)return"Oh điểm vẫn còn thấp, đừng nản nhé";return"Chưa đạt, hãy thử lại ngay nhé";}
   var idx=0,correct=0,picked=false,answers=[];
 
   function show(which){
@@ -309,7 +312,7 @@ main{flex:1}
     qs("#q-score").textContent=correct+" dung";
     qs("#qz-learn-tag").textContent=TNAME;
     qs("#qz-word-en").textContent=a.word.en;
-    qs("#qz-word-ipa").textContent=a.word.ipa?"/"+a.word.ipa+"/":"";
+    qs("#qz-word-ipa").textContent=a.word.ipa||"";
     var box=qs("#qz-answers");box.innerHTML="";
     var label=["A","B","C","D"];
     a.opts.forEach(function(vi,i){
@@ -333,11 +336,11 @@ main{flex:1}
     var fb=qs("#qz-feedback");
     if(chosen===it.word.vi){
       btn.classList.add("correct");correct++;
-      fb.className="qz-feedback show good";fb.innerHTML="Chinh xac! <strong>"+it.word.en+"</strong> nghia la <strong>"+it.word.vi+"</strong>";
+      fb.className="qz-feedback show good";fb.innerHTML="Chính xác! <strong>"+esc(it.word.en)+"</strong> nghĩa là <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
     }else{
       btn.classList.add("wrong");
       for(var j=0;j<btns.length;j++)if(btns[j].querySelector(".qz-val").textContent===it.word.vi)btns[j].classList.add("correct");
-      fb.className="qz-feedback show bad";fb.innerHTML="Chua dung. Dap an dung: <strong>"+it.word.vi+"</strong>";
+      fb.className="qz-feedback show bad";fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
     }
     speak(it.word.en);
     qs("#q-score").textContent=correct+" dung";
@@ -348,6 +351,7 @@ main{flex:1}
     var ring=qs("#qz-score-ring");ring.style.setProperty("--p",pct);
     qs("#score-num").textContent=pct+"%";
     qs("#score-detail").textContent=correct+" / "+N+" cau dung";
+    qs("#rz-head").textContent=rzTitle(pct);
     qs("#rz-mode").textContent=TNAME;
     qs("#rz-note").textContent=pctLabel(pct);
     var h=getHistory();var newRec={ts:Date.now(),mode:TID,topicId:TID,modeName:TNAME,correct:correct,total:N,pct:pct};
