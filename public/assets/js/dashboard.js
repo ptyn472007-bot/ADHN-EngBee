@@ -140,6 +140,7 @@
     localStorage.removeItem(BEST_KEY);
     localStorage.removeItem("engbee_quiz_history");
     localStorage.removeItem("engbee_quiz_best");
+    localStorage.removeItem("eb_quiz_history");
     renderAll();
   }
 
