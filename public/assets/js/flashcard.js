@@ -3,6 +3,11 @@
   "use strict";
 
   var topics = (typeof EngBeeData !== "undefined" && EngBeeData.topics) || [];
+  // EngBee: áp dụng từ do Admin thêm / sửa / xóa và ẩn chủ đề bị tắt
+  if (window.EngBeeAdminData) {
+    topics.forEach(function (t) { t.words = window.EngBeeAdminData.apply(t.id, t.words); });
+    topics = topics.filter(function (t) { return !window.EngBeeAdminData.isTopicHidden(t.id); });
+  }
   if (!topics.length) return;
 
   var STORAGE_PREFIX = "engbee_learned_";

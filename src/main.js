@@ -17,6 +17,12 @@ const TOPICS = [
   { id: 'shopping', en: 'Shopping', vi: 'Mua sắm', emoji: '🛍️', g1: '#f97316', g2: '#ef4444', desc: 'Từ vựng về mua sắm, cửa hàng, giá cả và các hình thức thanh toán.' }
 ]
 
+// EngBee: chủ đề đang bị Admin tắt sẽ không hiện trên trang chủ
+const HIDDEN_TOPICS = (() => {
+  try { return JSON.parse(localStorage.getItem('engbee_admin_hidden_topics') || '[]') } catch (e) { return [] }
+})()
+const VISIBLE_TOPICS = TOPICS.filter((t) => !HIDDEN_TOPICS.includes(t.id))
+
 const NAV_LINKS = [
   { href: 'index.html', label: 'Trang chủ', active: true },
   { href: 'learn.html', label: 'Học từ vựng' },
@@ -123,7 +129,7 @@ document.querySelector('#app').innerHTML = `
         <p>Mỗi chủ đề gồm 50 từ vựng kèm phiên âm, nghĩa tiếng Việt và ví dụ minh họa.</p>
       </div>
       <div class="topic-grid">
-        ${TOPICS.map(topicCard).join('')}
+        ${VISIBLE_TOPICS.map(topicCard).join('')}
       </div>
     </div>
   </section>

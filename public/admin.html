@@ -1,81 +1,449 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EngBee - Quản trị</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EngBee - Trang quản trị</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="admin.css" />
 </head>
-<body>
-  <header class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
-        <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="30" fill="#fff3cc"/>
-          <ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/>
-          <rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-          <rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-          <circle cx="15" cy="38" r="11" fill="#f5b200"/>
-          <circle cx="12" cy="34" r="2" fill="#3a2a00"/>
-          <circle cx="18" cy="32" r="2" fill="#3a2a00"/>
-          <path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/>
-          <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
-          <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
-        </svg>
-        <span>EngBee</span>
+<body class="admin-body">
+
+  <!-- ============ ĐĂNG NHẬP ADMIN ============ -->
+  <div class="login-screen" id="loginScreen">
+    <form class="login-card" id="loginForm" novalidate>
+      <div class="login-bee">🐝</div>
+      <h1 class="login-card__title">EngBee Admin</h1>
+      <p class="login-card__sub">Quản trị toàn bộ nội dung của website</p>
+
+      <div class="form-group">
+        <label for="loginEmail">Tên đăng nhập</label>
+        <input type="text" id="loginUsername" class="input" placeholder="Nhập tên đăng nhập quản trị" autocomplete="username" />
+        <small class="error-text" id="errorLoginUsername"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Mật khẩu</label>
+        <input type="password" id="loginPassword" class="input" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+        <small class="error-text" id="errorLoginPassword"></small>
+      </div>
+
+      <p class="login-error" id="loginError" hidden></p>
+
+      <button type="submit" class="btn-primary login-card__btn">Đăng nhập</button>
+
+      <div class="login-demo">
+        <strong>Tài khoản quản trị</strong>
+        <span>Tên đăng nhập: <code>admin</code></span>
+        <span>Mật khẩu: <code>admin123</code></span>
+      </div>
+
+      <a class="login-back go-home" href="/">← Quay lại trang chủ</a>
+    </form>
+  </div>
+
+  <!-- ============ KHU VỰC QUẢN TRỊ ============ -->
+  <div class="app" id="appShell" hidden>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar__brand go-home" href="/">
+        <div class="brand__logo">🐝</div>
+        <div class="brand__text">
+          <strong>EngBee</strong>
+          <span>Trang quản trị</span>
+        </div>
       </a>
-      <nav class="nav-links">
-        <a href="index.html">Trang chủ</a>
-        <a href="flashcard.html">Học từ vựng</a>
-        <a href="quiz.html">Quiz</a>
-        </nav>
-    </div>
-  </header>
 
-  <main>
-    <section id="login-view" class="login-section">
-      <div class="container">
-        <div class="login-card">
-          <h2>Đăng nhập quản trị</h2>
-          <p class="login-note">Chỉ dành cho quản trị viên EngBee</p>
-          <form id="login-form" class="login-form" novalidate>
-            <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" name="username" placeholder="admin" autocomplete="username" required>
+      <nav class="sidebar__nav">
+        <p class="nav__title">Quản lý nội dung</p>
+        <button class="nav__item is-active" data-view="dashboard" type="button">
+          <span class="nav__icon">📊</span> Tổng quan
+        </button>
+        <button class="nav__item" data-view="words" type="button">
+          <span class="nav__icon">📚</span> Từ vựng
+        </button>
+        <button class="nav__item" data-view="topics" type="button">
+          <span class="nav__icon">🗂️</span> Chủ đề
+        </button>
 
-            <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+        <p class="nav__title">Quản lý người dùng</p>
+        <button class="nav__item" data-view="users" type="button">
+          <span class="nav__icon">👥</span> Người học
+        </button>
+        <button class="nav__item" data-view="results" type="button">
+          <span class="nav__icon">🏆</span> Kết quả Quiz
+        </button>
 
-            <p id="login-error" class="login-error" hidden>Sai tên đăng nhập hoặc mật khẩu.</p>
+        <p class="nav__title">Khác</p>
+        <button class="nav__item" data-view="settings" type="button">
+          <span class="nav__icon">⚙️</span> Cài đặt
+        </button>
+      </nav>
 
-            <button type="submit" class="btn-primary login-btn">Đăng nhập</button>
-          </form>
-        </div>
+      <div class="sidebar__footer">
+        <div class="lock-badge">🔒 Khu vực dành riêng cho Admin</div>
+        <a class="btn-reset-data go-home" href="/">← Về trang chủ</a>
       </div>
-    </section>
+    </aside>
 
-    <section id="admin-view" class="admin-section" hidden>
-      <div class="container">
-        <div class="admin-header">
-          <h2>Trang quản trị EngBee</h2>
-          <button id="logout-btn" type="button" class="btn-secondary">Đăng xuất</button>
-        </div>
-        <p>Chào mừng quản trị viên! Chức năng quản trị (thêm/sửa/xóa từ vựng, quản lý chủ đề...) sẽ được bổ sung sau.</p>
-        <div class="admin-placeholder">
-          <p>Khu vực quản trị (placeholder)</p>
-        </div>
-      </div>
-    </section>
-  </main>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p class="footer-logo">EngBee</p>
-      <p>Website học từ vựng tiếng Anh</p>
-      <p class="footer-copy">&copy; 2026 EngBee</p>
+    <!-- Nội dung -->
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-label="Mở menu">☰</button>
+        <div class="topbar__title">
+          <h2 id="viewTitle">Tổng quan</h2>
+          <p id="viewSubtitle">Nhìn toàn cảnh hoạt động của website EngBee</p>
+        </div>
+        <div class="topbar__user">
+          <span class="avatar" id="adminAvatar">A</span>
+          <div class="user__info">
+            <strong id="adminName">Quản trị viên</strong>
+            <span>Quyền: Admin</span>
+          </div>
+          <button class="btn-outline" id="btnLogout" type="button">Đăng xuất</button>
+        </div>
+      </header>
+
+      <main class="content">
+
+        <!-- ============ 1. TỔNG QUAN ============ -->
+        <section class="view is-active" id="view-dashboard">
+          <div class="page-head">
+            <div>
+              <h1>Tổng quan hệ thống</h1>
+              <p>Các số liệu quan trọng của website được cập nhật tự động.</p>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-card__icon" style="background:#fff8e6;color:#f0a500">🗂️</div>
+              <div><span class="stat-card__label">Chủ đề</span><strong class="stat-card__value" id="statTopics">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" style="background:#e8f5e9;color:#2e7d32">📚</div>
+              <div><span class="stat-card__label">Tổng số từ vựng</span><strong class="stat-card__value" id="statWords">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" style="background:#e3f2fd;color:#1565c0">✏️</div>
+              <div><span class="stat-card__label">Từ đã sửa / thêm / xóa</span><strong class="stat-card__value" id="statChanges">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" style="background:#fce4ec;color:#c2185b">👥</div>
+              <div><span class="stat-card__label">Người đã học</span><strong class="stat-card__value" id="statUsers">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" style="background:#fff3e0;color:#ef6c00">📝</div>
+              <div><span class="stat-card__label">Lượt làm Quiz</span><strong class="stat-card__value" id="statAttempts">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" style="background:#ede7f6;color:#5e35b1">⭐</div>
+              <div><span class="stat-card__label">Điểm trung bình</span><strong class="stat-card__value" id="statAvg">0</strong></div>
+            </div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel__head"><h3>Thay đổi của Admin</h3></div>
+              <div class="panel__body">
+                <ul class="summary-list" id="adminChangeList">
+                  <li class="summary-empty">Chưa có thay đổi nào.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Người học gần đây</h3></div>
+              <div class="panel__body">
+                <ul class="summary-list" id="recentUserList">
+                  <li class="summary-empty">Chưa có dữ liệu người học.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 2. TỪ VỰNG ============ -->
+        <section class="view" id="view-words">
+          <div class="page-head">
+            <div>
+              <h1>Quản lý từ vựng</h1>
+              <p>Thêm, sửa, xóa từ của từng chủ đề. Thay đổi có hiệu lực ngay trên trang học và quiz.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn-primary btn-sm" id="btnRestoreWords" type="button">↺ Khôi phục từ gốc</button>
+              <button class="btn-primary" id="btnAddWord" type="button">＋ Thêm từ</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__toolbar">
+              <label class="label-inline" for="wordTopicFilter">Chủ đề:</label>
+              <select id="wordTopicFilter" class="input input-select"></select>
+
+              <div class="search-box">
+                <input type="text" id="wordSearch" class="input" placeholder="Tìm từ tiếng Anh hoặc nghĩa tiếng Việt..." />
+              </div>
+            </div>
+
+            <div class="panel__info">
+              <span id="wordCountInfo">0 từ</span>
+            </div>
+
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th-stt">STT</th>
+                    <th>Từ tiếng Anh</th>
+                    <th class="th-ipa">Phiên âm</th>
+                    <th>Nghĩa tiếng Việt</th>
+                    <th class="th-status">Trạng thái</th>
+                    <th class="th-action">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="wordBody"></tbody>
+              </table>
+
+              <div class="empty" id="wordEmpty" hidden>
+                <div class="empty__icon">🔍</div>
+                <h3>Không tìm thấy từ nào</h3>
+                <p>Thử từ khóa khác hoặc bấm <b>Thêm từ</b> để thêm mới.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 3. CHỦ ĐỀ ============ -->
+        <section class="view" id="view-topics">
+          <div class="page-head">
+            <div>
+              <h1>Quản lý chủ đề</h1>
+              <p>Bật hoặc tắt một chủ đề sẽ ẩn nó khỏi menu học và quiz của người học.</p>
+            </div>
+          </div>
+          <div class="topic-grid" id="topicGrid"></div>
+        </section>
+
+        <!-- ============ 4. NGƯỜI HỌC ============ -->
+        <section class="view" id="view-users">
+          <div class="page-head">
+            <div>
+              <h1>Người học</h1>
+              <p>Website lưu tiến độ của từng người trên trình duyệt của họ.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th-stt">STT</th>
+                    <th>Tên người học</th>
+                    <th>Từ đã học</th>
+                    <th>Điểm cao nhất</th>
+                    <th>Số chủ đề đã học</th>
+                    <th class="th-action">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="userBody"></tbody>
+              </table>
+              <div class="empty" id="userEmpty" hidden>
+                <div class="empty__icon">👤</div>
+                <h3>Chưa có dữ liệu người học</h3>
+                <p>Người dùng đăng nhập tại trang <b>Đăng nhập</b> sẽ xuất hiện ở đây.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 5. KẾT QUẢ QUIZ ============ -->
+        <section class="view" id="view-results">
+          <div class="page-head">
+            <div>
+              <h1>Kết quả Quiz</h1>
+              <p>Lịch sử làm bài của toàn bộ người học, mới nhất trước.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn-primary btn-sm btn-danger" id="btnClearResults" type="button">🗑️ Xóa toàn bộ kết quả</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th-stt">STT</th>
+                    <th>Thời gian</th>
+                    <th>Chủ đề</th>
+                    <th>Số câu đúng</th>
+                    <th>Điểm (%)</th>
+                    <th>Kết quả</th>
+                  </tr>
+                </thead>
+                <tbody id="resultBody"></tbody>
+              </table>
+              <div class="empty" id="resultEmpty" hidden>
+                <div class="empty__icon">🏆</div>
+                <h3>Chưa có kết quả Quiz</h3>
+                <p>Khi người học làm bài, kết quả sẽ hiển thị ở đây.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 6. CÀI ĐẶT ============ -->
+        <section class="view" id="view-settings">
+          <div class="page-head">
+            <div>
+              <h1>Cài đặt &amp; bảo trì</h1>
+              <p>Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này.</p>
+            </div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel__head"><h3>Khôi phục từ vựng</h3></div>
+              <div class="panel__body">
+                <p class="panel__text">Xóa toàn bộ từ đã thêm, sửa, xóa và bật lại các chủ đề đang bị tắt.</p>
+                <button class="btn-primary btn-sm" id="btnResetWords" type="button">↺ Khôi phục từ vựng gốc</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Sao lưu dữ liệu Admin</h3></div>
+              <div class="panel__body">
+                <p class="panel__text">Tải file JSON chứa toàn bộ thay đổi của Admin, hoặc nạp lại từ file đã lưu.</p>
+                <div class="head-actions">
+                  <button class="btn-primary btn-sm" id="btnExport" type="button">⬇ Tải file JSON</button>
+                  <button class="btn-primary btn-sm" id="btnImport" type="button">⬆ Nạp từ file</button>
+                </div>
+                <input type="file" id="importFile" accept="application/json" hidden />
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Xóa dữ liệu người học</h3></div>
+              <div class="panel__body">
+                <p class="panel__text">Xóa toàn bộ tiến độ học và kết quả quiz của mọi người dùng trên trình duyệt này.</p>
+                <button class="btn-primary btn-sm btn-danger" id="btnClearUserData" type="button">🗑️ Xóa dữ liệu người học</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Đặt lại toàn bộ</h3></div>
+              <div class="panel__body">
+                <p class="panel__text panel__text--warn">Xóa sạch mọi dữ liệu EngBee trên trình duyệt này, kể cả thông tin đăng nhập. Không thể hoàn tác.</p>
+                <button class="btn-primary btn-sm btn-danger" id="btnResetAll" type="button">⚠ Xóa toàn bộ dữ liệu</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head"><h3>Thông tin hệ thống</h3></div>
+            <div class="panel__body">
+              <table class="info-table">
+                <tbody>
+                  <tr><td>Đăng nhập quản trị</td><td>Chỉ tài khoản Admin được vào trang này</td></tr>
+                  <tr><td>Nơi lưu dữ liệu</td><td>LocalStorage của trình duyệt</td></tr>
+                  <tr><td>Phạm vi quản trị</td><td>Từ vựng, chủ đề, người học, kết quả Quiz</td></tr>
+                  <tr><td>Trạng thái phiên</td><td id="infoSession">-</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
     </div>
-  </footer>
+  </div>
+
+  <!-- ============ MODAL THÊM / SỬA TỪ ============ -->
+  <div class="modal" id="wordModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="wordModalTitle">
+      <div class="modal__head">
+        <h3 id="wordModalTitle">Thêm từ mới</h3>
+        <button class="icon-btn" type="button" data-close="true" aria-label="Đóng">✕</button>
+      </div>
+
+      <form id="wordForm" novalidate>
+        <div class="modal__body">
+          <input type="hidden" id="inputKey" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputEn">Từ tiếng Anh <span class="required">*</span></label>
+              <input type="text" id="inputEn" class="input" placeholder="apple" autocomplete="off" />
+              <small class="error-text" id="errorEn"></small>
+            </div>
+            <div class="form-group">
+              <label for="inputTopic">Chủ đề <span class="required">*</span></label>
+              <select id="inputTopic" class="input"></select>
+              <small class="error-text" id="errorTopicField"></small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputVi">Nghĩa tiếng Việt <span class="required">*</span></label>
+            <input type="text" id="inputVi" class="input" placeholder="quả táo" autocomplete="off" />
+            <small class="error-text" id="errorVi"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="inputIpa">Phiên âm</label>
+            <input type="text" id="inputIpa" class="input" placeholder="/ˈæp.əl/" autocomplete="off" />
+            <small class="error-text" id="errorIpa"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="inputEx">Ví dụ (tiếng Anh)</label>
+            <input type="text" id="inputEx" class="input" placeholder="I eat an apple every day." autocomplete="off" />
+            <small class="error-text" id="errorEx"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="inputExVi">Dịch ví dụ</label>
+            <input type="text" id="inputExVi" class="input" placeholder="Tôi ăn một quả táo mỗi ngày." autocomplete="off" />
+            <small class="error-text" id="errorExVi"></small>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
+          <button type="submit" class="btn-primary">Lưu lại</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL XÁC NHẬN ============ -->
+  <div class="modal" id="confirmModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true">
+      <div class="modal__head">
+        <h3 id="confirmTitle">Xác nhận</h3>
+        <button class="icon-btn" type="button" data-close="true" aria-label="Đóng">✕</button>
+      </div>
+      <div class="modal__body">
+        <p class="confirm-text" id="confirmText">Bạn có chắc không?</p>
+        <p class="confirm-note" id="confirmNote">Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
+        <button type="button" class="btn-primary btn-danger" id="btnConfirmOk">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
 
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/admin.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>
