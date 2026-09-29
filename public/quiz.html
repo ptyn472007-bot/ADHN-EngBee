@@ -69,6 +69,7 @@ main{flex:1}
 .qch-note b{color:#374151}
 @media(max-width:640px){.qch-all{padding:22px}.qch-btn{width:100%;justify-content:center}}
 </style>
+  <script src="assets/js/engbee-admin-data.js"></script>
 </head>
 <body>
 <header class="navbar">
@@ -159,6 +160,10 @@ main{flex:1}
   ];
   function hist(){try{return JSON.parse(localStorage.getItem("eb_quiz_history")||"[]");}catch(e){return [];}}
   function bestOf(id){var h=hist(),b=0;for(var i=0;i<h.length;i++){if(h[i].mode===id&&h[i].pct>b)b=h[i].pct;}return b;}
+  // EngBee: chủ đề đang bị Admin tắt sẽ không hiện
+  if (window.EngBeeAdminData) {
+    TOPICS = TOPICS.filter(function(t){ return !window.EngBeeAdminData.isTopicHidden(t.id); });
+  }
   var grid=document.getElementById("qch-grid");
   grid.innerHTML=TOPICS.map(function(t){
     var best=bestOf(t.id);

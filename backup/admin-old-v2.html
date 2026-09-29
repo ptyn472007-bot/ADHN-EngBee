@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EngBee - Quản trị</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+        <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="30" fill="#fff3cc"/>
+          <ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/>
+          <rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
+          <rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
+          <circle cx="15" cy="38" r="11" fill="#f5b200"/>
+          <circle cx="12" cy="34" r="2" fill="#3a2a00"/>
+          <circle cx="18" cy="32" r="2" fill="#3a2a00"/>
+          <path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
+          <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
+        </svg>
+        <span>EngBee</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="flashcard.html">Học từ vựng</a>
+        <a href="quiz.html">Quiz</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="login-view" class="login-section">
+      <div class="container">
+        <div class="login-card">
+          <h2>Đăng nhập quản trị</h2>
+          <p class="login-note">Chỉ dành cho quản trị viên EngBee</p>
+          <form id="login-form" class="login-form" novalidate>
+            <label for="username">Tên đăng nhập</label>
+            <input type="text" id="username" name="username" placeholder="admin" autocomplete="username" required>
+
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+
+            <p id="login-error" class="login-error" hidden>Sai tên đăng nhập hoặc mật khẩu.</p>
+
+            <button type="submit" class="btn-primary login-btn">Đăng nhập</button>
+          </form>
+          <p class="login-help">Tài khoản mẫu: <strong>admin</strong> / <strong>admin123</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin-view" class="admin-section" hidden>
+      <div class="container">
+        <div class="admin-header">
+          <div>
+            <h2>Trang quản trị EngBee</h2>
+            <p class="admin-sub">Quản lý kho từ vựng của toàn bộ chủ đề. Mọi thay đổi được lưu trên trình duyệt này.</p>
+          </div>
+          <div class="admin-header-actions">
+            <button id="btn-add-word" type="button" class="admin-btn admin-btn-primary">+ Thêm từ</button>
+            <button id="btn-reset-data" type="button" class="admin-btn admin-btn-outline">Khôi phục dữ liệu gốc</button>
+            <button id="logout-btn" type="button" class="btn-secondary">Đăng xuất</button>
+          </div>
+        </div>
+
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <span class="admin-stat-value" id="stat-total">0</span>
+            <span class="admin-stat-label">Tổng số từ</span>
+          </div>
+          <div class="admin-stat is-added">
+            <span class="admin-stat-value" id="stat-added">0</span>
+            <span class="admin-stat-label">Từ đã thêm</span>
+          </div>
+          <div class="admin-stat is-edited">
+            <span class="admin-stat-value" id="stat-edited">0</span>
+            <span class="admin-stat-label">Từ đã sửa</span>
+          </div>
+          <div class="admin-stat is-removed">
+            <span class="admin-stat-value" id="stat-removed">0</span>
+            <span class="admin-stat-label">Từ đã xóa</span>
+          </div>
+        </div>
+
+        <div class="admin-toolbar">
+          <div class="admin-search">
+            <input type="search" id="admin-search" placeholder="Tìm theo từ, nghĩa hoặc ví dụ..." autocomplete="off" aria-label="Tìm từ vựng">
+          </div>
+          <select id="admin-topic-filter" class="admin-select" aria-label="Lọc theo chủ đề">
+            <option value="">Tất cả chủ đề</option>
+          </select>
+          <select id="admin-sort" class="admin-select" aria-label="Sắp xếp danh sách">
+            <option value="topic">Sắp xếp: Chủ đề</option>
+            <option value="en-asc">Từ A - Z</option>
+            <option value="en-desc">Từ Z - A</option>
+            <option value="new">Mới nhất</option>
+          </select>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-head">
+            <h3>Danh sách từ vựng</h3>
+            <span class="admin-count" id="admin-result-count">0 từ</span>
+          </div>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Từ vựng</th>
+                  <th scope="col">Nghĩa tiếng Việt</th>
+                  <th scope="col">Ví dụ</th>
+                  <th scope="col">Chủ đề</th>
+                  <th scope="col">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="admin-word-rows"></tbody>
+            </table>
+          </div>
+
+          <p class="admin-empty" id="admin-empty" hidden>
+            <strong>Không tìm thấy từ vựng nào</strong>
+            Thử đổi từ khóa, chọn chủ đề khác hoặc bấm “Thêm từ” để tạo từ mới.
+          </p>
+
+          <div class="admin-pager">
+            <button id="page-prev" type="button" class="admin-btn admin-btn-ghost admin-btn-sm">Trang trước</button>
+            <span class="admin-page-info" id="page-info">Trang 1 / 1</span>
+            <button id="page-next" type="button" class="admin-btn admin-btn-ghost admin-btn-sm">Trang sau</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-logo">EngBee</p>
+      <p>Website học từ vựng tiếng Anh</p>
+      <p class="footer-copy">&copy; 2026 EngBee</p>
+    </div>
+  </footer>
+
+  <!-- Modal thêm / sửa từ -->
+  <div id="word-modal" class="modal" hidden>
+    <div class="modal-overlay" data-modal-close></div>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="word-modal-title">
+      <div class="modal-head">
+        <div>
+          <h3 id="word-modal-title">Thêm từ mới</h3>
+          <p id="word-modal-sub">Các trường có dấu * là bắt buộc.</p>
+        </div>
+        <button type="button" class="modal-close" data-modal-close aria-label="Đóng">&times;</button>
+      </div>
+
+      <form id="word-form" novalidate>
+        <div class="field">
+          <label for="f-topic">Chủ đề <span class="req">*</span></label>
+          <select id="f-topic" name="topic"></select>
+          <p class="field-error" data-error="topic" hidden></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-en">Từ tiếng Anh <span class="req">*</span></label>
+            <input type="text" id="f-en" name="en" maxlength="60" placeholder="Ví dụ: journey" autocomplete="off">
+            <p class="field-error" data-error="en" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-ipa">Phiên âm (IPA)</label>
+            <input type="text" id="f-ipa" name="ipa" maxlength="80" placeholder="/ˈdʒɜːrni/" autocomplete="off">
+            <p class="field-error" data-error="ipa" hidden></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-vi">Nghĩa tiếng Việt <span class="req">*</span></label>
+          <input type="text" id="f-vi" name="vi" maxlength="80" placeholder="Ví dụ: hành trình" autocomplete="off">
+          <p class="field-error" data-error="vi" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="f-ex">Câu ví dụ (tiếng Anh)</label>
+          <textarea id="f-ex" name="ex" rows="2" maxlength="200" placeholder="The journey was unforgettable."></textarea>
+          <p class="field-error" data-error="ex" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="f-exvi">Dịch câu ví dụ (tiếng Việt)</label>
+          <textarea id="f-exvi" name="exvi" rows="2" maxlength="200" placeholder="Chuyến đi thật khó quên."></textarea>
+          <p class="field-error" data-error="exvi" hidden></p>
+        </div>
+
+        <p class="form-alert" id="form-alert" hidden></p>
+
+        <div class="modal-foot">
+          <button type="button" class="admin-btn admin-btn-ghost" data-modal-close>Hủy</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="word-form-submit">Lưu lại</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal xác nhận -->
+  <div id="confirm-modal" class="modal" hidden>
+    <div class="modal-overlay" data-modal-close></div>
+    <div class="modal-box is-small" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+      <div class="modal-head">
+        <h3 id="confirm-title">Xác nhận</h3>
+      </div>
+      <p class="modal-text" id="confirm-text">Bạn có chắc chứ?</p>
+      <div class="modal-foot">
+        <button type="button" class="admin-btn admin-btn-ghost" data-modal-close>Huỷ</button>
+        <button type="button" class="admin-btn admin-btn-outline" id="confirm-ok">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="admin-toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
