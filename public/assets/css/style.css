@@ -154,8 +154,8 @@ img {
 
 .btn-primary {
   display: inline-block;
-  background-color: #ffffff;
-  color: #f0a500;
+  background: linear-gradient(135deg, #f0a500, #ffb52e);
+  color: #ffffff;
   font-weight: bold;
   padding: 14px 36px;
   border-radius: 30px;
