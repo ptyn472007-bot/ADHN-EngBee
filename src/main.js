@@ -21,8 +21,11 @@ const NAV_LINKS = [
   { href: 'index.html', label: 'Trang chủ', active: true },
   { href: 'learn.html', label: 'Học từ vựng' },
   { href: 'quiz.html', label: 'Quiz' },
+  { href: 'dashboard.html', label: 'Dashboard' },
   { href: 'login.html', label: 'Đăng nhập' }
 ]
+
+const userMenuLabel = () => (isLoggedIn() ? 'Đăng xuất' : 'Đăng nhập')
 
 const WORD_COUNT = 50
 
@@ -34,6 +37,15 @@ function currentUserName() {
     // bỏ qua
   }
   return 'guest'
+}
+
+function isLoggedIn() {
+  return currentUserName() !== 'guest'
+}
+
+function logout() {
+  localStorage.removeItem('engbee_user')
+  window.location.reload()
 }
 
 // Key lưu học được gắn tên người dùng để mỗi tài khoản có dữ liệu riêng
@@ -73,7 +85,11 @@ document.querySelector('#app').innerHTML = `
   <div class="container navbar-inner">
     <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">${BEE_LOGO}<span>EngBee</span></a>
     <nav class="nav-links" id="nav-links">
-      ${NAV_LINKS.map((l) => `<a href="${l.href}" class="${l.active ? 'active' : ''}">${l.label}</a>`).join('')}
+      ${NAV_LINKS.map((l) => l.href === 'login.html'
+        ? (isLoggedIn()
+          ? '<a href="#" id="nav-logout">Đăng xuất</a>'
+          : `<a href="login.html">${l.label}</a>`)
+        : `<a href="${l.href}" class="${l.active ? 'active' : ''}">${l.label}</a>`).join('')}
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
   </div>
@@ -157,7 +173,8 @@ document.querySelector('#app').innerHTML = `
       <a href="index.html">Trang chủ</a>
       <a href="learn.html">Học từ vựng</a>
       <a href="quiz.html">Quiz</a>
-      <a href="login.html">Đăng nhập</a>
+      <a href="dashboard.html">Dashboard</a>
+      ${isLoggedIn() ? '<a href="#" id="footer-logout">Đăng xuất</a>' : '<a href="login.html">Đăng nhập</a>'}
     </div>
     <div class="footer-contact">
       <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
@@ -178,3 +195,8 @@ if (toggle && navLinks) {
     toggle.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu')
   })
 }
+
+const navLogout = document.getElementById('nav-logout')
+if (navLogout) navLogout.addEventListener('click', (e) => { e.preventDefault(); logout() })
+const footerLogout = document.getElementById('footer-logout')
+if (footerLogout) footerLogout.addEventListener('click', (e) => { e.preventDefault(); logout() })
