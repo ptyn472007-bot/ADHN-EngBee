@@ -49,7 +49,7 @@ const el = {
   // từ vựng
   btnAddWord: $("btnAddWord"), btnRestoreWords: $("btnRestoreWords"),
   wordTopicFilter: $("wordTopicFilter"), wordSearch: $("wordSearch"),
-  wordCountInfo: $("wordCountInfo"), wordBody: $("wordBody"), wordEmpty: $("wordEmpty"),
+  wordCountInfo: $("wordCountInfo"), wordBody: $("wordBody"), wordEmpty: $("wordEmpty"), wordPagination: $("wordPagination"),
   // chủ đề
   topicGrid: $("topicGrid"),
   // người học
@@ -363,6 +363,9 @@ function renderDashboard() {
 
 /* ================= PHẦN 9: RENDER TỪ VỰNG ================= */
 
+const WORD_PAGE_SIZE = 10;   // số từ mỗi trang
+let wordPage = 1;            // trang hiện tại của danh sách từ
+
 function renderWordSelect() {
   const current = el.wordTopicFilter.value || "all";
   el.wordTopicFilter.innerHTML = '<option value="all">Tất cả chủ đề</option>';
@@ -389,11 +392,20 @@ function renderWords() {
     });
   });
 
-  el.wordCountInfo.textContent = "Đang hiển thị " + fmt(rows.length) + " từ";
-  el.wordBody.innerHTML = "";
-  el.wordEmpty.hidden = rows.length > 0;
+  const total = rows.length;
+  const totalPages = Math.max(1, Math.ceil(total / WORD_PAGE_SIZE));
+  if (wordPage > totalPages) wordPage = totalPages;
+  if (wordPage < 1) wordPage = 1;
+  const start = (wordPage - 1) * WORD_PAGE_SIZE;
+  const pageRows = rows.slice(start, start + WORD_PAGE_SIZE);
 
-  rows.forEach(function (row, index) {
+  el.wordCountInfo.textContent = total === 0
+    ? "Không có từ nào"
+    : "Đang hiển thị " + fmt(start + 1) + "–" + fmt(start + pageRows.length) + " / " + fmt(total) + " từ";
+  el.wordBody.innerHTML = "";
+  el.wordEmpty.hidden = total > 0;
+
+  pageRows.forEach(function (row, index) {
     const tr = document.createElement("tr");
     const w = row.word;
     const statusTag = w.status === "added" ? '<span class="tag tag--added">Đã thêm</span>'
@@ -401,7 +413,7 @@ function renderWords() {
       : '<span class="tag tag--base">Gốc</span>';
 
     tr.innerHTML =
-      '<td class="td-stt">' + (index + 1) + "</td>" +
+      '<td class="td-stt">' + (start + index + 1) + "</td>" +
       "<td><b class=\"td-en\">" + esc(w.en) + '</b><br><small style="color:#999">' + esc(row.topic.name) + "</small></td>" +
       '<td class="td-ipa">' + esc(w.ipa) + "</td>" +
       "<td>" + esc(w.vi) + "</td>" +
@@ -413,6 +425,35 @@ function renderWords() {
 
     el.wordBody.appendChild(tr);
   });
+
+  renderWordPagination(totalPages);
+}
+
+// Danh sách số trang rút gọn (1 … 4 5 6 … 24)
+function pageList(total, current) {
+  if (total <= 7) {
+    const out = [];
+    for (let i = 1; i <= total; i++) out.push(i);
+    return out;
+  }
+  const out = [1];
+  if (current > 3) out.push("...");
+  for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) out.push(i);
+  if (current < total - 2) out.push("...");
+  out.push(total);
+  return out;
+}
+
+function renderWordPagination(totalPages) {
+  const wrap = el.wordPagination;
+  if (totalPages <= 1) { wrap.innerHTML = ""; return; }
+  let html = '<button type="button" data-pg="prev"' + (wordPage <= 1 ? " disabled" : "") + '>‹ Trước</button>';
+  pageList(totalPages, wordPage).forEach(function (p) {
+    if (p === "...") html += '<span class="pagination__ellipsis">…</span>';
+    else html += '<button type="button"' + (p === wordPage ? ' class="is-active"' : "") + ' data-pg="' + p + '">' + p + "</button>";
+  });
+  html += '<button type="button" data-pg="next"' + (wordPage >= totalPages ? " disabled" : "") + '>Sau ›</button>';
+  wrap.innerHTML = html;
 }
 
 /* ================= PHẦN 10: RENDER CHỦ ĐỀ ================= */
@@ -989,7 +1030,14 @@ el.sidebarOverlay.addEventListener("click", function () {
 
 // Chuyển khu vực
 document.querySelectorAll(".nav__item").forEach(function (btn) {
-  btn.addEventListener("click", function () { switchView(btn.getAttribute("data-view")); });
+  btn.addEventListener("click", function () {
+    const view = btn.getAttribute("data-view");
+    switchView(view);
+    const target = $("view-" + view);
+    if (target && target.scrollIntoView) {
+      target.scrollIntoView();
+    }
+  });
 });
 
 // Đăng nhập / đăng xuất
@@ -1006,8 +1054,23 @@ el.wordBody.addEventListener("click", function (event) {
 });
 
 // Bộ lọc và tìm kiếm từ vựng
-el.wordTopicFilter.addEventListener("change", renderWords);
-el.wordSearch.addEventListener("input", renderWords);
+el.wordTopicFilter.addEventListener("change", function () { wordPage = 1; renderWords(); });
+  el.wordSearch.addEventListener("input", function () { wordPage = 1; renderWords(); });
+
+  // Phân trang danh sách từ vựng
+  el.wordPagination.addEventListener("click", function (event) {
+    const btn = event.target.closest("button[data-pg]");
+    if (!btn || btn.disabled) return;
+    const pg = btn.getAttribute("data-pg");
+    let next = wordPage;
+    if (pg === "prev") next -= 1;
+    else if (pg === "next") next += 1;
+    else next = Number(pg);
+    if (next >= 1) {
+      wordPage = next;
+      renderWords();
+    }
+  });
 el.btnAddWord.addEventListener("click", function () { openWordModal("add", ""); });
 el.btnRestoreWords.addEventListener("click", resetWords);
 
