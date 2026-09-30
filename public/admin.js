@@ -73,13 +73,15 @@ const el = {
   toastWrap: $("toastWrap")
 };
 
+const VIEW_ORDER = ["dashboard", "words", "topics", "users", "results", "settings"];
+
 const VIEW_INFO = {
   dashboard: ["Tổng quan", "Nhìn toàn cảnh hoạt động của website EngBee"],
   words: ["Quản lý từ vựng", "Thêm, sửa, xóa từ vựng của các chủ đề"],
   topics: ["Quản lý chủ đề", "Bật hoặc tắt chủ đề cho người học"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
-  settings: ["Cài đặt", "Sao lưu và khôi phục dữ liệu"]
+  settings: ["Cài đặt & bảo trì", "Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này"]
 };
 
 /* ================= PHẦN 4: HÀM TIỆN ÍCH ================= */
@@ -181,8 +183,9 @@ function showAdminArea(session) {
 function enterAdmin(session) {
   showAdminArea(session);
   renderTopicSelects();
-  switchView("dashboard");
   renderAll();
+  updateActiveNav("dashboard");
+  window.scrollTo(0, 0);
 }
 
 // Chặn mọi thao tác nếu phiên không còn hợp lệ
@@ -293,26 +296,102 @@ function isCustomWord(en) {
   });
 }
 
-/* ================= PHẦN 7: CHUYỂN TRANG ================= */
+/* ================= PHẦN 7: CHUYỂN TRANG & CUỘN TỰ ĐỘNG (SCROLLSPY) ================= */
 
-function switchView(view) {
+let isScrollingFromClick = false;
+let scrollTimeout = null;
+
+function updateActiveNav(view) {
+  if (!view) return;
   currentView = view;
-  document.querySelectorAll(".view").forEach(function (v) { v.classList.remove("is-active"); });
-  const target = $("view-" + view);
-  if (target) target.classList.add("is-active");
 
+  // Cập nhật trạng thái active trên sidebar
   document.querySelectorAll(".nav__item").forEach(function (b) {
     b.classList.toggle("is-active", b.getAttribute("data-view") === view);
   });
 
+  // Cập nhật class is-active cho khu vực view
+  document.querySelectorAll(".view").forEach(function (v) {
+    v.classList.toggle("is-active", v.id === "view-" + view);
+  });
+
+  // Cập nhật tiêu đề trên topbar
   const info = VIEW_INFO[view] || ["", ""];
-  el.viewTitle.textContent = info[0];
-  el.viewSubtitle.textContent = info[1];
-  renderAll();
+  if (el.viewTitle) el.viewTitle.textContent = info[0];
+  if (el.viewSubtitle) el.viewSubtitle.textContent = info[1];
+}
+
+function switchView(view, smooth) {
+  const target = $("view-" + view);
+  if (!target) return;
+
+  updateActiveNav(view);
 
   // Đóng menu trên điện thoại
-  el.sidebar.classList.remove("is-open");
-  el.sidebarOverlay.classList.remove("is-open");
+  if (el.sidebar) el.sidebar.classList.remove("is-open");
+  if (el.sidebarOverlay) el.sidebarOverlay.classList.remove("is-open");
+
+  const topbar = document.querySelector(".topbar");
+  const topbarHeight = topbar ? topbar.offsetHeight : 70;
+  const targetTop = target.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - topbarHeight - 16;
+
+  if (smooth !== false) {
+    isScrollingFromClick = true;
+    clearTimeout(scrollTimeout);
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: "smooth"
+    });
+    scrollTimeout = setTimeout(function () {
+      isScrollingFromClick = false;
+    }, 850);
+  } else {
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: "auto"
+    });
+  }
+}
+
+function getActiveViewFromScroll() {
+  const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+
+  // Nếu đã cuộn gần đến cuối trang -> kích hoạt view cuối (Cài đặt)
+  if (scrollY + windowHeight >= documentHeight - 60) {
+    return VIEW_ORDER[VIEW_ORDER.length - 1];
+  }
+
+  const topbar = document.querySelector(".topbar");
+  const topbarHeight = topbar ? topbar.offsetHeight : 70;
+  // Điểm mốc để nhận diện section đang đọc (ngay dưới header)
+  const threshold = topbarHeight + 60;
+
+  let active = VIEW_ORDER[0];
+  for (let i = 0; i < VIEW_ORDER.length; i++) {
+    const v = VIEW_ORDER[i];
+    const section = $("view-" + v);
+    if (!section) continue;
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= threshold) {
+      active = v;
+    } else {
+      break;
+    }
+  }
+  return active;
+}
+
+function handleScroll() {
+  if (isScrollingFromClick) return;
+  if (!getSession()) return;
+  if (el.appShell && el.appShell.hidden) return;
+
+  const activeView = getActiveViewFromScroll();
+  if (activeView && activeView !== currentView) {
+    updateActiveNav(activeView);
+  }
 }
 
 /* ================= PHẦN 8: RENDER TỔNG QUAN ================= */
@@ -1032,13 +1111,33 @@ el.sidebarOverlay.addEventListener("click", function () {
 document.querySelectorAll(".nav__item").forEach(function (btn) {
   btn.addEventListener("click", function () {
     const view = btn.getAttribute("data-view");
-    switchView(view);
-    const target = $("view-" + view);
-    if (target && target.scrollIntoView) {
-      target.scrollIntoView();
+    if (view) {
+      switchView(view, true);
     }
   });
 });
+
+// Tự động nhận diện phần đang xem khi cuộn trang (Scrollspy)
+let scrollTicking = false;
+window.addEventListener("scroll", function () {
+  if (!scrollTicking) {
+    window.requestAnimationFrame(function () {
+      handleScroll();
+      scrollTicking = false;
+    });
+    scrollTicking = true;
+  }
+}, { passive: true });
+
+window.addEventListener("resize", function () {
+  if (!scrollTicking) {
+    window.requestAnimationFrame(function () {
+      handleScroll();
+      scrollTicking = false;
+    });
+    scrollTicking = true;
+  }
+}, { passive: true });
 
 // Đăng nhập / đăng xuất
 el.loginForm.addEventListener("submit", handleLogin);
