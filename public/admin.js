@@ -15,6 +15,7 @@ const KEY_USER = "engbee_user";                      // người dùng hiện t�
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
 const PREFIX_BEST = "engbee_quiz_best_";              // điểm cao nhất
+const USERS_REGISTRY_KEY = "engbee_users";            // danh sách mọi người đã học
 const SESSION_TTL = 8 * 60 * 60 * 1000;              // 8 giờ
 
 // Chỉ tài khoản này được vào trang quản trị
@@ -48,7 +49,7 @@ const el = {
   // từ vựng
   btnAddWord: $("btnAddWord"), btnRestoreWords: $("btnRestoreWords"),
   wordTopicFilter: $("wordTopicFilter"), wordSearch: $("wordSearch"),
-  wordCountInfo: $("wordCountInfo"), wordBody: $("wordBody"), wordEmpty: $("wordEmpty"),
+  wordCountInfo: $("wordCountInfo"), wordBody: $("wordBody"), wordEmpty: $("wordEmpty"), wordPagination: $("wordPagination"),
   // chủ đề
   topicGrid: $("topicGrid"),
   // người học
@@ -362,6 +363,9 @@ function renderDashboard() {
 
 /* ================= PHẦN 9: RENDER TỪ VỰNG ================= */
 
+const WORD_PAGE_SIZE = 10;   // số từ mỗi trang
+let wordPage = 1;            // trang hiện tại của danh sách từ
+
 function renderWordSelect() {
   const current = el.wordTopicFilter.value || "all";
   el.wordTopicFilter.innerHTML = '<option value="all">Tất cả chủ đề</option>';
@@ -388,11 +392,20 @@ function renderWords() {
     });
   });
 
-  el.wordCountInfo.textContent = "Đang hiển thị " + fmt(rows.length) + " từ";
-  el.wordBody.innerHTML = "";
-  el.wordEmpty.hidden = rows.length > 0;
+  const total = rows.length;
+  const totalPages = Math.max(1, Math.ceil(total / WORD_PAGE_SIZE));
+  if (wordPage > totalPages) wordPage = totalPages;
+  if (wordPage < 1) wordPage = 1;
+  const start = (wordPage - 1) * WORD_PAGE_SIZE;
+  const pageRows = rows.slice(start, start + WORD_PAGE_SIZE);
 
-  rows.forEach(function (row, index) {
+  el.wordCountInfo.textContent = total === 0
+    ? "Không có từ nào"
+    : "Đang hiển thị " + fmt(start + 1) + "–" + fmt(start + pageRows.length) + " / " + fmt(total) + " từ";
+  el.wordBody.innerHTML = "";
+  el.wordEmpty.hidden = total > 0;
+
+  pageRows.forEach(function (row, index) {
     const tr = document.createElement("tr");
     const w = row.word;
     const statusTag = w.status === "added" ? '<span class="tag tag--added">Đã thêm</span>'
@@ -400,7 +413,7 @@ function renderWords() {
       : '<span class="tag tag--base">Gốc</span>';
 
     tr.innerHTML =
-      '<td class="td-stt">' + (index + 1) + "</td>" +
+      '<td class="td-stt">' + (start + index + 1) + "</td>" +
       "<td><b class=\"td-en\">" + esc(w.en) + '</b><br><small style="color:#999">' + esc(row.topic.name) + "</small></td>" +
       '<td class="td-ipa">' + esc(w.ipa) + "</td>" +
       "<td>" + esc(w.vi) + "</td>" +
@@ -412,6 +425,35 @@ function renderWords() {
 
     el.wordBody.appendChild(tr);
   });
+
+  renderWordPagination(totalPages);
+}
+
+// Danh sách số trang rút gọn (1 … 4 5 6 … 24)
+function pageList(total, current) {
+  if (total <= 7) {
+    const out = [];
+    for (let i = 1; i <= total; i++) out.push(i);
+    return out;
+  }
+  const out = [1];
+  if (current > 3) out.push("...");
+  for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) out.push(i);
+  if (current < total - 2) out.push("...");
+  out.push(total);
+  return out;
+}
+
+function renderWordPagination(totalPages) {
+  const wrap = el.wordPagination;
+  if (totalPages <= 1) { wrap.innerHTML = ""; return; }
+  let html = '<button type="button" data-pg="prev"' + (wordPage <= 1 ? " disabled" : "") + '>‹ Trước</button>';
+  pageList(totalPages, wordPage).forEach(function (p) {
+    if (p === "...") html += '<span class="pagination__ellipsis">…</span>';
+    else html += '<button type="button"' + (p === wordPage ? ' class="is-active"' : "") + ' data-pg="' + p + '">' + p + "</button>";
+  });
+  html += '<button type="button" data-pg="next"' + (wordPage >= totalPages ? " disabled" : "") + '>Sau ›</button>';
+  wrap.innerHTML = html;
 }
 
 /* ================= PHẦN 10: RENDER CHỦ ĐỀ ================= */
@@ -459,6 +501,18 @@ function getCurrentUserName() {
 function listUsers() {
   const map = {};
 
+  // Nạp danh sách mọi người đã học từ registry (lưu cố định, kể cả khi dữ liệu học đã bị xóa)
+  const reg = readStore(USERS_REGISTRY_KEY, []);
+  if (Array.isArray(reg)) {
+    reg.forEach(function (u) {
+      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim() !== "guest") {
+        const name = u.name.trim();
+        if (!map[name]) map[name] = { name: name, lastSeen: u.lastActive || 0 };
+        else map[name].lastSeen = Math.max(map[name].lastSeen, u.lastActive || 0);
+      }
+    });
+  }
+
   // Người đang đăng nhập trên trang chính
   const cur = getCurrentUserName();
   if (cur) map[cur] = { name: cur, lastSeen: Date.now() };
@@ -488,6 +542,7 @@ function listUsers() {
   // Tính số từ đã học và số chủ đề
   const result = [];
   Object.keys(map).forEach(function (name) {
+    if (name === "guest") return;
     let learned = 0;
     const topicSet = {};
     for (let i = 0; i < localStorage.length; i++) {
@@ -820,6 +875,10 @@ function clearUserProgress(name) {
       keys.forEach(removeStore);
       removeStore(KEY_QUIZ_HISTORY);
 
+      // gỡ người học khỏi danh sách đã đăng ký
+      const reg = readStore(USERS_REGISTRY_KEY, []);
+      writeStore(USERS_REGISTRY_KEY, reg.filter(function (u) { return u.name !== name; }));
+
       // gỡ luôn hồ sơ nếu đang là người dùng hiện tại trên máy này
       if (getCurrentUserName() === name) removeStore(KEY_USER);
       renderAll();
@@ -851,7 +910,7 @@ function clearAllUserData() {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (!key) continue;
-        if (key.indexOf(PREFIX_LEARNED) === 0 || key.indexOf(PREFIX_BEST) === 0 || key === KEY_QUIZ_HISTORY) {
+        if (key.indexOf(PREFIX_LEARNED) === 0 || key.indexOf(PREFIX_BEST) === 0 || key === KEY_QUIZ_HISTORY || key === USERS_REGISTRY_KEY) {
           keys.push(key);
         }
       }
@@ -870,6 +929,7 @@ function exportData() {
   data[KEY_ADDED] = getAdded();
   data[KEY_REMOVED] = getRemoved();
   data[KEY_HIDDEN] = getHiddenTopics();
+  data[USERS_REGISTRY_KEY] = readStore(USERS_REGISTRY_KEY, []);
 
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -895,6 +955,7 @@ function importData(event) {
       if (data[KEY_ADDED]) writeStore(KEY_ADDED, data[KEY_ADDED]);
       if (data[KEY_REMOVED]) writeStore(KEY_REMOVED, data[KEY_REMOVED]);
       if (data[KEY_HIDDEN]) writeStore(KEY_HIDDEN, data[KEY_HIDDEN]);
+      if (data[USERS_REGISTRY_KEY]) writeStore(USERS_REGISTRY_KEY, data[USERS_REGISTRY_KEY]);
       renderAll();
       showToast("Đã nạp dữ liệu từ file.", "info");
     } catch (e) {
@@ -969,7 +1030,14 @@ el.sidebarOverlay.addEventListener("click", function () {
 
 // Chuyển khu vực
 document.querySelectorAll(".nav__item").forEach(function (btn) {
-  btn.addEventListener("click", function () { switchView(btn.getAttribute("data-view")); });
+  btn.addEventListener("click", function () {
+    const view = btn.getAttribute("data-view");
+    switchView(view);
+    const target = $("view-" + view);
+    if (target && target.scrollIntoView) {
+      target.scrollIntoView();
+    }
+  });
 });
 
 // Đăng nhập / đăng xuất
@@ -986,8 +1054,23 @@ el.wordBody.addEventListener("click", function (event) {
 });
 
 // Bộ lọc và tìm kiếm từ vựng
-el.wordTopicFilter.addEventListener("change", renderWords);
-el.wordSearch.addEventListener("input", renderWords);
+el.wordTopicFilter.addEventListener("change", function () { wordPage = 1; renderWords(); });
+  el.wordSearch.addEventListener("input", function () { wordPage = 1; renderWords(); });
+
+  // Phân trang danh sách từ vựng
+  el.wordPagination.addEventListener("click", function (event) {
+    const btn = event.target.closest("button[data-pg]");
+    if (!btn || btn.disabled) return;
+    const pg = btn.getAttribute("data-pg");
+    let next = wordPage;
+    if (pg === "prev") next -= 1;
+    else if (pg === "next") next += 1;
+    else next = Number(pg);
+    if (next >= 1) {
+      wordPage = next;
+      renderWords();
+    }
+  });
 el.btnAddWord.addEventListener("click", function () { openWordModal("add", ""); });
 el.btnRestoreWords.addEventListener("click", resetWords);
 

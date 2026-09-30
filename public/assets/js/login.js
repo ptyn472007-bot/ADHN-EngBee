@@ -30,6 +30,7 @@
     }
 
     localStorage.setItem(NAME_KEY, JSON.stringify({ name: name }));
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
     loginError.hidden = true;
     window.location.href = "index.html";
   });

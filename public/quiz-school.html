@@ -365,7 +365,7 @@ main{flex:1}
     qs("#rz-note").textContent=pctLabel(pct);
     var h=getHistory();var newRec={ts:Date.now(),mode:TID,topicId:TID,modeName:TNAME,correct:correct,total:N,pct:pct};
     h.unshift(newRec);saveHistory(h);
-    var _nb=Math.round(10*correct/N);try{var _pu=JSON.parse(localStorage.getItem("engbee_user")||"null");var _un=_pu&&typeof _pu.name==="string"&&_pu.name.trim()?_pu.name.trim():"guest";if(_nb>Number(localStorage.getItem("engbee_quiz_best_"+_un)||0))localStorage.setItem("engbee_quiz_best_"+_un,String(_nb));var _arr=JSON.parse(localStorage.getItem("engbee_quiz_history_"+_un)||"[]");_arr.push({score:_nb,date:new Date().toLocaleString("vi-VN")});localStorage.setItem("engbee_quiz_history_"+_un,JSON.stringify(_arr.slice(-50)));}catch(e){}
+    var _nb=Math.round(10*correct/N);try{var _pu=JSON.parse(localStorage.getItem("engbee_user")||"null");var _un=_pu&&typeof _pu.name==="string"&&_pu.name.trim()?_pu.name.trim():"guest";if(_nb>Number(localStorage.getItem("engbee_quiz_best_"+_un)||0))localStorage.setItem("engbee_quiz_best_"+_un,String(_nb));var _arr=JSON.parse(localStorage.getItem("engbee_quiz_history_"+_un)||"[]");_arr.push({score:_nb,date:new Date().toLocaleString("vi-VN")});localStorage.setItem("engbee_quiz_history_"+_un,JSON.stringify(_arr.slice(-50)));}catch(e){}if(window.EngBeeTrackUser)window.EngBeeTrackUser();
     var flag=qs("#rz-record");
     if(pct===bestForNew(h)){flag.textContent="Ky luc moi cua hinh thuc nay: "+pct+"%";flag.style.display="inline-block";}else{flag.style.display="none";}
     qs("#best-score-end").textContent=best()+"%";
@@ -389,6 +389,7 @@ main{flex:1}
 })();
 
 </script>
+  <script src="assets/js/user-registry.js"></script>
   <script src="assets/js/auth-nav.js"></script>
 </body>
 </html>

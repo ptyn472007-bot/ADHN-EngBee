@@ -806,3 +806,45 @@
   .toast-wrap { left: 16px; right: 16px; top: 12px; }
   .toast { max-width: none; }
 }
+
+/* ================= PHÂN TRANG TỪ VỰNG ================= */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.pagination button {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--border, #e2e2e2);
+  background: #fff;
+  color: var(--text, #444);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.pagination button:hover:not(:disabled):not(.is-active) {
+  border-color: #f0a500;
+  color: #f0a500;
+}
+.pagination button.is-active {
+  background: #f0a500;
+  border-color: #f0a500;
+  color: #fff;
+  font-weight: 700;
+}
+.pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.pagination__ellipsis {
+  padding: 0 2px;
+  color: #999;
+  line-height: 34px;
+}
+.pagination--center { justify-content: center; }
