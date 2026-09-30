@@ -386,6 +386,19 @@
 .btn-delete { background: #fdecec; color: var(--danger); border-color: #f5c9c9; }
 .btn-delete:hover { background: var(--danger); color: #fff; }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.view {
+  scroll-margin-top: 85px;
+  margin-bottom: 48px;
+}
+
+.view:last-of-type {
+  margin-bottom: 24px;
+}
+
 /* ---------- 7. ĐẦU TRANG ---------- */
 .page-head {
   display: flex;
