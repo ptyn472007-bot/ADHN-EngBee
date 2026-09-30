@@ -898,6 +898,7 @@ body {
     var p = learned.indexOf(i);
     if (p === -1) learned.push(i); else learned.splice(p,1);
     saveSet();
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
   }
 
   function speak(word){
@@ -1043,6 +1044,7 @@ body {
 })();
 
 </script>
+  <script src="assets/js/user-registry.js"></script>
   <script src="assets/js/auth-nav.js"></script>
 </body>
 </html>

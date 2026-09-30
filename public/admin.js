@@ -15,6 +15,7 @@ const KEY_USER = "engbee_user";                      // người dùng hiện t�
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
 const PREFIX_BEST = "engbee_quiz_best_";              // điểm cao nhất
+const USERS_REGISTRY_KEY = "engbee_users";            // danh sách mọi người đã học
 const SESSION_TTL = 8 * 60 * 60 * 1000;              // 8 giờ
 
 // Chỉ tài khoản này được vào trang quản trị
@@ -459,6 +460,18 @@ function getCurrentUserName() {
 function listUsers() {
   const map = {};
 
+  // Nạp danh sách mọi người đã học từ registry (lưu cố định, kể cả khi dữ liệu học đã bị xóa)
+  const reg = readStore(USERS_REGISTRY_KEY, []);
+  if (Array.isArray(reg)) {
+    reg.forEach(function (u) {
+      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim() !== "guest") {
+        const name = u.name.trim();
+        if (!map[name]) map[name] = { name: name, lastSeen: u.lastActive || 0 };
+        else map[name].lastSeen = Math.max(map[name].lastSeen, u.lastActive || 0);
+      }
+    });
+  }
+
   // Người đang đăng nhập trên trang chính
   const cur = getCurrentUserName();
   if (cur) map[cur] = { name: cur, lastSeen: Date.now() };
@@ -488,6 +501,7 @@ function listUsers() {
   // Tính số từ đã học và số chủ đề
   const result = [];
   Object.keys(map).forEach(function (name) {
+    if (name === "guest") return;
     let learned = 0;
     const topicSet = {};
     for (let i = 0; i < localStorage.length; i++) {
@@ -820,6 +834,10 @@ function clearUserProgress(name) {
       keys.forEach(removeStore);
       removeStore(KEY_QUIZ_HISTORY);
 
+      // gỡ người học khỏi danh sách đã đăng ký
+      const reg = readStore(USERS_REGISTRY_KEY, []);
+      writeStore(USERS_REGISTRY_KEY, reg.filter(function (u) { return u.name !== name; }));
+
       // gỡ luôn hồ sơ nếu đang là người dùng hiện tại trên máy này
       if (getCurrentUserName() === name) removeStore(KEY_USER);
       renderAll();
@@ -851,7 +869,7 @@ function clearAllUserData() {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (!key) continue;
-        if (key.indexOf(PREFIX_LEARNED) === 0 || key.indexOf(PREFIX_BEST) === 0 || key === KEY_QUIZ_HISTORY) {
+        if (key.indexOf(PREFIX_LEARNED) === 0 || key.indexOf(PREFIX_BEST) === 0 || key === KEY_QUIZ_HISTORY || key === USERS_REGISTRY_KEY) {
           keys.push(key);
         }
       }
@@ -870,6 +888,7 @@ function exportData() {
   data[KEY_ADDED] = getAdded();
   data[KEY_REMOVED] = getRemoved();
   data[KEY_HIDDEN] = getHiddenTopics();
+  data[USERS_REGISTRY_KEY] = readStore(USERS_REGISTRY_KEY, []);
 
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -895,6 +914,7 @@ function importData(event) {
       if (data[KEY_ADDED]) writeStore(KEY_ADDED, data[KEY_ADDED]);
       if (data[KEY_REMOVED]) writeStore(KEY_REMOVED, data[KEY_REMOVED]);
       if (data[KEY_HIDDEN]) writeStore(KEY_HIDDEN, data[KEY_HIDDEN]);
+      if (data[USERS_REGISTRY_KEY]) writeStore(USERS_REGISTRY_KEY, data[USERS_REGISTRY_KEY]);
       renderAll();
       showToast("Đã nạp dữ liệu từ file.", "info");
     } catch (e) {
