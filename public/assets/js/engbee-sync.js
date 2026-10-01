@@ -1,4 +1,4 @@
-// EngBee - user-registry.js: Quản lý danh sách người học & đồng bộ tiến độ, lượt làm quiz qua server
+// EngBee - engbee-sync.js: Quản lý đồng bộ dữ liệu học tập và kết quả qua máy chủ API
 (function () {
   "use strict";
 
@@ -7,6 +7,7 @@
   var USERS_KEY = "engbee_users";
   var QUIZ_KEY = "eb_quiz_history";
 
+  // Lấy hoặc tạo mã học viên duy nhất cho trình duyệt này nếu chưa đặt tên
   function getClientId() {
     try {
       var id = localStorage.getItem(CLIENT_ID_KEY);
@@ -20,6 +21,7 @@
     }
   }
 
+  // Lấy tên người dùng hiện tại (nếu chưa nhập tên thì lấy Client ID)
   function getCurrentUserName() {
     try {
       var p = JSON.parse(localStorage.getItem(USER_KEY) || "null");
@@ -30,7 +32,8 @@
     return getClientId();
   }
 
-  function readUsers() {
+  // Đọc danh sách người học từ LocalStorage
+  function readUsersLocal() {
     try {
       var a = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
       return Array.isArray(a) ? a : [];
@@ -39,19 +42,20 @@
     }
   }
 
-  function writeUsers(arr) {
+  // Ghi danh sách người học vào LocalStorage
+  function writeUsersLocal(arr) {
     try {
       localStorage.setItem(USERS_KEY, JSON.stringify(arr));
     } catch (e) {}
   }
 
-  // Ghi nhận một người học (gọi khi đăng nhập, học từ vựng, lật flashcard,...)
-  function track(extra) {
+  // Gửi tiến độ người học lên máy chủ và lưu local
+  function trackUser(extra) {
     var name = (extra && extra.name) ? extra.name.trim() : getCurrentUserName();
     var now = Date.now();
 
-    // 1. Lưu LocalStorage
-    var users = readUsers();
+    // 1. Lưu vào LocalStorage
+    var users = readUsersLocal();
     var found = false;
     for (var i = 0; i < users.length; i++) {
       if (users[i].name === name) {
@@ -71,40 +75,43 @@
         learned: (extra && extra.learnedCount) || 0
       });
     }
-    writeUsers(users);
+    writeUsersLocal(users);
 
-    // 2. Gửi API lên Server để đồng bộ mọi máy
+    // 2. Gửi API lên máy chủ để đồng bộ mọi máy
+    var payload = {
+      name: name,
+      topicId: extra && extra.topicId,
+      learnedIndices: extra && extra.learnedIndices,
+      learnedCount: extra && extra.learnedCount,
+      bestScore: extra && extra.bestScore
+    };
+
     if (window.fetch) {
       fetch("/api/track-user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name,
-          topicId: extra && extra.topicId,
-          learnedIndices: extra && extra.learnedIndices,
-          learnedCount: extra && extra.learnedCount,
-          bestScore: extra && extra.bestScore
-        })
+        body: JSON.stringify(payload)
       }).then(function (res) {
         return res.ok ? res.json() : null;
       }).then(function (data) {
         if (data && data.stats && Array.isArray(data.stats.users)) {
-          writeUsers(data.stats.users);
+          writeUsersLocal(data.stats.users);
         }
-      }).catch(function () {});
+      }).catch(function () {
+        // Nếu offline hoặc không có server, local storage vẫn hoạt động
+      });
     }
   }
 
-  // Ghi nhận kết quả làm Quiz và đồng bộ mọi máy
+  // Ghi nhận lượt làm Quiz lên máy chủ và lưu local
   function recordQuiz(data) {
-    if (!data) return;
-    var userName = (data.userName || data.name) ? (data.userName || data.name).trim() : getCurrentUserName();
-    var now = data.ts || Date.now();
-    var correct = Number(data.correct) || 0;
-    var total = Number(data.total) || 10;
-    var pct = typeof data.pct === "number" ? data.pct : Math.round(100 * correct / total);
-    var topicId = data.topicId || data.mode || "all";
-    var modeName = data.modeName || data.topicName || topicId;
+    var userName = (data && data.userName) ? data.userName.trim() : getCurrentUserName();
+    var now = (data && data.ts) || Date.now();
+    var correct = Number(data && data.correct) || 0;
+    var total = Number(data && data.total) || 10;
+    var pct = typeof (data && data.pct) === "number" ? data.pct : Math.round(100 * correct / total);
+    var topicId = (data && (data.topicId || data.mode)) || "all";
+    var modeName = (data && (data.modeName || data.topicName)) || topicId;
 
     var record = {
       id: "q_" + now + "_" + Math.floor(Math.random() * 1000),
@@ -126,13 +133,13 @@
       localStorage.setItem(QUIZ_KEY, JSON.stringify(h.slice(0, 100)));
     } catch (e) {}
 
-    // Ghi nhận người học & điểm cao
-    track({
+    // Cập nhật điểm người học
+    trackUser({
       name: userName,
       bestScore: Math.round(10 * correct / total)
     });
 
-    // 2. Gửi API lên Server để đồng bộ mọi máy
+    // 2. Gửi API lên máy chủ để đồng bộ mọi máy
     if (window.fetch) {
       fetch("/api/quiz-result", {
         method: "POST",
@@ -148,26 +155,63 @@
             } catch (e) {}
           }
           if (Array.isArray(resData.stats.users)) {
-            writeUsers(resData.stats.users);
+            writeUsersLocal(resData.stats.users);
           }
         }
       }).catch(function () {});
     }
+
+    return record;
   }
 
-  // Khởi chạy ghi nhận tự động khi người dùng vào trang
-  function init() {
+  // Lấy dữ liệu thống kê tổng quan toàn hệ thống từ máy chủ
+  function fetchStats(callback) {
+    if (!window.fetch) return;
+    fetch("/api/stats")
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (data) {
+        if (!data) return;
+        if (Array.isArray(data.users)) {
+          writeUsersLocal(data.users);
+        }
+        if (Array.isArray(data.quizHistory)) {
+          try {
+            localStorage.setItem(QUIZ_KEY, JSON.stringify(data.quizHistory));
+          } catch (e) {}
+        }
+        if (typeof callback === "function") {
+          callback(data);
+        }
+      })
+      .catch(function () {});
+  }
+
+  // Tự động gửi tín hiệu người học khi mở trang
+  function initAutoTrack() {
+    // Chỉ track một lần khi load trang
     setTimeout(function () {
-      track();
-    }, 400);
+      trackUser();
+    }, 500);
   }
 
-  window.EngBeeTrackUser = track;
-  window.EngBeeRecordQuiz = recordQuiz;
+  window.EngBeeSync = {
+    getCurrentUserName: getCurrentUserName,
+    getClientId: getClientId,
+    trackUser: trackUser,
+    recordQuiz: recordQuiz,
+    fetchStats: fetchStats
+  };
+
+  // Cung cấp alias tương thích với EngBeeTrackUser cũ
+  window.EngBeeTrackUser = function (extra) {
+    trackUser(extra);
+  };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", initAutoTrack);
   } else {
-    init();
+    initAutoTrack();
   }
 })();
