@@ -2,19 +2,8 @@
 (function () {
   "use strict";
 
-  var topics = EngBeeData.topics || [];
   var LEARN_PREFIX = "engbee_learned_";
   var USER_KEY = "engbee_user";
-  var BEST_KEY = "engbee_quiz_best_" + (getUser() || "guest");
-  var HISTORY_KEY = "engbee_quiz_history_" + (getUser() || "guest");
-
-  // Tổng số từ của tất cả chủ đề (mỗi chủ đề 50 từ)
-  var totalWords = 0;
-  topics.forEach(function (t) {
-    totalWords += (t.words && t.words.length) || 0;
-  });
-
-  // ------- Đọc dữ liệu từ LocalStorage -------
 
   function getUser() {
     try {
@@ -28,47 +17,97 @@
     }
   }
 
-  function getLearned(id) {
+  function getActiveTopics() {
+    var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
+    if (window.EngBeeAdminData) {
+      return rawTopics.filter(function (t) {
+        return !window.EngBeeAdminData.isTopicHidden(t.id);
+      }).map(function (t) {
+        var words = window.EngBeeAdminData.apply(t.id, t.words);
+        return { id: t.id, name: t.name, vi: t.vi, words: words };
+      });
+    }
+    return rawTopics;
+  }
+
+  function getTotalWords(activeTopics) {
+    var total = 0;
+    activeTopics.forEach(function (t) {
+      total += (t.words && t.words.length) || 0;
+    });
+    return total;
+  }
+
+  function getLearned(id, maxWords) {
     try {
       var scope = getUser() || "guest";
       var arr = JSON.parse(localStorage.getItem(LEARN_PREFIX + scope + "_" + id) || "null");
-      return Array.isArray(arr) ? arr : [];
+      if (Array.isArray(arr)) {
+        return arr.filter(function (x) { return typeof x === "number" && x >= 0 && x < maxWords; });
+      }
+      return [];
     } catch (e) {
       return [];
     }
   }
 
-  function getLearnedCount() {
+  function getLearnedCount(activeTopics) {
     var count = 0;
-    topics.forEach(function (t) {
-      count += getLearned(t.id).length;
+    activeTopics.forEach(function (t) {
+      var maxW = (t.words && t.words.length) || 50;
+      count += getLearned(t.id, maxW).length;
     });
     return count;
   }
 
   function getBestScore() {
-    return localStorage.getItem(BEST_KEY);
+    var scope = getUser() || "guest";
+    var userBest = localStorage.getItem("engbee_quiz_best_" + scope);
+    if (userBest !== null && userBest !== undefined) return userBest;
+
+    // Tra cứu từ lịch sử quiz chung
+    try {
+      var hist = JSON.parse(localStorage.getItem("eb_quiz_history") || "[]");
+      if (Array.isArray(hist) && hist.length > 0) {
+        var top = 0;
+        hist.forEach(function (h) {
+          var p = typeof h.pct === "number" ? h.pct : 0;
+          if (p > top) top = p;
+        });
+        return top > 0 ? Math.round(top / 10) : null;
+      }
+    } catch (e) {}
+
+    return null;
   }
 
   function getHistory() {
+    var scope = getUser() || "guest";
     try {
-      var arr = JSON.parse(localStorage.getItem(HISTORY_KEY) || "null");
-      return Array.isArray(arr) ? arr : [];
-    } catch (e) {
-      return [];
-    }
+      var arr = JSON.parse(localStorage.getItem("engbee_quiz_history_" + scope) || "null");
+      if (Array.isArray(arr) && arr.length > 0) return arr;
+    } catch (e) {}
+
+    // Lịch sử quiz chung
+    try {
+      var h = JSON.parse(localStorage.getItem("eb_quiz_history") || "[]");
+      if (Array.isArray(h)) return h;
+    } catch (e) {}
+
+    return [];
   }
 
   // ------- Hiển thị -------
 
   function renderName() {
     var name = getUser();
-    document.getElementById("dash-name").textContent =
-      name ? name : "Chưa đăng nhập";
+    document.getElementById("dash-name").textContent = name ? name : "Chưa đăng nhập";
   }
 
   function renderStats() {
-    var learned = getLearnedCount();
+    var activeTopics = getActiveTopics();
+    var totalWords = getTotalWords(activeTopics);
+    var learned = getLearnedCount(activeTopics);
 
     document.getElementById("dash-learned").textContent = learned + " / " + totalWords;
 
@@ -76,42 +115,45 @@
     document.getElementById("dash-percent").textContent = percent + "%";
 
     var bar = document.getElementById("dash-progress-bar");
-    bar.style.width = percent + "%";
+    if (bar) bar.style.width = percent + "%";
 
     var note = document.getElementById("dash-progress-note");
-    if (learned === 0) {
-      note.textContent = "Chưa có từ nào được học. Mở trang Học từ vựng để bắt đầu!";
-    } else if (percent === 100) {
-      note.textContent = "Tuyệt vời! Bạn đã thuộc toàn bộ từ vựng.";
-    } else {
-      note.textContent =
-        "Bạn đã thuộc " + learned + " trên tổng " + totalWords + " từ. Cố lên nhé!";
+    if (note) {
+      if (learned === 0) {
+        note.textContent = "Chưa có từ nào được học. Mở trang Học từ vựng để bắt đầu!";
+      } else if (percent === 100) {
+        note.textContent = "Tuyệt vời! Bạn đã thuộc toàn bộ từ vựng.";
+      } else {
+        note.textContent = "Bạn đã thuộc " + learned + " trên tổng " + totalWords + " từ. Cố lên nhé!";
+      }
     }
   }
 
   function renderBest() {
     var best = getBestScore();
-    document.getElementById("dash-best").textContent =
-      best === null ? "Chưa có" : best + " / 10";
+    document.getElementById("dash-best").textContent = best === null ? "Chưa có" : best + " / 10";
   }
 
   function renderHistory() {
     var history = getHistory();
     var wrap = document.getElementById("dash-history-wrap");
+    if (!wrap) return;
     var html = "";
 
     if (history.length === 0) {
       html = '<p class="dash-empty">Chưa có lượt chơi Quiz nào. Hãy thử sức ngay!</p>';
     } else {
-      html = '<table class="dash-table"><thead><tr><th>#</th><th>Ngày</th><th>Điểm</th></tr></thead><tbody>';
+      html = '<table class="dash-table"><thead><tr><th>#</th><th>Ngày</th><th>Chủ đề</th><th>Điểm</th></tr></thead><tbody>';
       history
-        .slice()
-        .reverse()
+        .slice(0, 15)
         .forEach(function (item, index) {
-          var score = typeof item.score === "number" ? item.score : 0;
+          var score = typeof item.score === "number" ? item.score : (item.correct !== undefined ? item.correct : 0);
+          var total = typeof item.total === "number" ? item.total : 10;
+          var dateStr = item.date || (item.ts ? new Date(item.ts).toLocaleString("vi-VN") : "—");
+          var modeStr = item.modeName || item.mode || "Tổng hợp";
           html +=
             "<tr><td>" + (index + 1) + "</td><td>" +
-            (item.date || "—") + "</td><td><strong>" + score + " / 10</strong></td></tr>";
+            dateStr + "</td><td>" + modeStr + "</td><td><strong>" + score + " / " + total + "</strong></td></tr>";
         });
       html += "</tbody></table>";
     }
@@ -130,26 +172,37 @@
 
   function resetData() {
     var scope = getUser() || "guest";
-    topics.forEach(function (t) {
+    var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
+    rawTopics.forEach(function (t) {
       localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id);
-      // Dọn các khóa cũ không gắn người dùng (từ trước nhiều tài khoản)
       localStorage.removeItem(LEARN_PREFIX + t.id);
       localStorage.removeItem("eb_learned_" + t.id);
     });
-    localStorage.removeItem(HISTORY_KEY);
-    localStorage.removeItem(BEST_KEY);
+    localStorage.removeItem("engbee_quiz_history_" + scope);
+    localStorage.removeItem("engbee_quiz_best_" + scope);
     localStorage.removeItem("engbee_quiz_history");
     localStorage.removeItem("engbee_quiz_best");
     localStorage.removeItem("eb_quiz_history");
     renderAll();
   }
 
-  document.getElementById("dash-reset").addEventListener("click", function () {
-    var ok = window.confirm(
-      "Bạn có chắc muốn đặt lại toàn bộ dữ liệu học tập?\nTừ đã thuộc và lịch sử điểm Quiz sẽ bị xóa."
-    );
-    if (ok) resetData();
-  });
+  var resetBtn = document.getElementById("dash-reset");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      var ok = window.confirm(
+        "Bạn có chắc muốn đặt lại toàn bộ dữ liệu học tập?\nTừ đã thuộc và lịch sử điểm Quiz sẽ bị xóa."
+      );
+      if (ok) resetData();
+    });
+  }
 
   renderAll();
+
+  // Lắng nghe thay đổi khi Admin cập nhật dữ liệu
+  if (window.EngBeeAdminData && typeof window.EngBeeAdminData.onChange === "function") {
+    window.EngBeeAdminData.onChange(renderAll);
+  } else {
+    window.addEventListener("storage", renderAll);
+    window.addEventListener("engbee_data_changed", renderAll);
+  }
 })();

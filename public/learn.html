@@ -921,12 +921,12 @@ body {
 
   function renderProgress(){
     var fill = qs("#progress-fill"), txt = qs("#progress-text");
-    var pct = Math.round(learned.length / TOTAL * 100);
+    var pct = TOTAL > 0 ? Math.round(learned.length / TOTAL * 100) : 0;
     if (fill) fill.style.width = pct + "%";
     if (txt) txt.textContent = learned.length + " / " + TOTAL;
     var fb = qs("#topic-feedback");
     if (fb) {
-      if (learned.length === TOTAL) {
+      if (TOTAL > 0 && learned.length === TOTAL) {
         qs("#fb-text").textContent = "Chuc mung! Ban da thuoc ca " + TOTAL + " tu cua chu de " + TNAME + ".";
         fb.hidden = false;
       } else { fb.hidden = true; }
@@ -934,14 +934,20 @@ body {
   }
 
   function renderCard(){
+    if (!TOTAL || !WORDS.length) {
+      if (qs("#view-cards")) qs("#view-cards").hidden = true;
+      return;
+    }
+    if (qs("#view-cards") && state.view === "cards") qs("#view-cards").hidden = false;
     var w = WORDS[state.index];
+    if (!w) return;
     var en = qs("#word-en"), ipa = qs("#word-ipa"), vi = qs("#word-vi"),
         ex = qs("#word-ex"), exvi = qs("#word-exvi"), ci = qs("#card-index");
     if (en) en.textContent = w.en;
-    if (ipa) ipa.textContent = w.ipa;
+    if (ipa) ipa.textContent = w.ipa || "";
     if (vi) vi.textContent = w.vi;
-    if (ex) ex.textContent = w.ex;
-    if (exvi) exvi.textContent = w.exvi;
+    if (ex) ex.textContent = w.ex || "";
+    if (exvi) exvi.textContent = w.exvi || "";
     if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
     var mb = qs("#mastered-btn"), nb = qs("#not-mastered-btn");
     if (mb) mb.classList.toggle("active", hasLearned(state.index));
@@ -955,7 +961,7 @@ body {
     grid.innerHTML = "";
     var q = (qs("#search-box").value || "").trim().toLowerCase();
     var list = WORDS;
-    if (q) list = WORDS.filter(function(w){ return w.en.toLowerCase().indexOf(q) !== -1 || w.vi.toLowerCase().indexOf(q) !== -1; });
+    if (q) list = WORDS.filter(function(w){ return (w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1); });
 
     if (!list.length) {
       var em = document.createElement("p");
@@ -973,7 +979,7 @@ body {
       var top = document.createElement("div"); top.className = "wc-top";
       var left = document.createElement("span");
       var e = document.createElement("span"); e.className = "wc-en"; e.textContent = w.en;
-      var i = document.createElement("span"); i.className = "wc-ipa"; i.textContent = w.ipa;
+      var i = document.createElement("span"); i.className = "wc-ipa"; i.textContent = w.ipa || "";
       left.appendChild(e); left.appendChild(i);
 
       var s = document.createElement("button"); s.type = "button"; s.className = "wc-speak"; s.title = "Nghe phat am";
@@ -982,8 +988,8 @@ body {
       top.appendChild(left); top.appendChild(s);
 
       var v = document.createElement("p"); v.className = "wc-vi"; v.textContent = w.vi;
-      var ex = document.createElement("p"); ex.className = "wc-ex"; ex.textContent = w.ex;
-      var exv = document.createElement("p"); exv.className = "wc-exvi"; exv.textContent = w.exvi;
+      var ex = document.createElement("p"); ex.className = "wc-ex"; ex.textContent = w.ex || "";
+      var exv = document.createElement("p"); exv.className = "wc-exvi"; exv.textContent = w.exvi || "";
       var mk = document.createElement("span"); mk.className = "wc-mark";
       mk.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
@@ -1009,15 +1015,15 @@ body {
   }
 
   function render(){ renderCard(); if (state.view === "list") renderGrid(); }
-  function go(step){ state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
+  function go(step){ if (!TOTAL) return; state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
 
   function bind(){
     var card = qs("#flashcard");
     if (card) {
       card.addEventListener("click", function(){ setFlip(!state.flipped); });
       qs("#flip-btn").addEventListener("click", function(ev){ ev.stopPropagation(); setFlip(!state.flipped); });
-      qs("#speak-front").addEventListener("click", function(ev){ ev.stopPropagation(); speak(WORDS[state.index].en); });
-      qs("#speak-back").addEventListener("click", function(ev){ ev.stopPropagation(); speak(WORDS[state.index].en); });
+      qs("#speak-front").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+      qs("#speak-back").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
     }
     qs("#prev-btn").addEventListener("click", function(){ go(-1); });
     qs("#next-btn").addEventListener("click", function(){ go(1); });
@@ -1040,7 +1046,18 @@ body {
     });
   }
 
-  if (TOTAL) { bind(); render(); } else { qs("#view-cards").hidden = true; }
+  bind();
+  if (window.EngBeeAdminData && window.EngBeeAdminData.initLearnPage) {
+    window.EngBeeAdminData.initLearnPage(TID, WORDS, function(newWords) {
+      WORDS = newWords;
+      TOTAL = newWords.length;
+      if (state.index >= TOTAL) state.index = Math.max(0, TOTAL - 1);
+      learned = loadSet();
+      render();
+    });
+  } else {
+    render();
+  }
 })();
 
 </script>
