@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EngBee - Quiz tu vung chu de Shopping</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
-body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
 main{flex:1}
 .container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
 .navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
@@ -131,16 +134,16 @@ main{flex:1}
 <body>
 <header class="navbar">
   <div class="container navbar-inner">
-    <a href="index.html" class="logo" title="EngBee - Khoa hoc Tieng Anh">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
       <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
       <span>EngBee</span>
     </a>
     <nav class="nav-links">
-      <a href="index.html">Trang chu</a>
-      <a href="learn.html">Hoc tu vung</a>
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html">Học từ vựng</a>
       <a href="quiz.html" class="active">Quiz</a>
       <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Dang nhap</a>
+      <a href="login.html">Đăng nhập</a>
     </nav>
   </div>
 </header>
@@ -151,7 +154,7 @@ main{flex:1}
     <div class="deco deco-b"></div>
     <div class="container">
       <div class="quiz-hero-inner">
-        <p class="eyebrow">Quiz - Mua sắm · 10 cau hoi · 4 lua chon</p>
+        <p class="eyebrow">Quiz - Mua sắm · 10 câu hỏi · 4 lựa chọn</p>
         <h1>Quiz từ vựng chủ đề Shopping</h1>
         <p class="hero-sub">50 từ trong chủ đề Shopping được trộn ngẫu nhiên thành 10 câu hỏi, mỗi câu có 4 lựa chọn. Trả lời đúng càng nhiều càng tốt — điểm số sẽ được lưu lại để bạn luyện tập.</p>
         <div class="topic-pills"><a class="topic-pill" href="quiz-all.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f0a500,#ff7e00)">⚡</span><span class="pill-text"><strong>Quiz tổng hợp</strong><small>12 chủ đề - 600 từ</small></span></a><a class="topic-pill" href="quiz-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="quiz-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="quiz-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="quiz-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="quiz-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill" href="quiz-sports.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="quiz-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="quiz-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="quiz-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="quiz-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="quiz-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill active" href="quiz-shopping.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
@@ -186,7 +189,7 @@ main{flex:1}
         <div class="qz-q-top">
           <span class="qz-progress-pill" id="q-progress">1 / 10</span>
           <div class="qz-progress"><span class="qz-progress-fill" id="qz-progress-fill"></span></div>
-          <span class="qz-score-pill" id="q-score">0 dung</span>
+          <span class="qz-score-pill" id="q-score">0 đúng</span>
         </div>
         <div class="qz-word">
           <span class="qz-word-flag" id="qz-learn-tag">Shopping</span>
@@ -235,10 +238,10 @@ main{flex:1}
 <footer class="footer">
   <div class="container footer-inner">
     <p class="footer-logo">EngBee</p>
-    <p>Website hoc tu vung tieng Anh</p>
+    <p>Website học từ vựng tiếng Anh</p>
     <div class="footer-contact">
       <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
-      <a href="tel:0901234567">SDT: 0901 234 567</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
       <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
       <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
     </div>
@@ -302,11 +305,11 @@ main{flex:1}
   }
   function renderHistoryRows(rows,container){
     container.innerHTML="";
-    if(!rows.length){container.innerHTML='<div class="qz-empty">Chua co lan lam nao cho hinh thuc nay.</div>';return;}
+    if(!rows.length){container.innerHTML='<div class="qz-empty">Chưa có lần làm nào cho hình thức này.</div>';return;}
     rows.forEach(function(r){
       var d=document.createElement("div");d.className="qz-history-row";
       var dot=document.createElement("span");dot.className="dot";dot.style.background="linear-gradient(135deg,"+G1+","+G2+")";
-      var lab=document.createElement("span");lab.textContent=r.pct===100?"Hoan thanh":"Diem "+r.correct+"/"+r.total+" ("+r.pct+"%)";
+      var lab=document.createElement("span");lab.textContent=r.pct===100?"Hoàn thành":"Điểm "+r.correct+"/"+r.total+" ("+r.pct+"%)";
       var score=document.createElement("span");score.className="score";score.textContent=r.pct+"%";
       var date=document.createElement("span");date.className="date";date.textContent=fmt(r.ts);
       d.appendChild(dot);d.appendChild(lab);d.appendChild(score);d.appendChild(date);
@@ -319,7 +322,7 @@ main{flex:1}
     if (countStat) countStat.textContent = WORDS.length;
     qs("#best-score").textContent=best()>0?best()+"%":"0%";
     qs("#quiz-count").textContent=h.length+"";
-    qs("#quiz-total-note").textContent=h.length?"Da lam "+h.length+" lan. Gan nhat: "+fmt(h[0].ts):"Chua lam lan nao. Bat dau ngay!";
+    qs("#quiz-total-note").textContent=h.length?"Đã làm "+h.length+" lần. Gần nhất: "+fmt(h[0].ts):"Chưa làm lần nào. Bắt đầu ngay!";
     renderHistoryRows(h.slice(0,5),qs("#start-history"));
   }
   function startQuiz(forceNew){
@@ -363,7 +366,7 @@ main{flex:1}
     qs("#q-progress").textContent=(idx+1)+" / "+currentTotal;
     var fill=qs("#qz-progress-fill");
     fill.style.width=((idx)/currentTotal*100)+"%";
-    qs("#q-score").textContent=correct+" dung";
+    qs("#q-score").textContent=correct+" đúng";
     qs("#qz-learn-tag").textContent=TNAME;
     qs("#qz-word-en").textContent=a.word.en;
     qs("#qz-word-ipa").textContent=a.word.ipa||"";
@@ -403,7 +406,7 @@ main{flex:1}
       fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
     }
     if(playAudio) speak(it.word.en);
-    qs("#q-score").textContent=correct+" dung";
+    qs("#q-score").textContent=correct+" đúng";
     var nb=qs("#btn-next");nb.classList.add("ready");
     var currentTotal = answers.length;
     nb.textContent=(idx+1)>=currentTotal?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+currentTotal+") →";
@@ -429,7 +432,7 @@ main{flex:1}
     var pct=Math.round(100*correct/currentTotal);
     var ring=qs("#qz-score-ring");ring.style.setProperty("--p",pct);
     qs("#score-num").textContent=pct+"%";
-    qs("#score-detail").textContent=correct+" / "+currentTotal+" cau dung";
+    qs("#score-detail").textContent=correct+" / "+currentTotal+" câu đúng";
     qs("#rz-head").textContent=rzTitle(pct);
     qs("#rz-mode").textContent=TNAME;
     qs("#rz-note").textContent=pctLabel(pct);
@@ -437,7 +440,7 @@ main{flex:1}
     h.unshift(newRec);saveHistory(h);if(window.EngBeeRecordQuiz)window.EngBeeRecordQuiz(newRec);
     var _nb=Math.round(10*correct/currentTotal);try{var _pu=JSON.parse(localStorage.getItem("engbee_user")||"null");var _un=_pu&&typeof _pu.name==="string"&&_pu.name.trim()?_pu.name.trim():"guest";if(_nb>Number(localStorage.getItem("engbee_quiz_best_"+_un)||0))localStorage.setItem("engbee_quiz_best_"+_un,String(_nb));var _arr=JSON.parse(localStorage.getItem("engbee_quiz_history_"+_un)||"[]");_arr.push({score:_nb,date:new Date().toLocaleString("vi-VN")});localStorage.setItem("engbee_quiz_history_"+_un,JSON.stringify(_arr.slice(-50)));}catch(e){}if(window.EngBeeTrackUser)window.EngBeeTrackUser();
     var flag=qs("#rz-record");
-    if(pct===bestForNew(h)){flag.textContent="Ky luc moi cua hinh thuc nay: "+pct+"%";flag.style.display="inline-block";}else{flag.style.display="none";}
+    if(pct===bestForNew(h)){flag.textContent="Kỷ lục mới của hình thức này: "+pct+"%";flag.style.display="inline-block";}else{flag.style.display="none";}
     qs("#best-score-end").textContent=best()+"%";
     renderHistoryRows(h.filter(function(x){return x.mode===TID;}).slice(0,6),qs("#end-history"));
     show("result");
