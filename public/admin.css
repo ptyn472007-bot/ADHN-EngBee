@@ -425,26 +425,23 @@ html {
 .stat-card {
   background: var(--card);
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 18px 20px;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.stat-card__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-  flex-shrink: 0;
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-.stat-card__label { display: block; font-size: 13px; color: var(--muted); }
-.stat-card__value { font-size: 26px; font-weight: bold; color: var(--text-dark); }
+.stat-card__label { display: block; font-size: 13px; font-weight: 500; color: var(--muted); }
+.stat-card__value { font-size: 26px; font-weight: 700; color: var(--text-dark); line-height: 1.2; }
 
 /* ---------- 9. PANEL ---------- */
 .panel {

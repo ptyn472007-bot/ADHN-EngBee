@@ -176,7 +176,7 @@ main{flex:1}
           <div class="qz-stat"><b id="quiz-total-words">50</b><span>SỐ TỪ KHO</span></div>
         </div>
         <div class="qz-start-cta">
-          <button type="button" class="btn btn-start" id="btn-start">▶ Bắt đầu quiz (10 câu)</button>
+          <button type="button" class="btn btn-start" id="btn-start">Bắt đầu quiz (10 câu)</button>
           <p class="qz-hint" id="quiz-total-note" style="margin-top:12px"></p>
         </div>
         <div class="qz-history">
@@ -195,7 +195,7 @@ main{flex:1}
           <span class="qz-word-flag" id="qz-learn-tag">Health</span>
           <div class="qz-word-en" id="qz-word-en">travel</div>
           <div class="qz-word-ipa" id="qz-word-ipa">/ˈtrævl/</div>
-          <button type="button" class="qz-speak" id="btn-speak">🔊 Nghe phát âm</button>
+          <button type="button" class="qz-speak" id="btn-speak">Nghe phát âm</button>
         </div>
         <div class="qz-answers" id="qz-answers"></div>
         <div class="qz-feedback" id="qz-feedback"></div>
@@ -221,9 +221,9 @@ main{flex:1}
           <div class="qz-stat"><b id="best-score-end">0%</b><span>TỐT NHẤT</span></div>
         </div>
         <div class="qz-result-actions">
-          <button type="button" class="btn btn-start" id="btn-restart" style="font-size:.95rem;padding:12px 24px">🔄 Làm lại quiz</button>
-          <a class="btn btn-amber" href="quiz.html" style="font-size:.95rem;padding:12px 24px">🎯 Chọn chủ đề khác</a>
-          <a class="btn btn-plain" href="learn.html" style="font-size:.95rem;padding:12px 24px">📖 Học từ vựng</a>
+          <button type="button" class="btn btn-start" id="btn-restart" style="font-size:.95rem;padding:12px 24px">Làm lại quiz</button>
+          <a class="btn btn-amber" href="quiz.html" style="font-size:.95rem;padding:12px 24px">Chọn chủ đề khác</a>
+          <a class="btn btn-plain" href="learn.html" style="font-size:.95rem;padding:12px 24px">Học từ vựng</a>
         </div>
         <div class="qz-history">
           <h3>Lịch sử gần đây của hình thức này</h3>
@@ -400,16 +400,16 @@ main{flex:1}
     }
     if(isCorrect){
       fb.className="qz-feedback show good";
-      fb.innerHTML="Chính xác! <strong>"+esc(it.word.en)+"</strong> nghĩa là <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+      fb.innerHTML="Chính xác! <strong>"+esc(it.word.en)+"</strong> nghĩa là <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">Ví dụ: '+esc(it.word.ex)+'</div>':'');
     }else{
       fb.className="qz-feedback show bad";
-      fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+      fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">Ví dụ: '+esc(it.word.ex)+'</div>':'');
     }
     if(playAudio) speak(it.word.en);
     qs("#q-score").textContent=correct+" đúng";
     var nb=qs("#btn-next");nb.classList.add("ready");
     var currentTotal = answers.length;
-    nb.textContent=(idx+1)>=currentTotal?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+currentTotal+") →";
+    nb.textContent=(idx+1)>=currentTotal?"Xem kết quả":"Câu tiếp theo ("+(idx+2)+"/"+currentTotal+") →";
     qs("#qz-hint").textContent=(isCorrect?"Đúng rồi ✓ ":"Sai rồi, đáp án đúng đã được tô xanh. ")+"Bấm nút bên phải để tiếp tục.";
   }
   function onAnswer(ev){
