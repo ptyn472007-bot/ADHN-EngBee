@@ -224,10 +224,13 @@
           <div class="page-head">
             <div>
               <h1>Quản lý chủ đề</h1>
-              <p>Bật hoặc tắt một chủ đề sẽ ẩn nó khỏi menu học và quiz của người học.</p>
+              <p>Bật hoặc tắt chủ đề, hoặc bấm Thêm chủ đề để mở rộng kho từ vựng.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn-primary" id="btnAddTopic" type="button">＋ Thêm chủ đề</button>
             </div>
           </div>
-          <div class="topic-grid" id="topicGrid"></div>
+          <div class="topic-grid topic-grid-admin" id="topicGrid"></div>
         </section>
 
         <!-- ============ 4. NGƯỜI HỌC ============ -->
@@ -419,6 +422,78 @@
         <div class="modal__foot">
           <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
           <button type="submit" class="btn-primary">Lưu lại</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL THÊM / SỬA CHỦ ĐỀ ============ -->
+  <div class="modal" id="topicModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="topicModalTitle">
+      <div class="modal__head">
+        <h3 id="topicModalTitle">Thêm chủ đề mới</h3>
+        <button class="icon-btn" type="button" data-close="true" aria-label="Đóng">✕</button>
+      </div>
+
+      <form id="topicForm" novalidate>
+        <div class="modal__body">
+          <input type="hidden" id="inputTopicMode" value="add" />
+          <input type="hidden" id="inputTopicOriginalId" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputTopicName">Tên tiếng Anh <span class="required">*</span></label>
+              <input type="text" id="inputTopicName" class="input" placeholder="Animals, Clothing, Family..." autocomplete="off" />
+              <small class="error-text" id="errorTopicName"></small>
+            </div>
+            <div class="form-group">
+              <label for="inputTopicVi">Tên tiếng Việt <span class="required">*</span></label>
+              <input type="text" id="inputTopicVi" class="input" placeholder="Động vật, Trang phục, Gia đình..." autocomplete="off" />
+              <small class="error-text" id="errorTopicVi"></small>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputTopicId">Mã chủ đề (ID duy nhất) <span class="required">*</span></label>
+              <input type="text" id="inputTopicId" class="input" placeholder="animals, clothing..." autocomplete="off" />
+              <small class="error-text" id="errorTopicId"></small>
+            </div>
+            <div class="form-group">
+              <label for="inputTopicEmoji">Biểu tượng (Icon / Emoji)</label>
+              <input type="text" id="inputTopicEmoji" class="input" placeholder="🦁, 👗, 👨‍👩‍👧, 🚗..." autocomplete="off" />
+              <small class="error-text" id="errorTopicEmoji"></small>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputTopicG1">Màu Gradient 1</label>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="color" id="inputTopicG1Picker" value="#f59e0b" style="width:42px;height:38px;padding:2px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;" />
+                <input type="text" id="inputTopicG1" class="input" placeholder="#f59e0b" value="#f59e0b" autocomplete="off" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputTopicG2">Màu Gradient 2</label>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="color" id="inputTopicG2Picker" value="#f97316" style="width:42px;height:38px;padding:2px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;" />
+                <input type="text" id="inputTopicG2" class="input" placeholder="#f97316" value="#f97316" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputTopicDesc">Mô tả ngắn</label>
+            <input type="text" id="inputTopicDesc" class="input" placeholder="Từ vựng về các loài động vật, thú cưng và thiên nhiên hoang dã." autocomplete="off" />
+            <small class="error-text" id="errorTopicDesc"></small>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
+          <button type="submit" class="btn-primary">Lưu chủ đề</button>
         </div>
       </form>
     </div>

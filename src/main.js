@@ -36,6 +36,27 @@ function readStore(key, fallback) {
   }
 }
 
+function getAllTopics() {
+  const custom = readStore('engbee_admin_custom_topics', [])
+  const list = [...TOPICS]
+  if (Array.isArray(custom)) {
+    custom.forEach((ct) => {
+      if (!list.some((t) => t.id === ct.id)) {
+        list.push({
+          id: ct.id,
+          en: ct.name || ct.en,
+          vi: ct.vi,
+          emoji: ct.emoji || '📚',
+          g1: ct.g1 || (ct.gradient && ct.gradient[0]) || '#f59e0b',
+          g2: ct.g2 || (ct.gradient && ct.gradient[1]) || '#f97316',
+          desc: ct.desc || `Từ vựng về ${ct.vi || ct.name}`
+        })
+      }
+    })
+  }
+  return list
+}
+
 function getHiddenTopics() {
   const h = readStore('engbee_admin_hidden_topics', [])
   return Array.isArray(h) ? h : []
@@ -43,13 +64,14 @@ function getHiddenTopics() {
 
 function getVisibleTopics() {
   const hidden = getHiddenTopics()
-  return TOPICS.filter((t) => !hidden.includes(t.id))
+  return getAllTopics().filter((t) => !hidden.includes(t.id))
 }
 
 function topicWordCount(id) {
   const added = readStore('engbee_admin_added_words', {})
   const addedCount = Array.isArray(added[id]) ? added[id].length : 0
-  return Math.max(0, 50 + addedCount)
+  const isDefault = TOPICS.some((t) => t.id === id)
+  return Math.max(0, (isDefault ? 50 : 0) + addedCount)
 }
 
 function totalActiveWords() {
@@ -93,6 +115,7 @@ function topicCard(t) {
   const totalCount = topicWordCount(t.id)
   const learned = learnedOf(t.id, totalCount)
   const pct = totalCount > 0 ? Math.round((learned / totalCount) * 100) : 0
+  const learnLink = TOPICS.some((def) => def.id === t.id) ? `learn-${t.id}.html` : `flashcard.html?topic=${t.id}`
   return `
   <article class="topic-card" style="--g1:${t.g1};--g2:${t.g2}">
     <div class="topic-icon">${t.emoji}</div>
@@ -103,7 +126,7 @@ function topicCard(t) {
         <div class="topic-progress-bar"><i style="width:${pct}%"></i></div>
         <span>${learned > 0 ? `${learned}/${totalCount} từ đã thuộc` : `0/${totalCount} từ (Chưa bắt đầu)`}</span>
       </div>
-      <a class="btn-learn" href="learn-${t.id}.html">Học ngay <span aria-hidden="true">→</span></a>
+      <a class="btn-learn" href="${learnLink}">Học ngay <span aria-hidden="true">→</span></a>
     </div>
   </article>`
 }
