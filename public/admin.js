@@ -523,10 +523,10 @@ function renderDashboard() {
 
   // Danh sách thay đổi
   const changes = [];
-  if (addedCount) changes.push(["➕ Từ đã thêm", addedCount]);
-  if (editedCount) changes.push(["✏️ Từ đã sửa", editedCount]);
-  if (removedCount) changes.push(["🗑️ Từ đã xóa", removedCount]);
-  if (hidden.length) changes.push(["🙈 Chủ đề đang tắt", hidden.length]);
+  if (addedCount) changes.push(["Từ đã thêm", addedCount]);
+  if (editedCount) changes.push(["Từ đã sửa", editedCount]);
+  if (removedCount) changes.push(["Từ đã xóa", removedCount]);
+  if (hidden.length) changes.push(["Chủ đề đang tắt", hidden.length]);
 
   if (changes.length === 0) {
     el.adminChangeList.innerHTML = '<li class="summary-empty">Chưa có thay đổi nào.</li>';

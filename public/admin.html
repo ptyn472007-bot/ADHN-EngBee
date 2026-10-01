@@ -15,7 +15,6 @@
   <!-- ============ ĐĂNG NHẬP ADMIN ============ -->
   <div class="login-screen" id="loginScreen">
     <form class="login-card" id="loginForm" novalidate>
-      <div class="login-bee">🐝</div>
       <h1 class="login-card__title">EngBee Admin</h1>
       <p class="login-card__sub">Quản trị toàn bộ nội dung của website</p>
 
@@ -51,7 +50,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <a class="sidebar__brand go-home" href="/">
-        <div class="brand__logo">🐝</div>
+        <div class="brand__logo">E</div>
         <div class="brand__text">
           <strong>EngBee</strong>
           <span>Trang quản trị</span>
@@ -61,31 +60,31 @@
       <nav class="sidebar__nav">
         <p class="nav__title">Quản lý nội dung</p>
         <button class="nav__item is-active" data-view="dashboard" type="button">
-          <span class="nav__icon">📊</span> Tổng quan
+          Tổng quan
         </button>
         <button class="nav__item" data-view="words" type="button">
-          <span class="nav__icon">📚</span> Từ vựng
+          Từ vựng
         </button>
         <button class="nav__item" data-view="topics" type="button">
-          <span class="nav__icon">🗂️</span> Chủ đề
+          Chủ đề
         </button>
 
         <p class="nav__title">Quản lý người dùng</p>
         <button class="nav__item" data-view="users" type="button">
-          <span class="nav__icon">👥</span> Người học
+          Người học
         </button>
         <button class="nav__item" data-view="results" type="button">
-          <span class="nav__icon">🏆</span> Kết quả Quiz
+          Kết quả Quiz
         </button>
 
         <p class="nav__title">Khác</p>
         <button class="nav__item" data-view="settings" type="button">
-          <span class="nav__icon">⚙️</span> Cài đặt
+          Cài đặt
         </button>
       </nav>
 
       <div class="sidebar__footer">
-        <div class="lock-badge">🔒 Khu vực dành riêng cho Admin</div>
+        <div class="lock-badge">Khu vực dành riêng cho Admin</div>
         <a class="btn-reset-data go-home" href="/">← Về trang chủ</a>
       </div>
     </aside>
@@ -123,27 +122,21 @@
 
           <div class="stats">
             <div class="stat-card">
-              <div class="stat-card__icon" style="background:#fff8e6;color:#f0a500">🗂️</div>
               <div><span class="stat-card__label">Chủ đề</span><strong class="stat-card__value" id="statTopics">0</strong></div>
             </div>
             <div class="stat-card">
-              <div class="stat-card__icon" style="background:#e8f5e9;color:#2e7d32">📚</div>
               <div><span class="stat-card__label">Tổng số từ vựng</span><strong class="stat-card__value" id="statWords">0</strong></div>
             </div>
             <div class="stat-card">
-              <div class="stat-card__icon" style="background:#e3f2fd;color:#1565c0">✏️</div>
               <div><span class="stat-card__label">Từ đã sửa / thêm / xóa</span><strong class="stat-card__value" id="statChanges">0</strong></div>
             </div>
             <div class="stat-card">
-              <div class="stat-card__icon" style="background:#fce4ec;color:#c2185b">👥</div>
               <div><span class="stat-card__label">Người đã học</span><strong class="stat-card__value" id="statUsers">0</strong></div>
             </div>
             <div class="stat-card">
-              <div class="stat-card__icon" style="background:#fff3e0;color:#ef6c00">📝</div>
               <div><span class="stat-card__label">Lượt làm Quiz</span><strong class="stat-card__value" id="statAttempts">0</strong></div>
             </div>
             <div class="stat-card">
-              <div class="stat-card__icon" style="background:#ede7f6;color:#5e35b1">⭐</div>
               <div><span class="stat-card__label">Điểm trung bình</span><strong class="stat-card__value" id="statAvg">0</strong></div>
             </div>
           </div>
@@ -177,8 +170,8 @@
               <p>Thêm, sửa, xóa từ của từng chủ đề. Thay đổi có hiệu lực ngay trên trang học và quiz.</p>
             </div>
             <div class="head-actions">
-              <button class="btn-primary btn-sm" id="btnRestoreWords" type="button">↺ Khôi phục từ gốc</button>
-              <button class="btn-primary" id="btnAddWord" type="button">＋ Thêm từ</button>
+              <button class="btn-primary btn-sm" id="btnRestoreWords" type="button">Khôi phục từ gốc</button>
+              <button class="btn-primary" id="btnAddWord" type="button">Thêm từ</button>
             </div>
           </div>
 
@@ -212,7 +205,6 @@
               </table>
 
               <div class="empty" id="wordEmpty" hidden>
-                <div class="empty__icon">🔍</div>
                 <h3>Không tìm thấy từ nào</h3>
                 <p>Thử từ khóa khác hoặc bấm <b>Thêm từ</b> để thêm mới.</p>
               </div>
@@ -230,7 +222,7 @@
               <p>Bật hoặc tắt chủ đề, hoặc bấm Thêm chủ đề để mở rộng kho từ vựng.</p>
             </div>
             <div class="head-actions">
-              <button class="btn-primary" id="btnAddTopic" type="button">＋ Thêm chủ đề</button>
+              <button class="btn-primary" id="btnAddTopic" type="button">Thêm chủ đề</button>
             </div>
           </div>
           <div class="topic-grid topic-grid-admin" id="topicGrid"></div>
@@ -261,7 +253,6 @@
                 <tbody id="userBody"></tbody>
               </table>
               <div class="empty" id="userEmpty" hidden>
-                <div class="empty__icon">👤</div>
                 <h3>Chưa có dữ liệu người học</h3>
                 <p>Người dùng đăng nhập tại trang <b>Đăng nhập</b> sẽ xuất hiện ở đây.</p>
               </div>
@@ -277,7 +268,7 @@
               <p>Lịch sử làm bài của toàn bộ người học, mới nhất trước.</p>
             </div>
             <div class="head-actions">
-              <button class="btn-primary btn-sm btn-danger" id="btnClearResults" type="button">🗑️ Xóa toàn bộ kết quả</button>
+              <button class="btn-primary btn-sm btn-danger" id="btnClearResults" type="button">Xóa toàn bộ kết quả</button>
             </div>
           </div>
 
@@ -297,7 +288,6 @@
                 <tbody id="resultBody"></tbody>
               </table>
               <div class="empty" id="resultEmpty" hidden>
-                <div class="empty__icon">🏆</div>
                 <h3>Chưa có kết quả Quiz</h3>
                 <p>Khi người học làm bài, kết quả sẽ hiển thị ở đây.</p>
               </div>
@@ -319,7 +309,7 @@
               <div class="panel__head"><h3>Khôi phục từ vựng</h3></div>
               <div class="panel__body">
                 <p class="panel__text">Xóa toàn bộ từ đã thêm, sửa, xóa và bật lại các chủ đề đang bị tắt.</p>
-                <button class="btn-primary btn-sm" id="btnResetWords" type="button">↺ Khôi phục từ vựng gốc</button>
+                <button class="btn-primary btn-sm" id="btnResetWords" type="button">Khôi phục từ vựng gốc</button>
               </div>
             </div>
 
@@ -328,8 +318,8 @@
               <div class="panel__body">
                 <p class="panel__text">Tải file JSON chứa toàn bộ thay đổi của Admin, hoặc nạp lại từ file đã lưu.</p>
                 <div class="head-actions">
-                  <button class="btn-primary btn-sm" id="btnExport" type="button">⬇ Tải file JSON</button>
-                  <button class="btn-primary btn-sm" id="btnImport" type="button">⬆ Nạp từ file</button>
+                  <button class="btn-primary btn-sm" id="btnExport" type="button">Tải file JSON</button>
+                  <button class="btn-primary btn-sm" id="btnImport" type="button">Nạp từ file</button>
                 </div>
                 <input type="file" id="importFile" accept="application/json" hidden />
               </div>
@@ -339,7 +329,7 @@
               <div class="panel__head"><h3>Xóa dữ liệu người học</h3></div>
               <div class="panel__body">
                 <p class="panel__text">Xóa toàn bộ tiến độ học và kết quả quiz của mọi người dùng trên trình duyệt này.</p>
-                <button class="btn-primary btn-sm btn-danger" id="btnClearUserData" type="button">🗑️ Xóa dữ liệu người học</button>
+                <button class="btn-primary btn-sm btn-danger" id="btnClearUserData" type="button">Xóa dữ liệu người học</button>
               </div>
             </div>
 
@@ -347,7 +337,7 @@
               <div class="panel__head"><h3>Đặt lại toàn bộ</h3></div>
               <div class="panel__body">
                 <p class="panel__text panel__text--warn">Xóa sạch mọi dữ liệu EngBee trên trình duyệt này, kể cả thông tin đăng nhập. Không thể hoàn tác.</p>
-                <button class="btn-primary btn-sm btn-danger" id="btnResetAll" type="button">⚠ Xóa toàn bộ dữ liệu</button>
+                <button class="btn-primary btn-sm btn-danger" id="btnResetAll" type="button">Xóa toàn bộ dữ liệu</button>
               </div>
             </div>
           </div>
