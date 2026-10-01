@@ -18,6 +18,7 @@ function getInitialData() {
       addedWords: {},
       removedWords: [],
       hiddenTopics: [],
+      customTopics: [],
       lastUpdate: Date.now()
     }
   };
@@ -270,13 +271,14 @@ export async function handleApiRequest(req, res) {
     return true;
   }
 
-  // 5. POST /api/admin/data - Lưu dữ liệu quản trị (từ đã sửa/thêm/xóa/chủ đề ẩn)
+  // 5. POST /api/admin/data - Lưu dữ liệu quản trị (từ đã sửa/thêm/xóa/chủ đề ẩn/chủ đề tự tạo)
   if (req.method === 'POST' && pathname === '/api/admin/data') {
     if (!db.admin) db.admin = {};
     if (body.editedWords !== undefined) db.admin.editedWords = body.editedWords;
     if (body.addedWords !== undefined) db.admin.addedWords = body.addedWords;
     if (body.removedWords !== undefined) db.admin.removedWords = body.removedWords;
     if (body.hiddenTopics !== undefined) db.admin.hiddenTopics = body.hiddenTopics;
+    if (body.customTopics !== undefined) db.admin.customTopics = body.customTopics;
     db.admin.lastUpdate = Date.now();
 
     writeDb(db);

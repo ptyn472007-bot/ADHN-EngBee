@@ -13,6 +13,7 @@
   var KEY_ADDED = "engbee_admin_added_words";     // { "food": [ {id, en, ipa, vi, ex, exvi} ] }
   var KEY_REMOVED = "engbee_admin_removed_words"; // ["từ1", "từ2"]
   var KEY_HIDDEN = "engbee_admin_hidden_topics";  // ["movie", "music"]
+  var KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // [{ id, name, vi, emoji, ... }]
   var KEY_UPDATE = "engbee_admin_last_update";    // timestamp
 
   /* ----- 2. Danh sách 12 chủ đề chuẩn ----- */
@@ -228,8 +229,24 @@
   }
 
   /* ----- 10. Lấy danh sách các chủ đề đang được kích hoạt (không bị ẩn) ----- */
+  function getAllTopics() {
+    var list = DEFAULT_TOPICS.slice();
+    var custom = read(KEY_CUSTOM_TOPICS, []);
+    if (Array.isArray(custom)) {
+      var map = {};
+      list.forEach(function (t) { map[t.id] = true; });
+      custom.forEach(function (ct) {
+        if (!map[ct.id]) {
+          list.push(ct);
+          map[ct.id] = true;
+        }
+      });
+    }
+    return list;
+  }
+
   function getActiveTopics(baseTopics) {
-    var list = Array.isArray(baseTopics) ? baseTopics : DEFAULT_TOPICS;
+    var list = Array.isArray(baseTopics) ? baseTopics : getAllTopics();
     var hidden = read(KEY_HIDDEN, []);
     var hiddenMap = {};
     for (var i = 0; i < hidden.length; i++) hiddenMap[hidden[i]] = true;
@@ -439,6 +456,10 @@
         }
         if (data.hiddenTopics && JSON.stringify(data.hiddenTopics) !== localStorage.getItem(KEY_HIDDEN)) {
           localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.hiddenTopics));
+          changed = true;
+        }
+        if (data.customTopics && JSON.stringify(data.customTopics) !== localStorage.getItem(KEY_CUSTOM_TOPICS)) {
+          localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.customTopics));
           changed = true;
         }
         if (changed) {

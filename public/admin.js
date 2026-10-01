@@ -11,6 +11,7 @@ const KEY_EDITED = "engbee_admin_edited_words";       // từ đã sửa
 const KEY_ADDED = "engbee_admin_added_words";         // từ đã thêm
 const KEY_REMOVED = "engbee_admin_removed_words";     // từ đã xóa
 const KEY_HIDDEN = "engbee_admin_hidden_topics";      // chủ đề đang tắt
+const KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // chủ đề mới do admin tạo
 const KEY_USER = "engbee_user";                      // người dùng hiện tại
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
@@ -52,7 +53,7 @@ const el = {
   wordTopicFilter: $("wordTopicFilter"), wordSearch: $("wordSearch"),
   wordCountInfo: $("wordCountInfo"), wordBody: $("wordBody"), wordEmpty: $("wordEmpty"), wordPagination: $("wordPagination"),
   // chủ đề
-  topicGrid: $("topicGrid"),
+  btnAddTopic: $("btnAddTopic"), topicGrid: $("topicGrid"),
   // người học
   userBody: $("userBody"), userEmpty: $("userEmpty"),
   // kết quả
@@ -67,6 +68,16 @@ const el = {
   inputEx: $("inputEx"), inputExVi: $("inputExVi"), inputTopic: $("inputTopic"),
   errorEn: $("errorEn"), errorVi: $("errorVi"), errorIpa: $("errorIpa"),
   errorEx: $("errorEx"), errorExVi: $("errorExVi"), errorTopicField: $("errorTopicField"),
+  // modal chủ đề
+  topicModal: $("topicModal"), topicModalTitle: $("topicModalTitle"), topicForm: $("topicForm"),
+  inputTopicMode: $("inputTopicMode"), inputTopicOriginalId: $("inputTopicOriginalId"),
+  inputTopicName: $("inputTopicName"), inputTopicVi: $("inputTopicVi"),
+  inputTopicId: $("inputTopicId"), inputTopicEmoji: $("inputTopicEmoji"),
+  inputTopicG1: $("inputTopicG1"), inputTopicG2: $("inputTopicG2"),
+  inputTopicG1Picker: $("inputTopicG1Picker"), inputTopicG2Picker: $("inputTopicG2Picker"),
+  inputTopicDesc: $("inputTopicDesc"),
+  errorTopicName: $("errorTopicName"), errorTopicVi: $("errorTopicVi"),
+  errorTopicId: $("errorTopicId"), errorTopicEmoji: $("errorTopicEmoji"), errorTopicDesc: $("errorTopicDesc"),
   // modal xác nhận
   confirmModal: $("confirmModal"), confirmTitle: $("confirmTitle"),
   confirmText: $("confirmText"), confirmNote: $("confirmNote"), btnConfirmOk: $("btnConfirmOk"),
@@ -79,7 +90,7 @@ const VIEW_ORDER = ["dashboard", "words", "topics", "users", "results", "setting
 const VIEW_INFO = {
   dashboard: ["Tổng quan", "Nhìn toàn cảnh hoạt động của website EngBee"],
   words: ["Quản lý từ vựng", "Thêm, sửa, xóa từ vựng của các chủ đề"],
-  topics: ["Quản lý chủ đề", "Bật hoặc tắt chủ đề cho người học"],
+  topics: ["Quản lý chủ đề", "Bật hoặc tắt chủ đề, thêm chủ đề mới cho người học"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
   settings: ["Cài đặt & bảo trì", "Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này"]
@@ -137,7 +148,8 @@ function pushAdminDataToServer() {
       editedWords: getEdited(),
       addedWords: getAdded(),
       removedWords: getRemoved(),
-      hiddenTopics: getHiddenTopics()
+      hiddenTopics: getHiddenTopics(),
+      customTopics: getCustomTopics()
     })
   }).catch(function () {});
 }
@@ -164,10 +176,13 @@ async function syncServerStats() {
       if (data.admin.addedWords) try { localStorage.setItem(KEY_ADDED, JSON.stringify(data.admin.addedWords)); } catch (e) {}
       if (data.admin.removedWords) try { localStorage.setItem(KEY_REMOVED, JSON.stringify(data.admin.removedWords)); } catch (e) {}
       if (data.admin.hiddenTopics) try { localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.admin.hiddenTopics)); } catch (e) {}
+      if (data.admin.customTopics) try { localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.admin.customTopics)); } catch (e) {}
     }
 
     if (currentAdmin) {
       renderDashboard();
+      renderTopics();
+      renderTopicSelects();
       renderUsers();
       renderResults();
     }
@@ -300,16 +315,31 @@ function handleLogout() {
 
 /* ================= PHẦN 6: DỮ LIỆU TỪ VỰNG ================= */
 
-// Lấy toàn bộ chủ đề từ data.js (file dữ liệu gốc của website)
+// Lấy danh sách chủ đề do Admin tự thêm
+function getCustomTopics() {
+  const t = readStore(KEY_CUSTOM_TOPICS, []);
+  return Array.isArray(t) ? t : [];
+}
+
+// Lấy toàn bộ chủ đề (gốc data.js + do Admin tạo thêm)
 function allTopics() {
-  if (window.EngBeeData && Array.isArray(EngBeeData.topics)) return EngBeeData.topics;
-  return [];
+  const base = (window.EngBeeData && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics.slice() : [];
+  const custom = getCustomTopics();
+  const map = {};
+  base.forEach(function (t) { map[t.id] = t; });
+  custom.forEach(function (t) {
+    if (!map[t.id]) {
+      base.push(t);
+      map[t.id] = t;
+    }
+  });
+  return base;
 }
 
 // Lấy danh sách từ gốc của một chủ đề
 function baseWords(topicId) {
   const topic = allTopics().find(function (t) { return t.id === topicId; });
-  return topic ? topic.words.slice() : [];
+  return topic && Array.isArray(topic.words) ? topic.words.slice() : [];
 }
 
 // Lấy các bản ghi Admin đã lưu
@@ -624,21 +654,40 @@ function renderTopics() {
   allTopics().forEach(function (t) {
     const isOff = hidden.indexOf(t.id) !== -1;
     const count = effectiveWords(t.id).length;
-    const g1 = (t.gradient && t.gradient[0]) || "#f0a500";
-    const g2 = (t.gradient && t.gradient[1]) || "#ffb52e";
+    const g1 = (t.gradient && t.gradient[0]) || t.g1 || "#f0a500";
+    const g2 = (t.gradient && t.gradient[1]) || t.g2 || "#ffb52e";
+    const badge = t.emoji ? t.emoji : esc(t.name.slice(0, 1).toUpperCase());
+    const isCustom = !!t.isCustom;
+
+    const learnLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "learn-" + t.id + ".html" : "flashcard.html?topic=" + t.id);
+    const quizLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "quiz-" + t.id + ".html" : "quiz.html?topic=" + t.id);
 
     const card = document.createElement("div");
     card.className = "topic-admin-card" + (isOff ? " is-off" : "");
     card.innerHTML =
       '<div class="topic-admin-card__top" style="background:linear-gradient(135deg,' + g1 + "," + g2 + ')">' +
-        '<div class="topic-admin-card__letter">' + esc(t.name.slice(0, 1)) + "</div>" +
-        "<div><div class=\"topic-admin-card__name\">" + esc(t.name) + "</div>" +
-        '<div class="topic-admin-card__vi">' + esc(t.vi) + "</div></div>" +
+        '<div class="topic-admin-card__letter">' + badge + "</div>" +
+        '<div style="flex:1;min-width:0;">' +
+          '<div class="topic-admin-card__name" style="display:flex;align-items:center;justify-content:space-between;gap:6px;">' +
+            '<span>' + esc(t.name) + '</span>' +
+            (isCustom ? '<span style="font-size:11px;background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:999px;font-weight:700;">Tự tạo</span>' : '') +
+          '</div>' +
+          '<div class="topic-admin-card__vi">' + esc(t.vi) + '</div>' +
+        '</div>' +
       "</div>" +
       '<div class="topic-admin-card__body">' +
         '<div class="topic-admin-card__row"><span>Số từ</span><b>' + count + "</b></div>" +
-        '<div class="topic-admin-card__row"><span>Trang học</span><b><a href="learn-' + t.id + '.html">Mở</a></b></div>' +
-        '<div class="topic-admin-card__row"><span>Trang quiz</span><b><a href="quiz-' + t.id + '.html">Mở</a></b></div>' +
+        '<div class="topic-admin-card__row"><span>Trang học</span><b><a href="' + learnLink + '" target="_blank">Mở</a></b></div>' +
+        '<div class="topic-admin-card__row"><span>Trang quiz</span><b><a href="' + quizLink + '" target="_blank">Mở</a></b></div>' +
+        (isCustom ? (
+          '<div class="topic-admin-card__row" style="padding-top:8px;border-top:1px dashed var(--border);">' +
+            '<span>Tùy chỉnh:</span>' +
+            '<div style="display:flex;gap:6px;">' +
+              '<button type="button" class="btn-edit" style="padding:3px 8px;font-size:12px;" data-act="edit-topic" data-topic="' + esc(t.id) + '">Sửa</button>' +
+              '<button type="button" class="btn-delete" style="padding:3px 8px;font-size:12px;" data-act="del-topic" data-topic="' + esc(t.id) + '">Xóa</button>' +
+            '</div>' +
+          '</div>'
+        ) : '') +
         '<div class="topic-admin-card__toggle"><span>' + (isOff ? "Đang tắt" : "Đang bật") + "</span>" +
           '<label class="switch"><input type="checkbox" data-act="toggle" data-topic="' + t.id + '"' + (isOff ? "" : " checked") + ">" +
           '<span class="switch__slider"></span></label>' +
@@ -827,10 +876,12 @@ function clearFormErrors() {
 }
 
 function closeAllModals() {
-  el.wordModal.hidden = true;
-  el.confirmModal.hidden = true;
+  if (el.wordModal) el.wordModal.hidden = true;
+  if (el.topicModal) el.topicModal.hidden = true;
+  if (el.confirmModal) el.confirmModal.hidden = true;
   document.body.style.overflow = "";
   clearFormErrors();
+  clearTopicFormErrors();
   pendingAction = null;
   editingKey = "";
 }
@@ -1012,6 +1063,155 @@ function handleWordSubmit(event) {
 
   closeAllModals();
   renderAll();
+}
+
+/* ================= PHẦN 13B: THÊM / SỬA CHỦ ĐỀ ================= */
+
+function clearTopicFormErrors() {
+  if (!el.errorTopicName) return;
+  [el.errorTopicName, el.errorTopicVi, el.errorTopicId, el.errorTopicEmoji, el.errorTopicDesc].forEach(function (b) {
+    if (b) { b.textContent = ""; b.classList.remove("is-show"); }
+  });
+  [el.inputTopicName, el.inputTopicVi, el.inputTopicId, el.inputTopicEmoji, el.inputTopicDesc].forEach(function (i) {
+    if (i) i.classList.remove("is-error");
+  });
+}
+
+function openTopicModal(mode, topicId) {
+  if (!requireAdmin()) return;
+  clearTopicFormErrors();
+  el.topicForm.reset();
+  el.inputTopicMode.value = mode;
+
+  if (mode === "edit") {
+    const topic = allTopics().find(function (t) { return t.id === topicId; });
+    if (!topic) { showToast("Không tìm thấy chủ đề.", "error"); return; }
+    el.topicModalTitle.textContent = "Sửa chủ đề: " + topic.name;
+    el.inputTopicOriginalId.value = topicId;
+    el.inputTopicName.value = topic.name || topic.en || "";
+    el.inputTopicVi.value = topic.vi || "";
+    el.inputTopicId.value = topic.id || "";
+    el.inputTopicId.readOnly = true;
+    el.inputTopicEmoji.value = topic.emoji || "";
+    const g1 = (topic.gradient && topic.gradient[0]) || topic.g1 || "#f59e0b";
+    const g2 = (topic.gradient && topic.gradient[1]) || topic.g2 || "#f97316";
+    el.inputTopicG1.value = g1;
+    el.inputTopicG1Picker.value = g1;
+    el.inputTopicG2.value = g2;
+    el.inputTopicG2Picker.value = g2;
+    el.inputTopicDesc.value = topic.desc || "";
+  } else {
+    el.topicModalTitle.textContent = "Thêm chủ đề mới";
+    el.inputTopicOriginalId.value = "";
+    el.inputTopicId.readOnly = false;
+    delete el.inputTopicId.dataset.userEdited;
+    el.inputTopicG1.value = "#f59e0b";
+    el.inputTopicG1Picker.value = "#f59e0b";
+    el.inputTopicG2.value = "#f97316";
+    el.inputTopicG2Picker.value = "#f97316";
+    el.inputTopicEmoji.value = "📚";
+  }
+
+  el.topicModal.hidden = false;
+  document.body.style.overflow = "hidden";
+  setTimeout(function () { el.inputTopicName.focus(); }, 60);
+}
+
+function handleTopicSubmit(event) {
+  event.preventDefault();
+  if (!requireAdmin()) return;
+  clearTopicFormErrors();
+
+  const mode = el.inputTopicMode.value;
+  const originalId = el.inputTopicOriginalId.value;
+  const name = el.inputTopicName.value.trim();
+  const vi = el.inputTopicVi.value.trim();
+  let id = el.inputTopicId.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
+  const emoji = el.inputTopicEmoji.value.trim() || "📚";
+  const g1 = el.inputTopicG1.value.trim() || "#f59e0b";
+  const g2 = el.inputTopicG2.value.trim() || "#f97316";
+  const desc = el.inputTopicDesc.value.trim();
+
+  let hasError = false;
+  if (!name) { showFieldError(el.inputTopicName, el.errorTopicName, "Vui lòng nhập tên tiếng Anh của chủ đề."); hasError = true; }
+  if (!vi) { showFieldError(el.inputTopicVi, el.errorTopicVi, "Vui lòng nhập tên tiếng Việt của chủ đề."); hasError = true; }
+  if (!id) {
+    id = name.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_-]/g, "");
+    el.inputTopicId.value = id;
+  }
+  if (!id) {
+    showFieldError(el.inputTopicId, el.errorTopicId, "Vui lòng nhập mã ID cho chủ đề (chữ thường, không dấu).");
+    hasError = true;
+  }
+
+  if (mode === "add") {
+    const existing = allTopics().some(function (t) { return t.id === id; });
+    if (existing) {
+      showFieldError(el.inputTopicId, el.errorTopicId, 'Mã chủ đề "' + id + '" đã tồn tại.');
+      hasError = true;
+    }
+  }
+
+  if (hasError) return;
+
+  const customTopics = getCustomTopics();
+  const topicData = {
+    id: id,
+    name: name,
+    en: name,
+    vi: vi,
+    emoji: emoji,
+    g1: g1,
+    g2: g2,
+    gradient: [g1, g2],
+    desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi),
+    isCustom: true,
+    words: []
+  };
+
+  if (mode === "edit") {
+    const idx = customTopics.findIndex(function (t) { return t.id === originalId; });
+    if (idx !== -1) {
+      customTopics[idx] = Object.assign({}, customTopics[idx], topicData);
+    } else {
+      customTopics.push(topicData);
+    }
+  } else {
+    customTopics.push(topicData);
+  }
+
+  writeStore(KEY_CUSTOM_TOPICS, customTopics);
+  closeAllModals();
+  renderAll();
+  renderTopicSelects();
+  showToast('Đã lưu chủ đề "' + name + '" thành công!');
+}
+
+function deleteTopic(topicId) {
+  if (!requireAdmin()) return;
+  const topic = allTopics().find(function (t) { return t.id === topicId; });
+  const name = topic ? topic.name : topicId;
+
+  askConfirm(
+    "Xóa chủ đề",
+    'Bạn có chắc chắn muốn xóa chủ đề "' + name + '" không?',
+    "Toàn bộ từ vựng thuộc chủ đề này do Admin thêm vào cũng sẽ bị xóa.",
+    function () {
+      let customTopics = getCustomTopics().filter(function (t) { return t.id !== topicId; });
+      writeStore(KEY_CUSTOM_TOPICS, customTopics);
+
+      // Xóa từ vựng thuộc chủ đề này trong addedWords
+      const added = getAdded();
+      if (added[topicId]) {
+        delete added[topicId];
+        writeStore(KEY_ADDED, added);
+      }
+
+      renderAll();
+      renderTopicSelects();
+      showToast('Đã xóa chủ đề "' + name + '".');
+    }
+  );
 }
 
 /* ================= PHẦN 14: XÓA / KHÔI PHỤC ================= */
@@ -1199,6 +1399,7 @@ function exportData() {
   data[KEY_ADDED] = getAdded();
   data[KEY_REMOVED] = getRemoved();
   data[KEY_HIDDEN] = getHiddenTopics();
+  data[KEY_CUSTOM_TOPICS] = getCustomTopics();
   data[USERS_REGISTRY_KEY] = readStore(USERS_REGISTRY_KEY, []);
 
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -1225,6 +1426,7 @@ function importData(event) {
       if (data[KEY_ADDED]) writeStore(KEY_ADDED, data[KEY_ADDED]);
       if (data[KEY_REMOVED]) writeStore(KEY_REMOVED, data[KEY_REMOVED]);
       if (data[KEY_HIDDEN]) writeStore(KEY_HIDDEN, data[KEY_HIDDEN]);
+      if (data[KEY_CUSTOM_TOPICS]) writeStore(KEY_CUSTOM_TOPICS, data[KEY_CUSTOM_TOPICS]);
       if (data[USERS_REGISTRY_KEY]) writeStore(USERS_REGISTRY_KEY, data[USERS_REGISTRY_KEY]);
       pushAdminDataToServer();
       renderAll();
@@ -1371,11 +1573,52 @@ el.wordTopicFilter.addEventListener("change", function () { wordPage = 1; render
 el.btnAddWord.addEventListener("click", function () { openWordModal("add", ""); });
 el.btnRestoreWords.addEventListener("click", resetWords);
 
+// Chủ đề: Nút thêm chủ đề
+if (el.btnAddTopic) {
+  el.btnAddTopic.addEventListener("click", function () { openTopicModal("add", ""); });
+}
+
+// Chủ đề: Sửa / Xóa chủ đề tự tạo
+el.topicGrid.addEventListener("click", function (event) {
+  const btn = event.target.closest("button");
+  if (!btn) return;
+  const act = btn.getAttribute("data-act");
+  const topicId = btn.getAttribute("data-topic");
+  if (act === "edit-topic") openTopicModal("edit", topicId);
+  if (act === "del-topic") deleteTopic(topicId);
+});
+
 // Chủ đề: công tắc bật/tắt
 el.topicGrid.addEventListener("change", function (event) {
   const input = event.target;
   if (input.getAttribute("data-act") === "toggle") toggleTopic(input.getAttribute("data-topic"));
 });
+
+// Đồng bộ bộ chọn màu chủ đề
+if (el.inputTopicG1Picker && el.inputTopicG1) {
+  el.inputTopicG1Picker.addEventListener("input", function () { el.inputTopicG1.value = el.inputTopicG1Picker.value; });
+  el.inputTopicG1.addEventListener("input", function () {
+    if (/^#[0-9A-Fa-f]{6}$/.test(el.inputTopicG1.value)) el.inputTopicG1Picker.value = el.inputTopicG1.value;
+  });
+}
+if (el.inputTopicG2Picker && el.inputTopicG2) {
+  el.inputTopicG2Picker.addEventListener("input", function () { el.inputTopicG2.value = el.inputTopicG2Picker.value; });
+  el.inputTopicG2.addEventListener("input", function () {
+    if (/^#[0-9A-Fa-f]{6}$/.test(el.inputTopicG2.value)) el.inputTopicG2Picker.value = el.inputTopicG2.value;
+  });
+}
+
+// Tự động tạo mã chủ đề khi nhập tên tiếng Anh
+if (el.inputTopicName && el.inputTopicId) {
+  el.inputTopicName.addEventListener("input", function () {
+    if (el.inputTopicMode.value === "add" && !el.inputTopicId.dataset.userEdited) {
+      el.inputTopicId.value = el.inputTopicName.value.trim().toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_-]/g, "");
+    }
+  });
+  el.inputTopicId.addEventListener("input", function () {
+    el.inputTopicId.dataset.userEdited = "true";
+  });
+}
 
 // Người học: xóa tiến độ
 el.userBody.addEventListener("click", function (event) {
@@ -1404,10 +1647,11 @@ el.btnConfirmOk.addEventListener("click", function () {
   if (action) action();
 });
 el.wordForm.addEventListener("submit", handleWordSubmit);
+if (el.topicForm) el.topicForm.addEventListener("submit", handleTopicSubmit);
 
 // Gỡ lỗi khi người dùng đang gõ
-[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi].forEach(function (input) {
-  input.addEventListener("input", function () { input.classList.remove("is-error"); });
+[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
+  if (input) input.addEventListener("input", function () { input.classList.remove("is-error"); });
 });
 
 // Phím Esc đóng modal

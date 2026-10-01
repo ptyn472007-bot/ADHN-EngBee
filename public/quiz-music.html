@@ -256,6 +256,7 @@ main{flex:1}
   var TID = "music", TNAME = "Music", G1 = "#ec4899", G2 = "#8b5cf6";
   var N = 10;
   var KEY = "eb_quiz_history";
+  var STATE_KEY = "eb_quiz_state_" + TID;
   var QUIZ_COUNT = 0; // số lượt làm của chủ đề này
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
   function getHistory(){try{return JSON.parse(localStorage.getItem(KEY)||"[]");}catch(e){return [];}}
@@ -267,7 +268,32 @@ main{flex:1}
   function esc(s){return String(s==null?"":s).replace(/[<>&"]/g,function(c){return c==="<"?"&lt;":c===">"?"&gt;":c==="&"?"&amp;":"&quot;";});}
   function pctLabel(p){if(p===100)return"Chuẩn không cần chỉnh! Giữ vững phong độ này nhé!";if(p>=80)return"Kết quả rất tốt, luyện thêm để đạt 100%!";if(p>=60)return"Khá ổn, xem lại từ vựng và làm lại nhé.";if(p>=40)return"Cần ôn nhiều hơn. Mở trang Học từ vựng để ghi nhớ.";return"Hãy cố gắng thêm. Xem lại từ vựng trước khi làm lại nhé.";}
   function rzTitle(p){if(p===100)return"Chúc mừng! Bạn đã hoàn thành xuất sắc";if(p>=80)return"Rất tốt! Gần đạt điểm tuyệt đối rồi";if(p>=60)return"Kết quả khá ổn, tiếp tục luyện tập";if(p>=40)return"Oh điểm vẫn còn thấp, đừng nản nhé";return"Chưa đạt, hãy thử lại ngay nhé";}
-  var idx=0,correct=0,picked=false,answers=[];
+  var idx=0,correct=0,picked=false,answers=[],chosenVi=null;
+
+  function saveState(){
+    try {
+      localStorage.setItem(STATE_KEY, JSON.stringify({
+        answers: answers,
+        idx: idx,
+        correct: correct,
+        picked: picked,
+        chosenVi: chosenVi,
+        ts: Date.now()
+      }));
+    } catch(e){}
+  }
+  function clearState(){
+    try { localStorage.removeItem(STATE_KEY); } catch(e){}
+  }
+  function getSavedState(){
+    try {
+      var s = JSON.parse(localStorage.getItem(STATE_KEY));
+      if(s && Array.isArray(s.answers) && s.answers.length > 0 && typeof s.idx === "number" && s.idx < s.answers.length){
+        return s;
+      }
+    }catch(e){}
+    return null;
+  }
 
   function show(which){
     qs("#qz-start").classList.toggle("active",which==="start");
@@ -296,8 +322,25 @@ main{flex:1}
     qs("#quiz-total-note").textContent=h.length?"Da lam "+h.length+" lan. Gan nhat: "+fmt(h[0].ts):"Chua lam lan nao. Bat dau ngay!";
     renderHistoryRows(h.slice(0,5),qs("#start-history"));
   }
-  function startQuiz(){
+  function startQuiz(forceNew){
+    if(!forceNew){
+      var saved = getSavedState();
+      if(saved){
+        answers = saved.answers;
+        idx = saved.idx;
+        correct = saved.correct || 0;
+        picked = !!saved.picked;
+        chosenVi = saved.chosenVi || null;
+        show("q");
+        renderQ();
+        if(picked && chosenVi){
+          restoreAnswered(chosenVi);
+        }
+        return;
+      }
+    }
     if (!WORDS || !WORDS.length) return;
+    clearState();
     var quizCount = Math.min(N, WORDS.length);
     var pool = shuffle(WORDS.slice()).slice(0, quizCount);
     answers=pool.map(function(w){
@@ -309,10 +352,12 @@ main{flex:1}
       }
       return {word:w,opts:shuffle(dis.concat([w.vi]))};
     });
-    idx=0;correct=0;picked=false;
+    idx=0;correct=0;picked=false;chosenVi=null;
+    saveState();
     show("q");renderQ();
   }
   function renderQ(){
+    if (!answers.length || !answers[idx]) return;
     var a=answers[idx];
     var currentTotal = answers.length;
     qs("#q-progress").textContent=(idx+1)+" / "+currentTotal;
@@ -327,7 +372,7 @@ main{flex:1}
     a.opts.forEach(function(vi,i){
       var b=document.createElement("button");
       b.type="button";b.className="qz-answer";
-      var l=document.createElement("span");l.className="qz-lbl";l.textContent=label[i];
+      var l=document.createElement("span");l.className="qz-lbl";l.textContent=label[i] || (i+1);
       var v=document.createElement("span");v.className="qz-val";v.textContent=vi;
       b.appendChild(l);b.appendChild(v);
       b.addEventListener("click",onAnswer);
@@ -337,31 +382,49 @@ main{flex:1}
     var nb=qs("#btn-next");nb.classList.remove("ready");
     nb.textContent=(idx+1)<currentTotal?"Câu tiếp →":"Câu cuối — chọn đáp án →";
     qs("#qz-hint").textContent=(idx+1)<currentTotal?"Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.":"Đây là câu cuối cùng! Chọn 1 đáp án rồi bấm nút để xem kết quả.";
-    picked=false;
+    picked=false;chosenVi=null;
+  }
+  function applyAnswerUI(chosen, playAudio){
+    var it=answers[idx];
+    var btns=qs("#qz-answers").querySelectorAll(".qz-answer");
+    for(var i=0;i<btns.length;i++)btns[i].disabled=true;
+    var fb=qs("#qz-feedback");
+    var isCorrect=(chosen===it.word.vi);
+    for(var j=0;j<btns.length;j++){
+      var val=btns[j].querySelector(".qz-val").textContent;
+      if(val===chosen) btns[j].classList.add(isCorrect?"correct":"wrong");
+      if(!isCorrect && val===it.word.vi) btns[j].classList.add("correct");
+    }
+    if(isCorrect){
+      fb.className="qz-feedback show good";
+      fb.innerHTML="Chính xác! <strong>"+esc(it.word.en)+"</strong> nghĩa là <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+    }else{
+      fb.className="qz-feedback show bad";
+      fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+    }
+    if(playAudio) speak(it.word.en);
+    qs("#q-score").textContent=correct+" dung";
+    var nb=qs("#btn-next");nb.classList.add("ready");
+    var currentTotal = answers.length;
+    nb.textContent=(idx+1)>=currentTotal?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+currentTotal+") →";
+    qs("#qz-hint").textContent=(isCorrect?"Đúng rồi ✓ ":"Sai rồi, đáp án đúng đã được tô xanh. ")+"Bấm nút bên phải để tiếp tục.";
   }
   function onAnswer(ev){
     if(picked)return;
     var btn=ev.currentTarget;var it=answers[idx];picked=true;
-    var btns=qs("#qz-answers").querySelectorAll(".qz-answer");
-    for(var i=0;i<btns.length;i++)btns[i].disabled=true;
     var chosen=btn.querySelector(".qz-val").textContent;
-    var fb=qs("#qz-feedback");
+    chosenVi=chosen;
     if(chosen===it.word.vi){
-      btn.classList.add("correct");correct++;
-      fb.className="qz-feedback show good";fb.innerHTML="Chính xác! <strong>"+esc(it.word.en)+"</strong> nghĩa là <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
-    }else{
-      btn.classList.add("wrong");
-      for(var j=0;j<btns.length;j++)if(btns[j].querySelector(".qz-val").textContent===it.word.vi)btns[j].classList.add("correct");
-      fb.className="qz-feedback show bad";fb.innerHTML="Chưa đúng. Đáp án đúng: <strong>"+esc(it.word.vi)+"</strong>"+(it.word.ex?'<div class="qz-ex">📖 '+esc(it.word.ex)+'</div>':'');
+      correct++;
     }
-    speak(it.word.en);
-    qs("#q-score").textContent=correct+" dung";
-    var currentTotal = answers.length;
-    var nb=qs("#btn-next");nb.classList.add("ready");
-    nb.textContent=(idx+1)>=currentTotal?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+currentTotal+") →";
-    qs("#qz-hint").textContent=((btn.className.indexOf("correct")>=0)?"Đúng rồi ✓ ":"Sai rồi, đáp án đúng đã được tô xanh. ")+"Bấm nút bên phải để tiếp tục.";
+    applyAnswerUI(chosen, true);
+    saveState();
+  }
+  function restoreAnswered(chosen){
+    applyAnswerUI(chosen, false);
   }
   function finish(){
+    clearState();
     var currentTotal = answers.length || N;
     var pct=Math.round(100*correct/currentTotal);
     var ring=qs("#qz-score-ring");ring.style.setProperty("--p",pct);
@@ -381,13 +444,20 @@ main{flex:1}
   }
   function bestForNew(h){var b=0;for(var i=0;i<h.length;i++)if(h[i].mode===TID&&h[i].pct>b)b=h[i].pct;return b;}
   function bind(){
-    qs("#btn-start").addEventListener("click",startQuiz);
+    qs("#btn-start").addEventListener("click",function(){startQuiz(true);});
     qs("#btn-next").addEventListener("click",function(){
       if(!qs("#btn-next").classList.contains("ready"))return;
       idx++;
-      if(idx<answers.length)renderQ();else finish();
+      picked=false;
+      chosenVi=null;
+      if(idx<answers.length){
+        saveState();
+        renderQ();
+      }else{
+        finish();
+      }
     });
-    qs("#btn-restart").addEventListener("click",startQuiz);
+    qs("#btn-restart").addEventListener("click",function(){startQuiz(true);});
     qs("#btn-speak").addEventListener("click",function(){
       if(answers[idx])speak(answers[idx].word.en);
     });
@@ -402,7 +472,7 @@ main{flex:1}
   } else {
     buildStart();
   }
-  if (WORDS && WORDS.length) { startQuiz(); }
+  if (WORDS && WORDS.length) { startQuiz(false); }
 })();
 
 </script>
