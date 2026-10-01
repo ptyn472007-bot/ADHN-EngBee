@@ -98,10 +98,10 @@ main{flex:1}
         <h1>Kiem tra kien thuc cua ban</h1>
         <p class="qch-hero-sub">Chon mot chu de de luyen tap, hoac thu thach ban than voi quiz tong hop 600 tu. Moi lan lam: 10 cau hoi, 4 lua chon, co nghe phat am va cham diem tu dong.</p>
         <div class="qch-stats">
-          <div class="qch-stat"><b>12</b><span>Chu de</span></div>
-          <div class="qch-stat"><b>600</b><span>Tu vung</span></div>
-          <div class="qch-stat"><b>10</b><span>Cau / lan</span></div>
-          <div class="qch-stat"><b id="qch-luot">0</b><span>Luot da lam</span></div>
+          <div class="qch-stat"><b id="qch-topics-count">12</b><span>Chủ đề</span></div>
+          <div class="qch-stat"><b id="qch-words-count">600</b><span>Từ vựng</span></div>
+          <div class="qch-stat"><b>10</b><span>Câu / lần</span></div>
+          <div class="qch-stat"><b id="qch-luot">0</b><span>Lượt đã làm</span></div>
         </div>
       </div>
     </div>
@@ -110,30 +110,30 @@ main{flex:1}
   <section class="container qch-body">
     <div class="qch-all">
       <div class="qch-all-inner">
-        <span class="qch-all-badge">⚡ Thach thuc</span>
-        <h2>Quiz tong hop 12 chu de (600 tu)</h2>
-        <p>Cau hoi duoc tron ngau nhien tu toan bo 600 tu cua 12 chu de — danh cho ban muon thu thach lon hon.</p>
+        <span class="qch-all-badge">⚡ Thách thức</span>
+        <h2 id="qch-all-title">Quiz tổng hợp 12 chủ đề (600 từ)</h2>
+        <p id="qch-all-desc">Câu hỏi được trộn ngẫu nhiên từ toàn bộ các từ vựng đang kích hoạt — dành cho bạn muốn thử thách lớn hơn.</p>
       </div>
-      <a class="qch-btn" href="quiz-all.html">Bat dau ⚡ &rarr;</a>
+      <a class="qch-btn" href="quiz-all.html">Bắt đầu ⚡ &rarr;</a>
     </div>
 
     <div class="qch-sec-title">
-      <h2>On luyen theo chu de</h2>
-      <span>Moi chu de 50 tu · 10 cau hoi / luot</span>
+      <h2>Ôn luyện theo chủ đề</h2>
+      <span id="qch-sec-subtitle">10 câu hỏi / lượt</span>
     </div>
     <div class="qch-grid" id="qch-grid"></div>
 
-    <p class="qch-note">💡 <b>Meo:</b> Diem so cao nhat va lich su tung luot lam bai duoc luu tu dong, chi can bat dau quiz la co the xem lai thanh tich ngay tai trang ket qua.</p>
+    <p class="qch-note">💡 <b>Mẹo:</b> Điểm số cao nhất và lịch sử từng lượt làm bài được lưu tự động, chỉ cần bắt đầu quiz là có thể xem lại thành tích ngay tại trang kết quả.</p>
   </section>
 </main>
 
 <footer class="footer">
   <div class="container footer-inner">
     <p class="footer-logo">EngBee</p>
-    <p>Website hoc tu vung tieng Anh</p>
+    <p>Website học từ vựng tiếng Anh</p>
     <div class="footer-contact">
       <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
-      <a href="tel:0901234567">SDT: 0901 234 567</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
       <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
       <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
     </div>
@@ -144,7 +144,7 @@ main{flex:1}
 <script>
 (function(){
   "use strict";
-  var TOPICS = [
+  var RAW_TOPICS = [
     {id:"travel",name:"Travel",vi:"Du lịch",emoji:"✈️",g1:"#4facfe",g2:"#00f2fe"},
     {id:"food",name:"Food",vi:"Ẩm thực",emoji:"🍜",g1:"#f6d365",g2:"#fda085"},
     {id:"work",name:"Work",vi:"Công việc",emoji:"💼",g1:"#5f72bd",g2:"#9b23ea"},
@@ -158,26 +158,65 @@ main{flex:1}
     {id:"weather",name:"Weather",vi:"Thời tiết",emoji:"⛅",g1:"#0ea5e9",g2:"#22d3ee"},
     {id:"shopping",name:"Shopping",vi:"Mua sắm",emoji:"🛍️",g1:"#f97316",g2:"#ef4444"}
   ];
+
   function hist(){try{return JSON.parse(localStorage.getItem("eb_quiz_history")||"[]");}catch(e){return [];}}
   function bestOf(id){var h=hist(),b=0;for(var i=0;i<h.length;i++){if(h[i].mode===id&&h[i].pct>b)b=h[i].pct;}return b;}
-  // EngBee: chủ đề đang bị Admin tắt sẽ không hiện
-  if (window.EngBeeAdminData) {
-    TOPICS = TOPICS.filter(function(t){ return !window.EngBeeAdminData.isTopicHidden(t.id); });
+
+  function renderAll(){
+    var topics = RAW_TOPICS;
+    if (window.EngBeeAdminData) {
+      topics = topics.filter(function(t){ return !window.EngBeeAdminData.isTopicHidden(t.id); });
+    }
+
+    var totalWords = 0;
+    topics.forEach(function(t){
+      var count = window.EngBeeAdminData ? window.EngBeeAdminData.getTopicWordCount(t.id, 50) : 50;
+      t.wordCount = count;
+      totalWords += count;
+    });
+
+    var tCountEl = document.getElementById("qch-topics-count");
+    if (tCountEl) tCountEl.textContent = topics.length;
+
+    var wCountEl = document.getElementById("qch-words-count");
+    if (wCountEl) wCountEl.textContent = totalWords;
+
+    var allTitle = document.getElementById("qch-all-title");
+    if (allTitle) allTitle.textContent = "Quiz tổng hợp " + topics.length + " chủ đề (" + totalWords + " từ)";
+
+    var grid = document.getElementById("qch-grid");
+    if (grid) {
+      if (topics.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px;color:#888;">Hiện chưa có chủ đề nào được bật.</p>';
+      } else {
+        grid.innerHTML = topics.map(function(t){
+          var best = bestOf(t.id);
+          var count = t.wordCount || 50;
+          return '<a class="qch-card" href="quiz-'+t.id+'.html">' +
+            '<div class="qch-card-head">' +
+              '<span class="qch-badge" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">'+t.emoji+'</span>' +
+              '<div><h3>'+t.name+'</h3><div class="vi">'+t.vi+'</div></div>' +
+            '</div>' +
+            '<div class="meta"><span>'+count+' từ · 10 câu</span><span class="qch-best">'+(best>0?'Cao nhất '+best+'%':'Chưa làm')+'</span></div>' +
+            '<span class="qch-go" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">Làm quiz &rarr;</span>' +
+            '</a>';
+        }).join("");
+      }
+    }
+
+    var hh = hist();
+    var luotEl = document.getElementById("qch-luot");
+    if (luotEl) luotEl.textContent = hh.length;
   }
-  var grid=document.getElementById("qch-grid");
-  grid.innerHTML=TOPICS.map(function(t){
-    var best=bestOf(t.id);
-    return '<a class="qch-card" href="quiz-'+t.id+'.html">' +
-      '<div class="qch-card-head">' +
-        '<span class="qch-badge" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">'+t.emoji+'</span>' +
-        '<div><h3>'+t.name+'</h3><div class="vi">'+t.vi+'</div></div>' +
-      '</div>' +
-      '<div class="meta"><span>50 tu · 10 cau</span><span class="qch-best">'+(best>0?'Ca nhat '+best+'%':'Chua lam')+'</span></div>' +
-      '<span class="qch-go" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">Lam quiz &rarr;</span>' +
-      '</a>';
-  }).join("");
-  var hh=hist();
-  document.getElementById("qch-luot").textContent=hh.length;
+
+  renderAll();
+
+  if (window.EngBeeAdminData && typeof window.EngBeeAdminData.onChange === "function") {
+    window.EngBeeAdminData.onChange(renderAll);
+  } else {
+    window.addEventListener("storage", renderAll);
+    window.addEventListener("engbee_data_changed", renderAll);
+  }
 })();
 </script>
   <script src="assets/js/auth-nav.js"></script>

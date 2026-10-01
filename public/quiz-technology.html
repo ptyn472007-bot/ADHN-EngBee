@@ -170,7 +170,7 @@ main{flex:1}
         <div class="qz-start-grid">
           <div class="qz-stat hot"><b id="best-score">0%</b><span>TỐT NHẤT</span></div>
           <div class="qz-stat"><b id="quiz-count">0</b><span>LƯỢT ĐÃ LÀM</span></div>
-          <div class="qz-stat"><b>50</b><span>SỐ TỪ KHO</span></div>
+          <div class="qz-stat"><b id="quiz-total-words">50</b><span>SỐ TỪ KHO</span></div>
         </div>
         <div class="qz-start-cta">
           <button type="button" class="btn btn-start" id="btn-start">▶ Bắt đầu quiz (10 câu)</button>
@@ -289,13 +289,17 @@ main{flex:1}
   }
   function buildStart(){
     var h=myHistory();
+    var countStat = qs("#quiz-total-words");
+    if (countStat) countStat.textContent = WORDS.length;
     qs("#best-score").textContent=best()>0?best()+"%":"0%";
     qs("#quiz-count").textContent=h.length+"";
     qs("#quiz-total-note").textContent=h.length?"Da lam "+h.length+" lan. Gan nhat: "+fmt(h[0].ts):"Chua lam lan nao. Bat dau ngay!";
     renderHistoryRows(h.slice(0,5),qs("#start-history"));
   }
   function startQuiz(){
-    var pool=shuffle(WORDS.slice()).slice(0,N);
+    if (!WORDS || !WORDS.length) return;
+    var quizCount = Math.min(N, WORDS.length);
+    var pool = shuffle(WORDS.slice()).slice(0, quizCount);
     answers=pool.map(function(w){
       var poolVi=shuffle(WORDS.map(function(x){return x.vi;}));
       var dis=[];
@@ -310,9 +314,10 @@ main{flex:1}
   }
   function renderQ(){
     var a=answers[idx];
-    qs("#q-progress").textContent=(idx+1)+" / "+N;
+    var currentTotal = answers.length;
+    qs("#q-progress").textContent=(idx+1)+" / "+currentTotal;
     var fill=qs("#qz-progress-fill");
-    fill.style.width=((idx)/N*100)+"%";
+    fill.style.width=((idx)/currentTotal*100)+"%";
     qs("#q-score").textContent=correct+" dung";
     qs("#qz-learn-tag").textContent=TNAME;
     qs("#qz-word-en").textContent=a.word.en;
@@ -324,14 +329,14 @@ main{flex:1}
       b.type="button";b.className="qz-answer";
       var l=document.createElement("span");l.className="qz-lbl";l.textContent=label[i];
       var v=document.createElement("span");v.className="qz-val";v.textContent=vi;
-      b.appendChild(l);b.appendChild(v);
+      b.appendChild(l); b.appendChild(v);
       b.addEventListener("click",onAnswer);
       box.appendChild(b);
     });
     qs("#qz-feedback").className="qz-feedback";qs("#qz-feedback").textContent="";
     var nb=qs("#btn-next");nb.classList.remove("ready");
-    nb.textContent=(idx+1)<N?"Câu tiếp →":"Câu cuối — chọn đáp án →";
-    qs("#qz-hint").textContent=(idx+1)<N?"Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.":"Đây là câu cuối cùng! Chọn 1 đáp án rồi bấm nút để xem kết quả.";
+    nb.textContent=(idx+1)<currentTotal?"Câu tiếp →":"Câu cuối — chọn đáp án →";
+    qs("#qz-hint").textContent=(idx+1)<currentTotal?"Nhấn chọn 1 đáp án để kiểm tra đúng/sai, rồi bấm nút bên phải để qua câu tiếp theo.":"Đây là câu cuối cùng! Chọn 1 đáp án rồi bấm nút để xem kết quả.";
     picked=false;
   }
   function onAnswer(ev){
@@ -351,21 +356,23 @@ main{flex:1}
     }
     speak(it.word.en);
     qs("#q-score").textContent=correct+" dung";
+    var currentTotal = answers.length;
     var nb=qs("#btn-next");nb.classList.add("ready");
-    nb.textContent=(idx+1)>=N?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+N+") →";
+    nb.textContent=(idx+1)>=currentTotal?"Xem kết quả 🎯":"Câu tiếp theo ("+(idx+2)+"/"+currentTotal+") →";
     qs("#qz-hint").textContent=((btn.className.indexOf("correct")>=0)?"Đúng rồi ✓ ":"Sai rồi, đáp án đúng đã được tô xanh. ")+"Bấm nút bên phải để tiếp tục.";
   }
   function finish(){
-    var pct=Math.round(100*correct/N);
+    var currentTotal = answers.length || N;
+    var pct=Math.round(100*correct/currentTotal);
     var ring=qs("#qz-score-ring");ring.style.setProperty("--p",pct);
     qs("#score-num").textContent=pct+"%";
-    qs("#score-detail").textContent=correct+" / "+N+" cau dung";
+    qs("#score-detail").textContent=correct+" / "+currentTotal+" cau dung";
     qs("#rz-head").textContent=rzTitle(pct);
     qs("#rz-mode").textContent=TNAME;
     qs("#rz-note").textContent=pctLabel(pct);
-    var h=getHistory();var newRec={ts:Date.now(),mode:TID,topicId:TID,modeName:TNAME,correct:correct,total:N,pct:pct};
+    var h=getHistory();var newRec={ts:Date.now(),mode:TID,topicId:TID,modeName:TNAME,correct:correct,total:currentTotal,pct:pct};
     h.unshift(newRec);saveHistory(h);
-    var _nb=Math.round(10*correct/N);try{var _pu=JSON.parse(localStorage.getItem("engbee_user")||"null");var _un=_pu&&typeof _pu.name==="string"&&_pu.name.trim()?_pu.name.trim():"guest";if(_nb>Number(localStorage.getItem("engbee_quiz_best_"+_un)||0))localStorage.setItem("engbee_quiz_best_"+_un,String(_nb));var _arr=JSON.parse(localStorage.getItem("engbee_quiz_history_"+_un)||"[]");_arr.push({score:_nb,date:new Date().toLocaleString("vi-VN")});localStorage.setItem("engbee_quiz_history_"+_un,JSON.stringify(_arr.slice(-50)));}catch(e){}if(window.EngBeeTrackUser)window.EngBeeTrackUser();
+    var _nb=Math.round(10*correct/currentTotal);try{var _pu=JSON.parse(localStorage.getItem("engbee_user")||"null");var _un=_pu&&typeof _pu.name==="string"&&_pu.name.trim()?_pu.name.trim():"guest";if(_nb>Number(localStorage.getItem("engbee_quiz_best_"+_un)||0))localStorage.setItem("engbee_quiz_best_"+_un,String(_nb));var _arr=JSON.parse(localStorage.getItem("engbee_quiz_history_"+_un)||"[]");_arr.push({score:_nb,date:new Date().toLocaleString("vi-VN")});localStorage.setItem("engbee_quiz_history_"+_un,JSON.stringify(_arr.slice(-50)));}catch(e){}if(window.EngBeeTrackUser)window.EngBeeTrackUser();
     var flag=qs("#rz-record");
     if(pct===bestForNew(h)){flag.textContent="Ky luc moi cua hinh thuc nay: "+pct+"%";flag.style.display="inline-block";}else{flag.style.display="none";}
     qs("#best-score-end").textContent=best()+"%";
@@ -378,14 +385,24 @@ main{flex:1}
     qs("#btn-next").addEventListener("click",function(){
       if(!qs("#btn-next").classList.contains("ready"))return;
       idx++;
-      if(idx<N)renderQ();else finish();
+      if(idx<answers.length)renderQ();else finish();
     });
     qs("#btn-restart").addEventListener("click",startQuiz);
     qs("#btn-speak").addEventListener("click",function(){
       if(answers[idx])speak(answers[idx].word.en);
     });
   }
-  if(WORDS&&WORDS.length){bind();buildStart();startQuiz();}
+
+  bind();
+  if (window.EngBeeAdminData && window.EngBeeAdminData.initQuizPage) {
+    window.EngBeeAdminData.initQuizPage(TID, WORDS, function(newWords) {
+      WORDS = newWords;
+      buildStart();
+    });
+  } else {
+    buildStart();
+  }
+  if (WORDS && WORDS.length) { startQuiz(); }
 })();
 
 </script>

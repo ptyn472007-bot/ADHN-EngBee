@@ -102,13 +102,27 @@ function readStore(key, fallback) {
 function writeStore(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem("engbee_admin_last_update", Date.now().toString());
+    if (window.EngBeeAdminData && typeof window.EngBeeAdminData.notifyChange === "function") {
+      window.EngBeeAdminData.notifyChange(key);
+    } else {
+      window.dispatchEvent(new CustomEvent("engbee_data_changed", { detail: { key: key } }));
+    }
   } catch (e) {
     showToast("Không lưu được: bộ nhớ trình duyệt đã đầy.", "error");
   }
 }
 
 // Xóa một khóa khỏi LocalStorage
-function removeStore(key) { localStorage.removeItem(key); }
+function removeStore(key) {
+  localStorage.removeItem(key);
+  localStorage.setItem("engbee_admin_last_update", Date.now().toString());
+  if (window.EngBeeAdminData && typeof window.EngBeeAdminData.notifyChange === "function") {
+    window.EngBeeAdminData.notifyChange(key);
+  } else {
+    window.dispatchEvent(new CustomEvent("engbee_data_changed", { detail: { key: key } }));
+  }
+}
 
 // Chuyển từ thành khóa duy nhất: chữ thường, bỏ khoảng trắng thừa
 function wordKey(en) { return String(en || "").trim().toLowerCase().replace(/\s+/g, " "); }
@@ -831,32 +845,69 @@ function handleWordSubmit(event) {
   const topic = el.inputTopic.value;
   const key = wordKey(en);
 
-  const base = baseWords(topic).some(function (w) { return wordKey(w.en) === key; });
-
   if (editingKey === "") {
     // Thêm mới: lưu vào danh sách từ riêng của chủ đề
     const added = getAdded();
     if (!Array.isArray(added[topic])) added[topic] = [];
     added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi });
     writeStore(KEY_ADDED, added);
+
+    // Nếu từ này từng bị xóa trước đó thì gỡ khỏi danh sách đã xóa
+    const removed = getRemoved();
+    const rIdx = removed.indexOf(key);
+    if (rIdx !== -1) {
+      removed.splice(rIdx, 1);
+      writeStore(KEY_REMOVED, removed);
+    }
     showToast('Đã thêm từ "' + en + '".');
   } else {
-    // Sửa: từ gốc thì lưu bản ghi đè, từ tự thêm thì sửa trực tiếp
-    if (base) {
+    // Sửa: Kiểm tra từ có phải từ gốc trong bất kỳ chủ đề nào
+    const isBaseWord = allTopics().some(function (t) {
+      return baseWords(t.id).some(function (w) { return wordKey(w.en) === editingKey; });
+    });
+
+    if (isBaseWord) {
       const edited = getEdited();
-      const old = edited[editingKey] || {};
       edited[editingKey] = {
-        vi: vi, ipa: ipa, ex: ex, exvi: exVi,
-        en: old.en || (findWordAnywhere(editingKey) || {}).en || editingKey
+        en: en,
+        vi: vi,
+        ipa: ipa,
+        ex: ex,
+        exvi: exVi
       };
       writeStore(KEY_EDITED, edited);
     } else {
+      // Từ tự thêm: Cập nhật thông tin và chuyển chủ đề nếu có thay đổi
       const added = getAdded();
+      let foundWord = null;
+      let oldTopicId = null;
+
       Object.keys(added).forEach(function (tid) {
-        added[tid].forEach(function (w) {
-          if (wordKey(w.en) === editingKey) { w.vi = vi; w.ipa = ipa; w.ex = ex; w.exvi = exVi; }
-        });
+        if (Array.isArray(added[tid])) {
+          added[tid] = added[tid].filter(function (w) {
+            if (wordKey(w.en) === editingKey) {
+              foundWord = w;
+              oldTopicId = tid;
+              return false;
+            }
+            return true;
+          });
+        }
       });
+
+      if (foundWord) {
+        foundWord.en = en;
+        foundWord.vi = vi;
+        foundWord.ipa = ipa;
+        foundWord.ex = ex;
+        foundWord.exvi = exVi;
+        const targetTopic = topic || oldTopicId || "food";
+        if (!Array.isArray(added[targetTopic])) added[targetTopic] = [];
+        added[targetTopic].push(foundWord);
+      } else {
+        if (!Array.isArray(added[topic])) added[topic] = [];
+        added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi });
+      }
       writeStore(KEY_ADDED, added);
     }
     showToast('Đã cập nhật từ "' + en + '".');
@@ -892,15 +943,22 @@ function deleteWord(key) {
       if (removed.indexOf(key) === -1) removed.push(key);
       writeStore(KEY_REMOVED, removed);
 
-      // Gỡ khỏi danh sách từ tự thêm (nếu có) để tránh trùng khi khôi phục
+      // Gỡ khỏi danh sách từ tự thêm (nếu có)
       const added = getAdded();
-      let changed = false;
+      let changedAdded = false;
       Object.keys(added).forEach(function (tid) {
         const before = added[tid].length;
         added[tid] = added[tid].filter(function (w) { return wordKey(w.en) !== key; });
-        if (added[tid].length !== before) changed = true;
+        if (added[tid].length !== before) changedAdded = true;
       });
-      if (changed) writeStore(KEY_ADDED, added);
+      if (changedAdded) writeStore(KEY_ADDED, added);
+
+      // Gỡ khỏi danh sách từ đã sửa (nếu có)
+      const edited = getEdited();
+      if (edited[key]) {
+        delete edited[key];
+        writeStore(KEY_EDITED, edited);
+      }
 
       renderAll();
       showToast('Đã xóa từ "' + word.en + '".');

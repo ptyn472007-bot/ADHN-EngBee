@@ -17,12 +17,6 @@ const TOPICS = [
   { id: 'shopping', en: 'Shopping', vi: 'Mua sắm', emoji: '🛍️', g1: '#f97316', g2: '#ef4444', desc: 'Từ vựng về mua sắm, cửa hàng, giá cả và các hình thức thanh toán.' }
 ]
 
-// EngBee: chủ đề đang bị Admin tắt sẽ không hiện trên trang chủ
-const HIDDEN_TOPICS = (() => {
-  try { return JSON.parse(localStorage.getItem('engbee_admin_hidden_topics') || '[]') } catch (e) { return [] }
-})()
-const VISIBLE_TOPICS = TOPICS.filter((t) => !HIDDEN_TOPICS.includes(t.id))
-
 const NAV_LINKS = [
   { href: 'index.html', label: 'Trang chủ', active: true },
   { href: 'learn.html', label: 'Học từ vựng' },
@@ -31,9 +25,36 @@ const NAV_LINKS = [
   { href: 'login.html', label: 'Đăng nhập' }
 ]
 
-const userMenuLabel = () => (isLoggedIn() ? 'Đăng xuất' : 'Đăng nhập')
+function readStore(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key)
+    if (!raw) return fallback
+    const data = JSON.parse(raw)
+    return data === null || data === undefined ? fallback : data
+  } catch {
+    return fallback
+  }
+}
 
-const WORD_COUNT = 50
+function getHiddenTopics() {
+  const h = readStore('engbee_admin_hidden_topics', [])
+  return Array.isArray(h) ? h : []
+}
+
+function getVisibleTopics() {
+  const hidden = getHiddenTopics()
+  return TOPICS.filter((t) => !hidden.includes(t.id))
+}
+
+function topicWordCount(id) {
+  const added = readStore('engbee_admin_added_words', {})
+  const addedCount = Array.isArray(added[id]) ? added[id].length : 0
+  return Math.max(0, 50 + addedCount)
+}
+
+function totalActiveWords() {
+  return getVisibleTopics().reduce((sum, t) => sum + topicWordCount(t.id), 0)
+}
 
 function currentUserName() {
   try {
@@ -51,7 +72,7 @@ function isLoggedIn() {
 
 function logout() {
   localStorage.removeItem('engbee_user')
-  window.location.reload()
+  renderApp()
 }
 
 // Key lưu học được gắn tên người dùng để mỗi tài khoản có dữ liệu riêng
@@ -59,18 +80,19 @@ function learnedKey(id) {
   return 'engbee_learned_' + currentUserName() + '_' + id
 }
 
-function learnedOf(id) {
+function learnedOf(id, totalCount) {
   try {
     const arr = JSON.parse(localStorage.getItem(learnedKey(id)) || '[]')
-    return Array.isArray(arr) ? Math.min(arr.length, WORD_COUNT) : 0
+    return Array.isArray(arr) ? Math.min(arr.length, totalCount) : 0
   } catch {
     return 0
   }
 }
 
 function topicCard(t) {
-  const learned = learnedOf(t.id)
-  const pct = Math.round((learned / WORD_COUNT) * 100)
+  const totalCount = topicWordCount(t.id)
+  const learned = learnedOf(t.id, totalCount)
+  const pct = totalCount > 0 ? Math.round((learned / totalCount) * 100) : 0
   return `
   <article class="topic-card" style="--g1:${t.g1};--g2:${t.g2}">
     <div class="topic-icon">${t.emoji}</div>
@@ -79,14 +101,21 @@ function topicCard(t) {
       <p>${t.desc}</p>
       <div class="topic-progress${learned ? '' : ' empty'}">
         <div class="topic-progress-bar"><i style="width:${pct}%"></i></div>
-        <span>${learned > 0 ? `${learned}/${WORD_COUNT} từ đã thuộc` : 'Chưa bắt đầu'}</span>
+        <span>${learned > 0 ? `${learned}/${totalCount} từ đã thuộc` : `0/${totalCount} từ (Chưa bắt đầu)`}</span>
       </div>
       <a class="btn-learn" href="learn-${t.id}.html">Học ngay <span aria-hidden="true">→</span></a>
     </div>
   </article>`
 }
 
-document.querySelector('#app').innerHTML = `
+function renderApp() {
+  const app = document.querySelector('#app')
+  if (!app) return
+
+  const visibleTopics = getVisibleTopics()
+  const totalWords = totalActiveWords()
+
+  app.innerHTML = `
 <header class="navbar">
   <div class="container navbar-inner">
     <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">${BEE_LOGO}<span>EngBee</span></a>
@@ -108,15 +137,15 @@ document.querySelector('#app').innerHTML = `
     <div class="container hero-inner">
       <div class="hero-bee">${BEE_LOGO}</div>
       <h1>Học từ vựng tiếng Anh <span>thông minh</span> cùng EngBee</h1>
-      <p>600 từ vựng chia theo 12 chủ đề quen thuộc, học bằng flashcard lật thẻ, kèm phiên âm, ví dụ và quiz kiểm tra. Mỗi ngày một ít, giỏi dần mỗi ngày!</p>
+      <p>${totalWords} từ vựng chia theo ${visibleTopics.length} chủ đề quen thuộc, học bằng flashcard lật thẻ, kèm phiên âm, ví dụ và quiz kiểm tra. Mỗi ngày một ít, giỏi dần mỗi ngày!</p>
       <div class="hero-actions">
         <a href="learn.html" class="btn-primary">Bắt đầu học <span>→</span></a>
         <a href="#topics" class="btn-ghost">Khám phá chủ đề</a>
       </div>
       <div class="hero-stats">
-        <div><strong>12</strong><span>chủ đề</span></div>
-        <div><strong>600</strong><span>từ vựng</span></div>
-        <div><strong>50</strong><span>từ / chủ đề</span></div>
+        <div><strong>${visibleTopics.length}</strong><span>chủ đề</span></div>
+        <div><strong>${totalWords}</strong><span>từ vựng</span></div>
+        <div><strong>Đa dạng</strong><span>chủ đề</span></div>
         <div><strong>100%</strong><span>miễn phí</span></div>
       </div>
     </div>
@@ -126,10 +155,10 @@ document.querySelector('#app').innerHTML = `
     <div class="container">
       <div class="section-head">
         <h2>Chọn chủ đề để bắt đầu</h2>
-        <p>Mỗi chủ đề gồm 50 từ vựng kèm phiên âm, nghĩa tiếng Việt và ví dụ minh họa.</p>
+        <p>Kho từ vựng tiếng Anh cập nhật liên tục với phiên âm, nghĩa tiếng Việt và ví dụ minh họa.</p>
       </div>
       <div class="topic-grid">
-        ${VISIBLE_TOPICS.map(topicCard).join('')}
+        ${visibleTopics.length ? visibleTopics.map(topicCard).join('') : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">Hiện chưa có chủ đề nào được bật.</p>'}
       </div>
     </div>
   </section>
@@ -192,17 +221,30 @@ document.querySelector('#app').innerHTML = `
   <div class="container footer-copy">&copy; 2026 EngBee. Học vui, nhớ lâu.</div>
 </footer>`
 
-const toggle = document.getElementById('nav-toggle')
-const navLinks = document.getElementById('nav-links')
-if (toggle && navLinks) {
-  toggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open')
-    toggle.classList.toggle('open', open)
-    toggle.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu')
-  })
+  const toggle = document.getElementById('nav-toggle')
+  const navLinks = document.getElementById('nav-links')
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open')
+      toggle.classList.toggle('open', open)
+      toggle.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu')
+    })
+  }
+
+  const navLogout = document.getElementById('nav-logout')
+  if (navLogout) navLogout.addEventListener('click', (e) => { e.preventDefault(); logout() })
+  const footerLogout = document.getElementById('footer-logout')
+  if (footerLogout) footerLogout.addEventListener('click', (e) => { e.preventDefault(); logout() })
 }
 
-const navLogout = document.getElementById('nav-logout')
-if (navLogout) navLogout.addEventListener('click', (e) => { e.preventDefault(); logout() })
-const footerLogout = document.getElementById('footer-logout')
-if (footerLogout) footerLogout.addEventListener('click', (e) => { e.preventDefault(); logout() })
+// Khởi tạo ban đầu
+renderApp()
+
+// Lắng nghe thay đổi từ trang Admin (cùng tab hoặc khác tab)
+window.addEventListener('storage', (e) => {
+  if (!e.key || e.key.startsWith('engbee_admin_') || e.key === 'engbee_user' || e.key.startsWith('engbee_learned_')) {
+    renderApp()
+  }
+})
+window.addEventListener('engbee_data_changed', renderApp)
+window.addEventListener('focus', renderApp)
