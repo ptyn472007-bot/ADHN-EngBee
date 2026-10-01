@@ -413,6 +413,41 @@
     notifyChange: notifyChange,
     onChange: onChange,
     initLearnPage: initLearnPage,
-    initQuizPage: initQuizPage
+    initQuizPage: initQuizPage,
+    syncFromServer: syncFromServer
   };
+
+  /* ----- 16. Tự động lấy dữ liệu quản trị mới nhất từ máy chủ ----- */
+  function syncFromServer() {
+    if (typeof window === "undefined" || !window.fetch) return;
+    fetch("/api/admin/data")
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (!data) return;
+        var changed = false;
+        if (data.editedWords && JSON.stringify(data.editedWords) !== localStorage.getItem(KEY_EDITED)) {
+          localStorage.setItem(KEY_EDITED, JSON.stringify(data.editedWords));
+          changed = true;
+        }
+        if (data.addedWords && JSON.stringify(data.addedWords) !== localStorage.getItem(KEY_ADDED)) {
+          localStorage.setItem(KEY_ADDED, JSON.stringify(data.addedWords));
+          changed = true;
+        }
+        if (data.removedWords && JSON.stringify(data.removedWords) !== localStorage.getItem(KEY_REMOVED)) {
+          localStorage.setItem(KEY_REMOVED, JSON.stringify(data.removedWords));
+          changed = true;
+        }
+        if (data.hiddenTopics && JSON.stringify(data.hiddenTopics) !== localStorage.getItem(KEY_HIDDEN)) {
+          localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.hiddenTopics));
+          changed = true;
+        }
+        if (changed) {
+          notifyChange("sync_server");
+        }
+      })
+      .catch(function () {});
+  }
+
+  syncFromServer();
+  window.addEventListener("focus", syncFromServer);
 })();

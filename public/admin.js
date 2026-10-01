@@ -27,6 +27,7 @@ let currentAdmin = null;   // admin đang đăng nhập
 let currentView = "dashboard";
 let editingKey = "";       // khoá từ đang sửa (chuỗi rỗng = đang thêm mới)
 let pendingAction = null;  // hành động đang chờ xác nhận trong modal
+let serverStats = null;    // dữ liệu thống kê đồng bộ từ máy chủ (người học, quiz, điểm số)
 
 /* ================= PHẦN 3: LẤY PHẦN TỬ DOM ================= */
 
@@ -98,7 +99,7 @@ function readStore(key, fallback) {
   }
 }
 
-// Ghi một khóa vào LocalStorage
+// Ghi một khóa vào LocalStorage và đồng bộ lên server
 function writeStore(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
@@ -108,12 +109,13 @@ function writeStore(key, value) {
     } else {
       window.dispatchEvent(new CustomEvent("engbee_data_changed", { detail: { key: key } }));
     }
+    pushAdminDataToServer();
   } catch (e) {
     showToast("Không lưu được: bộ nhớ trình duyệt đã đầy.", "error");
   }
 }
 
-// Xóa một khóa khỏi LocalStorage
+// Xóa một khóa khỏi LocalStorage và đồng bộ lên server
 function removeStore(key) {
   localStorage.removeItem(key);
   localStorage.setItem("engbee_admin_last_update", Date.now().toString());
@@ -122,6 +124,54 @@ function removeStore(key) {
   } else {
     window.dispatchEvent(new CustomEvent("engbee_data_changed", { detail: { key: key } }));
   }
+  pushAdminDataToServer();
+}
+
+// Đẩy dữ liệu chỉnh sửa từ vựng và chủ đề của Admin lên máy chủ
+function pushAdminDataToServer() {
+  if (!window.fetch) return;
+  fetch("/api/admin/data", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      editedWords: getEdited(),
+      addedWords: getAdded(),
+      removedWords: getRemoved(),
+      hiddenTopics: getHiddenTopics()
+    })
+  }).catch(function () {});
+}
+
+// Đồng bộ toàn bộ thống kê (người học, lượt làm quiz, điểm số) từ máy chủ về Admin
+async function syncServerStats() {
+  if (!window.fetch) return;
+  try {
+    const res = await fetch("/api/stats");
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data) return;
+    serverStats = data;
+
+    // Lưu cache để dùng cả khi offline
+    if (Array.isArray(data.users)) {
+      try { localStorage.setItem(USERS_REGISTRY_KEY, JSON.stringify(data.users)); } catch (e) {}
+    }
+    if (Array.isArray(data.quizHistory)) {
+      try { localStorage.setItem(KEY_QUIZ_HISTORY, JSON.stringify(data.quizHistory)); } catch (e) {}
+    }
+    if (data.admin) {
+      if (data.admin.editedWords) try { localStorage.setItem(KEY_EDITED, JSON.stringify(data.admin.editedWords)); } catch (e) {}
+      if (data.admin.addedWords) try { localStorage.setItem(KEY_ADDED, JSON.stringify(data.admin.addedWords)); } catch (e) {}
+      if (data.admin.removedWords) try { localStorage.setItem(KEY_REMOVED, JSON.stringify(data.admin.removedWords)); } catch (e) {}
+      if (data.admin.hiddenTopics) try { localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.admin.hiddenTopics)); } catch (e) {}
+    }
+
+    if (currentAdmin) {
+      renderDashboard();
+      renderUsers();
+      renderResults();
+    }
+  } catch (e) {}
 }
 
 // Chuyển từ thành khóa duy nhất: chữ thường, bỏ khoảng trắng thừa
@@ -200,6 +250,13 @@ function enterAdmin(session) {
   renderAll();
   updateActiveNav("dashboard");
   window.scrollTo(0, 0);
+
+  // Tự động đồng bộ số liệu từ Server ngay khi vào Admin
+  syncServerStats();
+  if (!window._adminSyncTimer) {
+    window._adminSyncTimer = setInterval(syncServerStats, 3000);
+    window.addEventListener("focus", syncServerStats);
+  }
 }
 
 // Chặn mọi thao tác nếu phiên không còn hợp lệ
@@ -420,13 +477,19 @@ function renderDashboard() {
   el.statTopics.textContent = topics.length - hidden.length + " / " + topics.length;
   el.statWords.textContent = fmt(totalWords());
   el.statChanges.textContent = fmt(addedCount + editedCount + removedCount);
-  el.statUsers.textContent = fmt(listUsers().length);
 
+  const users = listUsers();
   const history = getQuizHistory();
-  el.statAttempts.textContent = fmt(history.length);
-  el.statAvg.textContent = history.length
-    ? Math.round(history.reduce(function (s, h) { return s + (h.pct || 0); }, 0) / history.length) + "%"
-    : "0%";
+
+  const totalUsersCount = (serverStats && typeof serverStats.totalUsers === "number") ? serverStats.totalUsers : users.length;
+  const totalAttemptsCount = (serverStats && typeof serverStats.totalAttempts === "number") ? serverStats.totalAttempts : history.length;
+  const avgScoreVal = (serverStats && typeof serverStats.avgScore === "number")
+    ? serverStats.avgScore + "%"
+    : (history.length ? Math.round(history.reduce(function (s, h) { return s + (h.pct || 0); }, 0) / history.length) + "%" : "0%");
+
+  el.statUsers.textContent = fmt(totalUsersCount);
+  el.statAttempts.textContent = fmt(totalAttemptsCount);
+  el.statAvg.textContent = avgScoreVal;
 
   // Danh sách thay đổi
   const changes = [];
@@ -443,13 +506,16 @@ function renderDashboard() {
     }).join("");
   }
 
-  // Người học gần đây
-  const users = listUsers().sort(function (a, b) { return b.lastSeen - a.lastSeen; }).slice(0, 5);
-  if (users.length === 0) {
+  // Người học gần đây (đồng bộ từ server)
+  const recentUsers = (serverStats && Array.isArray(serverStats.recentUsers) && serverStats.recentUsers.length)
+    ? serverStats.recentUsers
+    : users.sort(function (a, b) { return b.lastSeen - a.lastSeen; }).slice(0, 5);
+
+  if (recentUsers.length === 0) {
     el.recentUserList.innerHTML = '<li class="summary-empty">Chưa có dữ liệu người học.</li>';
   } else {
-    el.recentUserList.innerHTML = users.map(function (u) {
-      return "<li><span>" + esc(u.name) + "</span><b>" + u.learned + " từ</b></li>";
+    el.recentUserList.innerHTML = recentUsers.map(function (u) {
+      return "<li><span>" + esc(u.name) + "</span><b>" + (u.learned || 0) + " từ</b></li>";
     }).join("");
   }
 }
@@ -590,27 +656,49 @@ function getCurrentUserName() {
   return u && typeof u.name === "string" && u.name.trim() ? u.name.trim() : "";
 }
 
-// Gom danh sách người học từ mọi khóa trong LocalStorage
+// Gom danh sách người học từ server và LocalStorage
 function listUsers() {
   const map = {};
 
-  // Nạp danh sách mọi người đã học từ registry (lưu cố định, kể cả khi dữ liệu học đã bị xóa)
+  // 1. Nạp từ serverStats (đồng bộ thời gian thực từ mọi thiết bị / máy tính khác)
+  if (serverStats && Array.isArray(serverStats.users)) {
+    serverStats.users.forEach(function (u) {
+      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim() !== "guest") {
+        const name = u.name.trim();
+        map[name] = {
+          name: name,
+          learned: u.learned || 0,
+          topics: u.topics || 0,
+          best: u.best || 0,
+          lastSeen: u.lastSeen || 0
+        };
+      }
+    });
+  }
+
+  // 2. Nạp danh sách người học từ registry cục bộ
   const reg = readStore(USERS_REGISTRY_KEY, []);
   if (Array.isArray(reg)) {
     reg.forEach(function (u) {
       if (u && typeof u.name === "string" && u.name.trim() && u.name.trim() !== "guest") {
         const name = u.name.trim();
-        if (!map[name]) map[name] = { name: name, lastSeen: u.lastActive || 0 };
-        else map[name].lastSeen = Math.max(map[name].lastSeen, u.lastActive || 0);
+        if (!map[name]) {
+          map[name] = { name: name, learned: 0, topics: 0, best: 0, lastSeen: u.lastActive || 0 };
+        } else {
+          map[name].lastSeen = Math.max(map[name].lastSeen, u.lastActive || 0);
+        }
       }
     });
   }
 
-  // Người đang đăng nhập trên trang chính
+  // 3. Người đang đăng nhập trên trang chính máy này
   const cur = getCurrentUserName();
-  if (cur) map[cur] = { name: cur, lastSeen: Date.now() };
+  if (cur && cur !== "guest") {
+    if (!map[cur]) map[cur] = { name: cur, learned: 0, topics: 0, best: 0, lastSeen: Date.now() };
+    else map[cur].lastSeen = Math.max(map[cur].lastSeen, Date.now());
+  }
 
-  // Quét các khóa tiến độ học: engbee_learned_<tên>_<chủ đề>
+  // 4. Quét các khóa tiến độ học cục bộ: engbee_learned_<tên>_<chủ đề>
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (!key || key.indexOf(PREFIX_LEARNED) !== 0) continue;
@@ -618,44 +706,50 @@ function listUsers() {
     const cut = rest.lastIndexOf("_");
     if (cut < 0) continue;
     const name = rest.slice(0, cut);
-    const topicId = rest.slice(cut + 1);
-    if (!map[name]) map[name] = { name: name, lastSeen: 0 };
-    map[name].lastSeen = Math.max(map[name].lastSeen, Date.now());
-    map[name].topic = topicId;
+    if (name === "guest") continue;
+    if (!map[name]) map[name] = { name: name, learned: 0, topics: 0, best: 0, lastSeen: 0 };
   }
 
-  // Quét điểm cao nhất: engbee_quiz_best_<tên>
+  // 5. Quét điểm cao nhất cục bộ: engbee_quiz_best_<tên>
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (!key || key.indexOf(PREFIX_BEST) !== 0) continue;
     const name = key.slice(PREFIX_BEST.length);
-    if (!map[name]) map[name] = { name: name, lastSeen: 0 };
+    if (name === "guest") continue;
+    if (!map[name]) map[name] = { name: name, learned: 0, topics: 0, best: 0, lastSeen: 0 };
   }
 
-  // Tính số từ đã học và số chủ đề
+  // Tổng hợp số từ đã học, số chủ đề và điểm cao nhất
   const result = [];
   Object.keys(map).forEach(function (name) {
     if (name === "guest") return;
-    let learned = 0;
+    let localLearned = 0;
     const topicSet = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (!key || key.indexOf(PREFIX_LEARNED + name + "_") !== 0) continue;
       const arr = readStore(key, []);
-      if (Array.isArray(arr)) learned += arr.length;
+      if (Array.isArray(arr)) localLearned += arr.length;
       topicSet[key.slice((PREFIX_LEARNED + name + "_").length)] = true;
     }
-    const best = Number(localStorage.getItem(PREFIX_BEST + name) || 0);
+    const localBest = Number(localStorage.getItem(PREFIX_BEST + name) || 0);
+    const localTopics = Object.keys(topicSet).length;
+
+    const item = map[name];
+    const learned = Math.max(item.learned || 0, localLearned);
+    const topics = Math.max(item.topics || 0, localTopics);
+    const best = Math.max(item.best || 0, localBest);
+
     result.push({
       name: name,
       learned: learned,
-      topics: Object.keys(topicSet).length,
+      topics: topics,
       best: best,
-      lastSeen: map[name].lastSeen
+      lastSeen: item.lastSeen || 0
     });
   });
 
-  return result;
+  return result.sort(function (a, b) { return (b.lastSeen || 0) - (a.lastSeen || 0); });
 }
 
 function renderUsers() {
@@ -693,7 +787,7 @@ function renderResults() {
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
       "<td>" + esc(fmtTime(h.ts)) + "</td>" +
-      "<td>" + esc(h.modeName || h.topicId || "-") + "</td>" +
+      "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
       "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
       "<td><b>" + pct + "/10</b></td>" +
       "<td>" + tag + "</td>";
@@ -702,6 +796,9 @@ function renderResults() {
 }
 
 function getQuizHistory() {
+  if (serverStats && Array.isArray(serverStats.quizHistory) && serverStats.quizHistory.length > 0) {
+    return serverStats.quizHistory;
+  }
   const h = readStore(KEY_QUIZ_HISTORY, []);
   return Array.isArray(h) ? h : [];
 }
@@ -1000,7 +1097,7 @@ function clearUserProgress(name) {
   askConfirm(
     "Xóa tiến độ người học",
     "Xóa toàn bộ tiến độ học của \"" + name + "\"?",
-    "Lịch sử quiz đang lưu chung cho mọi người nên cũng sẽ bị xóa.",
+    "Tiến độ và kết quả của người học này trên hệ thống sẽ được xóa.",
     function () {
       const keys = [];
       for (let i = 0; i < localStorage.length; i++) {
@@ -1010,7 +1107,6 @@ function clearUserProgress(name) {
         if (key === PREFIX_BEST + name) keys.push(key);
       }
       keys.forEach(removeStore);
-      removeStore(KEY_QUIZ_HISTORY);
 
       // gỡ người học khỏi danh sách đã đăng ký
       const reg = readStore(USERS_REGISTRY_KEY, []);
@@ -1018,6 +1114,22 @@ function clearUserProgress(name) {
 
       // gỡ luôn hồ sơ nếu đang là người dùng hiện tại trên máy này
       if (getCurrentUserName() === name) removeStore(KEY_USER);
+
+      // Gửi yêu cầu xóa lên Server để đồng bộ mọi máy
+      if (window.fetch) {
+        fetch("/api/admin/clear-user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name })
+        }).then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (data) {
+            if (data && data.stats) {
+              serverStats = data.stats;
+              renderAll();
+            }
+          }).catch(function () {});
+      }
+
       renderAll();
       showToast('Đã xóa tiến độ của "' + name + '".');
     }
@@ -1027,10 +1139,25 @@ function clearUserProgress(name) {
 function clearAllResults() {
   askConfirm(
     "Xóa toàn bộ kết quả Quiz",
-    "Xóa lịch sử làm bài của tất cả người học?",
+    "Xóa lịch sử làm bài của tất cả người học trên toàn hệ thống?",
     "Tiến độ học từ vựng vẫn được giữ nguyên.",
     function () {
       removeStore(KEY_QUIZ_HISTORY);
+
+      // Gửi yêu cầu xóa lịch sử quiz lên Server để đồng bộ mọi máy
+      if (window.fetch) {
+        fetch("/api/admin/clear-results", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        }).then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (data) {
+            if (data && data.stats) {
+              serverStats = data.stats;
+              renderAll();
+            }
+          }).catch(function () {});
+      }
+
       renderAll();
       showToast("Đã xóa toàn bộ kết quả Quiz.", "info");
     }
@@ -1052,6 +1179,12 @@ function clearAllUserData() {
         }
       }
       keys.forEach(removeStore);
+
+      // Xóa trên Server
+      if (window.fetch) {
+        fetch("/api/admin/clear-results", { method: "POST" }).catch(function () {});
+      }
+
       renderAll();
       showToast("Đã xóa dữ liệu người học.", "info");
     }
@@ -1093,6 +1226,7 @@ function importData(event) {
       if (data[KEY_REMOVED]) writeStore(KEY_REMOVED, data[KEY_REMOVED]);
       if (data[KEY_HIDDEN]) writeStore(KEY_HIDDEN, data[KEY_HIDDEN]);
       if (data[USERS_REGISTRY_KEY]) writeStore(USERS_REGISTRY_KEY, data[USERS_REGISTRY_KEY]);
+      pushAdminDataToServer();
       renderAll();
       showToast("Đã nạp dữ liệu từ file.", "info");
     } catch (e) {
@@ -1106,7 +1240,7 @@ function importData(event) {
 function resetEverything() {
   askConfirm(
     "Xóa toàn bộ dữ liệu",
-    "Xóa sạch mọi dữ liệu EngBee trên trình duyệt này?",
+    "Xóa sạch mọi dữ liệu EngBee trên hệ thống và trình duyệt này?",
     "Bao gồm cả từ vựng, tiến độ học, kết quả quiz và thông tin đăng nhập.",
     function () {
       const keys = [];
@@ -1116,6 +1250,12 @@ function resetEverything() {
         if (key && (key.indexOf("engbee_") === 0 || key.indexOf("eb_") === 0)) keys.push(key);
       }
       keys.forEach(removeStore);
+
+      // Reset server DB
+      if (window.fetch) {
+        fetch("/api/admin/reset", { method: "POST" }).catch(function () {});
+      }
+
       closeAllModals();
       showLogin();
       showToast("Đã xóa toàn bộ dữ liệu.", "info");
