@@ -31,7 +31,38 @@
   var current = 0;      // vị trí câu hiện tại
   var score = 0;        // số câu trả lời đúng
   var answered = false; // đã chọn đáp án câu này chưa
+  var chosenIdx = null; // vị trí đáp án đã chọn
   var correctEl = null; // phần tử DOM của đáp án đúng
+  var STATE_KEY = "eb_quiz_state_generic";
+
+  function saveQuizState() {
+    try {
+      if (!questions || !questions.length) return;
+      var state = {
+        questions: questions,
+        current: current,
+        score: score,
+        answered: answered,
+        chosenIdx: chosenIdx,
+        ts: Date.now()
+      };
+      localStorage.setItem(STATE_KEY, JSON.stringify(state));
+    } catch(e) {}
+  }
+
+  function clearQuizState() {
+    try { localStorage.removeItem(STATE_KEY); } catch(e) {}
+  }
+
+  function getSavedQuizState() {
+    try {
+      var s = JSON.parse(localStorage.getItem(STATE_KEY));
+      if (s && Array.isArray(s.questions) && s.questions.length > 0 && typeof s.current === "number" && s.current < s.questions.length) {
+        return s;
+      }
+    } catch(e) {}
+    return null;
+  }
 
   // ------- Lấy DOM -------
   var questionScreen = document.getElementById("qz-question");
@@ -135,10 +166,31 @@
   }
 
   // ------- Bắt đầu chơi -------
-  function startQuiz() {
+  function startQuiz(forceNew) {
+    if (!forceNew) {
+      var saved = getSavedQuizState();
+      if (saved) {
+        questions = saved.questions;
+        current = saved.current;
+        score = saved.score || 0;
+        answered = !!saved.answered;
+        chosenIdx = (typeof saved.chosenIdx === "number") ? saved.chosenIdx : null;
+        updateScoreLive();
+        showScreen(questionScreen);
+        renderQuestion();
+        if (answered && chosenIdx !== null) {
+          restoreAnswerUI(chosenIdx);
+        }
+        return;
+      }
+    }
+    clearQuizState();
     questions = buildQuestions(); // mỗi lần bắt đầu là bộ câu hỏi mới
     current = 0;
     score = 0;
+    answered = false;
+    chosenIdx = null;
+    saveQuizState();
     updateScoreLive();
     showScreen(questionScreen);
     renderQuestion();
@@ -151,11 +203,13 @@
   // ------- Hiển thị câu hỏi -------
   function renderQuestion() {
     answered = false;
+    chosenIdx = null;
     btnNext.disabled = true;
     feedbackEl.textContent = "";
     feedbackEl.className = "qz-feedback";
 
     var q = questions[current];
+    if (!q) return;
     wordEl.textContent = q.en;
     ipaEl.textContent = q.ipa;
 
@@ -201,47 +255,63 @@
     });
   }
 
-  // ------- Kiểm tra đáp án đúng / sai -------
-  function selectAnswer(index) {
-    if (answered) return; // mỗi câu chỉ được chọn 1 đáp án
-    answered = true;
-
+  function applyOptionStyles(index) {
     var options = answersEl.querySelectorAll(".qz-option");
     var ok = index === questions[current].correct;
 
-    // Khóa toàn bộ đáp án (không chọn lại được nữa)
     for (var i = 0; i < options.length; i++) {
       options[i].classList.add("locked");
     }
 
     if (ok) {
-      options[index].classList.add("correct");
+      if (options[index]) options[index].classList.add("correct");
       feedbackEl.textContent = "Chính xác! Bạn được +1 điểm";
-      feedbackEl.classList.add("correct");
-      score++;
-      updateScoreLive();
+      feedbackEl.className = "qz-feedback correct";
     } else {
-      options[index].classList.add("wrong");
+      if (options[index]) options[index].classList.add("wrong");
       feedbackEl.textContent = "Sai rồi! Đáp án đúng được tô màu xanh";
-      feedbackEl.classList.add("wrong");
+      feedbackEl.className = "qz-feedback wrong";
       if (correctEl) correctEl.classList.add("correct");
     }
 
     btnNext.disabled = false;
   }
 
+  // ------- Kiểm tra đáp án đúng / sai -------
+  function selectAnswer(index) {
+    if (answered) return; // mỗi câu chỉ được chọn 1 đáp án
+    answered = true;
+    chosenIdx = index;
+
+    var ok = index === questions[current].correct;
+    if (ok) {
+      score++;
+      updateScoreLive();
+    }
+    applyOptionStyles(index);
+    saveQuizState();
+  }
+
+  function restoreAnswerUI(index) {
+    applyOptionStyles(index);
+  }
+
   // Nút "Câu tiếp theo"
   btnNext.addEventListener("click", function () {
     current++;
+    answered = false;
+    chosenIdx = null;
     if (current >= TOTAL) {
       showResult(); // hết câu hỏi -> sang màn hình kết quả
     } else {
+      saveQuizState();
       renderQuestion();
     }
   });
 
   // ------- Màn hình kết quả -------
   function showResult() {
+    clearQuizState();
     var finalScore = Math.round(score / TOTAL * 10); // thang điểm 10
 
     document.getElementById("qz-correct-count").textContent = score;
@@ -272,11 +342,11 @@
 
   // Phát âm khi bấm nút loa
   document.getElementById("btn-speak").addEventListener("click", function () {
-    if (questions.length) speak(questions[current].en);
+    if (questions.length && questions[current]) speak(questions[current].en);
   });
 
-  document.getElementById("btn-start").addEventListener("click", startQuiz);
-  document.getElementById("btn-restart").addEventListener("click", startQuiz);
+  document.getElementById("btn-start").addEventListener("click", function () { startQuiz(true); });
+  document.getElementById("btn-restart").addEventListener("click", function () { startQuiz(true); });
 
   // Khởi động: hiển thị số chủ đề và điểm đã lưu
   document.getElementById("qz-topic-count").textContent = topics.length;
