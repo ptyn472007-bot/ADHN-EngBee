@@ -1,5 +1,36 @@
 {
-  "users": {},
+  "users": {
+    "hảo hảo": {
+      "name": "hảo hảo",
+      "firstSeen": 1790908581840,
+      "lastActive": 1790908866265,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "hảo": {
+      "name": "Hảo",
+      "firstSeen": 1790910044084,
+      "lastActive": 1790910104378,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #4993": {
+      "name": "Học viên #4993",
+      "firstSeen": 1790910216030,
+      "lastActive": 1791111847209,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    }
+  },
   "quizHistory": [],
   "admin": {
     "editedWords": {},
@@ -7,6 +38,6 @@
     "removedWords": [],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1790867068292
+    "lastUpdate": 1790910202410
   }
 }
