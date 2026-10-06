@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Quiz từ vựng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ===== chooser ===== */
+.qch-hero{position:relative;overflow:hidden;color:#fff;padding:58px 0 48px;background:linear-gradient(135deg,#f0a500,#ff7e00)}
+.qch-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,rgba(255,255,255,.35),transparent 55%),radial-gradient(circle at 8% 120%,rgba(255,255,255,.25),transparent 45%);pointer-events:none}
+.deco{position:absolute;border-radius:50%;background:rgba(255,255,255,.14);pointer-events:none}
+.deco-a{width:220px;height:220px;top:-70px;right:-40px}
+.deco-b{width:140px;height:140px;bottom:-50px;left:-30px}
+.qch-hero-inner{position:relative;z-index:1;text-align:center}
+.qch-hero .eyebrow{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);padding:6px 18px;border-radius:999px;font-size:.85rem;font-weight:600;letter-spacing:.4px;margin-bottom:14px;backdrop-filter:blur(4px)}
+.qch-hero h1{font-size:clamp(1.7rem,4.8vw,2.6rem);font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.18)}
+.qch-hero-sub{max-width:620px;margin:12px auto 0;color:rgba(255,255,255,.95);font-size:clamp(.95rem,2vw,1.05rem)}
+.qch-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:22px}
+.qch-stat{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:10px 20px;backdrop-filter:blur(4px)}
+.qch-stat b{font-size:1.5rem;display:block}
+.qch-stat span{font-size:.75rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;opacity:.9}
+.qch-body{padding:36px 0 80px}
+.qch-all{background:linear-gradient(135deg,#f0a500,#ff7e00);color:#fff;border-radius:22px;padding:26px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;box-shadow:0 16px 40px rgba(240,165,0,.28);margin-bottom:32px;position:relative;overflow:hidden}
+.qch-all::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% -30%,rgba(255,255,255,.35),transparent 50%);pointer-events:none}
+.qch-all-inner{position:relative;z-index:1;max-width:640px}
+.qch-all-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:5px 16px;font-size:.8rem;font-weight:700;letter-spacing:.4px}
+.qch-all h2{font-size:clamp(1.25rem,3vw,1.6rem);font-weight:800;margin-top:10px}
+.qch-all p{opacity:.95;font-size:.95rem}
+.qch-btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1.05rem;border-radius:14px;padding:16px 30px;text-decoration:none;transition:transform .2s,box-shadow .2s;background:#fff;color:#d97706;box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.qch-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.22)}
+.qch-sec-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.qch-sec-title h2{font-size:clamp(1.2rem,3vw,1.5rem);font-weight:800}
+.qch-sec-title span{color:#9aa1b5;font-size:.9rem;font-weight:600}
+.qch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.qch-card{background:#fff;border:1px solid #eef0f6;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 20px rgba(31,41,55,.06);transition:transform .2s,box-shadow .2s;position:relative}
+.qch-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(31,41,55,.12)}
+.qch-card-head{display:flex;align-items:center;gap:12px}
+.qch-badge{width:46px;height:46px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.15rem;flex:none;box-shadow:0 6px 14px rgba(0,0,0,.16)}
+.qch-card h3{font-size:1.05rem;font-weight:800}
+.qch-card .vi{color:#6b7280;font-size:.9rem}
+.qch-card .meta{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:#9aa1b5;font-weight:600;margin-top:2px}
+.qch-best{font-size:.78rem;font-weight:800;color:#d97706;background:#fff4e0;border:1px solid #f6dfb4;padding:3px 10px;border-radius:999px}
+.qch-go{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.95rem;border-radius:12px;padding:12px 18px;text-decoration:none;color:#fff;transition:transform .2s,box-shadow .2s}
+.qch-go:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(31,41,55,.2)}
+.qch-note{background:#fff;border:1px dashed #e4dcc6;border-radius:16px;padding:16px 20px;margin-top:26px;color:#6b7280;font-size:.9rem;text-align:center}
+.qch-note b{color:#374151}
+.qch-pron{background:linear-gradient(135deg,#6366f1,#8b5cf6);box-shadow:0 16px 40px rgba(99,102,241,.28)}
+.qch-pron::before{background:radial-gradient(circle at 90% -30%,rgba(255,255,255,.3),transparent 50%)}
+.qch-pron .qch-btn{color:#6366f1}
+</style>
+  <script src="assets/js/engbee-admin-data.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html">Học từ vựng</a>
+      <a href="quiz.html" class="active">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="qch-hero">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="qch-hero-inner">
+        <p class="eyebrow">Quiz trắc nghiệm từ vựng</p>
+        <h1>Kiểm tra kiến thức của bạn</h1>
+        <p class="qch-hero-sub">Chọn một chủ đề để luyện tập, hoặc thử thách bản thân với quiz tổng hợp 600 từ. Mỗi lần làm: 10 câu hỏi, 4 lựa chọn, có nghe phát âm và chấm điểm tự động.</p>
+        <div class="qch-stats">
+          <div class="qch-stat"><b id="qch-topics-count">12</b><span>Chủ đề</span></div>
+          <div class="qch-stat"><b id="qch-words-count">600</b><span>Từ vựng</span></div>
+          <div class="qch-stat"><b>10</b><span>Câu / lần</span></div>
+          <div class="qch-stat"><b id="qch-luot">0</b><span>Lượt đã làm</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container qch-body">
+    <div class="qch-all">
+      <div class="qch-all-inner">
+        <span class="qch-all-badge">Thách thức</span>
+        <h2 id="qch-all-title">Quiz tổng hợp 12 chủ đề (600 từ)</h2>
+        <p id="qch-all-desc">Câu hỏi được trộn ngẫu nhiên từ toàn bộ các từ vựng đang kích hoạt — dành cho bạn muốn thử thách lớn hơn.</p>
+      </div>
+      <a class="qch-btn" href="quiz-all.html">Bắt đầu &rarr;</a>
+    </div>
+
+    <div class="qch-all qch-pron">
+      <div class="qch-all-inner">
+        <span class="qch-all-badge">🎤 Phát âm</span>
+        <h2>Kiểm tra phát âm</h2>
+        <p>Đọc to từ vựng, EngBee sẽ nghe và so sánh với từ đúng — mỗi từ tối đa 3 lần, chấm điểm theo độ khớp và gợi ý những từ cần luyện lại.</p>
+      </div>
+      <a class="qch-btn" href="quiz-pronounce.html">Bắt đầu &rarr;</a>
+    </div>
+
+    <div class="qch-sec-title">
+      <h2>Ôn luyện theo chủ đề</h2>
+      <span id="qch-sec-subtitle">10 câu hỏi / lượt</span>
+    </div>
+    <div class="qch-grid" id="qch-grid"></div>
+
+    <p class="qch-note"><b>Mẹo:</b> Điểm số cao nhất và lịch sử từng lượt làm bài được lưu tự động, chỉ cần bắt đầu quiz là có thể xem lại thành tích ngay tại trang kết quả.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var RAW_TOPICS = [
+    {id:"travel",name:"Travel",vi:"Du lịch",emoji:"✈️",g1:"#4facfe",g2:"#00f2fe"},
+    {id:"food",name:"Food",vi:"Ẩm thực",emoji:"🍜",g1:"#f6d365",g2:"#fda085"},
+    {id:"work",name:"Work",vi:"Công việc",emoji:"💼",g1:"#5f72bd",g2:"#9b23ea"},
+    {id:"school",name:"School",vi:"Trường học",emoji:"🏫",g1:"#7f7fd5",g2:"#86a8e7"},
+    {id:"nature",name:"Nature",vi:"Thiên nhiên",emoji:"🌿",g1:"#56ab2f",g2:"#a8e063"},
+    {id:"sports",name:"Sports",vi:"Thể thao",emoji:"⚽",g1:"#f7971e",g2:"#ffd200"},
+    {id:"health",name:"Health",vi:"Sức khỏe",emoji:"💪",g1:"#f953c6",g2:"#b91d73"},
+    {id:"technology",name:"Technology",vi:"Công nghệ",emoji:"💻",g1:"#30cfd0",g2:"#330867"},
+    {id:"music",name:"Music",vi:"Âm nhạc",emoji:"🎵",g1:"#ec4899",g2:"#8b5cf6"},
+    {id:"movie",name:"Movie",vi:"Phim ảnh",emoji:"🎬",g1:"#f43f5e",g2:"#ef4444"},
+    {id:"weather",name:"Weather",vi:"Thời tiết",emoji:"⛅",g1:"#0ea5e9",g2:"#22d3ee"},
+    {id:"shopping",name:"Shopping",vi:"Mua sắm",emoji:"🛍️",g1:"#f97316",g2:"#ef4444"}
+  ];
+
+  function hist(){try{return JSON.parse(localStorage.getItem("eb_quiz_history")||"[]");}catch(e){return [];}}
+  function bestOf(id){var h=hist(),b=0;for(var i=0;i<h.length;i++){if(h[i].mode===id&&h[i].pct>b)b=h[i].pct;}return b;}
+
+  function renderAll(){
+    var topics = RAW_TOPICS;
+    if (window.EngBeeAdminData) {
+      topics = topics.filter(function(t){ return !window.EngBeeAdminData.isTopicHidden(t.id); });
+    }
+
+    var totalWords = 0;
+    topics.forEach(function(t){
+      var count = window.EngBeeAdminData ? window.EngBeeAdminData.getTopicWordCount(t.id, 50) : 50;
+      t.wordCount = count;
+      totalWords += count;
+    });
+
+    var tCountEl = document.getElementById("qch-topics-count");
+    if (tCountEl) tCountEl.textContent = topics.length;
+
+    var wCountEl = document.getElementById("qch-words-count");
+    if (wCountEl) wCountEl.textContent = totalWords;
+
+    var allTitle = document.getElementById("qch-all-title");
+    if (allTitle) allTitle.textContent = "Quiz tổng hợp " + topics.length + " chủ đề (" + totalWords + " từ)";
+
+    var grid = document.getElementById("qch-grid");
+    if (grid) {
+      if (topics.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px;color:#888;">Hiện chưa có chủ đề nào được bật.</p>';
+      } else {
+        grid.innerHTML = topics.map(function(t){
+          var best = bestOf(t.id);
+          var count = t.wordCount || 50;
+          return '<a class="qch-card" href="quiz-'+t.id+'.html">' +
+            '<div class="qch-card-head">' +
+              '<span class="qch-badge" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">'+t.emoji+'</span>' +
+              '<div><h3>'+t.name+'</h3><div class="vi">'+t.vi+'</div></div>' +
+            '</div>' +
+            '<div class="meta"><span>'+count+' từ · 10 câu</span><span class="qch-best">'+(best>0?'Cao nhất '+best+'%':'Chưa làm')+'</span></div>' +
+            '<span class="qch-go" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">Làm quiz &rarr;</span>' +
+            '</a>';
+        }).join("");
+      }
+    }
+
+    var hh = hist();
+    var luotEl = document.getElementById("qch-luot");
+    if (luotEl) luotEl.textContent = hh.length;
+  }
+
+  renderAll();
+
+  if (window.EngBeeAdminData && typeof window.EngBeeAdminData.onChange === "function") {
+    window.EngBeeAdminData.onChange(renderAll);
+  } else {
+    window.addEventListener("storage", renderAll);
+    window.addEventListener("engbee_data_changed", renderAll);
+  }
+})();
+</script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+</body>
+</html>

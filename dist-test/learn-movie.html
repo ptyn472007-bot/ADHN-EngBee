@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Từ vựng chủ đề Movie</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ==========================================
+   EngBee - learn.css (trang Học từ vựng)
+   ========================================== */
+
+:root {
+  --g1: #4facfe;
+  --g2: #00f2fe;
+  --ink: #1f2937;
+}
+
+body {
+  font-family: "Be Vietnam Pro", Arial, Helvetica, sans-serif;
+  background: #f6f7fb;
+}
+
+/* ---------- Hero ---------- */
+.learn-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 56px 0 40px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+}
+
+.learn-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% -20%, rgba(255, 255, 255, 0.35), transparent 55%),
+    radial-gradient(circle at 8% 120%, rgba(255, 255, 255, 0.25), transparent 45%);
+  pointer-events: none;
+}
+
+.deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.deco-a { width: 220px; height: 220px; top: -70px; right: -40px; }
+.deco-b { width: 140px; height: 140px; bottom: -50px; left: -30px; }
+
+.learn-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.learn-hero .eyebrow {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(4px);
+}
+
+.learn-hero h1 {
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.hero-sub {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.hero-sub strong {
+  font-weight: 800;
+}
+
+/* ---------- Topic pills ---------- */
+.topic-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.topic-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 18px 8px 8px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 52px;
+}
+
+.topic-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+.topic-pill.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.pill-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  flex: none;
+}
+
+.pill-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.pill-text strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.pill-text small {
+  font-size: 0.72rem;
+  opacity: 0.78;
+}
+
+.topic-pill.active .pill-badge {
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* ---------- Body / toolbar ---------- */
+.learn-body {
+  padding: 34px 0 70px;
+}
+
+.learn-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
+  margin-bottom: 22px;
+}
+
+.view-tabs {
+  display: inline-flex;
+  background: #eef1f8;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.view-tab {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  border-radius: 9px;
+  transition: all 0.2s;
+}
+
+.view-tab.active {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.progress-wrap {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #eef1f8;
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box {
+  border: 1px solid #e3e7f0;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 200px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus {
+  border-color: var(--g1);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.18);
+}
+
+.btn-ghost {
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: #f2a900;
+  color: #b07f00;
+  background: #fff8e6;
+}
+
+.topic-feedback {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  margin-bottom: 22px;
+  animation: popIn 0.4s ease;
+}
+
+.fb-badge {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Flashcard ---------- */
+.card-view {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.flashcard-shell {
+  perspective: 1400px;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  cursor: pointer;
+  outline: none;
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  box-shadow: 0 18px 44px rgba(31, 41, 55, 0.18);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.flashcard.flipped .flashcard-face.front {
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+}
+
+.flashcard.flipped .flashcard-face.back {
+  opacity: 1;
+  transform: rotateX(0deg) scale(1);
+  pointer-events: auto;
+}
+
+.flashcard-face.front {
+  background: #fff;
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(240, 165, 0, 0.12) 0, transparent 38%),
+    radial-gradient(circle at 88% 88%, var(--g1) 0, transparent 46%);
+  color: var(--ink);
+  z-index: 2;
+}
+
+.flashcard-face.back {
+  background: linear-gradient(145deg, var(--g1), var(--g2));
+  color: #fff;
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-badge {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #9aa3b2;
+  background: #f2f4fa;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.back .card-badge.back-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  position: static;
+  margin-bottom: 8px;
+}
+
+.word-en {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-top: 6px;
+}
+
+.word-ipa {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+.tap-hint {
+  position: absolute;
+  bottom: 20px;
+  color: #b6bdcb;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.speak-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.22);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.speak-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.speak-btn.small {
+  position: static;
+  width: 42px;
+  height: 42px;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.word-vi {
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 800;
+}
+
+.word-ex {
+  margin-top: 14px;
+  font-size: 1.02rem;
+  font-style: italic;
+  max-width: 420px;
+}
+
+.word-exvi {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  opacity: 0.9;
+  max-width: 420px;
+}
+
+/* ---------- Card controls ---------- */
+.card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.ctl-btn:hover {
+  border-color: var(--g1);
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.1);
+}
+
+.ctl-btn.primary {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  border: none;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(31, 41, 55, 0.18);
+}
+
+.ctl-btn.primary:hover {
+  transform: translateY(-2px);
+}
+
+.master-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.master-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.master-btn.yes:hover,
+.master-btn.yes.active {
+  border-color: #22c55e;
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.master-btn.nope:hover,
+.master-btn.nope.active {
+  border-color: #ef4444;
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.master-btn.active {
+  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);
+}
+
+.keys-hint {
+  text-align: center;
+  color: #a2aabb;
+  font-size: 0.8rem;
+  margin-top: 14px;
+}
+
+/* ---------- List view ---------- */
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.word-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.05);
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.word-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+
+.word-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(31, 41, 55, 0.1);
+}
+
+.word-card.learned {
+  background: #f8fdf9;
+  border-color: #bbf7d0;
+}
+
+.wc-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wc-en {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.wc-ipa {
+  display: block;
+  color: #9aa3b2;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.wc-speak {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.wc-speak:hover {
+  transform: scale(1.12);
+}
+
+.wc-vi {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.wc-ex {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.wc-exvi {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #9aa3b2;
+}
+
+.wc-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eef1f8;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-card.learned .wc-mark {
+  display: inline-flex;
+  background: #22c55e;
+}
+
+.word-card.learned .wc-speak {
+  margin-right: 26px;
+}
+
+.empty-note {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #9aa3b2;
+  padding: 40px 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .learn-hero {
+    padding: 40px 0 32px;
+  }
+
+  .learn-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .progress-wrap {
+    order: -1;
+  }
+
+  .toolbar-actions {
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+    width: auto;
+  }
+
+  .flashcard {
+    height: 400px;
+  }
+}
+
+@media (max-width: 440px) {
+  .ctl-btn span {
+    display: none;
+  }
+
+  .ctl-btn {
+    padding: 12px 16px;
+  }
+
+  .master-bar {
+    flex-direction: column;
+  }
+
+  .master-btn {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-face {
+    transition: none;
+  }
+}
+/* ===== pronunciation check ===== */
+.pron-overlay{position:fixed;inset:0;z-index:999;background:rgba(16,26,51,.55);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+.pron-overlay[hidden]{display:none}
+.pron-box{background:#fff;border-radius:20px;max-width:470px;width:100%;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center;animation:pronIn .25s ease}
+@keyframes pronIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.pron-head{display:flex;align-items:center;justify-content:space-between}
+.pron-head h3{font-size:1.15rem;font-weight:800}
+.pron-x{border:none;background:#eef1f8;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;color:#6b7280}
+.pron-word{margin-top:14px}
+.pron-word strong{font-size:2rem;font-weight:800;display:block}
+.pron-word span{color:#6b7280}
+.pron-stage{margin:14px 0;background:#f7f8fc;border:1px dashed #dfe4ef;border-radius:14px;padding:14px;min-height:74px}
+.pron-status{font-weight:600;font-size:.95rem}
+.pron-choices{color:#6b7280;font-style:italic;margin-top:6px;min-height:20px}
+.pron-bar{height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
+.pron-bar span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(135deg,#22b573,#2ee59d);transition:width .4s}
+.pron-verdict{margin-top:10px;font-weight:800;font-size:1.02rem;min-height:26px}
+.pron-verdict.good{color:#157a4d}.pron-verdict.ok{color:#d97706}.pron-verdict.bad{color:#b91c1c}
+.pron-actions{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.pron-btnme{padding:10px 18px;border-radius:12px;border:1px solid #dfe4ef;background:#fff;color:#374151;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.pron-btnme.primary{background:linear-gradient(135deg,#ffb200,#ff7e00);color:#fff;border:none}
+.pron-btnme:hover{transform:translateY(-1px)}
+.pron-btnme:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.pron-note{font-size:.78rem;color:#9aa1b5;margin-top:12px}
+
+</style>
+  <script src="assets/js/engbee-admin-data.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html" class="active">Học từ vựng</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
+      </nav>
+  </div>
+</header>
+
+<main>
+  <section class="learn-hero" style="--g1:#f43f5e;--g2:#ef4444">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="learn-hero-inner">
+        <p class="eyebrow">Chủ đề: <span id="hero-name">Movie</span> (50 từ)</p>
+        <h1>Học từ vựng chủ đề <span style="color:#fff">Movie</span></h1>
+        <p class="hero-sub">50 từ thông dụng kèm phiên âm, nghĩa và ví dụ. Lật thẻ, nghe phát âm và đánh dấu đã thuộc để nhớ lâu hơn.</p>
+        <div class="topic-pills"><a class="topic-pill" href="learn-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="learn-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="learn-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="learn-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="learn-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill" href="learn-sports.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="learn-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="learn-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="learn-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill active" href="learn-movie.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="learn-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="learn-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="learn-body" style="--g1:#f43f5e;--g2:#ef4444">
+    <div class="container">
+      <div class="learn-toolbar">
+        <div class="view-tabs" role="tablist">
+          <button class="view-tab active" data-view="cards" role="tab" aria-selected="true">Thẻ học</button>
+          <button class="view-tab" data-view="list" role="tab" aria-selected="false">Danh sách từ</button>
+        </div>
+        <div class="progress-wrap" title="Tiến độ học của bạn">
+          <div class="progress-bar"><span class="progress-fill" id="progress-fill"></span></div>
+          <span class="progress-text" id="progress-text">0 / 50</span>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="search-box" class="search-box" placeholder="Tìm từ..." autocomplete="off" hidden>
+          <button id="pron-btn" class="btn-ghost" title="Kiểm tra phát âm từ đang học" style="color:#7a5c00;background:#fff7e6;border-color:#f3d9a4">🎙 Phát âm</button>
+          <button id="reset-btn" class="btn-ghost" title="Xóa tiến độ chủ đề này">Đặt lại</button>
+        </div>
+      </div>
+
+      <div class="topic-feedback" id="topic-feedback" hidden>
+        <span class="fb-badge">Hoàn thành</span>
+        <span id="fb-text"></span>
+      </div>
+
+      <section id="view-cards" class="card-view">
+        <div class="flashcard-shell">
+          <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Thẻ từ vựng - nhấn để lật">
+            <div class="flashcard-face front">
+              <span class="card-badge" id="card-index">1 / 50</span>
+              <button class="speak-btn" id="speak-front" title="Nghe phát âm">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h2 class="word-en" id="word-en">...</h2>
+              <p class="word-ipa" id="word-ipa">...</p>
+              <p class="tap-hint">Nhấn vào thẻ để xem nghĩa</p>
+            </div>
+            <div class="flashcard-face back">
+              <button class="speak-btn small" id="speak-back" title="Nghe phát âm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h3 class="word-vi" id="word-vi">...</h3>
+              <p class="word-ex" id="word-ex">...</p>
+              <p class="word-exvi" id="word-exvi">...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-controls">
+          <button class="ctl-btn" id="prev-btn" title="Từ trước"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Trước</span></button>
+          <button class="ctl-btn primary" id="flip-btn">Lật thẻ</button>
+          <button class="ctl-btn" id="next-btn"><span>Sau</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+
+        <div class="master-bar">
+          <button class="master-btn nope" id="not-mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Chưa thuộc</span></button>
+          <button class="master-btn yes" id="mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Đã thuộc</span></button>
+        </div>
+        <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
+      </section>
+
+      <section id="view-list" class="list-view" hidden>
+        <div class="word-grid" id="word-grid"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+<script>
+
+(function(){
+  "use strict";
+  var WORDS = [{"en":"movie","ipa":"/ˈmuːvi/","vi":"bộ phim","ex":"Let us watch a movie tonight.","exvi":"Tối nay chúng ta hãy xem phim.","exs":[{"en":"We rented a comedy movie last night.","vi":"Tối qua chúng tôi thuê một bộ phim hài."},{"en":"My brother watches one movie every day.","vi":"Em trai tôi xem một bộ phim mỗi ngày."},{"en":"The movie starts at seven this evening.","vi":"Bộ phim bắt đầu lúc bảy giờ tối nay."},{"en":"I want to see this movie again.","vi":"Tôi muốn xem bộ phim này một lần nữa."},{"en":"Our family picks a movie together.","vi":"Gia đình tôi cùng nhau chọn một bộ phim."}]},{"en":"film","ipa":"/fɪlm/","vi":"bộ phim (Anh)","ex":"This film won two awards.","exvi":"Bộ phim này giành hai giải thưởng.","exs":[{"en":"She studies film at university.","vi":"Cô ấy học ngành điện ảnh ở đại học."},{"en":"This film was shot in Paris.","vi":"Bộ phim này được quay tại Paris."},{"en":"I finished the film before midnight.","vi":"Tôi xem hết bộ phim trước nửa đêm."},{"en":"The film runs for two hours.","vi":"Bộ phim dài hai tiếng."},{"en":"They showed a short film before class.","vi":"Họ chiếu một phim ngắn trước giờ học."}]},{"en":"actor","ipa":"/ˈæktər/","vi":"diễn viên nam","ex":"The actor played the role perfectly.","exvi":"Diễn viên đóng vai hoàn hảo.","exs":[{"en":"The young actor signed a new contract.","vi":"Diễn viên trẻ đã ký hợp đồng mới."},{"en":"My favorite actor plays in this movie.","vi":"Diễn viên yêu thích của tôi đóng trong bộ phim này."},{"en":"That actor works with a famous director.","vi":"Diễn viên đó làm việc với một đạo diễn nổi tiếng."},{"en":"The actor thanked his fans after the show.","vi":"Diễn viên cảm ơn người hâm mộ sau buổi diễn."},{"en":"An actor must practice every single day.","vi":"Một diễn viên phải luyện tập mỗi ngày."}]},{"en":"actress","ipa":"/ˈæktrəs/","vi":"diễn viên nữ","ex":"The actress received many compliments.","exvi":"Diễn viên nữ nhận nhiều lời khen.","exs":[{"en":"The actress began her career at sixteen.","vi":"Nữ diễn viên bắt đầu sự nghiệp năm mười sáu tuổi."},{"en":"My sister wants to become an actress.","vi":"Em gái tôi muốn trở thành nữ diễn viên."},{"en":"That actress speaks three languages fluently.","vi":"Nữ diễn viên đó nói thông thạo ba thứ tiếng."},{"en":"The actress visited our school yesterday.","vi":"Nữ diễn viên đã đến thăm trường tôi hôm qua."},{"en":"An actress needs patience and hard work.","vi":"Một nữ diễn viên cần kiên nhẫn và chăm chỉ."}]},{"en":"director","ipa":"/dəˈrektər/","vi":"đạo diễn","ex":"The director controls the whole film.","exvi":"Đạo diễn điều khiển cả bộ phim.","exs":[{"en":"The director shouted cut during filming.","vi":"Đạo diễn hô cắt khi đang quay phim."},{"en":"Our teacher showed us a director interview.","vi":"Giáo viên chiếu cho chúng tôi một cuộc phỏng vấn đạo diễn."},{"en":"The director decided to change the ending.","vi":"Đạo diễn quyết định thay đổi kết thúc."},{"en":"A good director listens to everyone.","vi":"Một đạo diễn giỏi biết lắng nghe mọi người."},{"en":"The director and actors arrived together.","vi":"Đạo diễn và các diễn viên đến cùng nhau."}]},{"en":"producer","ipa":"/prəˈduːsər/","vi":"nhà sản xuất","ex":"The producer raised money for the movie.","exvi":"Nhà sản xuất gây quỹ cho bộ phim.","exs":[{"en":"The producer hired a new screenwriter.","vi":"Nhà sản xuất thuê một biên kịch mới."},{"en":"My uncle works as a film producer.","vi":"Chú tôi làm nghề nhà sản xuất phim."},{"en":"The producer spent a lot on music.","vi":"Nhà sản xuất chi rất nhiều cho phần nhạc."},{"en":"Every producer wants the film to succeed.","vi":"Nhà sản xuất nào cũng muốn bộ phim thành công."},{"en":"The producer invited guests to the set.","vi":"Nhà sản xuất mời khách đến phim trường."}]},{"en":"screenwriter","ipa":"/ˈskriːnraɪtər/","vi":"biên kịch","ex":"The screenwriter won a prize.","exvi":"Biên kịch giành được giải thưởng.","exs":[{"en":"The screenwriter finished the story last week.","vi":"Biên kịch hoàn thành câu chuyện tuần trước."},{"en":"She hopes to become a screenwriter someday.","vi":"Cô ấy hy vọng một ngày nào đó trở thành biên kịch."},{"en":"A screenwriter must write clear dialogue.","vi":"Biên kịch phải viết lời thoại rõ ràng."},{"en":"The screenwriter met the director for lunch.","vi":"Biên kịch gặp đạo diễn để ăn trưa."},{"en":"That screenwriter also writes novels.","vi":"Biên kịch đó còn viết tiểu thuyết."}]},{"en":"screenplay","ipa":"/ˈskriːnpleɪ/","vi":"kịch bản phim","ex":"The screenplay was based on a novel.","exvi":"Kịch bản phim dựa theo một cuốn tiểu thuyết.","exs":[{"en":"He sold his screenplay to a studio.","vi":"Ông ấy bán kịch bản phim cho một hãng phim."},{"en":"The team rewrote the screenplay twice.","vi":"Ê-kíp đã viết lại kịch bản phim hai lần."},{"en":"I read the screenplay before seeing the film.","vi":"Tôi đọc kịch bản phim trước khi xem bộ phim."},{"en":"The director loved the new screenplay.","vi":"Đạo diễn rất thích kịch bản phim mới."},{"en":"A good screenplay needs strong characters.","vi":"Một kịch bản phim hay cần nhân vật hấp dẫn."}]},{"en":"script","ipa":"/skrɪpt/","vi":"lời thoại, kịch bản","ex":"The actors memorized their lines from the script.","exvi":"Các diễn viên học thuộc lời thoại từ kịch bản.","exs":[{"en":"Learn the script before tomorrow's rehearsal.","vi":"Học thuộc kịch bản trước buổi tập ngày mai."},{"en":"The comedy script made everyone laugh.","vi":"Kịch bản hài khiến mọi người cười."},{"en":"She read the script on the train.","vi":"Cô ấy đọc kịch bản trên tàu."},{"en":"The writer changed one line in the script.","vi":"Tác giả đã đổi một câu trong kịch bản."},{"en":"Actors often improvise away from the script.","vi":"Diễn viên thường ngẫu hứng ngoài kịch bản."}]},{"en":"scene","ipa":"/siːn/","vi":"cảnh phim","ex":"That scene made me cry.","exvi":"Cảnh đó làm tôi khóc.","exs":[{"en":"The opening scene shows a busy street.","vi":"Cảnh mở đầu cho thấy một con phố nhộn nhịp."},{"en":"We filmed the night scene at midnight.","vi":"Chúng tôi quay cảnh ban đêm lúc nửa đêm."},{"en":"Every scene in this movie is beautiful.","vi":"Mọi cảnh trong bộ phim này đều đẹp."},{"en":"The fight scene lasted about five minutes.","vi":"Cảnh đánh nhau kéo dài khoảng năm phút."},{"en":"The final scene surprised everyone.","vi":"Cảnh cuối khiến mọi người bất ngờ."}]},{"en":"shot","ipa":"/ʃɑːt/","vi":"cảnh quay","ex":"This shot was filmed in the morning.","exvi":"Cảnh quay này được quay vào buổi sáng.","exs":[{"en":"The photographer took a shot of the bridge.","vi":"Nhiếp ảnh gia chụp một tấm ảnh cây cầu."},{"en":"One shot showed the whole city.","vi":"Một cảnh quay cho thấy toàn bộ thành phố."},{"en":"The last shot is very clever.","vi":"Cảnh quay cuối rất thông minh."},{"en":"We need one more shot before sunset.","vi":"Chúng tôi cần thêm một cảnh quay trước khi mặt trời lặn."},{"en":"That shot was made from a helicopter.","vi":"Cảnh quay đó được thực hiện từ máy bay trực thăng."}]},{"en":"camera","ipa":"/ˈkæmərə/","vi":"máy quay","ex":"The camera follows the main character.","exvi":"Máy quay bám theo nhân vật chính.","exs":[{"en":"The camera battery died during the show.","vi":"Pin máy quay hết trong lúc trình diễn."},{"en":"She pointed the camera at the sky.","vi":"Cô ấy hướng máy quay lên bầu trời."},{"en":"My father bought a new camera.","vi":"Bố tôi đã mua một máy ảnh mới."},{"en":"The camera moved slowly across the room.","vi":"Máy quay di chuyển chậm qua căn phòng."},{"en":"Keep the camera steady while filming.","vi":"Giữ máy quay ổn định khi quay phim."}]},{"en":"trailer","ipa":"/ˈtreɪlər/","vi":"đoạn giới thiệu phim","ex":"The trailer looks really exciting.","exvi":"Đoạn giới thiệu trông rất hấp dẫn.","exs":[{"en":"I watched the trailer three times.","vi":"Tôi đã xem đoạn giới thiệu ba lần."},{"en":"The new trailer appears online tomorrow.","vi":"Đoạn giới thiệu mới sẽ xuất hiện trên mạng ngày mai."},{"en":"A short trailer was shown before the film.","vi":"Một đoạn giới thiệu ngắn được chiếu trước bộ phim."},{"en":"The trailer gives away the ending.","vi":"Đoạn giới thiệu tiết lộ luôn cả kết thúc."},{"en":"Fans shared the trailer on social media.","vi":"Người hâm mộ chia sẻ đoạn giới thiệu trên mạng xã hội."}]},{"en":"sequel","ipa":"/ˈsiːkwəl/","vi":"phần tiếp theo","ex":"The sequel comes out next summer.","exvi":"Phần tiếp theo ra mắt hè năm sau.","exs":[{"en":"Rumors about a sequel started last year.","vi":"Tin đồn về phần tiếp theo bắt đầu từ năm ngoái."},{"en":"The sequel introduced two new heroes.","vi":"Phần tiếp theo giới thiệu hai người hùng mới."},{"en":"Many viewers prefer the sequel.","vi":"Nhiều người xem thích phần tiếp theo hơn."},{"en":"They are filming the sequel now.","vi":"Họ đang quay phần tiếp theo bây giờ."},{"en":"Will there be a sequel next year?","vi":"Năm sau có phần tiếp theo không?"}]},{"en":"prequel","ipa":"/ˈpriːkwəl/","vi":"phần tiền truyện","ex":"The prequel explains how it all began.","exvi":"Phần tiền truyện giải thích mọi chuyện bắt đầu thế nào.","exs":[{"en":"The prequel shows the villain as a child.","vi":"Phần tiền truyện cho thấy kẻ phản diện hồi nhỏ."},{"en":"Fans waited years for the prequel.","vi":"Người hâm mộ chờ đợi nhiều năm cho phần tiền truyện."},{"en":"I watched the prequel first.","vi":"Tôi xem phần tiền truyện trước."},{"en":"The prequel was released before the sequel.","vi":"Phần tiền truyện được phát hành trước phần tiếp theo."},{"en":"Critics liked the prequel more than expected.","vi":"Các nhà phê bình thích phần tiền truyện hơn mong đợi."}]},{"en":"remake","ipa":"/ˈriːmeɪk/","vi":"bản làm lại","ex":"They released a remake of the classic.","exvi":"Họ phát hành bản làm lại của tác phẩm kinh điển.","exs":[{"en":"The remake uses modern technology.","vi":"Bản làm lại sử dụng công nghệ hiện đại."},{"en":"Fans debate whether the remake is better.","vi":"Người hâm mộ tranh luận liệu bản làm lại có hay hơn."},{"en":"The horror film gets a remake next year.","vi":"Bộ phim kinh dị sẽ được làm lại vào năm sau."},{"en":"The remake stays faithful to the story.","vi":"Bản làm lại vẫn trung thành với câu chuyện."},{"en":"I prefer the original to the remake.","vi":"Tôi thích bản gốc hơn bản làm lại."}]},{"en":"comedy","ipa":"/ˈkɑːmədi/","vi":"phim hài","ex":"We laughed a lot during the comedy.","exvi":"Chúng tôi cười rất nhiều khi xem phim hài.","exs":[{"en":"My mother enjoys a light comedy.","vi":"Mẹ tôi thích những bộ phim hài nhẹ nhàng."},{"en":"The stand-up comedy show starts at eight.","vi":"Chương trình hài độc thoại bắt đầu lúc tám giờ."},{"en":"We chose a comedy for the party.","vi":"Chúng tôi chọn một bộ phim hài cho buổi tiệc."},{"en":"This comedy has some funny dialogue.","vi":"Bộ phim hài này có vài lời thoại vui."},{"en":"A comedy can improve a bad day.","vi":"Một bộ phim hài có thể cứu vãn ngày tồi tệ."}]},{"en":"drama","ipa":"/ˈdrɑːmə/","vi":"phim chính kịch","ex":"The drama dealt with family issues.","exvi":"Phim chính kịch đề cập đến các vấn đề gia đình.","exs":[{"en":"The school drama club performs in May.","vi":"Câu lạc bộ kịch của trường diễn vào tháng Năm."},{"en":"She prefers drama to comedy.","vi":"Cô ấy thích chính kịch hơn hài."},{"en":"The television drama has ten episodes.","vi":"Bộ phim truyền hình có mười tập."},{"en":"His real life sounds like a drama.","vi":"Cuộc sống thật của anh ấy nghe như một vở kịch."},{"en":"The drama moved the whole audience.","vi":"Vở kịch khiến cả khán giả xúc động."}]},{"en":"horror","ipa":"/ˈhɔːrər/","vi":"phim kinh dị","ex":"Horror movies scare me a lot.","exvi":"Phim kinh dị làm tôi sợ lắm.","exs":[{"en":"The horror story kept me awake.","vi":"Câu chuyện kinh dị khiến tôi thức trắng đêm."},{"en":"He collects horror books and games.","vi":"Anh ấy sưu tầm sách và trò chơi kinh dị."},{"en":"Our movie night featured a horror film.","vi":"Buổi tối xem phim của chúng tôi có một bộ phim kinh dị."},{"en":"The horror scene was too dark for kids.","vi":"Cảnh kinh dị quá rùng rợn với trẻ em."},{"en":"She enjoys horror more than romance.","vi":"Cô ấy thích phim kinh dị hơn phim lãng mạn."}]},{"en":"thriller","ipa":"/ˈθrɪlər/","vi":"phim giật gân","ex":"The thriller kept me guessing until the end.","exvi":"Phim giật gân khiến tôi tò mò đến phút cuối.","exs":[{"en":"This thriller was directed by a Korean filmmaker.","vi":"Bộ phim giật gân này do một đạo diễn Hàn Quốc thực hiện."},{"en":"The mystery thriller ends with a surprise.","vi":"Bộ phim trinh thám giật gân kết thúc bằng một bất ngờ."},{"en":"I bought a thriller novel at the shop.","vi":"Tôi mua một tiểu thuyết giật gân ở cửa hàng."},{"en":"The whole family enjoyed the thriller.","vi":"Cả gia đình đều thích bộ phim giật gân."},{"en":"A good thriller makes you nervous.","vi":"Phim giật gân hay khiến bạn hồi hộp."}]},{"en":"action movie","ipa":"/ˈækʃn ˈmuːvi/","vi":"phim hành động","ex":"He only watches action movies.","exvi":"Anh ấy chỉ xem phim hành động.","exs":[{"en":"She loves an action movie with car chases.","vi":"Cô ấy thích phim hành động có cảnh đuổi xe."},{"en":"My friend rents an action movie every Friday.","vi":"Bạn tôi thuê phim hành động mỗi thứ Sáu."},{"en":"The stunt team filmed the action movie.","vi":"Đội diễn viên đóng thế quay bộ phim hành động."},{"en":"We chose an action movie for tonight.","vi":"Chúng tôi chọn một bộ phim hành động cho tối nay."},{"en":"That action movie earned a lot of money.","vi":"Bộ phim hành động đó kiếm được rất nhiều tiền."}]},{"en":"romance","ipa":"/ˈroʊmæns/","vi":"phim lãng mạn","ex":"Romance films always have happy endings.","exvi":"Phim lãng mạn luôn có kết thúc đẹp.","exs":[{"en":"The romance between them feels very real.","vi":"Mối tình giữa hai người trông rất thật."},{"en":"She wrote a romance with a happy end.","vi":"Cô ấy viết một câu chuyện lãng mạn có kết thúc hạnh phúc."},{"en":"Our class read a short romance.","vi":"Lớp tôi đọc một truyện lãng mạn ngắn."},{"en":"The song fits the romance scene well.","vi":"Bài hát hợp với cảnh lãng mạn."},{"en":"He is not fond of romance novels.","vi":"Anh ấy không thích tiểu thuyết lãng mạn."}]},{"en":"animation","ipa":"/ˌænɪˈmeɪʃn/","vi":"phim hoạt hình","ex":"Children love colorful animations.","exvi":"Trẻ em thích phim hoạt hình nhiều màu sắc.","exs":[{"en":"The studio is famous for animation.","vi":"Hãng phim nổi tiếng với hoạt hình."},{"en":"Japanese animation is popular worldwide.","vi":"Hoạt hình Nhật Bản phổ biến khắp thế giới."},{"en":"She is learning animation on her computer.","vi":"Cô ấy đang học làm hoạt hình trên máy tính."},{"en":"The animation took two years to finish.","vi":"Bộ hoạt hình mất hai năm để hoàn thành."},{"en":"Kids laughed at the funny animation.","vi":"Bọn trẻ cười trước bộ hoạt hình vui nhộn."}]},{"en":"documentary","ipa":"/ˌdɑːkjəˈmentri/","vi":"phim tài liệu","ex":"The documentary explores ocean life.","exvi":"Phim tài liệu khám phá sự sống đại dương.","exs":[{"en":"We watched a documentary about elephants.","vi":"Chúng tôi xem một bộ phim tài liệu về voi."},{"en":"The director is making a new documentary.","vi":"Đạo diễn đang làm một bộ phim tài liệu mới."},{"en":"A documentary tells a true story.","vi":"Phim tài liệu kể một câu chuyện có thật."},{"en":"The documentary about war won a prize.","vi":"Bộ phim tài liệu về chiến tranh đã đoạt giải."},{"en":"My teacher recommended a short documentary.","vi":"Giáo viên tôi giới thiệu một phim tài liệu ngắn."}]},{"en":"subtitle","ipa":"/ˈsʌbtaɪtl/","vi":"phụ đề","ex":"I watch films with English subtitles.","exvi":"Tôi xem phim có phụ đề tiếng Anh.","exs":[{"en":"The foreign film needs English subtitles.","vi":"Bộ phim nước ngoài cần phụ đề tiếng Anh."},{"en":"I turned on the subtitle setting.","vi":"Tôi bật thiết lập phụ đề."},{"en":"Every subtitle was translated by volunteers.","vi":"Mỗi dòng phụ đề đều do tình nguyện viên dịch."},{"en":"The subtitles appeared a second too late.","vi":"Phụ đề xuất hiện chậm hơn một giây."},{"en":"You can change the subtitle language easily.","vi":"Bạn có thể đổi ngôn ngữ phụ đề rất dễ."}]},{"en":"dubbing","ipa":"/ˈdʌbɪŋ/","vi":"lồng tiếng","ex":"The dubbing was done by famous actors.","exvi":"Phần lồng tiếng do các diễn viên nổi tiếng thực hiện.","exs":[{"en":"The Thai dubbing sounded very natural.","vi":"Bản lồng tiếng Thái nghe rất tự nhiên."},{"en":"Kids prefer dubbing over subtitles.","vi":"Trẻ em thích lồng tiếng hơn phụ đề."},{"en":"Recording the dubbing took three days.","vi":"Thu âm lồng tiếng mất ba ngày."},{"en":"Many fans criticized the dubbing.","vi":"Nhiều người hâm mộ chỉ trích phần lồng tiếng."},{"en":"My friend works in film dubbing.","vi":"Bạn tôi làm trong lĩnh vực lồng tiếng phim."}]},{"en":"premiere","ipa":"/prɪˈmɪr/","vi":"buổi công chiếu","ex":"The premiere will be held next week.","exvi":"Buổi công chiếu sẽ diễn ra tuần sau.","exs":[{"en":"Stars walked the red carpet at the premiere.","vi":"Các ngôi sao đi trên thảm đỏ tại buổi công chiếu."},{"en":"The premiere was moved to a bigger hall.","vi":"Buổi công chiếu được chuyển sang hội trường lớn hơn."},{"en":"We invited friends to the premiere.","vi":"Chúng tôi mời bạn bè đến buổi công chiếu."},{"en":"Tickets for the premiere sold out fast.","vi":"Vé buổi công chiếu bán hết rất nhanh."},{"en":"The director spoke at the premiere.","vi":"Đạo diễn phát biểu tại buổi công chiếu."}]},{"en":"screening","ipa":"/ˈskriːnɪŋ/","vi":"buổi chiếu phim","ex":"There is a midnight screening on Friday.","exvi":"Có buổi chiếu phim lúc nửa đêm vào thứ Sáu.","exs":[{"en":"There will be a free screening tomorrow.","vi":"Ngày mai sẽ có một buổi chiếu miễn phí."},{"en":"The outdoor screening started at sunset.","vi":"Buổi chiếu ngoài trời bắt đầu lúc hoàng hôn."},{"en":"They held a special screening for students.","vi":"Họ tổ chức một buổi chiếu đặc biệt cho học sinh."},{"en":"The screening was delayed by twenty minutes.","vi":"Buổi chiếu bị hoãn hai mươi phút."},{"en":"I attended the first screening in town.","vi":"Tôi tham dự buổi chiếu đầu tiên trong thị trấn."}]},{"en":"box office","ipa":"/ˈbɑːks ˌɔːfɪs/","vi":"phòng vé, doanh thu","ex":"The film broke box office records.","exvi":"Bộ phim phá kỷ lục doanh thu phòng vé.","exs":[{"en":"The comedy was a box office hit.","vi":"Bộ phim hài là một tác phẩm ăn khách."},{"en":"The film earned fifty million at the box office.","vi":"Bộ phim thu năm mươi triệu ở phòng vé."},{"en":"Nobody expected such a box office success.","vi":"Không ai ngờ phim lại thành công phòng vé đến vậy."},{"en":"The famous star boosts the box office.","vi":"Ngôi sao nổi tiếng giúp tăng doanh thu phòng vé."},{"en":"Its box office results disappointed the studio.","vi":"Kết quả phòng vé làm hãng phim thất vọng."}]},{"en":"award","ipa":"/əˈwɔːrd/","vi":"giải thưởng","ex":"The film won the best picture award.","exvi":"Bộ phim giành giải phim hay nhất.","exs":[{"en":"She hopes to win an award this year.","vi":"Cô ấy hy vọng giành giải thưởng năm nay."},{"en":"The award was presented by a famous singer.","vi":"Giải thưởng được trao bởi một ca sĩ nổi tiếng."},{"en":"They gave the award to the youngest actor.","vi":"Họ trao giải cho diễn viên trẻ nhất."},{"en":"The award ceremony begins at eight.","vi":"Lễ trao giải bắt đầu lúc tám giờ."},{"en":"This award means a lot to me.","vi":"Giải thưởng này có ý nghĩa rất lớn với tôi."}]},{"en":"nomination","ipa":"/ˌnɑːmɪˈneɪʃn/","vi":"sự đề cử","ex":"She received an Oscar nomination.","exvi":"Cô ấy nhận được đề cử Oscar.","exs":[{"en":"Her film earned a nomination abroad.","vi":"Bộ phim của cô ấy được đề cử ở nước ngoài."},{"en":"The nomination surprised everyone on the team.","vi":"Việc được đề cử khiến cả đội bất ngờ."},{"en":"He celebrated his nomination with his family.","vi":"Anh ấy ăn mừng việc được đề cử cùng gia đình."},{"en":"Only three films got a nomination.","vi":"Chỉ ba bộ phim được đề cử."},{"en":"A nomination can change an actor's career.","vi":"Một đề cử có thể thay đổi sự nghiệp diễn viên."}]},{"en":"casting","ipa":"/ˈkæstɪŋ/","vi":"khâu tuyển diễn viên","ex":"The casting took almost a year.","exvi":"Khâu tuyển diễn viên mất gần một năm.","exs":[{"en":"The casting call was posted online.","vi":"Lời mời thử vai được đăng lên mạng."},{"en":"The casting process took several months.","vi":"Quá trình tuyển diễn viên mất vài tháng."},{"en":"The casting director met hundreds of people.","vi":"Giám đốc tuyển diễn viên đã gặp hàng trăm người."},{"en":"The casting for our play happens tomorrow.","vi":"Buổi casting cho vở kịch của chúng tôi diễn ra ngày mai."},{"en":"Actors should prepare before casting.","vi":"Diễn viên nên chuẩn bị trước khi casting."}]},{"en":"costume","ipa":"/ˈkɑːstuːm/","vi":"trang phục","ex":"The costumes were made by hand.","exvi":"Trang phục được làm thủ công.","exs":[{"en":"The actress wore a costume made of flowers.","vi":"Nữ diễn viên mặc một bộ trang phục làm bằng hoa."},{"en":"The king's costume looked very heavy.","vi":"Trang phục của nhà vua trông rất nặng."},{"en":"Actors change costume behind the stage.","vi":"Diễn viên đổi trang phục phía sau sân khấu."},{"en":"Each costume fits the period perfectly.","vi":"Mỗi bộ trang phục hợp với thời đại."},{"en":"The costume designer won a prize.","vi":"Nhà thiết kế trang phục đã đoạt giải."}]},{"en":"makeup","ipa":"/ˈmeɪkʌp/","vi":"khâu trang điểm","ex":"The makeup makes the actors look older.","exvi":"Khâu trang điểm khiến diễn viên trông già hơn.","exs":[{"en":"Good makeup can hide tired eyes.","vi":"Trang điểm tốt có thể che đi đôi mắt mệt."},{"en":"The actor's makeup took an hour.","vi":"Khâu trang điểm cho diễn viên mất một tiếng."},{"en":"She bought makeup for the party.","vi":"Cô ấy mua đồ trang điểm cho bữa tiệc."},{"en":"Special makeup made him look scary.","vi":"Trang điểm đặc biệt khiến anh ấy trông đáng sợ."},{"en":"The makeup room is next door.","vi":"Phòng trang điểm ở ngay bên cạnh."}]},{"en":"stunt","ipa":"/stʌnt/","vi":"pha mạo hiểm","ex":"A professional did the dangerous stunts.","exvi":"Một chuyên gia thực hiện những pha mạo hiểm nguy hiểm.","exs":[{"en":"The actor broke his leg during a stunt.","vi":"Diễn viên bị gãy chân khi đóng một pha mạo hiểm."},{"en":"That jump was a dangerous stunt.","vi":"Cú nhảy đó là một pha mạo hiểm nguy hiểm."},{"en":"A stunt double replaced the star.","vi":"Diễn viên đóng thế đã thay ngôi sao."},{"en":"The stunt required a safety net.","vi":"Pha mạo hiểm đó cần có lưới an toàn."},{"en":"He showed us how the stunt was done.","vi":"Anh ấy cho chúng tôi xem pha mạo hiểm được thực hiện thế nào."}]},{"en":"special effect","ipa":"/ˈspeʃl ɪˈfekt/","vi":"hiệu ứng đặc biệt","ex":"The special effects look very realistic.","exvi":"Hiệu ứng đặc biệt trông rất chân thực.","exs":[{"en":"The space scene uses clever special effects.","vi":"Cảnh không gian sử dụng hiệu ứng đặc biệt rất thông minh."},{"en":"Modern special effects amaze young viewers.","vi":"Hiệu ứng đặc biệt hiện đại khiến người xem trẻ kinh ngạc."},{"en":"The film won an award for special effects.","vi":"Bộ phim đoạt giải về hiệu ứng đặc biệt."},{"en":"We added a special effect to the video.","vi":"Chúng tôi thêm một hiệu ứng đặc biệt vào video."},{"en":"Old special effects still look charming.","vi":"Hiệu ứng đặc biệt cũ vẫn rất cuốn hút."}]},{"en":"plot","ipa":"/plɑːt/","vi":"cốt truyện","ex":"The plot has many unexpected twists.","exvi":"Cốt truyện có nhiều tình tiết bất ngờ.","exs":[{"en":"The plot gets complicated after the wedding.","vi":"Cốt truyện trở nên phức tạp sau đám cưới."},{"en":"I guessed the plot halfway through.","vi":"Tôi đoán được cốt truyện khi xem được nửa."},{"en":"Each chapter adds something to the plot.","vi":"Mỗi chương lại thêm điều gì đó vào cốt truyện."},{"en":"The plot reminds me of an old tale.","vi":"Cốt truyện khiến tôi nhớ đến một câu chuyện cổ."},{"en":"Without a strong plot, the film fails.","vi":"Không có cốt truyện vững chắc, bộ phim sẽ thất bại."}]},{"en":"character","ipa":"/ˈkærəktər/","vi":"nhân vật","ex":"She played the main character well.","exvi":"Cô ấy đóng nhân vật chính rất tốt.","exs":[{"en":"The funny character makes children laugh.","vi":"Nhân vật hài hước khiến trẻ em cười."},{"en":"I drew my favorite character yesterday.","vi":"Hôm qua tôi vẽ nhân vật yêu thích của mình."},{"en":"Every character has a clear motive.","vi":"Mọi nhân vật đều có động cơ rõ ràng."},{"en":"The main character learns an important lesson.","vi":"Nhân vật chính học được một bài học quan trọng."},{"en":"She based the character on her uncle.","vi":"Cô ấy lấy nguyên mẫu nhân vật từ người chú của mình."}]},{"en":"hero","ipa":"/ˈhɪroʊ/","vi":"nam chính","ex":"The hero saved the city in the end.","exvi":"Nam chính cứu thành phố cuối phim.","exs":[{"en":"The hero fights a powerful enemy.","vi":"Người hùng chiến đấu với một kẻ thù mạnh."},{"en":"Every hero needs a loyal friend.","vi":"Mọi người hùng đều cần một người bạn trung thành."},{"en":"The hero returns to his hometown.","vi":"Người hùng trở về quê hương của mình."},{"en":"Children dressed as their favorite hero.","vi":"Bọn trẻ hóa trang thành người hùng yêu thích."},{"en":"The hero never gives up easily.","vi":"Người hùng không bao giờ bỏ cuộc dễ dàng."}]},{"en":"heroine","ipa":"/ˈheroʊɪn/","vi":"nữ chính","ex":"The heroine is a brave young girl.","exvi":"Nữ chính là một cô gái trẻ dũng cảm.","exs":[{"en":"The heroine solves the mystery alone.","vi":"Nữ chính phá giải bí ẩn một mình."},{"en":"Readers admire the brave heroine.","vi":"Độc giả ngưỡng mộ nữ chính dũng cảm."},{"en":"The heroine of the novel is a doctor.","vi":"Nữ chính của cuốn tiểu thuyết là một bác sĩ."},{"en":"Our heroine faces her fears at last.","vi":"Cuối cùng nữ chính của chúng ta cũng đối mặt với nỗi sợ."},{"en":"The actress enjoyed playing the heroine.","vi":"Nữ diễn viên rất thích vào vai nữ chính."}]},{"en":"villain","ipa":"/ˈvɪlən/","vi":"kẻ phản diện","ex":"The villain finally revealed his plan.","exvi":"Kẻ phản diện cuối cùng đã lộ kế hoạch.","exs":[{"en":"The villain escapes at the end.","vi":"Kẻ phản diện thoát đi ở cuối phim."},{"en":"Every villain believes he is right.","vi":"Kẻ phản diện nào cũng tin rằng mình đúng."},{"en":"The actor enjoys playing the villain.","vi":"Diễn viên thích vào vai phản diện."},{"en":"The villain's plan is finally stopped.","vi":"Kế hoạch của kẻ phản diện cuối cùng bị ngăn lại."},{"en":"Readers sometimes sympathize with the villain.","vi":"Độc giả đôi khi thông cảm với kẻ phản diện."}]},{"en":"supporting role","ipa":"/səˈpɔːrtɪŋ roʊl/","vi":"vai phụ","ex":"He won an award for his supporting role.","exvi":"Anh ấy đoạt giải cho vai phụ của mình.","exs":[{"en":"She took a supporting role in the comedy.","vi":"Cô ấy nhận một vai phụ trong phim hài."},{"en":"The star began with a supporting role.","vi":"Ngôi sao bắt đầu từ một vai phụ."},{"en":"His supporting role lasted only five minutes.","vi":"Vai phụ của anh ấy chỉ kéo dài năm phút."},{"en":"A supporting role can still shine.","vi":"Một vai phụ vẫn có thể tỏa sáng."},{"en":"The director praised his supporting role.","vi":"Đạo diễn khen ngợi vai phụ của anh ấy."}]},{"en":"cameo","ipa":"/ˈkæmioʊ/","vi":"vai khách mời","ex":"The star made a cameo in the movie.","exvi":"Ngôi sao xuất hiện với vai khách mời trong phim.","exs":[{"en":"The singer appeared in a brief cameo.","vi":"Ca sĩ xuất hiện với một vai khách mời ngắn."},{"en":"Directors often add a cameo for fun.","vi":"Các đạo diễn thường thêm vai khách mời cho vui."},{"en":"I spotted a cameo by the director.","vi":"Tôi nhận ra cảnh khách mời của đạo diễn."},{"en":"His cameo lasts less than a minute.","vi":"Vai khách mời của anh ấy chưa đầy một phút."},{"en":"The cameo was a nice surprise.","vi":"Vai khách mời là một bất ngờ thú vị."}]},{"en":"cinema","ipa":"/ˈsɪnəmə/","vi":"rạp chiếu phim","ex":"We go to the cinema every weekend.","exvi":"Chúng tôi đi rạp chiếu phim mỗi cuối tuần.","exs":[{"en":"The cinema near us sells cheap tickets.","vi":"Rạp chiếu phim gần nhà tôi bán vé rẻ."},{"en":"They opened a new cinema downtown.","vi":"Họ mở một rạp chiếu phim mới ở trung tâm."},{"en":"I met my friend outside the cinema.","vi":"Tôi gặp bạn tôi ngoài rạp chiếu phim."},{"en":"The cinema was almost empty on Monday.","vi":"Rạp chiếu phim gần như vắng khách vào thứ Hai."},{"en":"Popcorn at the cinema costs a lot.","vi":"Bỏ ngô ở rạp chiếu phim giá rất đắt."}]},{"en":"studio","ipa":"/ˈstuːdioʊ/","vi":"hãng phim","ex":"The studio produced many hit movies.","exvi":"Hãng phim sản xuất nhiều phim ăn khách.","exs":[{"en":"The studio gave the actors a break.","vi":"Hãng phim cho các diễn viên nghỉ giải lao."},{"en":"She visited a recording studio last month.","vi":"Tháng trước cô ấy đến một phòng thu âm."},{"en":"The studio is looking for new writers.","vi":"Hãng phim đang tìm kiếm biên kịch mới."},{"en":"We toured the famous film studio.","vi":"Chúng tôi tham quan hãng phim nổi tiếng."},{"en":"The studio announced three new movies.","vi":"Hãng phim công bố ba bộ phim mới."}]},{"en":"cast","ipa":"/kæst/","vi":"dàn diễn viên","ex":"The cast includes many famous names.","exvi":"Dàn diễn viên gồm nhiều tên tuổi nổi tiếng.","exs":[{"en":"The cast rehearsed all afternoon.","vi":"Dàn diễn viên tập luyện cả buổi chiều."},{"en":"Ten students make up our cast.","vi":"Mười sinh viên tạo nên dàn diễn viên của chúng tôi."},{"en":"The cast smiled for photos after the show.","vi":"Dàn diễn viên mỉm cười chụp ảnh sau buổi diễn."},{"en":"A young cast brings fresh energy.","vi":"Dàn diễn viên trẻ mang đến năng lượng mới."},{"en":"The whole cast took a bow.","vi":"Cả dàn diễn viên cùng cúi chào khán giả."}]},{"en":"credits","ipa":"/ˈkredɪts/","vi":"danh đề phim","ex":"Stay until the credits roll.","exvi":"Hãy ở lại đến khi danh đề phim chạy hết.","exs":[{"en":"The studio name appears in the credits.","vi":"Tên hãng phim xuất hiện trong danh đề."},{"en":"We watched the credits for extra scenes.","vi":"Chúng tôi xem danh đề để tìm cảnh hậu trường."},{"en":"Her name was missing from the credits.","vi":"Tên cô ấy bị thiếu trong danh đề."},{"en":"The credits list hundreds of workers.","vi":"Danh đề liệt kê hàng trăm người làm việc."},{"en":"Skip the credits if you are in a hurry.","vi":"Bỏ qua danh đề nếu bạn đang vội."}]},{"en":"blockbuster","ipa":"/ˈblɑːkbʌstər/","vi":"phim ăn khách","ex":"This blockbuster earned millions worldwide.","exvi":"Phim ăn khách này thu về hàng triệu đô la trên toàn thế giới.","exs":[{"en":"That blockbuster broke several records.","vi":"Bộ phim ăn khách đó phá nhiều kỷ lục."},{"en":"The blockbuster opened in cinemas last Friday.","vi":"Bộ phim ăn khách ra rạp vào thứ Sáu tuần trước."},{"en":"Everyone talked about the summer blockbuster.","vi":"Mọi người đều bàn về bộ phim ăn khách mùa hè."},{"en":"Two famous actors star in the blockbuster.","vi":"Hai diễn viên nổi tiếng đóng chính trong bộ phim ăn khách."},{"en":"Our town finally saw the blockbuster.","vi":"Thị trấn của chúng tôi cuối cùng cũng được xem bộ phim ăn khách."}]},{"en":"viewer","ipa":"/ˈvjuːər/","vi":"người xem","ex":"The show attracted millions of viewers.","exvi":"Chương trình thu hút hàng triệu người xem.","exs":[{"en":"Each viewer received a small gift.","vi":"Mỗi người xem nhận một món quà nhỏ."},{"en":"The viewer complained about the loud sound.","vi":"Người xem phàn nàn về âm thanh quá to."},{"en":"One viewer left the theater early.","vi":"Một người xem rời rạp chiếu sớm."},{"en":"The website lets every viewer comment.","vi":"Trang web cho phép mọi người xem bình luận."},{"en":"A young viewer asked a funny question.","vi":"Một người xem trẻ đặt một câu hỏi vui."}]},{"en":"premiere night","ipa":"/prɪˈmɪr naɪt/","vi":"đêm ra mắt","ex":"On premiere night, the theater was packed.","exvi":"Vào đêm ra mắt, rạp chiếu chật kín người.","exs":[{"en":"Guests dressed in black on premiere night.","vi":"Khách mời mặc đồ đen trong đêm ra mắt."},{"en":"The director felt nervous on premiere night.","vi":"Đạo diễn cảm thấy hồi hộp trong đêm ra mắt."},{"en":"Fans waited outside the theater on premiere night.","vi":"Người hâm mộ chờ bên ngoài rạp trong đêm ra mắt."},{"en":"We took many photos on premiere night.","vi":"Chúng tôi chụp nhiều ảnh trong đêm ra mắt."},{"en":"Nothing could ruin premiere night.","vi":"Không gì có thể làm hỏng đêm ra mắt."}]}];
+  WORDS = window.EngBeeAdminData ? window.EngBeeAdminData.apply("movie", WORDS) : WORDS;
+  var TID = "movie";
+  var TNAME = "Movie";
+  var TVI = "Phim ảnh";
+  var GRAD = ["#f43f5e","#ef4444"];
+  var TOTAL = WORDS.length;
+  var KEY = "engbee_learned_" + (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  })() + "_" + TID;
+
+  function qs(s){ return document.querySelector(s); }
+
+  var state = { view: "cards", index: 0, flipped: false };
+
+  function loadSet(){
+    try {
+      var arr = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (Array.isArray(arr)) {
+        return arr.filter(function(x){ return typeof x === "number" && x >= 0 && x < TOTAL; });
+      }
+    } catch(e){}
+    return [];
+  }
+  var learned = loadSet();
+
+  function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
+  function hasLearned(i){ return learned.indexOf(i) !== -1; }
+  function toggleLearned(i){
+    var p = learned.indexOf(i);
+    if (p === -1) learned.push(i); else learned.splice(p,1);
+    saveSet();
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
+  }
+
+  function speak(word){
+    if (!("speechSynthesis" in window) || !word) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(word);
+      u.lang = "en-US"; u.rate = 0.85; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    } catch(e){}
+  }
+
+  function cardRef(){ return qs("#flashcard"); }
+
+  function setFlip(on){
+    state.flipped = !!on;
+    var card = qs("#flashcard");
+    if (card) card.classList.toggle("flipped", state.flipped);
+  }
+
+  function renderProgress(){
+    var fill = qs("#progress-fill"), txt = qs("#progress-text");
+    var pct = TOTAL > 0 ? Math.round(learned.length / TOTAL * 100) : 0;
+    if (fill) fill.style.width = pct + "%";
+    if (txt) txt.textContent = learned.length + " / " + TOTAL;
+    var fb = qs("#topic-feedback");
+    if (fb) {
+      if (TOTAL > 0 && learned.length === TOTAL) {
+        qs("#fb-text").textContent = "Chúc mừng! Bạn đã thuộc cả " + TOTAL + " từ của chủ đề " + TNAME + ".";
+        fb.hidden = false;
+      } else { fb.hidden = true; }
+    }
+  }
+
+
+  var exPool = [], exPos = 0;
+
+  function buildExPool(w){
+    var pool = [], seen = {};
+    function add(en, vi){
+      if (!en) return;
+      var k = String(en).trim().toLowerCase();
+      if (seen[k]) return;
+      seen[k] = true;
+      pool.push({ en: en, vi: vi || "" });
+    }
+    if (w) {
+      add(w.ex, w.exvi);
+      if (Array.isArray(w.exs)) w.exs.forEach(function(s){ if (s && typeof s === "object") add(s.en, s.vi); });
+    }
+    return pool;
+  }
+
+  function showExample(p){
+    var e = exPool[p];
+    var ex = qs("#word-ex"), exvi = qs("#word-exvi");
+    if (ex) ex.textContent = e ? e.en : "";
+    if (exvi) exvi.textContent = e ? e.vi : "";
+  }
+
+  function randomExample(){
+    if (exPool.length < 2) { exPos = 0; showExample(0); return; }
+    var p;
+    do { p = Math.floor(Math.random() * exPool.length); } while (p === exPos);
+    exPos = p;
+    showExample(p);
+  }
+
+  function flipCard(){
+    if (!state.flipped) randomExample();
+    setFlip(!state.flipped);
+  }
+
+  function renderCard(){
+    if (!TOTAL || !WORDS.length) {
+      if (qs("#view-cards")) qs("#view-cards").hidden = true;
+      return;
+    }
+    if (qs("#view-cards") && state.view === "cards") qs("#view-cards").hidden = false;
+    var w = WORDS[state.index];
+    if (!w) return;
+    var en = qs("#word-en"), ipa = qs("#word-ipa"), vi = qs("#word-vi"),
+        ci = qs("#card-index");
+    if (en) en.textContent = w.en;
+    if (ipa) ipa.textContent = w.ipa || "";
+    if (vi) vi.textContent = w.vi;
+    exPool = buildExPool(w);
+    exPos = 0;
+    showExample(0);
+    if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
+    var mb = qs("#mastered-btn"), nb = qs("#not-mastered-btn");
+    if (mb) mb.classList.toggle("active", hasLearned(state.index));
+    if (nb) nb.classList.toggle("active", !hasLearned(state.index));
+    setFlip(false);
+    renderProgress();
+  }
+
+  function renderGrid(){
+    var grid = qs("#word-grid");
+    grid.innerHTML = "";
+    var q = (qs("#search-box").value || "").trim().toLowerCase();
+    var list = WORDS;
+    if (q) list = WORDS.filter(function(w){ return (w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1); });
+
+    if (!list.length) {
+      var em = document.createElement("p");
+      em.className = "empty-note";
+      em.textContent = "Không tìm thấy từ nào.";
+      grid.appendChild(em);
+      return;
+    }
+    list.forEach(function(w){
+      var pos = WORDS.indexOf(w);
+      var card = document.createElement("div");
+      card.className = "word-card" + (hasLearned(pos) ? " learned" : "");
+      card.tabIndex = 0;
+
+      var top = document.createElement("div"); top.className = "wc-top";
+      var left = document.createElement("span");
+      var e = document.createElement("span"); e.className = "wc-en"; e.textContent = w.en;
+      var i = document.createElement("span"); i.className = "wc-ipa"; i.textContent = w.ipa || "";
+      left.appendChild(e); left.appendChild(i);
+
+      var s = document.createElement("button"); s.type = "button"; s.className = "wc-speak"; s.title = "Nghe phát âm";
+      s.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+      s.addEventListener("click", function(e){ e.stopPropagation(); speak(w.en); });
+      top.appendChild(left); top.appendChild(s);
+
+      var v = document.createElement("p"); v.className = "wc-vi"; v.textContent = w.vi;
+      var ex = document.createElement("p"); ex.className = "wc-ex"; ex.textContent = w.ex || "";
+      var exv = document.createElement("p"); exv.className = "wc-exvi"; exv.textContent = w.exvi || "";
+      var mk = document.createElement("span"); mk.className = "wc-mark";
+      mk.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      card.appendChild(top); card.appendChild(v); card.appendChild(ex); card.appendChild(exv); card.appendChild(mk);
+      card.addEventListener("click", function(){ toggleLearned(pos); render(); });
+      grid.appendChild(card);
+    });
+  }
+
+  function setView(v){
+    state.view = v;
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      var a = tabs[i].dataset.view === v;
+      tabs[i].classList.toggle("active", a);
+      tabs[i].setAttribute("aria-selected", a ? "true" : "false");
+    }
+    qs("#view-cards").hidden = v !== "cards";
+    qs("#view-list").hidden = v !== "list";
+    qs("#search-box").hidden = v !== "list";
+    if (v === "list") { qs("#search-box").value = ""; renderGrid(); }
+    else { renderCard(); }
+  }
+
+  function render(){ renderCard(); if (state.view === "list") renderGrid(); }
+  function go(step){ if (!TOTAL) return; state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
+
+  function bind(){
+    var card = qs("#flashcard");
+    if (card) {
+      card.addEventListener("click", function(){ flipCard(); });
+      qs("#flip-btn").addEventListener("click", function(ev){ ev.stopPropagation(); flipCard(); });
+      qs("#speak-front").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+      qs("#speak-back").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+    }
+    qs("#prev-btn").addEventListener("click", function(){ go(-1); });
+    qs("#next-btn").addEventListener("click", function(){ go(1); });
+    qs("#mastered-btn").addEventListener("click", function(){ if (!hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#not-mastered-btn").addEventListener("click", function(){ if (hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#reset-btn").addEventListener("click", function(){
+      if (!learned.length) return;
+      if (confirm("Xóa toàn bộ tiến độ chủ đề " + TNAME + "?")){ learned = []; saveSet(); render(); }
+    });
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      (function(t){ tabs[i].addEventListener("click", function(){ setView(t.dataset.view); }); })(tabs[i]);
+    }
+    qs("#search-box").addEventListener("input", renderGrid);
+    document.addEventListener("keydown", function(ev){
+      if (ev.target === qs("#search-box") || state.view !== "cards") return;
+      if (ev.key === "ArrowLeft") go(-1);
+      else if (ev.key === "ArrowRight") go(1);
+      else if (ev.key === " ") { ev.preventDefault(); flipCard(); }
+    });
+  }
+
+  bind();
+  if (window.EngBeeAdminData && window.EngBeeAdminData.initLearnPage) {
+    window.EngBeeAdminData.initLearnPage(TID, WORDS, function(newWords) {
+      WORDS = newWords;
+      TOTAL = newWords.length;
+      if (state.index >= TOTAL) state.index = Math.max(0, TOTAL - 1);
+      learned = loadSet();
+      render();
+    });
+  } else {
+    render();
+  }
+})();
+
+</script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+
+<div id="pron-overlay" class="pron-overlay" hidden>
+  <div class="pron-box" role="dialog" aria-modal="true" aria-label="Kiểm tra phát âm">
+    <div class="pron-head">
+      <h3>🎙 Kiểm tra phát âm</h3>
+      <button id="pron-close" class="pron-x" title="Đóng" aria-label="Đóng">✕</button>
+    </div>
+    <div class="pron-word">
+      <strong id="pron-word">—</strong>
+      <span id="pron-ipa"></span>
+    </div>
+    <p style="margin-top:10px"><button id="pron-sample" class="pron-btnme">🔊 Nghe mẫu</button></p>
+    <div class="pron-stage">
+      <p class="pron-status" id="pron-status">Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”.</p>
+      <p class="pron-choices" id="pron-choices"></p>
+    </div>
+    <div class="pron-bar"><span id="pron-bar"></span></div>
+    <p id="pron-verdict" class="pron-verdict"></p>
+    <div class="pron-actions">
+      <button id="pron-listen-btn" class="pron-btnme primary">🎙 Bắt đầu nói</button>
+      <button id="pron-again" class="pron-btnme">🔄 Nói lại</button>
+      <button id="pron-done" class="pron-btnme">Đóng</button>
+    </div>
+    <p class="pron-note">Bạn cần cho phép trình duyệt dùng micro. Dùng Chrome hoặc Edge để có kết quả tốt nhất.</p>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  "use strict";
+  function $_(s){return document.querySelector(s);}
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var rec = null, finalAlt = [], listening = false;
+
+  function norm(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/ +/g," ").trim(); }
+  function lev(a,b){
+    if(a===b)return 0;
+    var m=a.length,n=b.length,d=new Array(m+1);
+    for(var i=0;i<=m;i++){d[i]=new Array(n+1);d[i][0]=i;}
+    for(var j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+cost);
+    }
+    return d[m][n];
+  }
+  function matchScore(target,alt){
+    var t=norm(target),a=norm(alt);
+    if(!t||!a)return 0;
+    if(t===a)return 100;
+    if(a.split(" ").indexOf(t)>=0)return 100;
+    var sim=Math.round((1-lev(t,a)/Math.max(t.length,1))*100);
+    return sim<0?0:sim;
+  }
+  function speakWord(w){
+    try{var u=new SpeechSynthesisUtterance(w);u.lang="en-US";u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  }
+  function curWord(){
+    var el=$_("#word-en");
+    return el?el.textContent.trim():"";
+  }
+  function openPron(){
+    var w=curWord();
+    $_("#pron-word").textContent=w||"?";
+    var ipa=$_("#word-ipa");
+    $_("#pron-ipa").textContent=ipa?ipa.textContent:"";
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent=w?("Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”."):"Bạn cần ở chế độ Thẻ học để luyện phát âm từ.";
+    $_("#pron-overlay").hidden=false;
+    if(w)setTimeout(function(){speakWord(w);},300);
+  }
+  function closePron(){
+    $_("#pron-overlay").hidden=true;
+    try{if(rec)rec.stop();}catch(e){}
+    listening=false;
+  }
+  function beginListen(){
+    if(!SR){
+      $_("#pron-status").textContent="Trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome hoặc Edge.";
+      return;
+    }
+    if(listening)return;
+    listening=true;
+    finalAlt=[];
+    var btn=$_("#pron-listen-btn");
+    btn.disabled=true;
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent="🎙 Đang nghe... hãy nói to từ này.";
+    try{
+      rec=new SR();
+      rec.lang="en-US";
+      rec.interimResults=true;
+      rec.maxAlternatives=5;
+      rec.onresult=function(ev){
+        var pending="",tmp=[];
+        for(var i=ev.resultIndex;i<ev.results.length;i++){
+          var r=ev.results[i];
+          for(var k=0;k<r.length;k++){
+            if(r.isFinal)tmp.push(r[k].transcript);
+            else if(k===0)pending=r[k].transcript;
+          }
+        }
+        if(tmp.length)finalAlt=finalAlt.concat(tmp);
+        $_("#pron-choices").textContent=pending||(finalAlt.length?("Nghe thấy: "+finalAlt[0]):"");
+      };
+      rec.onerror=function(ev){
+        listening=false;btn.disabled=false;
+        $_("#pron-status").textContent="Lỗi "+ev.error+" — kiểm tra micro rồi bấm “Bắt đầu nói” lần nữa.";
+      };
+      rec.onend=function(){
+        listening=false;btn.disabled=false;
+        if(finalAlt.length)evaluate(finalAlt);
+      };
+      rec.start();
+    }catch(e){
+      listening=false;btn.disabled=false;
+      $_("#pron-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro.";
+    }
+  }
+  function evaluate(alts){
+    var w=$_("#pron-word").textContent.trim();
+    var best=0,bestText=alts[0]||"";
+    alts.forEach(function(a){
+      var s=matchScore(w,a);
+      if(s>best){best=s;bestText=a;}
+    });
+    $_("#pron-choices").textContent="Nghe thấy: “"+bestText+"”";
+    $_("#pron-bar").style.width=best+"%";
+    var v=$_("#pron-verdict");
+    if(best>=90){v.className="pron-verdict good";v.textContent="Chuẩn rồi! Phát âm rất tốt ("+best+"%).";}
+    else if(best>=75){v.className="pron-verdict ok";v.textContent="Gần chuẩn rồi, chú ý phát âm đuôi từ ("+best+"%).";}
+    else if(best>=40){v.className="pron-verdict bad";v.textContent="Còn lệch, nghe mẫu rồi nói chậm lại ("+best+"%).";}
+    else{v.className="pron-verdict bad";v.textContent="Chưa chuẩn, hãy thử lại theo mẫu ("+best+"%).";}
+    $_("#pron-status").textContent="Bấm “Nói lại” để phát âm thêm lần nữa.";
+  }
+  function wirePron(){
+    var b=$_("#pron-btn");
+    if(!b)return;
+    b.addEventListener("click",openPron);
+    $_("#pron-close").addEventListener("click",closePron);
+    $_("#pron-done").addEventListener("click",closePron);
+    $_("#pron-sample").addEventListener("click",function(){speakWord($_("#pron-word").textContent);});
+    $_("#pron-listen-btn").addEventListener("click",beginListen);
+    $_("#pron-again").addEventListener("click",function(){
+      try{if(rec)rec.stop();}catch(e){}
+      finalAlt=[];
+      beginListen();
+    });
+    $_("#pron-overlay").addEventListener("click",function(ev){
+      if(ev.target===this)closePron();
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wirePron);
+  else wirePron();
+})();
+</script>
+
+</body>
+</html>

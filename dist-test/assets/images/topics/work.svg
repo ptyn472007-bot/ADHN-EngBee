@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề Work">
+  <defs>
+    <linearGradient id="bgW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a5c8e8"/><stop offset="1" stop-color="#e8f2fb"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgW)"/>
+  <circle cx="200" cy="210" rx="120" ry="18" fill="#ffffff" opacity="0.4"/>
+  <rect x="90" y="120" width="120" height="90" rx="10" fill="#c98a3b"/>
+  <rect x="98" y="128" width="104" height="74" rx="8" fill="#e0aa5a"/>
+  <rect x="140" y="102" width="80" height="24" rx="6" fill="#e0782f"/>
+  <path d="M148,106 a10,10 0 0 1 20,0 l0,20 a10,10 0 0 1 -20,0 Z" fill="#8c4a1f"/>
+  <rect x="98" y="150" width="26" height="4" rx="2" fill="#8c4a1f" opacity="0.4"/>
+  <rect x="98" y="162" width="40" height="4" rx="2" fill="#8c4a1f" opacity="0.4"/>
+  <rect x="260" y="150" width="18" height="34" rx="6" fill="#ffffff" stroke="#d9a05a" stroke-width="3"/>
+  <ellipse cx="269" cy="150" rx="9" ry="5" fill="#8c4a1f"/>
+  <rect x="240" y="140" width="60" height="6" rx="3" fill="#ffffff" stroke="#d9a05a" stroke-width="2"/>
+</svg>

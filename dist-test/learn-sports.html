@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Từ vựng chủ đề Sports</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ==========================================
+   EngBee - learn.css (trang Học từ vựng)
+   ========================================== */
+
+:root {
+  --g1: #4facfe;
+  --g2: #00f2fe;
+  --ink: #1f2937;
+}
+
+body {
+  font-family: "Be Vietnam Pro", Arial, Helvetica, sans-serif;
+  background: #f6f7fb;
+}
+
+/* ---------- Hero ---------- */
+.learn-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 56px 0 40px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+}
+
+.learn-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% -20%, rgba(255, 255, 255, 0.35), transparent 55%),
+    radial-gradient(circle at 8% 120%, rgba(255, 255, 255, 0.25), transparent 45%);
+  pointer-events: none;
+}
+
+.deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.deco-a { width: 220px; height: 220px; top: -70px; right: -40px; }
+.deco-b { width: 140px; height: 140px; bottom: -50px; left: -30px; }
+
+.learn-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.learn-hero .eyebrow {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(4px);
+}
+
+.learn-hero h1 {
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.hero-sub {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.hero-sub strong {
+  font-weight: 800;
+}
+
+/* ---------- Topic pills ---------- */
+.topic-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.topic-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 18px 8px 8px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 52px;
+}
+
+.topic-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+.topic-pill.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.pill-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  flex: none;
+}
+
+.pill-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.pill-text strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.pill-text small {
+  font-size: 0.72rem;
+  opacity: 0.78;
+}
+
+.topic-pill.active .pill-badge {
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* ---------- Body / toolbar ---------- */
+.learn-body {
+  padding: 34px 0 70px;
+}
+
+.learn-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
+  margin-bottom: 22px;
+}
+
+.view-tabs {
+  display: inline-flex;
+  background: #eef1f8;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.view-tab {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  border-radius: 9px;
+  transition: all 0.2s;
+}
+
+.view-tab.active {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.progress-wrap {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #eef1f8;
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box {
+  border: 1px solid #e3e7f0;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 200px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus {
+  border-color: var(--g1);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.18);
+}
+
+.btn-ghost {
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: #f2a900;
+  color: #b07f00;
+  background: #fff8e6;
+}
+
+.topic-feedback {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  margin-bottom: 22px;
+  animation: popIn 0.4s ease;
+}
+
+.fb-badge {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Flashcard ---------- */
+.card-view {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.flashcard-shell {
+  perspective: 1400px;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  cursor: pointer;
+  outline: none;
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  box-shadow: 0 18px 44px rgba(31, 41, 55, 0.18);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.flashcard.flipped .flashcard-face.front {
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+}
+
+.flashcard.flipped .flashcard-face.back {
+  opacity: 1;
+  transform: rotateX(0deg) scale(1);
+  pointer-events: auto;
+}
+
+.flashcard-face.front {
+  background: #fff;
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(240, 165, 0, 0.12) 0, transparent 38%),
+    radial-gradient(circle at 88% 88%, var(--g1) 0, transparent 46%);
+  color: var(--ink);
+  z-index: 2;
+}
+
+.flashcard-face.back {
+  background: linear-gradient(145deg, var(--g1), var(--g2));
+  color: #fff;
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-badge {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #9aa3b2;
+  background: #f2f4fa;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.back .card-badge.back-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  position: static;
+  margin-bottom: 8px;
+}
+
+.word-en {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-top: 6px;
+}
+
+.word-ipa {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+.tap-hint {
+  position: absolute;
+  bottom: 20px;
+  color: #b6bdcb;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.speak-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.22);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.speak-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.speak-btn.small {
+  position: static;
+  width: 42px;
+  height: 42px;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.word-vi {
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 800;
+}
+
+.word-ex {
+  margin-top: 14px;
+  font-size: 1.02rem;
+  font-style: italic;
+  max-width: 420px;
+}
+
+.word-exvi {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  opacity: 0.9;
+  max-width: 420px;
+}
+
+/* ---------- Card controls ---------- */
+.card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.ctl-btn:hover {
+  border-color: var(--g1);
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.1);
+}
+
+.ctl-btn.primary {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  border: none;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(31, 41, 55, 0.18);
+}
+
+.ctl-btn.primary:hover {
+  transform: translateY(-2px);
+}
+
+.master-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.master-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.master-btn.yes:hover,
+.master-btn.yes.active {
+  border-color: #22c55e;
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.master-btn.nope:hover,
+.master-btn.nope.active {
+  border-color: #ef4444;
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.master-btn.active {
+  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);
+}
+
+.keys-hint {
+  text-align: center;
+  color: #a2aabb;
+  font-size: 0.8rem;
+  margin-top: 14px;
+}
+
+/* ---------- List view ---------- */
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.word-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.05);
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.word-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+
+.word-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(31, 41, 55, 0.1);
+}
+
+.word-card.learned {
+  background: #f8fdf9;
+  border-color: #bbf7d0;
+}
+
+.wc-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wc-en {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.wc-ipa {
+  display: block;
+  color: #9aa3b2;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.wc-speak {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.wc-speak:hover {
+  transform: scale(1.12);
+}
+
+.wc-vi {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.wc-ex {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.wc-exvi {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #9aa3b2;
+}
+
+.wc-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eef1f8;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-card.learned .wc-mark {
+  display: inline-flex;
+  background: #22c55e;
+}
+
+.word-card.learned .wc-speak {
+  margin-right: 26px;
+}
+
+.empty-note {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #9aa3b2;
+  padding: 40px 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .learn-hero {
+    padding: 40px 0 32px;
+  }
+
+  .learn-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .progress-wrap {
+    order: -1;
+  }
+
+  .toolbar-actions {
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+    width: auto;
+  }
+
+  .flashcard {
+    height: 400px;
+  }
+}
+
+@media (max-width: 440px) {
+  .ctl-btn span {
+    display: none;
+  }
+
+  .ctl-btn {
+    padding: 12px 16px;
+  }
+
+  .master-bar {
+    flex-direction: column;
+  }
+
+  .master-btn {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-face {
+    transition: none;
+  }
+}
+/* ===== pronunciation check ===== */
+.pron-overlay{position:fixed;inset:0;z-index:999;background:rgba(16,26,51,.55);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+.pron-overlay[hidden]{display:none}
+.pron-box{background:#fff;border-radius:20px;max-width:470px;width:100%;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center;animation:pronIn .25s ease}
+@keyframes pronIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.pron-head{display:flex;align-items:center;justify-content:space-between}
+.pron-head h3{font-size:1.15rem;font-weight:800}
+.pron-x{border:none;background:#eef1f8;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;color:#6b7280}
+.pron-word{margin-top:14px}
+.pron-word strong{font-size:2rem;font-weight:800;display:block}
+.pron-word span{color:#6b7280}
+.pron-stage{margin:14px 0;background:#f7f8fc;border:1px dashed #dfe4ef;border-radius:14px;padding:14px;min-height:74px}
+.pron-status{font-weight:600;font-size:.95rem}
+.pron-choices{color:#6b7280;font-style:italic;margin-top:6px;min-height:20px}
+.pron-bar{height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
+.pron-bar span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(135deg,#22b573,#2ee59d);transition:width .4s}
+.pron-verdict{margin-top:10px;font-weight:800;font-size:1.02rem;min-height:26px}
+.pron-verdict.good{color:#157a4d}.pron-verdict.ok{color:#d97706}.pron-verdict.bad{color:#b91c1c}
+.pron-actions{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.pron-btnme{padding:10px 18px;border-radius:12px;border:1px solid #dfe4ef;background:#fff;color:#374151;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.pron-btnme.primary{background:linear-gradient(135deg,#ffb200,#ff7e00);color:#fff;border:none}
+.pron-btnme:hover{transform:translateY(-1px)}
+.pron-btnme:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.pron-note{font-size:.78rem;color:#9aa1b5;margin-top:12px}
+
+</style>
+  <script src="assets/js/engbee-admin-data.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html" class="active">Học từ vựng</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
+      </nav>
+  </div>
+</header>
+
+<main>
+  <section class="learn-hero" style="--g1:#f7971e;--g2:#ffd200">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="learn-hero-inner">
+        <p class="eyebrow">Chủ đề: <span id="hero-name">Sports</span> (50 từ)</p>
+        <h1>Học từ vựng chủ đề <span style="color:#fff">Sports</span></h1>
+        <p class="hero-sub">50 từ thông dụng kèm phiên âm, nghĩa và ví dụ. Lật thẻ, nghe phát âm và đánh dấu đã thuộc để nhớ lâu hơn.</p>
+        <div class="topic-pills"><a class="topic-pill" href="learn-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="learn-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="learn-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="learn-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="learn-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill active" href="learn-sports.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="learn-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="learn-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="learn-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="learn-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="learn-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="learn-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="learn-body" style="--g1:#f7971e;--g2:#ffd200">
+    <div class="container">
+      <div class="learn-toolbar">
+        <div class="view-tabs" role="tablist">
+          <button class="view-tab active" data-view="cards" role="tab" aria-selected="true">Thẻ học</button>
+          <button class="view-tab" data-view="list" role="tab" aria-selected="false">Danh sách từ</button>
+        </div>
+        <div class="progress-wrap" title="Tiến độ học của bạn">
+          <div class="progress-bar"><span class="progress-fill" id="progress-fill"></span></div>
+          <span class="progress-text" id="progress-text">0 / 50</span>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="search-box" class="search-box" placeholder="Tìm từ..." autocomplete="off" hidden>
+          <button id="pron-btn" class="btn-ghost" title="Kiểm tra phát âm từ đang học" style="color:#7a5c00;background:#fff7e6;border-color:#f3d9a4">🎙 Phát âm</button>
+          <button id="reset-btn" class="btn-ghost" title="Xóa tiến độ chủ đề này">Đặt lại</button>
+        </div>
+      </div>
+
+      <div class="topic-feedback" id="topic-feedback" hidden>
+        <span class="fb-badge">Hoàn thành</span>
+        <span id="fb-text"></span>
+      </div>
+
+      <section id="view-cards" class="card-view">
+        <div class="flashcard-shell">
+          <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Thẻ từ vựng - nhấn để lật">
+            <div class="flashcard-face front">
+              <span class="card-badge" id="card-index">1 / 50</span>
+              <button class="speak-btn" id="speak-front" title="Nghe phát âm">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h2 class="word-en" id="word-en">...</h2>
+              <p class="word-ipa" id="word-ipa">...</p>
+              <p class="tap-hint">Nhấn vào thẻ để xem nghĩa</p>
+            </div>
+            <div class="flashcard-face back">
+              <button class="speak-btn small" id="speak-back" title="Nghe phát âm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h3 class="word-vi" id="word-vi">...</h3>
+              <p class="word-ex" id="word-ex">...</p>
+              <p class="word-exvi" id="word-exvi">...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-controls">
+          <button class="ctl-btn" id="prev-btn" title="Từ trước"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Trước</span></button>
+          <button class="ctl-btn primary" id="flip-btn">Lật thẻ</button>
+          <button class="ctl-btn" id="next-btn"><span>Sau</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+
+        <div class="master-bar">
+          <button class="master-btn nope" id="not-mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Chưa thuộc</span></button>
+          <button class="master-btn yes" id="mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Đã thuộc</span></button>
+        </div>
+        <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
+      </section>
+
+      <section id="view-list" class="list-view" hidden>
+        <div class="word-grid" id="word-grid"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+<script>
+
+(function(){
+  "use strict";
+  var WORDS = [{"en":"sport","ipa":"/spɔːrt/","vi":"thể thao","ex":"Sport keeps our body healthy.","exvi":"Thể thao giữ cho cơ thể khỏe mạnh.","exs":[{"en":"My favorite sport is badminton.","vi":"Môn thể thao yêu thích của tôi là cầu lông."},{"en":"We play a different sport every weekend.","vi":"Chúng tôi chơi một môn thể thao khác nhau mỗi cuối tuần."},{"en":"Which sport do you like most?","vi":"Bạn thích môn thể thao nào nhất?"},{"en":"Tennis is a sport for everyone.","vi":"Quần vợt là môn thể thao dành cho mọi người."},{"en":"Do you follow any sport on TV?","vi":"Bạn có theo dõi môn thể thao nào trên ti vi không?"}]},{"en":"exercise","ipa":"/ˈeksərsaɪz/","vi":"tập luyện","ex":"Morning exercise wakes up my body.","exvi":"Tập luyện buổi sáng đánh thức cơ thể tôi.","exs":[{"en":"I exercise for thirty minutes every day.","vi":"Tôi tập luyện ba mươi phút mỗi ngày."},{"en":"Regular exercise helps you sleep better.","vi":"Tập luyện thường xuyên giúp bạn ngủ ngon hơn."},{"en":"She does exercise in the living room.","vi":"Cô ấy tập luyện trong phòng khách."},{"en":"Light exercise is good after a meal.","vi":"Tập luyện nhẹ nhàng sau bữa ăn rất tốt."},{"en":"We exercise together at the park.","vi":"Chúng tôi cùng tập luyện ở công viên."}]},{"en":"team","ipa":"/tiːm/","vi":"đội nhóm","ex":"Our team won the match.","exvi":"Đội của chúng tôi đã thắng trận đấu.","exs":[{"en":"The whole team celebrated the win.","vi":"Cả đội đã ăn mừng chiến thắng."},{"en":"Our school team has ten players.","vi":"Đội trường chúng tôi có mười cầu thủ."},{"en":"My team practices after school.","vi":"Đội của tôi tập luyện sau giờ học."},{"en":"The team wore blue shirts.","vi":"Đội đã mặc áo màu xanh dương."},{"en":"A good team works together.","vi":"Một đội tốt biết làm việc cùng nhau."}]},{"en":"player","ipa":"/ˈpleɪər/","vi":"cầu thủ","ex":"Each player trains hard daily.","exvi":"Mỗi cầu thủ luyện tập chăm chỉ hằng ngày.","exs":[{"en":"That player scored three goals yesterday.","vi":"Cầu thủ đó đã ghi ba bàn thắng hôm qua."},{"en":"Every player must follow the rules.","vi":"Mọi cầu thủ đều phải tuân thủ luật chơi."},{"en":"The best player got the award.","vi":"Cầu thủ xuất sắc nhất đã nhận giải thưởng."},{"en":"One player was hurt in the game.","vi":"Một cầu thủ bị thương trong trận đấu."},{"en":"She is a player on our team.","vi":"Cô ấy là cầu thủ trong đội của chúng tôi."}]},{"en":"coach","ipa":"/koʊtʃ/","vi":"huấn luyện viên","ex":"The coach gave us new tactics.","exvi":"Huấn luyện viên đưa ra chiến thuật mới.","exs":[{"en":"Our coach is very friendly and patient.","vi":"Huấn luyện viên của chúng tôi rất thân thiện và kiên nhẫn."},{"en":"The coach asked us to run faster.","vi":"Huấn luyện viên yêu cầu chúng tôi chạy nhanh hơn."},{"en":"Our coach clapped and smiled at us.","vi":"Huấn luyện viên của chúng tôi vỗ tay và cười với chúng tôi."},{"en":"My coach helped me improve my serve.","vi":"Huấn luyện viên giúp tôi cải thiện cú phát bóng."},{"en":"The coach arrived at the field early.","vi":"Huấn luyện viên đến sân từ sớm."}]},{"en":"referee","ipa":"/ˌrefəˈriː/","vi":"trọng tài","ex":"The referee blew the whistle.","exvi":"Trọng tài đã thổi còi.","exs":[{"en":"The referee showed a red card.","vi":"Trọng tài đã rút thẻ đỏ."},{"en":"Players must listen to the referee.","vi":"Các cầu thủ phải lắng nghe trọng tài."},{"en":"The referee stopped the game for water.","vi":"Trọng tài cho dừng trận đấu để uống nước."},{"en":"A referee must be fair to everyone.","vi":"Trọng tài phải công bằng với mọi người."},{"en":"The referee gave him a yellow card.","vi":"Trọng tài đã rút thẻ vàng cho anh ấy."}]},{"en":"match","ipa":"/mætʃ/","vi":"trận đấu","ex":"The match ended in a draw.","exvi":"Trận đấu kết thúc với tỉ số hòa.","exs":[{"en":"We lost the match by two goals.","vi":"Chúng tôi thua trận đấu hai bàn."},{"en":"The football match starts at seven.","vi":"Trận bóng đá bắt đầu lúc bảy giờ."},{"en":"I watched the match on television.","vi":"Tôi xem trận đấu trên ti vi."},{"en":"The match was postponed because of rain.","vi":"Trận đấu bị hoãn vì trời mưa."},{"en":"Our class won the match yesterday.","vi":"Lớp chúng tôi đã thắng trận đấu hôm qua."}]},{"en":"goal","ipa":"/ɡoʊl/","vi":"bàn thắng","ex":"He scored the winning goal.","exvi":"Anh ấy ghi bàn thắng quyết định.","exs":[{"en":"She scored her first goal today.","vi":"Cô ấy ghi bàn thắng đầu tiên hôm nay."},{"en":"Our team needs one more goal.","vi":"Đội của chúng tôi cần thêm một bàn thắng nữa."},{"en":"The goal came in the last minute.","vi":"Bàn thắng đến ở phút cuối cùng."},{"en":"They celebrated the goal with a hug.","vi":"Họ ăn mừng bàn thắng bằng một cái ôm."},{"en":"We scored a beautiful goal in overtime.","vi":"Chúng tôi ghi một bàn thắng đẹp trong hiệp phụ."}]},{"en":"victory","ipa":"/ˈvɪktəri/","vi":"chiến thắng","ex":"Their victory was well deserved.","exvi":"Chiến thắng của họ hoàn toàn xứng đáng.","exs":[{"en":"The fans celebrated the victory all night.","vi":"Người hâm mộ đã ăn mừng chiến thắng suốt đêm."},{"en":"This victory means a lot to us.","vi":"Chiến thắng này có ý nghĩa rất lớn đối với chúng tôi."},{"en":"The victory made everyone very happy.","vi":"Chiến thắng khiến mọi người rất vui."},{"en":"We celebrated the victory with our families.","vi":"Chúng tôi ăn mừng chiến thắng cùng gia đình."},{"en":"A late goal gave us the victory.","vi":"Bàn thắng muộn mang về chiến thắng cho chúng tôi."}]},{"en":"defeat","ipa":"/dɪˈfiːt/","vi":"sự thất bại","ex":"The team suffered a defeat.","exvi":"Đội bóng đã chịu một thất bại.","exs":[{"en":"The defeat taught us an important lesson.","vi":"Trận thua đã dạy chúng tôi một bài học quan trọng."},{"en":"Nobody likes a painful defeat.","vi":"Không ai thích một thất bại đau đớn."},{"en":"After the defeat, the team trained harder.","vi":"Sau thất bại, đội đã tập luyện chăm chỉ hơn."},{"en":"We accepted the defeat with respect.","vi":"Chúng tôi chấp nhận thất bại một cách tôn trọng."},{"en":"The coach spoke about the defeat calmly.","vi":"Huấn luyện viên nói về thất bại một cách bình thản."}]},{"en":"champion","ipa":"/ˈtʃæmpiən/","vi":"nhà vô địch","ex":"She became the swimming champion.","exvi":"Cô ấy trở thành nhà vô địch bơi lội.","exs":[{"en":"He is a boxing champion from Thailand.","vi":"Anh ấy là nhà vô địch quyền anh đến từ Thái Lan."},{"en":"The champion thanked his fans and family.","vi":"Nhà vô địch đã cảm ơn người hâm mộ và gia đình."},{"en":"The young champion trains every morning.","vi":"Nhà vô địch trẻ tập luyện mỗi buổi sáng."},{"en":"Our champion will defend her title next month.","vi":"Nhà vô địch của chúng tôi sẽ bảo vệ danh hiệu vào tháng tới."},{"en":"Everyone cheered when the champion appeared.","vi":"Mọi người reo hò khi nhà vô địch xuất hiện."}]},{"en":"tournament","ipa":"/ˈtɜːrnəmənt/","vi":"giải đấu","ex":"The tournament lasts two weeks.","exvi":"Giải đấu kéo dài hai tuần.","exs":[{"en":"Our school will host a tennis tournament.","vi":"Trường chúng tôi sẽ tổ chức một giải quần vợt."},{"en":"Many teams joined the tournament this year.","vi":"Nhiều đội đã tham gia giải đấu năm nay."},{"en":"The tournament begins on Monday morning.","vi":"Giải đấu bắt đầu vào sáng thứ Hai."},{"en":"Our team won the local tournament.","vi":"Đội của chúng tôi đã thắng giải đấu địa phương."},{"en":"He got injured before the tournament started.","vi":"Anh ấy bị chấn thương trước khi giải đấu bắt đầu."}]},{"en":"competition","ipa":"/ˌkɑːmpəˈtɪʃn/","vi":"cuộc thi","ex":"Competition is fierce this year.","exvi":"Sự cạnh tranh năm nay rất gay gắt.","exs":[{"en":"She won first prize in the competition.","vi":"Cô ấy giành giải nhất trong cuộc thi."},{"en":"The cooking competition starts next Saturday.","vi":"Cuộc thi nấu ăn bắt đầu vào thứ Bảy tới."},{"en":"I entered a singing competition last month.","vi":"Tôi đã tham gia một cuộc thi hát tháng trước."},{"en":"The competition was harder than we expected.","vi":"Cuộc thi khó hơn chúng tôi tưởng."},{"en":"Students from many schools joined the competition.","vi":"Học sinh từ nhiều trường đã tham gia cuộc thi."}]},{"en":"stadium","ipa":"/ˈsteɪdiəm/","vi":"sân vận động","ex":"The stadium can hold fifty thousand fans.","exvi":"Sân vận động có thể chứa năm mươi nghìn người hâm mộ.","exs":[{"en":"The new stadium looks very beautiful.","vi":"Sân vận động mới trông rất đẹp."},{"en":"Fans arrived at the stadium early.","vi":"Người hâm mộ đến sân vận động từ sớm."},{"en":"We took a photo outside the stadium.","vi":"Chúng tôi chụp ảnh bên ngoài sân vận động."},{"en":"The stadium lights turned on at night.","vi":"Đèn sân vận động bật lên vào ban đêm."},{"en":"Thousands of fans filled the stadium.","vi":"Hàng nghìn người hâm mộ đã lấp đầy sân vận động."}]},{"en":"field","ipa":"/fiːld/","vi":"sân thi đấu","ex":"Players warmed up on the field.","exvi":"Các cầu thủ khởi động trên sân.","exs":[{"en":"The football field is wet after rain.","vi":"Sân bóng đá bị ướt sau cơn mưa."},{"en":"Children played on the field after class.","vi":"Trẻ em chơi trên sân sau giờ học."},{"en":"The field was too muddy to play.","vi":"Sân quá lầy lội để chơi."},{"en":"We marked the field with white lines.","vi":"Chúng tôi kẻ sân bằng những vạch trắng."},{"en":"The players ran across the field quickly.","vi":"Các cầu thủ chạy nhanh qua sân."}]},{"en":"track","ipa":"/træk/","vi":"đường chạy","ex":"Runners gathered on the track.","exvi":"Các vận động viên chạy tập trung trên đường chạy.","exs":[{"en":"She runs on the track every evening.","vi":"Cô ấy chạy trên đường chạy mỗi buổi tối."},{"en":"The track around the lake is very long.","vi":"Đường chạy quanh hồ rất dài."},{"en":"The school has a new running track.","vi":"Trường có một đường chạy mới."},{"en":"He fell on the track near the end.","vi":"Anh ấy ngã trên đường chạy gần cuối."},{"en":"The track is open to everyone in summer.","vi":"Đường chạy mở cửa cho mọi người vào mùa hè."}]},{"en":"court","ipa":"/kɔːrt/","vi":"sân (bóng rổ, quần vợt)","ex":"Let us play basketball on the court.","exvi":"Chúng ta chơi bóng rổ trên sân nhé.","exs":[{"en":"The tennis court is free now.","vi":"Sân quần vợt đang trống lúc này."},{"en":"We booked the court for two hours.","vi":"Chúng tôi đã đặt sân trong hai tiếng."},{"en":"The court is too small for four players.","vi":"Sân quá nhỏ cho bốn người chơi."},{"en":"They painted the court with new colors.","vi":"Họ sơn lại sân bằng những màu mới."},{"en":"Meet me at the court at five.","vi":"Gặp tôi ở sân lúc năm giờ."}]},{"en":"ball","ipa":"/bɔːl/","vi":"quả bóng","ex":"Pass the ball to me.","exvi":"Chuyền bóng cho tôi.","exs":[{"en":"The ball went over the fence.","vi":"Quả bóng bay qua hàng rào."},{"en":"He kicked the ball too hard.","vi":"Anh ấy sút bóng quá mạnh."},{"en":"She threw the ball back to me.","vi":"Cô ấy ném bóng trả lại cho tôi."},{"en":"The ball is too big for my hands.","vi":"Quả bóng quá lớn cho bàn tay tôi."},{"en":"We bought a new ball for the game.","vi":"Chúng tôi mua một quả bóng mới cho trận đấu."}]},{"en":"kick","ipa":"/kɪk/","vi":"đá","ex":"He kicked the ball into the goal.","exvi":"Anh ấy sút bóng vào khung thành.","exs":[{"en":"She can kick the ball very far.","vi":"Cô ấy có thể sút bóng rất xa."},{"en":"Do not kick the ball indoors.","vi":"Đừng sút bóng trong nhà."},{"en":"He gave the ball a strong kick.","vi":"Anh ấy sút quả bóng thật mạnh."},{"en":"Practice your kick before the game starts.","vi":"Luyện cú sút trước khi trận đấu bắt đầu."},{"en":"Do not kick the door, please.","vi":"Xin đừng đá cửa."}]},{"en":"throw","ipa":"/θroʊ/","vi":"ném","ex":"Throw the ball to the basket.","exvi":"Ném bóng vào rổ.","exs":[{"en":"He can throw the ball across the field.","vi":"Anh ấy có thể ném bóng qua cả sân."},{"en":"Please throw the paper into the bin.","vi":"Vui lòng vứt giấy vào thùng rác."},{"en":"Can you throw it a little higher?","vi":"Bạn có thể ném nó cao hơn một chút không?"},{"en":"She learned to throw with her left hand.","vi":"Cô ấy học cách ném bằng tay trái."},{"en":"Do not throw stones at the birds.","vi":"Đừng ném đá vào những con chim."}]},{"en":"catch","ipa":"/kætʃ/","vi":"bắt bóng","ex":"Catch the ball with both hands.","exvi":"Bắt bóng bằng cả hai tay.","exs":[{"en":"He can catch the ball with one hand.","vi":"Anh ấy có thể bắt bóng bằng một tay."},{"en":"Try to catch the bus before it leaves.","vi":"Hãy kịp lên xe buýt trước khi nó rời đi."},{"en":"The dog can catch a frisbee easily.","vi":"Chú chó có thể bắt chiếc đĩa bay dễ dàng."},{"en":"He made a great catch near the sideline.","vi":"Anh ấy bắt bóng tuyệt vời gần đường biên."},{"en":"I hope you catch the ball this time.","vi":"Tôi hy vọng bạn bắt được quả bóng lần này."}]},{"en":"run","ipa":"/rʌn/","vi":"chạy","ex":"I run five kilometers every day.","exvi":"Tôi chạy năm ki-lô-mét mỗi ngày.","exs":[{"en":"We run together in the park on Sundays.","vi":"Chúng tôi cùng nhau chạy bộ trong công viện vào Chủ nhật."},{"en":"Do not run inside the classroom.","vi":"Đừng chạy trong lớp học."},{"en":"He likes to run before breakfast.","vi":"Anh ấy thích chạy trước bữa sáng."},{"en":"Do not run on the wet floor.","vi":"Đừng chạy trên sàn ướt."},{"en":"We will run in a race next week.","vi":"Chúng tôi sẽ chạy trong một cuộc đua tuần tới."}]},{"en":"jump","ipa":"/dʒʌmp/","vi":"nhảy","ex":"The player jumped high for the ball.","exvi":"Cầu thủ nhảy cao để bắt bóng.","exs":[{"en":"The kids love to jump in puddles.","vi":"Bọn trẻ thích nhảy vào vũng nước."},{"en":"She can jump over the small fence.","vi":"Cô ấy có thể nhảy qua hàng rào nhỏ."},{"en":"He can jump very high indeed.","vi":"Anh ấy có thể nhảy thật cao."},{"en":"Do not jump on the bed.","vi":"Đừng nhảy trên giường."},{"en":"The athlete jumped farther than ever before.","vi":"Vận động viên nhảy xa hơn bao giờ hết."}]},{"en":"swim","ipa":"/swɪm/","vi":"bơi","ex":"They swim in the pool every morning.","exvi":"Họ bơi trong hồ bơi mỗi buổi sáng.","exs":[{"en":"I want to swim in the sea.","vi":"Tôi muốn bơi ở biển."},{"en":"He learned to swim when he was six.","vi":"Anh ấy học bơi khi mới sáu tuổi."},{"en":"We swim at the beach every summer.","vi":"Chúng tôi bơi ở bãi biển mỗi mùa hè."},{"en":"It is too cold to swim today.","vi":"Hôm nay trời quá lạnh để bơi."},{"en":"My daughter can swim across the pool.","vi":"Con gái tôi có thể bơi qua hồ."}]},{"en":"cycling","ipa":"/ˈsaɪklɪŋ/","vi":"môn đạp xe","ex":"Cycling is good for the heart.","exvi":"Đạp xe rất tốt cho tim.","exs":[{"en":"Cycling to work saves me money.","vi":"Đạp xe đi làm giúp tôi tiết kiệm tiền."},{"en":"My father enjoys cycling on weekends.","vi":"Bố tôi thích đạp xe vào cuối tuần."},{"en":"Cycling in the city can be dangerous.","vi":"Đạp xe trong thành phố có thể nguy hiểm."},{"en":"She bought a helmet for cycling.","vi":"Cô ấy mua một chiếc mũ bảo hiểm để đạp xe."},{"en":"Our cycling club meets every Saturday morning.","vi":"Câu lạc bộ đạp xe của chúng tôi gặp nhau mỗi sáng thứ Bảy."}]},{"en":"boxing","ipa":"/ˈbɑːksɪŋ/","vi":"quyền anh","ex":"Boxing requires strength and speed.","exvi":"Quyền anh đòi hỏi sức mạnh và tốc độ.","exs":[{"en":"He took up boxing last month.","vi":"Anh ấy bắt đầu tập quyền anh từ tháng trước."},{"en":"Boxing classes are open on Tuesdays.","vi":"Các lớp quyền anh mở cửa vào thứ Ba."},{"en":"Boxing gloves must fit your hands well.","vi":"Găng quyền anh phải vừa tay bạn."},{"en":"My uncle watched a boxing match on TV.","vi":"Bác tôi xem một trận quyền anh trên ti vi."},{"en":"She practices boxing three times a week.","vi":"Cô ấy tập quyền anh ba lần một tuần."}]},{"en":"wrestling","ipa":"/ˈreslɪŋ/","vi":"đấu vật","ex":"Wrestling is popular in some countries.","exvi":"Đấu vật phổ biến ở một số quốc gia.","exs":[{"en":"My brother watches wrestling on television.","vi":"Anh trai tôi xem đấu vật trên ti vi."},{"en":"Wrestling training is very hard.","vi":"Buổi luyện tập đấu vật rất gian khổ."},{"en":"Wrestling needs strong arms and quick legs.","vi":"Đấu vật cần đôi tay mạnh và đôi chân nhanh."},{"en":"The wrestling match lasted only ten minutes.","vi":"Trận đấu vật chỉ kéo dài mười phút."},{"en":"He began wrestling at the age of ten.","vi":"Anh ấy bắt đầu đấu vật từ năm mười tuổi."}]},{"en":"karate","ipa":"/kəˈrɑːti/","vi":"võ karate","ex":"Karate teaches discipline and focus.","exvi":"Karate dạy kỷ luật và sự tập trung.","exs":[{"en":"She wears a white belt for karate.","vi":"Cô ấy mang đai trắng khi học karate."},{"en":"My son goes to karate class every Friday.","vi":"Con trai tôi đi học lớp karate vào mỗi thứ Sáu."},{"en":"Karate classes are held in the school gym.","vi":"Lớp karate được tổ chức ở phòng tập của trường."},{"en":"He earned a black belt in karate.","vi":"Anh ấy đã đạt được đai đen karate."},{"en":"Karate helps kids feel more confident.","vi":"Karate giúp trẻ em tự tin hơn."}]},{"en":"yoga","ipa":"/ˈjoʊɡə/","vi":"yoga","ex":"Yoga helps me relax after work.","exvi":"Yoga giúp tôi thư giãn sau giờ làm.","exs":[{"en":"We did yoga in the park this morning.","vi":"Chúng tôi tập yoga trong công viên sáng nay."},{"en":"Yoga classes are very popular here.","vi":"Các lớp yoga ở đây rất phổ biến."},{"en":"Yoga makes my body feel lighter.","vi":"Yoga làm cho cơ thể tôi thấy nhẹ nhõm hơn."},{"en":"She does yoga before going to bed.","vi":"Cô ấy tập yoga trước khi đi ngủ."},{"en":"You only need a mat for yoga.","vi":"Bạn chỉ cần một tấm thảm cho yoga."}]},{"en":"gym","ipa":"/dʒɪm/","vi":"phòng tập","ex":"I go to the gym three times a week.","exvi":"Tôi đến phòng tập ba lần một tuần.","exs":[{"en":"The gym closes at ten in the evening.","vi":"Phòng tập đóng cửa lúc mười giờ tối."},{"en":"He bought new shoes for the gym.","vi":"Anh ấy mua một đôi giày mới cho phòng tập."},{"en":"The gym has many new machines.","vi":"Phòng tập có nhiều máy mới."},{"en":"She works out at the gym after work.","vi":"Cô ấy tập ở phòng tập sau giờ làm."},{"en":"Our gym offers free classes for members.","vi":"Phòng tập của chúng tôi có các lớp miễn phí cho hội viên."}]},{"en":"marathon","ipa":"/ˈmærəθɑːn/","vi":"cuộc thi chạy marathon","ex":"She ran the city marathon last year.","exvi":"Cô ấy đã chạy marathon của thành phố năm ngoái.","exs":[{"en":"Hundreds of people joined the marathon.","vi":"Hàng trăm người đã tham gia cuộc chạy marathon."},{"en":"My cousin finished his first marathon.","vi":"Anh họ tôi đã hoàn thành cuộc marathon đầu tiên."},{"en":"Running a marathon takes months of training.","vi":"Chạy marathon cần nhiều tháng luyện tập."},{"en":"The marathon goes through the old town.","vi":"Cuộc chạy marathon đi qua khu phố cổ."},{"en":"I want to run a marathon next year.","vi":"Tôi muốn chạy marathon vào năm tới."}]},{"en":"opponent","ipa":"/əˈpoʊnənt/","vi":"đối thủ","ex":"He respects every opponent he faces.","exvi":"Anh ấy tôn trọng mọi đối thủ mình gặp.","exs":[{"en":"Our next opponent is very strong.","vi":"Đối thủ tiếp theo của chúng tôi rất mạnh."},{"en":"She never gives her opponent a chance.","vi":"Cô ấy không bao giờ để đối thủ có cơ hội."},{"en":"His opponent fell during the second round.","vi":"Đối thủ của anh ấy ngã trong hiệp hai."},{"en":"Always study your opponent before the match.","vi":"Luôn tìm hiểu đối thủ trước trận đấu."},{"en":"She shook hands with her opponent.","vi":"Cô ấy bắt tay đối thủ."}]},{"en":"medal","ipa":"/ˈmedl/","vi":"huy chương","ex":"The team won a gold medal.","exvi":"Đội đã giành được huy chương vàng.","exs":[{"en":"She cried when she got the medal.","vi":"Cô ấy đã khóc khi nhận huy chương."},{"en":"He keeps his medal on the shelf.","vi":"Anh ấy để huy chương trên kệ."},{"en":"Her medal shone brightly in the sun.","vi":"Chiếc huy chương của cô ấy lấp lánh dưới nắng."},{"en":"Winning a medal takes years of hard work.","vi":"Để giành huy chương cần nhiều năm làm việc chăm chỉ."},{"en":"He wore his medal around his neck.","vi":"Anh ấy đeo huy chương quanh cổ."}]},{"en":"trophy","ipa":"/ˈtroʊfi/","vi":"chiếc cúp","ex":"The trophy is made of silver.","exvi":"Chiếc cúp được làm bằng bạc.","exs":[{"en":"Our club lifted the trophy after the final.","vi":"Câu lạc bộ của chúng tôi đã nâng cúp sau trận chung kết."},{"en":"The winner took the trophy home.","vi":"Người thắng cuộc mang cúp về nhà."},{"en":"The captain held the trophy up high.","vi":"Đội trưởng giơ chiếc cúp cao lên."},{"en":"Our school displayed the trophy in the hall.","vi":"Trường chúng tôi trưng bày chiếc cúp ở hành lang."},{"en":"The trophy was too heavy to carry.","vi":"Chiếc cúp quá nặng để mang."}]},{"en":"practice","ipa":"/ˈpræktɪs/","vi":"luyện tập","ex":"Practice makes perfect.","exvi":"Luyện tập tạo nên sự hoàn hảo.","exs":[{"en":"We need more practice before the game.","vi":"Chúng tôi cần luyện tập thêm trước trận đấu."},{"en":"She arrives early for piano practice.","vi":"Cô ấy đến sớm để tập piano."},{"en":"Practice for an hour every day.","vi":"Luyện tập một giờ mỗi ngày."},{"en":"The team has practice after school today.","vi":"Đội có buổi tập sau giờ học hôm nay."},{"en":"With more practice, you will get better.","vi":"Với việc luyện tập nhiều hơn, bạn sẽ khá hơn."}]},{"en":"warmup","ipa":"/ˈwɔːrm ʌp/","vi":"khởi động","ex":"Do a warmup before running.","exvi":"Khởi động trước khi chạy.","exs":[{"en":"A short warmup prevents injuries.","vi":"Một buổi khởi động ngắn sẽ giúp ngăn chấn thương."},{"en":"Always do a warmup before the match.","vi":"Luôn khởi động trước trận đấu."},{"en":"A good warmup takes about ten minutes.","vi":"Một buổi khởi động tốt mất khoảng mười phút."},{"en":"We did a quick warmup before practice.","vi":"Chúng tôi khởi động nhanh trước buổi tập."},{"en":"Never skip your warmup before a game.","vi":"Đừng bao giờ bỏ qua khởi động trước trận đấu."}]},{"en":"fitness","ipa":"/ˈfɪtnəs/","vi":"sự khỏe khoắn","ex":"Running improves your fitness.","exvi":"Chạy bộ cải thiện sức khỏe của bạn.","exs":[{"en":"Regular workouts keep your fitness level high.","vi":"Tập luyện đều đặn giúp giữ thể lực luôn tốt."},{"en":"She joined a fitness class at the center.","vi":"Cô ấy tham gia một lớp thể hình ở trung tâm."},{"en":"Swimming is excellent for your fitness.","vi":"Bơi lội rất tốt cho thể lực của bạn."},{"en":"His fitness improved after two months of training.","vi":"Thể lực của anh ấy cải thiện sau hai tháng luyện tập."},{"en":"Good food and sleep keep your fitness up.","vi":"Ăn uống tốt và ngủ đủ giấc giữ cho thể lực bạn luôn tốt."}]},{"en":"health","ipa":"/helθ/","vi":"sức khỏe","ex":"Sport is great for your health.","exvi":"Thể thao rất tốt cho sức khỏe.","exs":[{"en":"Eating vegetables is good for your health.","vi":"Ăn rau rất tốt cho sức khỏe của bạn."},{"en":"He stopped smoking to protect his health.","vi":"Anh ấy bỏ hút thuốc để bảo vệ sức khỏe."},{"en":"Walking every day is good for your health.","vi":"Đi bộ mỗi ngày rất tốt cho sức khỏe của bạn."},{"en":"Her health got better after rest.","vi":"Sức khỏe của cô ấy tốt hơn sau khi nghỉ ngơi."},{"en":"Drinking water is important for your health.","vi":"Uống nước rất quan trọng cho sức khỏe của bạn."}]},{"en":"muscle","ipa":"/ˈmʌsl/","vi":"cơ bắp","ex":"Weight training builds muscle.","exvi":"Tập tạ giúp phát triển cơ bắp.","exs":[{"en":"He felt a muscle in his back hurt.","vi":"Anh ấy thấy một cơ ở lưng bị đau."},{"en":"Swimming uses almost every muscle in your body.","vi":"Bơi lội sử dụng gần như mọi cơ trong cơ thể."},{"en":"He stretched his leg muscle before running.","vi":"Anh ấy giãn cơ ở chân trước khi chạy."},{"en":"This exercise works the muscle in your arm.","vi":"Bài tập này tác động đến cơ ở cánh tay bạn."},{"en":"A muscle cramp stopped her during the race.","vi":"Cơn chuột rút khiến cô dừng lại giữa cuộc đua."}]},{"en":"injury","ipa":"/ˈɪndʒəri/","vi":"chấn thương","ex":"He recovered from a knee injury.","exvi":"Anh ấy đã bình phục sau chấn thương đầu gối.","exs":[{"en":"The player left the game because of injury.","vi":"Cầu thủ rời trận đấu vì chấn thương."},{"en":"A good warmup can prevent injury.","vi":"Khởi động tốt có thể giúp ngăn ngừa chấn thương."},{"en":"She returned to the team after her injury.","vi":"Cô ấy trở lại đội sau chấn thương."},{"en":"A serious injury kept him off the field.","vi":"Chấn thương nghiêm trọng khiến anh ấy nghỉ thi đấu."},{"en":"The injury happened near the end of the game.","vi":"Chấn thương xảy ra gần cuối trận đấu."}]},{"en":"goalkeeper","ipa":"/ˈɡoʊlkiːpər/","vi":"thủ môn","ex":"The goalkeeper saved the penalty.","exvi":"Thủ môn đã cản phá quả phạt đền.","exs":[{"en":"Our goalkeeper is only sixteen years old.","vi":"Thủ môn của chúng tôi mới mười sáu tuổi."},{"en":"The goalkeeper caught the ball with both hands.","vi":"Thủ môn bắt quả bóng bằng cả hai tay."},{"en":"Our goalkeeper is very fast and brave.","vi":"Thủ môn của chúng tôi rất nhanh và dũng cảm."},{"en":"The goalkeeper wore a bright green shirt.","vi":"Thủ môn mặc một chiếc áo xanh lá nổi bật."},{"en":"The goalkeeper kicked the ball far away.","vi":"Thủ môn sút bóng đi thật xa."}]},{"en":"strength","ipa":"/streŋθ/","vi":"sức mạnh","ex":"Strength matters in weightlifting.","exvi":"Sức mạnh quan trọng trong môn cử tạ.","exs":[{"en":"You need strength to carry this box.","vi":"Bạn cần sức mạnh để khiêng chiếc hộp này."},{"en":"She built up her strength after the illness.","vi":"Cô ấy lấy lại sức mạnh sau khi ốm."},{"en":"He showed great strength in the final round.","vi":"Anh ấy thể hiện sức mạnh lớn ở hiệp cuối."},{"en":"Carrying bags needs strength and patience.","vi":"Xách đồ cần sức mạnh và kiên nhẫn."},{"en":"Regular training increases your strength.","vi":"Luyện tập đều đặn làm tăng sức mạnh của bạn."}]},{"en":"agility","ipa":"/əˈdʒɪləti/","vi":"sự nhanh nhẹn","ex":"Agility helps in badminton.","exvi":"Sự nhanh nhẹn giúp ích trong môn cầu lông.","exs":[{"en":"Agility training makes you move faster.","vi":"Bài tập nhanh nhẹn giúp bạn di chuyển nhanh hơn."},{"en":"Dancers need agility as well as strength.","vi":"Những vũ công cần sự nhanh nhẹn cũng như sức mạnh."},{"en":"Football players need agility to dodge opponents.","vi":"Cầu thủ bóng đá cần sự nhanh nhẹn để né đối thủ."},{"en":"Her agility helped her win the race.","vi":"Sự nhanh nhẹn giúp cô ấy thắng cuộc đua."},{"en":"You can improve your agility with practice.","vi":"Bạn có thể cải thiện sự nhanh nhẹn nhờ luyện tập."}]},{"en":"endurance","ipa":"/ɪnˈdʊrəns/","vi":"sức bền","ex":"Long races test your endurance.","exvi":"Những cuộc đua dài thử thách sức bền của bạn.","exs":[{"en":"Cycling slowly builds your endurance.","vi":"Đạp xe từ từ giúp tăng sức bền của bạn."},{"en":"Marathon runners need great endurance.","vi":"Các vận động viên marathon cần sức bền tốt."},{"en":"Swimming builds endurance over time.","vi":"Bơi lội giúp tăng sức bền theo thời gian."},{"en":"His endurance improved after months of running.","vi":"Sức bền của anh ấy cải thiện sau nhiều tháng chạy."},{"en":"Good sleep helps your endurance during races.","vi":"Ngủ đủ giấc giúp sức bền của bạn khi thi đấu."}]},{"en":"spectator","ipa":"/ˈspekteɪtər/","vi":"khán giả","ex":"Spectators cheered loudly.","exvi":"Khán giả cổ vũ rất lớn.","exs":[{"en":"Every spectator got a free drink.","vi":"Mỗi khán giả được một thức uống miễn phí."},{"en":"Only a few spectators stayed after the game.","vi":"Chỉ có vài khán giả ở lại sau trận đấu."},{"en":"Each spectator must show a ticket.","vi":"Mỗi khán giả phải xuất trình vé."},{"en":"The spectator took many photos of the players.","vi":"Vị khán giả chụp rất nhiều ảnh các cầu thủ."},{"en":"No spectator was allowed on the field.","vi":"Không khán giả nào được phép vào sân."}]},{"en":"final","ipa":"/ˈfaɪnl/","vi":"trận chung kết","ex":"The final was exciting to watch.","exvi":"Trận chung kết xem rất gay cấn.","exs":[{"en":"Our team reached the final last year.","vi":"Đội của chúng tôi đã lọt vào trận chung kết năm ngoái."},{"en":"The tennis final begins at eight tonight.","vi":"Trận chung kết quần vợt bắt đầu lúc tám giờ tối."},{"en":"The final will be played on Sunday.","vi":"Trận chung kết sẽ diễn ra vào Chủ nhật."},{"en":"She played her best tennis in the final.","vi":"Cô ấy đánh hay nhất ở trận chung kết."},{"en":"Thousands watched the final at the stadium.","vi":"Hàng nghìn người xem trận chung kết tại sân vận động."}]},{"en":"tie","ipa":"/taɪ/","vi":"trận hòa","ex":"The game ended in a tie.","exvi":"Trận đấu kết thúc với tỉ số hòa.","exs":[{"en":"A tie means both teams get the same score.","vi":"Trận hòa nghĩa là cả hai đội ghi cùng số bàn."},{"en":"Our team has three wins and one tie.","vi":"Đội của chúng tôi có ba trận thắng và một trận hòa."},{"en":"The two teams agreed on a tie.","vi":"Hai đội đã đồng ý hòa nhau."},{"en":"A tie is better than a loss.","vi":"Hòa còn tốt hơn thua."},{"en":"We scored late to finish the game in a tie.","vi":"Chúng tôi ghi bàn muộn để khép lại trận đấu với tỉ số hòa."}]},{"en":"whistle","ipa":"/ˈwɪsl/","vi":"còi","ex":"The referee blew the final whistle.","exvi":"Trọng tài thổi còi kết thúc trận đấu.","exs":[{"en":"I heard a whistle from the field.","vi":"Tôi nghe thấy tiếng còi vang lên từ sân."},{"en":"The coach's whistle ended the training.","vi":"Tiếng còi của huấn luyện viên kết thúc buổi tập."},{"en":"He blew his whistle to start the race.","vi":"Anh ấy thổi còi để bắt đầu cuộc đua."},{"en":"The whistle sounds loud in the stadium.","vi":"Tiếng còi vang to trong sân vận động."},{"en":"I bought a small whistle for practice.","vi":"Tôi đã mua một chiếc còi nhỏ cho buổi tập."}]},{"en":"jersey","ipa":"/ˈdʒɜːrzi/","vi":"áo thi đấu","ex":"Players wear matching jerseys.","exvi":"Các cầu thủ mặc áo thi đấu đồng bộ.","exs":[{"en":"He bought a jersey with number ten.","vi":"Anh ấy mua một chiếc áo đấu số mười."},{"en":"She wore her new jersey to the game.","vi":"Cô ấy mặc chiếc áo đấu mới đến trận đấu."},{"en":"My favorite jersey is blue and white.","vi":"Chiếc áo đấu yêu thích của tôi màu xanh dương và trắng."},{"en":"He washed his jersey after the match.","vi":"Anh ấy giặt áo đấu sau trận đấu."},{"en":"The store sells jerseys of every team.","vi":"Cửa hàng bán áo đấu của mọi đội."}]},{"en":"championship","ipa":"/ˈtʃæmpiənʃɪp/","vi":"chức vô địch","ex":"They are fighting for the championship title.","exvi":"Họ đang tranh giành chức vô địch.","exs":[{"en":"Our city will host the championship next year.","vi":"Thành phố của chúng tôi sẽ tổ chức giải vô địch năm tới."},{"en":"He has won the championship three times.","vi":"Anh ấy đã giành chức vô địch ba lần."},{"en":"The championship starts in early June.","vi":"Giải vô địch bắt đầu vào đầu tháng Sáu."},{"en":"Our team lost the championship by one point.","vi":"Đội của chúng tôi đánh mất chức vô địch với cách biệt một điểm."},{"en":"She hopes to win the championship this season.","vi":"Cô ấy hy vọng giành chức vô địch trong mùa giải này."}]}];
+  WORDS = window.EngBeeAdminData ? window.EngBeeAdminData.apply("sports", WORDS) : WORDS;
+  var TID = "sports";
+  var TNAME = "Sports";
+  var TVI = "Thể thao";
+  var GRAD = ["#f7971e","#ffd200"];
+  var TOTAL = WORDS.length;
+  var KEY = "engbee_learned_" + (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  })() + "_" + TID;
+
+  function qs(s){ return document.querySelector(s); }
+
+  var state = { view: "cards", index: 0, flipped: false };
+
+  function loadSet(){
+    try {
+      var arr = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (Array.isArray(arr)) {
+        return arr.filter(function(x){ return typeof x === "number" && x >= 0 && x < TOTAL; });
+      }
+    } catch(e){}
+    return [];
+  }
+  var learned = loadSet();
+
+  function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
+  function hasLearned(i){ return learned.indexOf(i) !== -1; }
+  function toggleLearned(i){
+    var p = learned.indexOf(i);
+    if (p === -1) learned.push(i); else learned.splice(p,1);
+    saveSet();
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
+  }
+
+  function speak(word){
+    if (!("speechSynthesis" in window) || !word) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(word);
+      u.lang = "en-US"; u.rate = 0.85; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    } catch(e){}
+  }
+
+  function cardRef(){ return qs("#flashcard"); }
+
+  function setFlip(on){
+    state.flipped = !!on;
+    var card = qs("#flashcard");
+    if (card) card.classList.toggle("flipped", state.flipped);
+  }
+
+  function renderProgress(){
+    var fill = qs("#progress-fill"), txt = qs("#progress-text");
+    var pct = TOTAL > 0 ? Math.round(learned.length / TOTAL * 100) : 0;
+    if (fill) fill.style.width = pct + "%";
+    if (txt) txt.textContent = learned.length + " / " + TOTAL;
+    var fb = qs("#topic-feedback");
+    if (fb) {
+      if (TOTAL > 0 && learned.length === TOTAL) {
+        qs("#fb-text").textContent = "Chúc mừng! Bạn đã thuộc cả " + TOTAL + " từ của chủ đề " + TNAME + ".";
+        fb.hidden = false;
+      } else { fb.hidden = true; }
+    }
+  }
+
+
+  var exPool = [], exPos = 0;
+
+  function buildExPool(w){
+    var pool = [], seen = {};
+    function add(en, vi){
+      if (!en) return;
+      var k = String(en).trim().toLowerCase();
+      if (seen[k]) return;
+      seen[k] = true;
+      pool.push({ en: en, vi: vi || "" });
+    }
+    if (w) {
+      add(w.ex, w.exvi);
+      if (Array.isArray(w.exs)) w.exs.forEach(function(s){ if (s && typeof s === "object") add(s.en, s.vi); });
+    }
+    return pool;
+  }
+
+  function showExample(p){
+    var e = exPool[p];
+    var ex = qs("#word-ex"), exvi = qs("#word-exvi");
+    if (ex) ex.textContent = e ? e.en : "";
+    if (exvi) exvi.textContent = e ? e.vi : "";
+  }
+
+  function randomExample(){
+    if (exPool.length < 2) { exPos = 0; showExample(0); return; }
+    var p;
+    do { p = Math.floor(Math.random() * exPool.length); } while (p === exPos);
+    exPos = p;
+    showExample(p);
+  }
+
+  function flipCard(){
+    if (!state.flipped) randomExample();
+    setFlip(!state.flipped);
+  }
+
+  function renderCard(){
+    if (!TOTAL || !WORDS.length) {
+      if (qs("#view-cards")) qs("#view-cards").hidden = true;
+      return;
+    }
+    if (qs("#view-cards") && state.view === "cards") qs("#view-cards").hidden = false;
+    var w = WORDS[state.index];
+    if (!w) return;
+    var en = qs("#word-en"), ipa = qs("#word-ipa"), vi = qs("#word-vi"),
+        ci = qs("#card-index");
+    if (en) en.textContent = w.en;
+    if (ipa) ipa.textContent = w.ipa || "";
+    if (vi) vi.textContent = w.vi;
+    exPool = buildExPool(w);
+    exPos = 0;
+    showExample(0);
+    if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
+    var mb = qs("#mastered-btn"), nb = qs("#not-mastered-btn");
+    if (mb) mb.classList.toggle("active", hasLearned(state.index));
+    if (nb) nb.classList.toggle("active", !hasLearned(state.index));
+    setFlip(false);
+    renderProgress();
+  }
+
+  function renderGrid(){
+    var grid = qs("#word-grid");
+    grid.innerHTML = "";
+    var q = (qs("#search-box").value || "").trim().toLowerCase();
+    var list = WORDS;
+    if (q) list = WORDS.filter(function(w){ return (w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1); });
+
+    if (!list.length) {
+      var em = document.createElement("p");
+      em.className = "empty-note";
+      em.textContent = "Không tìm thấy từ nào.";
+      grid.appendChild(em);
+      return;
+    }
+    list.forEach(function(w){
+      var pos = WORDS.indexOf(w);
+      var card = document.createElement("div");
+      card.className = "word-card" + (hasLearned(pos) ? " learned" : "");
+      card.tabIndex = 0;
+
+      var top = document.createElement("div"); top.className = "wc-top";
+      var left = document.createElement("span");
+      var e = document.createElement("span"); e.className = "wc-en"; e.textContent = w.en;
+      var i = document.createElement("span"); i.className = "wc-ipa"; i.textContent = w.ipa || "";
+      left.appendChild(e); left.appendChild(i);
+
+      var s = document.createElement("button"); s.type = "button"; s.className = "wc-speak"; s.title = "Nghe phát âm";
+      s.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+      s.addEventListener("click", function(e){ e.stopPropagation(); speak(w.en); });
+      top.appendChild(left); top.appendChild(s);
+
+      var v = document.createElement("p"); v.className = "wc-vi"; v.textContent = w.vi;
+      var ex = document.createElement("p"); ex.className = "wc-ex"; ex.textContent = w.ex || "";
+      var exv = document.createElement("p"); exv.className = "wc-exvi"; exv.textContent = w.exvi || "";
+      var mk = document.createElement("span"); mk.className = "wc-mark";
+      mk.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      card.appendChild(top); card.appendChild(v); card.appendChild(ex); card.appendChild(exv); card.appendChild(mk);
+      card.addEventListener("click", function(){ toggleLearned(pos); render(); });
+      grid.appendChild(card);
+    });
+  }
+
+  function setView(v){
+    state.view = v;
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      var a = tabs[i].dataset.view === v;
+      tabs[i].classList.toggle("active", a);
+      tabs[i].setAttribute("aria-selected", a ? "true" : "false");
+    }
+    qs("#view-cards").hidden = v !== "cards";
+    qs("#view-list").hidden = v !== "list";
+    qs("#search-box").hidden = v !== "list";
+    if (v === "list") { qs("#search-box").value = ""; renderGrid(); }
+    else { renderCard(); }
+  }
+
+  function render(){ renderCard(); if (state.view === "list") renderGrid(); }
+  function go(step){ if (!TOTAL) return; state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
+
+  function bind(){
+    var card = qs("#flashcard");
+    if (card) {
+      card.addEventListener("click", function(){ flipCard(); });
+      qs("#flip-btn").addEventListener("click", function(ev){ ev.stopPropagation(); flipCard(); });
+      qs("#speak-front").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+      qs("#speak-back").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+    }
+    qs("#prev-btn").addEventListener("click", function(){ go(-1); });
+    qs("#next-btn").addEventListener("click", function(){ go(1); });
+    qs("#mastered-btn").addEventListener("click", function(){ if (!hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#not-mastered-btn").addEventListener("click", function(){ if (hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#reset-btn").addEventListener("click", function(){
+      if (!learned.length) return;
+      if (confirm("Xóa toàn bộ tiến độ chủ đề " + TNAME + "?")){ learned = []; saveSet(); render(); }
+    });
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      (function(t){ tabs[i].addEventListener("click", function(){ setView(t.dataset.view); }); })(tabs[i]);
+    }
+    qs("#search-box").addEventListener("input", renderGrid);
+    document.addEventListener("keydown", function(ev){
+      if (ev.target === qs("#search-box") || state.view !== "cards") return;
+      if (ev.key === "ArrowLeft") go(-1);
+      else if (ev.key === "ArrowRight") go(1);
+      else if (ev.key === " ") { ev.preventDefault(); flipCard(); }
+    });
+  }
+
+  bind();
+  if (window.EngBeeAdminData && window.EngBeeAdminData.initLearnPage) {
+    window.EngBeeAdminData.initLearnPage(TID, WORDS, function(newWords) {
+      WORDS = newWords;
+      TOTAL = newWords.length;
+      if (state.index >= TOTAL) state.index = Math.max(0, TOTAL - 1);
+      learned = loadSet();
+      render();
+    });
+  } else {
+    render();
+  }
+})();
+
+</script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+
+<div id="pron-overlay" class="pron-overlay" hidden>
+  <div class="pron-box" role="dialog" aria-modal="true" aria-label="Kiểm tra phát âm">
+    <div class="pron-head">
+      <h3>🎙 Kiểm tra phát âm</h3>
+      <button id="pron-close" class="pron-x" title="Đóng" aria-label="Đóng">✕</button>
+    </div>
+    <div class="pron-word">
+      <strong id="pron-word">—</strong>
+      <span id="pron-ipa"></span>
+    </div>
+    <p style="margin-top:10px"><button id="pron-sample" class="pron-btnme">🔊 Nghe mẫu</button></p>
+    <div class="pron-stage">
+      <p class="pron-status" id="pron-status">Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”.</p>
+      <p class="pron-choices" id="pron-choices"></p>
+    </div>
+    <div class="pron-bar"><span id="pron-bar"></span></div>
+    <p id="pron-verdict" class="pron-verdict"></p>
+    <div class="pron-actions">
+      <button id="pron-listen-btn" class="pron-btnme primary">🎙 Bắt đầu nói</button>
+      <button id="pron-again" class="pron-btnme">🔄 Nói lại</button>
+      <button id="pron-done" class="pron-btnme">Đóng</button>
+    </div>
+    <p class="pron-note">Bạn cần cho phép trình duyệt dùng micro. Dùng Chrome hoặc Edge để có kết quả tốt nhất.</p>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  "use strict";
+  function $_(s){return document.querySelector(s);}
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var rec = null, finalAlt = [], listening = false;
+
+  function norm(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/ +/g," ").trim(); }
+  function lev(a,b){
+    if(a===b)return 0;
+    var m=a.length,n=b.length,d=new Array(m+1);
+    for(var i=0;i<=m;i++){d[i]=new Array(n+1);d[i][0]=i;}
+    for(var j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+cost);
+    }
+    return d[m][n];
+  }
+  function matchScore(target,alt){
+    var t=norm(target),a=norm(alt);
+    if(!t||!a)return 0;
+    if(t===a)return 100;
+    if(a.split(" ").indexOf(t)>=0)return 100;
+    var sim=Math.round((1-lev(t,a)/Math.max(t.length,1))*100);
+    return sim<0?0:sim;
+  }
+  function speakWord(w){
+    try{var u=new SpeechSynthesisUtterance(w);u.lang="en-US";u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  }
+  function curWord(){
+    var el=$_("#word-en");
+    return el?el.textContent.trim():"";
+  }
+  function openPron(){
+    var w=curWord();
+    $_("#pron-word").textContent=w||"?";
+    var ipa=$_("#word-ipa");
+    $_("#pron-ipa").textContent=ipa?ipa.textContent:"";
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent=w?("Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”."):"Bạn cần ở chế độ Thẻ học để luyện phát âm từ.";
+    $_("#pron-overlay").hidden=false;
+    if(w)setTimeout(function(){speakWord(w);},300);
+  }
+  function closePron(){
+    $_("#pron-overlay").hidden=true;
+    try{if(rec)rec.stop();}catch(e){}
+    listening=false;
+  }
+  function beginListen(){
+    if(!SR){
+      $_("#pron-status").textContent="Trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome hoặc Edge.";
+      return;
+    }
+    if(listening)return;
+    listening=true;
+    finalAlt=[];
+    var btn=$_("#pron-listen-btn");
+    btn.disabled=true;
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent="🎙 Đang nghe... hãy nói to từ này.";
+    try{
+      rec=new SR();
+      rec.lang="en-US";
+      rec.interimResults=true;
+      rec.maxAlternatives=5;
+      rec.onresult=function(ev){
+        var pending="",tmp=[];
+        for(var i=ev.resultIndex;i<ev.results.length;i++){
+          var r=ev.results[i];
+          for(var k=0;k<r.length;k++){
+            if(r.isFinal)tmp.push(r[k].transcript);
+            else if(k===0)pending=r[k].transcript;
+          }
+        }
+        if(tmp.length)finalAlt=finalAlt.concat(tmp);
+        $_("#pron-choices").textContent=pending||(finalAlt.length?("Nghe thấy: "+finalAlt[0]):"");
+      };
+      rec.onerror=function(ev){
+        listening=false;btn.disabled=false;
+        $_("#pron-status").textContent="Lỗi "+ev.error+" — kiểm tra micro rồi bấm “Bắt đầu nói” lần nữa.";
+      };
+      rec.onend=function(){
+        listening=false;btn.disabled=false;
+        if(finalAlt.length)evaluate(finalAlt);
+      };
+      rec.start();
+    }catch(e){
+      listening=false;btn.disabled=false;
+      $_("#pron-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro.";
+    }
+  }
+  function evaluate(alts){
+    var w=$_("#pron-word").textContent.trim();
+    var best=0,bestText=alts[0]||"";
+    alts.forEach(function(a){
+      var s=matchScore(w,a);
+      if(s>best){best=s;bestText=a;}
+    });
+    $_("#pron-choices").textContent="Nghe thấy: “"+bestText+"”";
+    $_("#pron-bar").style.width=best+"%";
+    var v=$_("#pron-verdict");
+    if(best>=90){v.className="pron-verdict good";v.textContent="Chuẩn rồi! Phát âm rất tốt ("+best+"%).";}
+    else if(best>=75){v.className="pron-verdict ok";v.textContent="Gần chuẩn rồi, chú ý phát âm đuôi từ ("+best+"%).";}
+    else if(best>=40){v.className="pron-verdict bad";v.textContent="Còn lệch, nghe mẫu rồi nói chậm lại ("+best+"%).";}
+    else{v.className="pron-verdict bad";v.textContent="Chưa chuẩn, hãy thử lại theo mẫu ("+best+"%).";}
+    $_("#pron-status").textContent="Bấm “Nói lại” để phát âm thêm lần nữa.";
+  }
+  function wirePron(){
+    var b=$_("#pron-btn");
+    if(!b)return;
+    b.addEventListener("click",openPron);
+    $_("#pron-close").addEventListener("click",closePron);
+    $_("#pron-done").addEventListener("click",closePron);
+    $_("#pron-sample").addEventListener("click",function(){speakWord($_("#pron-word").textContent);});
+    $_("#pron-listen-btn").addEventListener("click",beginListen);
+    $_("#pron-again").addEventListener("click",function(){
+      try{if(rec)rec.stop();}catch(e){}
+      finalAlt=[];
+      beginListen();
+    });
+    $_("#pron-overlay").addEventListener("click",function(ev){
+      if(ev.target===this)closePron();
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wirePron);
+  else wirePron();
+})();
+</script>
+
+</body>
+</html>

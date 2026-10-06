@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Từ vựng chủ đề Music</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ==========================================
+   EngBee - learn.css (trang Học từ vựng)
+   ========================================== */
+
+:root {
+  --g1: #4facfe;
+  --g2: #00f2fe;
+  --ink: #1f2937;
+}
+
+body {
+  font-family: "Be Vietnam Pro", Arial, Helvetica, sans-serif;
+  background: #f6f7fb;
+}
+
+/* ---------- Hero ---------- */
+.learn-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 56px 0 40px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+}
+
+.learn-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% -20%, rgba(255, 255, 255, 0.35), transparent 55%),
+    radial-gradient(circle at 8% 120%, rgba(255, 255, 255, 0.25), transparent 45%);
+  pointer-events: none;
+}
+
+.deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.deco-a { width: 220px; height: 220px; top: -70px; right: -40px; }
+.deco-b { width: 140px; height: 140px; bottom: -50px; left: -30px; }
+
+.learn-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.learn-hero .eyebrow {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(4px);
+}
+
+.learn-hero h1 {
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.hero-sub {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.hero-sub strong {
+  font-weight: 800;
+}
+
+/* ---------- Topic pills ---------- */
+.topic-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.topic-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 18px 8px 8px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 52px;
+}
+
+.topic-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+.topic-pill.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.pill-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  flex: none;
+}
+
+.pill-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.pill-text strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.pill-text small {
+  font-size: 0.72rem;
+  opacity: 0.78;
+}
+
+.topic-pill.active .pill-badge {
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* ---------- Body / toolbar ---------- */
+.learn-body {
+  padding: 34px 0 70px;
+}
+
+.learn-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
+  margin-bottom: 22px;
+}
+
+.view-tabs {
+  display: inline-flex;
+  background: #eef1f8;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.view-tab {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  border-radius: 9px;
+  transition: all 0.2s;
+}
+
+.view-tab.active {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.progress-wrap {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #eef1f8;
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box {
+  border: 1px solid #e3e7f0;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 200px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus {
+  border-color: var(--g1);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.18);
+}
+
+.btn-ghost {
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: #f2a900;
+  color: #b07f00;
+  background: #fff8e6;
+}
+
+.topic-feedback {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  margin-bottom: 22px;
+  animation: popIn 0.4s ease;
+}
+
+.fb-badge {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Flashcard ---------- */
+.card-view {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.flashcard-shell {
+  perspective: 1400px;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  cursor: pointer;
+  outline: none;
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  box-shadow: 0 18px 44px rgba(31, 41, 55, 0.18);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.flashcard.flipped .flashcard-face.front {
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+}
+
+.flashcard.flipped .flashcard-face.back {
+  opacity: 1;
+  transform: rotateX(0deg) scale(1);
+  pointer-events: auto;
+}
+
+.flashcard-face.front {
+  background: #fff;
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(240, 165, 0, 0.12) 0, transparent 38%),
+    radial-gradient(circle at 88% 88%, var(--g1) 0, transparent 46%);
+  color: var(--ink);
+  z-index: 2;
+}
+
+.flashcard-face.back {
+  background: linear-gradient(145deg, var(--g1), var(--g2));
+  color: #fff;
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-badge {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #9aa3b2;
+  background: #f2f4fa;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.back .card-badge.back-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  position: static;
+  margin-bottom: 8px;
+}
+
+.word-en {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-top: 6px;
+}
+
+.word-ipa {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+.tap-hint {
+  position: absolute;
+  bottom: 20px;
+  color: #b6bdcb;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.speak-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.22);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.speak-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.speak-btn.small {
+  position: static;
+  width: 42px;
+  height: 42px;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.word-vi {
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 800;
+}
+
+.word-ex {
+  margin-top: 14px;
+  font-size: 1.02rem;
+  font-style: italic;
+  max-width: 420px;
+}
+
+.word-exvi {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  opacity: 0.9;
+  max-width: 420px;
+}
+
+/* ---------- Card controls ---------- */
+.card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.ctl-btn:hover {
+  border-color: var(--g1);
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.1);
+}
+
+.ctl-btn.primary {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  border: none;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(31, 41, 55, 0.18);
+}
+
+.ctl-btn.primary:hover {
+  transform: translateY(-2px);
+}
+
+.master-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.master-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.master-btn.yes:hover,
+.master-btn.yes.active {
+  border-color: #22c55e;
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.master-btn.nope:hover,
+.master-btn.nope.active {
+  border-color: #ef4444;
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.master-btn.active {
+  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);
+}
+
+.keys-hint {
+  text-align: center;
+  color: #a2aabb;
+  font-size: 0.8rem;
+  margin-top: 14px;
+}
+
+/* ---------- List view ---------- */
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.word-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.05);
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.word-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+
+.word-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(31, 41, 55, 0.1);
+}
+
+.word-card.learned {
+  background: #f8fdf9;
+  border-color: #bbf7d0;
+}
+
+.wc-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wc-en {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.wc-ipa {
+  display: block;
+  color: #9aa3b2;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.wc-speak {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.wc-speak:hover {
+  transform: scale(1.12);
+}
+
+.wc-vi {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.wc-ex {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.wc-exvi {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #9aa3b2;
+}
+
+.wc-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eef1f8;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-card.learned .wc-mark {
+  display: inline-flex;
+  background: #22c55e;
+}
+
+.word-card.learned .wc-speak {
+  margin-right: 26px;
+}
+
+.empty-note {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #9aa3b2;
+  padding: 40px 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .learn-hero {
+    padding: 40px 0 32px;
+  }
+
+  .learn-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .progress-wrap {
+    order: -1;
+  }
+
+  .toolbar-actions {
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+    width: auto;
+  }
+
+  .flashcard {
+    height: 400px;
+  }
+}
+
+@media (max-width: 440px) {
+  .ctl-btn span {
+    display: none;
+  }
+
+  .ctl-btn {
+    padding: 12px 16px;
+  }
+
+  .master-bar {
+    flex-direction: column;
+  }
+
+  .master-btn {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-face {
+    transition: none;
+  }
+}
+/* ===== pronunciation check ===== */
+.pron-overlay{position:fixed;inset:0;z-index:999;background:rgba(16,26,51,.55);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+.pron-overlay[hidden]{display:none}
+.pron-box{background:#fff;border-radius:20px;max-width:470px;width:100%;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center;animation:pronIn .25s ease}
+@keyframes pronIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.pron-head{display:flex;align-items:center;justify-content:space-between}
+.pron-head h3{font-size:1.15rem;font-weight:800}
+.pron-x{border:none;background:#eef1f8;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;color:#6b7280}
+.pron-word{margin-top:14px}
+.pron-word strong{font-size:2rem;font-weight:800;display:block}
+.pron-word span{color:#6b7280}
+.pron-stage{margin:14px 0;background:#f7f8fc;border:1px dashed #dfe4ef;border-radius:14px;padding:14px;min-height:74px}
+.pron-status{font-weight:600;font-size:.95rem}
+.pron-choices{color:#6b7280;font-style:italic;margin-top:6px;min-height:20px}
+.pron-bar{height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
+.pron-bar span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(135deg,#22b573,#2ee59d);transition:width .4s}
+.pron-verdict{margin-top:10px;font-weight:800;font-size:1.02rem;min-height:26px}
+.pron-verdict.good{color:#157a4d}.pron-verdict.ok{color:#d97706}.pron-verdict.bad{color:#b91c1c}
+.pron-actions{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.pron-btnme{padding:10px 18px;border-radius:12px;border:1px solid #dfe4ef;background:#fff;color:#374151;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.pron-btnme.primary{background:linear-gradient(135deg,#ffb200,#ff7e00);color:#fff;border:none}
+.pron-btnme:hover{transform:translateY(-1px)}
+.pron-btnme:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.pron-note{font-size:.78rem;color:#9aa1b5;margin-top:12px}
+
+</style>
+  <script src="assets/js/engbee-admin-data.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html" class="active">Học từ vựng</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
+      </nav>
+  </div>
+</header>
+
+<main>
+  <section class="learn-hero" style="--g1:#ec4899;--g2:#8b5cf6">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="learn-hero-inner">
+        <p class="eyebrow">Chủ đề: <span id="hero-name">Music</span> (50 từ)</p>
+        <h1>Học từ vựng chủ đề <span style="color:#fff">Music</span></h1>
+        <p class="hero-sub">50 từ thông dụng kèm phiên âm, nghĩa và ví dụ. Lật thẻ, nghe phát âm và đánh dấu đã thuộc để nhớ lâu hơn.</p>
+        <div class="topic-pills"><a class="topic-pill" href="learn-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="learn-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="learn-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="learn-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="learn-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill" href="learn-sports.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="learn-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="learn-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill active" href="learn-music.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="learn-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="learn-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="learn-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="learn-body" style="--g1:#ec4899;--g2:#8b5cf6">
+    <div class="container">
+      <div class="learn-toolbar">
+        <div class="view-tabs" role="tablist">
+          <button class="view-tab active" data-view="cards" role="tab" aria-selected="true">Thẻ học</button>
+          <button class="view-tab" data-view="list" role="tab" aria-selected="false">Danh sách từ</button>
+        </div>
+        <div class="progress-wrap" title="Tiến độ học của bạn">
+          <div class="progress-bar"><span class="progress-fill" id="progress-fill"></span></div>
+          <span class="progress-text" id="progress-text">0 / 50</span>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="search-box" class="search-box" placeholder="Tìm từ..." autocomplete="off" hidden>
+          <button id="pron-btn" class="btn-ghost" title="Kiểm tra phát âm từ đang học" style="color:#7a5c00;background:#fff7e6;border-color:#f3d9a4">🎙 Phát âm</button>
+          <button id="reset-btn" class="btn-ghost" title="Xóa tiến độ chủ đề này">Đặt lại</button>
+        </div>
+      </div>
+
+      <div class="topic-feedback" id="topic-feedback" hidden>
+        <span class="fb-badge">Hoàn thành</span>
+        <span id="fb-text"></span>
+      </div>
+
+      <section id="view-cards" class="card-view">
+        <div class="flashcard-shell">
+          <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Thẻ từ vựng - nhấn để lật">
+            <div class="flashcard-face front">
+              <span class="card-badge" id="card-index">1 / 50</span>
+              <button class="speak-btn" id="speak-front" title="Nghe phát âm">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h2 class="word-en" id="word-en">...</h2>
+              <p class="word-ipa" id="word-ipa">...</p>
+              <p class="tap-hint">Nhấn vào thẻ để xem nghĩa</p>
+            </div>
+            <div class="flashcard-face back">
+              <button class="speak-btn small" id="speak-back" title="Nghe phát âm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h3 class="word-vi" id="word-vi">...</h3>
+              <p class="word-ex" id="word-ex">...</p>
+              <p class="word-exvi" id="word-exvi">...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-controls">
+          <button class="ctl-btn" id="prev-btn" title="Từ trước"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Trước</span></button>
+          <button class="ctl-btn primary" id="flip-btn">Lật thẻ</button>
+          <button class="ctl-btn" id="next-btn"><span>Sau</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+
+        <div class="master-bar">
+          <button class="master-btn nope" id="not-mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Chưa thuộc</span></button>
+          <button class="master-btn yes" id="mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Đã thuộc</span></button>
+        </div>
+        <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
+      </section>
+
+      <section id="view-list" class="list-view" hidden>
+        <div class="word-grid" id="word-grid"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+<script>
+
+(function(){
+  "use strict";
+  var WORDS = [{"en":"melody","ipa":"/ˈmelədi/","vi":"giai điệu","ex":"The melody of this song is beautiful.","exvi":"Giai điệu của bài hát này thật đẹp.","exs":[{"en":"I hummed a happy melody while cooking.","vi":"Tôi hát vang một giai điệu vui khi đang nấu ăn."},{"en":"The old melody brought back many memories.","vi":"Giai điệu cũ gợi lại nhiều kỷ niệm."},{"en":"My daughter made up a simple melody.","vi":"Con gái tôi tự nghĩ ra một giai điệu đơn giản."},{"en":"A soft melody woke me up this morning.","vi":"Một giai điệu nhẹ nhàng đánh thức tôi dậy sáng nay."},{"en":"We listened to the melody on the radio.","vi":"Chúng tôi nghe giai điệu trên radio."}]},{"en":"rhythm","ipa":"/ˈrɪðəm/","vi":"nhịp điệu","ex":"She moves to the rhythm of the music.","exvi":"Cô ấy nhún nhảy theo nhịp của âm nhạc.","exs":[{"en":"The dancers kept a steady rhythm all night.","vi":"Các vũ công giữ nhịp điệu đều đặn suốt đêm."},{"en":"He clapped his hands to the rhythm.","vi":"Anh ấy vỗ tay theo nhịp điệu."},{"en":"This song has a rhythm that makes you move.","vi":"Bài hát này có nhịp điệu khiến người ta muốn nhảy."},{"en":"The teacher taught us the rhythm with drums.","vi":"Giáo viên dạy chúng tôi nhịp điệu bằng tiếng trống."},{"en":"I cannot stop my feet from following the rhythm.","vi":"Tôi không thể ngừng chân theo nhịp điệu."}]},{"en":"harmony","ipa":"/ˈhɑːrməni/","vi":"sự hòa âm","ex":"The choir sang in perfect harmony.","exvi":"Dàn hợp xướng hát với sự hòa âm hoàn hảo.","exs":[{"en":"The two voices sang in beautiful harmony.","vi":"Hai giọng hát ca cùng nhau rất đẹp."},{"en":"The instruments blended in sweet harmony.","vi":"Các nhạc cụ hòa quyện trong âm thanh ngọt ngào."},{"en":"She loves the harmony between the singers.","vi":"Cô ấy thích phần hòa âm giữa các ca sĩ."},{"en":"The harmony of the song is surprisingly simple.","vi":"Phần hòa âm của bài hát đơn giản đến bất ngờ."},{"en":"We learned to sing in harmony at school.","vi":"Chúng tôi học cách hát hòa âm ở trường."}]},{"en":"chorus","ipa":"/ˈkɔːrəs/","vi":"điệp khúc","ex":"The audience sang the chorus together.","exvi":"Khán giả cùng hát điệp khúc.","exs":[{"en":"Everyone stood up for the final chorus.","vi":"Mọi người đứng dậy cho điệp khúc cuối."},{"en":"The chorus of the song is very catchy.","vi":"Điệp khúc của bài hát rất dễ nhớ."},{"en":"My friends and I practiced the chorus together.","vi":"Tôi và các bạn cùng luyện điệp khúc."},{"en":"The crowd sang the chorus very loudly.","vi":"Đám đông hát điệp khúc rất to."},{"en":"He wrote a new chorus for the song.","vi":"Anh ấy viết một điệp khúc mới cho bài hát."}]},{"en":"verse","ipa":"/vɜːrs/","vi":"đoạn hát, câu thơ","ex":"I love the second verse of the song.","exvi":"Tôi thích đoạn hát thứ hai của bài hát.","exs":[{"en":"She wrote a verse about her hometown.","vi":"Cô ấy viết một đoạn hát về quê hương."},{"en":"The first verse explains the whole story.","vi":"Đoạn hát đầu tiên kể trọn cả câu chuyện."},{"en":"I forgot the words of the third verse.","vi":"Tôi quên lời của đoạn hát thứ ba."},{"en":"He sang a short verse at the wedding.","vi":"Anh ấy hát một đoạn ngắn trong đám cưới."},{"en":"Each verse of the poem has four lines.","vi":"Mỗi câu thơ có bốn dòng."}]},{"en":"lyrics","ipa":"/ˈlɪrɪks/","vi":"lời bài hát","ex":"The lyrics tell a touching story.","exvi":"Lời bài hát kể một câu chuyện cảm động.","exs":[{"en":"The lyrics are easy to understand.","vi":"Lời bài hát rất dễ hiểu."},{"en":"She translated the lyrics into Vietnamese.","vi":"Cô ấy dịch lời bài hát sang tiếng Việt."},{"en":"I love the lyrics of this love song.","vi":"Tôi thích lời bài hát tình yêu này."},{"en":"The lyrics were written by a young girl.","vi":"Lời bài hát do một cô gái trẻ viết."},{"en":"We sang the lyrics without any mistakes.","vi":"Chúng tôi hát lời bài hát mà không sai lỗi nào."}]},{"en":"composer","ipa":"/kəmˈpoʊzər/","vi":"nhà soạn nhạc","ex":"Beethoven is a famous composer.","exvi":"Beethoven là một nhà soạn nhạc nổi tiếng.","exs":[{"en":"My uncle is a composer of children's songs.","vi":"Chú tôi là nhà soạn nhạc cho thiếu nhi."},{"en":"The composer wrote music for the film.","vi":"Nhà soạn nhạc viết nhạc cho bộ phim."},{"en":"She studied with a famous classical composer.","vi":"Cô ấy học với một nhà soạn nhạc cổ điển nổi tiếng."},{"en":"The composer signed my book after the show.","vi":"Nhà soạn nhạc ký tặng sách tôi sau buổi biểu diễn."},{"en":"He dreams of becoming a composer one day.","vi":"Anh ấy mơ ước trở thành nhà soạn nhạc một ngày nào đó."}]},{"en":"musician","ipa":"/mjuˈzɪʃn/","vi":"nhạc sĩ","ex":"He has been a musician for twenty years.","exvi":"Anh ấy là nhạc sĩ đã hai mươi năm.","exs":[{"en":"The young musician played at the cafe.","vi":"Nghệ sĩ trẻ biểu diễn ở quán cà phê."},{"en":"A good musician practices every single day.","vi":"Một nhạc sĩ giỏi luyện tập mỗi ngày."},{"en":"My neighbor is a musician in a rock band.","vi":"Hàng xóm của tôi là nhạc sĩ trong một ban nhạc rock."},{"en":"The musician answered questions from the fans.","vi":"Nhạc sĩ trả lời câu hỏi của người hâm mộ."},{"en":"She became a musician at the age of ten.","vi":"Cô ấy trở thành nhạc sĩ từ năm mười tuổi."}]},{"en":"singer","ipa":"/ˈsɪŋər/","vi":"ca sĩ","ex":"The singer performed with great emotion.","exvi":"Ca sĩ trình diễn với cảm xúc mãnh liệt.","exs":[{"en":"The singer forgot the words on stage.","vi":"Ca sĩ quên lời bài hát trên sân khấu."},{"en":"My sister is a singer in a choir.","vi":"Em gái tôi là ca sĩ trong dàn hợp xướng."},{"en":"The singer gave a free show downtown.","vi":"Ca sĩ biểu diễn miễn phí ở trung tâm thành phố."},{"en":"A famous singer will visit our city.","vi":"Một ca sĩ nổi tiếng sẽ đến thành phố của chúng tôi."},{"en":"The young singer has a very clear voice.","vi":"Ca sĩ trẻ có giọng hát rất trong trẻo."}]},{"en":"choir","ipa":"/ˈkwaɪər/","vi":"dàn hợp xướng","ex":"The school choir won first prize.","exvi":"Dàn hợp xướng của trường đã đoạt giải nhất.","exs":[{"en":"Our choir sings at the church every Sunday.","vi":"Dàn hợp xướng của chúng tôi hát ở nhà thờ mỗi Chúa Nhật."},{"en":"The choir practiced the song for a month.","vi":"Dàn hợp xướng luyện bài hát suốt một tháng."},{"en":"She joined the choir when she was twelve.","vi":"Cô ấy tham gia dàn hợp xướng từ năm mười hai tuổi."},{"en":"The choir wore nice white uniforms last night.","vi":"Dàn hợp xướng mặc đồng phục trắng đẹp tối qua."},{"en":"More students joined our choir this year.","vi":"Nhiều học sinh hơn đã tham gia dàn hợp xướng của chúng tôi năm nay."}]},{"en":"instrument","ipa":"/ˈɪnstrəmənt/","vi":"nhạc cụ","ex":"Which instrument do you play?","exvi":"Bạn chơi nhạc cụ nào?","exs":[{"en":"This instrument is easy for beginners to learn.","vi":"Nhạc cụ này dễ học cho người mới bắt đầu."},{"en":"My grandfather taught me to play an instrument.","vi":"Ông dạy tôi chơi một loại nhạc cụ."},{"en":"The store sells one new instrument every week.","vi":"Cửa hàng bán một nhạc cụ mới mỗi tuần."},{"en":"She can play any stringed instrument well.","vi":"Cô ấy chơi giỏi mọi nhạc cụ dây."},{"en":"Which instrument did you choose for the band?","vi":"Bạn chọn nhạc cụ nào cho ban nhạc?"}]},{"en":"guitar","ipa":"/ɡɪˈtɑːr/","vi":"đàn ghi-ta","ex":"He plays the guitar every evening.","exvi":"Anh ấy chơi ghi-ta mỗi tối.","exs":[{"en":"My brother bought a new guitar yesterday.","vi":"Anh tôi mua một cây ghi-ta mới hôm qua."},{"en":"She learned to play the guitar online.","vi":"Cô ấy học chơi ghi-ta qua mạng."},{"en":"The guitar was a gift from my father.","vi":"Chiếc ghi-ta là quà tặng của bố tôi."},{"en":"He put his guitar carefully in the case.","vi":"Anh ấy cẩn thận đặt ghi-ta vào hộp."},{"en":"Playing the guitar helps me relax after work.","vi":"Chơi ghi-ta giúp tôi thư giãn sau giờ làm."}]},{"en":"piano","ipa":"/piˈænoʊ/","vi":"đàn dương cầm","ex":"She practiced the piano for an hour.","exvi":"Cô ấy tập đàn dương cầm một tiếng.","exs":[{"en":"The piano sat quietly in the corner.","vi":"Chiếc dương cầm nằm yên ở góc phòng."},{"en":"My daughter takes piano lessons every Saturday.","vi":"Con gái tôi học đàn dương cầm mỗi thứ Bảy."},{"en":"He played a beautiful song on the piano.","vi":"Anh ấy chơi một bài hát hay trên dương cầm."},{"en":"We heard a piano in the next room.","vi":"Chúng tôi nghe tiếng dương cầm ở phòng bên."},{"en":"The old piano needs to be tuned again.","vi":"Chiếc dương cầm cũ cần được chỉnh lại."}]},{"en":"drum","ipa":"/drʌm/","vi":"trống","ex":"The drummer hit the drum loudly.","exvi":"Người đánh trống gõ rất to.","exs":[{"en":"The boy hit the drum with a stick.","vi":"Cậu bé đánh trống bằng que."},{"en":"She bought a small drum at the market.","vi":"Cô ấy mua một chiếc trống nhỏ ở chợ."},{"en":"The drum woke the whole neighborhood up.","vi":"Tiếng trống đánh thức cả khu phố."},{"en":"He practices the drum every afternoon at home.","vi":"Anh ấy tập đánh trống mỗi chiều ở nhà."},{"en":"A loud drum opened the parade.","vi":"Tiếng trống to vang lên mở đầu cuộc diễu hành."}]},{"en":"violin","ipa":"/ˌvaɪəˈlɪn/","vi":"đàn vĩ cầm","ex":"The violin has a warm, rich sound.","exvi":"Đàn vĩ cầm có âm thanh ấm áp, trong trẻo.","exs":[{"en":"She started learning the violin last year.","vi":"Cô ấy bắt đầu học đàn vĩ cầm năm ngoái."},{"en":"The violin sounded sweet in the quiet hall.","vi":"Tiếng vĩ cầm nghe ngọt ngào trong hội trường yên tĩnh."},{"en":"He made his own violin from wood.","vi":"Anh ấy tự làm một cây vĩ cầm bằng gỗ."},{"en":"My friend plays the violin in an orchestra.","vi":"Bạn tôi chơi vĩ cầm trong một dàn nhạc."},{"en":"The little girl hugged her violin tightly.","vi":"Cô bé ôm khẽ cây vĩ cầm."}]},{"en":"flute","ipa":"/fluːt/","vi":"cây sáo","ex":"She plays the flute in the band.","exvi":"Cô ấy chơi sáo trong ban nhạc.","exs":[{"en":"He made a flute from a long stick.","vi":"Anh ấy làm một cây sáo từ cành cây dài."},{"en":"The flute part is the hardest in this song.","vi":"Phần sáo là phần khó nhất trong bài hát này."},{"en":"My cousin plays a beautiful flute melody.","vi":"Em họ tôi thổi một giai điệu sáo rất hay."},{"en":"A flute hung on the wall of the shop.","vi":"Một cây sáo treo trên tường cửa hàng."},{"en":"She practiced the flute before school every day.","vi":"Cô ấy tập thổi sáo trước giờ học mỗi ngày."}]},{"en":"concert","ipa":"/ˈkɑːnsərt/","vi":"buổi hòa nhạc","ex":"Thousands came to the outdoor concert.","exvi":"Hàng ngàn người đến buổi hòa nhạc ngoài trời.","exs":[{"en":"We bought tickets for the concert last week.","vi":"Chúng tôi mua vé buổi hòa nhạc tuần trước."},{"en":"The concert was cancelled because of the rain.","vi":"Buổi hòa nhạc bị hủy vì trời mưa."},{"en":"I saw my favorite band at the concert.","vi":"Tôi thấy ban nhạc yêu thích của mình ở buổi hòa nhạc."},{"en":"The concert hall was full of young people.","vi":"Khán phòng tràn ngập người trẻ."},{"en":"She cried during the last concert of the year.","vi":"Cô ấy khóc trong buổi hòa nhạc cuối cùng của năm."}]},{"en":"performance","ipa":"/pərˈfɔːrməns/","vi":"buổi biểu diễn","ex":"The performance lasted two hours.","exvi":"Buổi biểu diễn kéo dài hai tiếng.","exs":[{"en":"His performance made everyone stand up and cheer.","vi":"Màn biểu diễn của anh ấy khiến mọi người đứng dậy reo hò."},{"en":"The school held a music performance in June.","vi":"Trường tổ chức một buổi biểu diễn âm nhạc vào tháng Sáu."},{"en":"She was very nervous before her performance.","vi":"Cô ấy rất lo lắng trước khi biểu diễn."},{"en":"Our performance starts at eight tonight.","vi":"Buổi biểu diễn của chúng tôi bắt đầu lúc tám giờ tối."},{"en":"The young dancers gave a wonderful performance.","vi":"Các vũ công trẻ đã biểu diễn thật tuyệt vời."}]},{"en":"stage","ipa":"/steɪdʒ/","vi":"sân khấu","ex":"The band walked onto the stage.","exvi":"Ban nhạc bước lên sân khấu.","exs":[{"en":"The lights on the stage suddenly went out.","vi":"Đèn sân khấu bỗng dưng tắt."},{"en":"She felt shy at the front of the stage.","vi":"Cô ấy thấy rụt rè ở phía trước sân khấu."},{"en":"The band set up the stage very quickly.","vi":"Ban nhạc dựng sân khấu rất nhanh."},{"en":"He fell down on the stage but kept singing.","vi":"Anh ấy ngã trên sân khấu nhưng vẫn tiếp tục hát."},{"en":"The stage was decorated with flowers and lights.","vi":"Sân khấu được trang trí bằng hoa và đèn."}]},{"en":"audience","ipa":"/ˈɔːdiəns/","vi":"khán giả","ex":"The audience clapped for a long time.","exvi":"Khán giả vỗ tay rất lâu.","exs":[{"en":"The audience stood up to greet the singer.","vi":"Khán giả đứng dậy chào đón ca sĩ."},{"en":"Our audience was small but very enthusiastic.","vi":"Khán giả của chúng tôi ít nhưng rất hào hứng."},{"en":"She looked at the audience and smiled.","vi":"Cô ấy nhìn khán giả và mỉm cười."},{"en":"The audience enjoyed every minute of the show.","vi":"Khán giả thích thú từng phút của buổi diễn."},{"en":"Please keep quiet while the audience is listening.","vi":"Xin hãy giữ im lặng khi khán giả đang lắng nghe."}]},{"en":"album","ipa":"/ˈælbəm/","vi":"album","ex":"Her new album sold a million copies.","exvi":"Album mới của cô ấy bán được một triệu bản.","exs":[{"en":"He listened to the whole album on the bus.","vi":"Anh ấy nghe trọn album trên xe buýt."},{"en":"The band released its first album last month.","vi":"Ban nhạc phát hành album đầu tiên tháng trước."},{"en":"I downloaded the album from the internet.","vi":"Tôi tải album từ mạng xuống."},{"en":"Her favorite album is ten years old now.","vi":"Album yêu thích của cô ấy đã mười năm tuổi."},{"en":"The new album has only six songs.","vi":"Album mới chỉ có sáu bài hát."}]},{"en":"single","ipa":"/ˈsɪŋɡl/","vi":"bài hát đơn","ex":"The single topped the charts.","exvi":"Bài hát đơn đứng đầu các bảng xếp hạng.","exs":[{"en":"She released a single about her childhood.","vi":"Cô ấy phát hành một bài hát đơn về tuổi thơ."},{"en":"His first single became very popular quickly.","vi":"Bài hát đơn đầu tiên của anh ấy nhanh chóng trở nên phổ biến."},{"en":"I bought the single instead of the whole album.","vi":"Tôi mua bài hát đơn thay vì cả album."},{"en":"The radio played their new single all day.","vi":"Radio phát bài hát đơn mới của họ cả ngày."},{"en":"A single can make a singer famous overnight.","vi":"Một bài hát đơn có thể làm ca sĩ nổi tiếng chỉ sau một đêm."}]},{"en":"band","ipa":"/bænd/","vi":"ban nhạc","ex":"The band practices at the garage.","exvi":"Ban nhạc tập luyện trong ga-ra.","exs":[{"en":"Our school band plays at every festival.","vi":"Ban nhạc của trường chúng tôi biểu diễn ở mọi lễ hội."},{"en":"The band needs a new drummer this month.","vi":"Ban nhạc cần một tay trống mới tháng này."},{"en":"He joined a band with his two friends.","vi":"Anh ấy tham gia một ban nhạc cùng hai người bạn."},{"en":"That band played at my birthday party.","vi":"Ban nhạc đó biểu diễn ở tiệc sinh nhật của tôi."},{"en":"The band arrived late for the rehearsal.","vi":"Ban nhạc đến muộn buổi tập luyện."}]},{"en":"orchestra","ipa":"/ˈɔːrkɪstrə/","vi":"dàn nhạc giao hưởng","ex":"The orchestra played a famous symphony.","exvi":"Dàn nhạc giao hưởng chơi một bản giao hưởng nổi tiếng.","exs":[{"en":"The orchestra opened the evening with a familiar piece.","vi":"Dàn nhạc mở đầu buổi tối bằng một bản nhạc quen thuộc."},{"en":"Our town has a small community orchestra.","vi":"Thị trấn của chúng tôi có một dàn nhạc cộng đồng nhỏ."},{"en":"The orchestra wore black for the evening show.","vi":"Dàn nhạc mặc đồ đen cho buổi diễn tối."},{"en":"My aunt conducts a youth orchestra.","vi":"Cô tôi chỉ huy một dàn nhạc trẻ."},{"en":"The orchestra finished with a loud, happy song.","vi":"Dàn nhạc kết thúc bằng một bản nhạc to, vui tươi."}]},{"en":"genre","ipa":"/ˈʒɑːnrə/","vi":"thể loại","ex":"Rock is my favorite music genre.","exvi":"Rock là thể loại âm nhạc tôi yêu thích.","exs":[{"en":"Horror is my favorite genre of film.","vi":"Kinh dị là thể loại phim tôi yêu thích nhất."},{"en":"She can name every music genre on the radio.","vi":"Cô ấy có thể gọi tên mọi thể loại nhạc trên radio."},{"en":"This book belongs to the science fiction genre.","vi":"Cuốn sách này thuộc thể loại khoa học viễn tưởng."},{"en":"Jazz is a genre that invites improvisation.","vi":"Jazz là thể loại khuyến khích sự ứng tấu."},{"en":"Country is a genre I never listen to.","vi":"Nhạc đồng quê là thể loại tôi không bao giờ nghe."}]},{"en":"pop music","ipa":"/pɑːp ˈmjuːzɪk/","vi":"nhạc pop","ex":"Pop music is popular with teenagers.","exvi":"Nhạc pop được giới trẻ yêu thích.","exs":[{"en":"Pop music plays in every shopping mall.","vi":"Nhạc pop phát ở mọi trung tâm mua sắm."},{"en":"My little brother loves pop music.","vi":"Em trai tôi rất thích nhạc pop."},{"en":"Pop music often has simple, catchy words.","vi":"Nhạc pop thường có lời đơn giản, dễ nhớ."},{"en":"We danced to pop music at the school party.","vi":"Chúng tôi nhảy theo nhạc pop ở tiệc trường."},{"en":"Pop music changes quickly with every new trend.","vi":"Nhạc pop thay đổi nhanh theo mỗi trào lưu mới."}]},{"en":"rock music","ipa":"/rɑːk ˈmjuːzɪk/","vi":"nhạc rock","ex":"Rock music has a strong guitar sound.","exvi":"Nhạc rock có tiếng ghi-ta mạnh mẽ.","exs":[{"en":"Rock music makes me feel full of energy.","vi":"Nhạc rock khiến tôi tràn đầy năng lượng."},{"en":"He grew up listening to rock music.","vi":"Anh ấy lớn lên với nhạc rock."},{"en":"Rock music is loud, fast, and exciting.","vi":"Nhạc rock to, nhanh và thú vị."},{"en":"The club plays rock music every Friday night.","vi":"Câu lạc bộ phát nhạc rock mỗi tối thứ Sáu."},{"en":"She surprised us with her love for rock music.","vi":"Cô ấy khiến chúng tôi bất ngờ vì tình yêu nhạc rock."}]},{"en":"jazz","ipa":"/dʒæz/","vi":"nhạc jazz","ex":"Jazz was born in New Orleans.","exvi":"Nhạc jazz ra đời tại New Orleans.","exs":[{"en":"We listened to live jazz at a small club.","vi":"Chúng tôi nghe nhạc jazz sống ở một câu lạc bộ nhỏ."},{"en":"Jazz music makes me feel calm and relaxed.","vi":"Nhạc jazz khiến tôi cảm thấy bình tĩnh và thư giãn."},{"en":"He plays jazz piano on Saturday nights.","vi":"Anh ấy chơi piano jazz vào tối thứ Bảy."},{"en":"My grandfather has collected jazz records for years.","vi":"Ông tôi đã sưu tầm đĩa jazz nhiều năm."},{"en":"The cafe has soft jazz in the morning.","vi":"Quán cà phê phát nhạc jazz nhẹ nhàng vào buổi sáng."}]},{"en":"classical music","ipa":"/ˈklæsɪkl ˈmjuːzɪk/","vi":"nhạc cổ điển","ex":"Classical music helps me concentrate.","exvi":"Nhạc cổ điển giúp tôi tập trung.","exs":[{"en":"Classical music plays softly in the background.","vi":"Nhạc cổ điển phát nhẹ nhàng ở nền."},{"en":"She reads better with classical music on.","vi":"Cô ấy đọc tốt hơn khi bật nhạc cổ điển."},{"en":"My parents often attend classical music concerts.","vi":"Bố mẹ tôi thường đi nghe hòa nhạc cổ điển."},{"en":"Classical music is not just for old people.","vi":"Nhạc cổ điển không chỉ dành cho người lớn tuổi."},{"en":"We studied the history of classical music in class.","vi":"Chúng tôi học lịch sử nhạc cổ điển trên lớp."}]},{"en":"folk music","ipa":"/foʊk ˈmjuːzɪk/","vi":"nhạc dân gian","ex":"Folk music tells stories of village life.","exvi":"Nhạc dân gian kể chuyện đời sống làng quê.","exs":[{"en":"Folk music keeps old traditions alive.","vi":"Nhạc dân gian giữ gìn những truyền thống cũ."},{"en":"My grandmother knows many folk music songs.","vi":"Bà tôi biết nhiều bài nhạc dân gian."},{"en":"The festival featured folk music from the north.","vi":"Lễ hội có nhạc dân gian từ miền Bắc."},{"en":"He recorded local folk music for his project.","vi":"Anh ấy thu âm nhạc dân gian địa phương cho dự án."},{"en":"Folk music is often played with simple instruments.","vi":"Nhạc dân gian thường được chơi bằng nhạc cụ đơn giản."}]},{"en":"beat","ipa":"/biːt/","vi":"nhịp","ex":"The beat of the drums was steady.","exvi":"Nhịp trống đều đặn.","exs":[{"en":"The beat was so strong I could feel it.","vi":"Nhịp mạnh đến nỗi tôi cảm nhận được."},{"en":"Try to follow the beat of the song.","vi":"Hãy thử theo nhịp của bài hát."},{"en":"She tapped her foot to the beat.","vi":"Cô ấy gật chân theo nhịp."},{"en":"The DJ changed the beat in the middle.","vi":"Người DJ đổi nhịp ở giữa bài."},{"en":"A slow beat helps me fall asleep.","vi":"Nhịp chậm giúp tôi dễ ngủ."}]},{"en":"tempo","ipa":"/ˈtempoʊ/","vi":"tốc độ nhịp","ex":"The song has a fast tempo.","exvi":"Bài hát có tốc độ nhanh.","exs":[{"en":"The tempo of the piece got faster and faster.","vi":"Tốc độ nhịp của bản nhạc nhanh dần lên."},{"en":"He asked the band to slow the tempo.","vi":"Anh ấy nhờ ban nhạc giảm tốc độ nhịp."},{"en":"Our teacher explained the tempo with clapping.","vi":"Giáo viên giải thích tempo bằng cách vỗ tay."},{"en":"The dancer could not follow the fast tempo.","vi":"Vũ công không theo kịp tốc độ nhịp nhanh."},{"en":"A gentle tempo suits this love song.","vi":"Tốc độ nhịp nhẹ nhàng hợp với bài hát tình yêu này."}]},{"en":"note","ipa":"/noʊt/","vi":"nốt nhạc","ex":"She played each note with care.","exvi":"Cô ấy chơi từng nốt nhạc cẩn thận.","exs":[{"en":"She wrote each note carefully in her book.","vi":"Cô ấy ghi cẩn thận từng nốt nhạc vào sổ."},{"en":"The last note of the song was very high.","vi":"Nốt cuối của bài hát rất cao."},{"en":"He missed one note during the exam.","vi":"Anh ấy bỏ lỡ một nốt trong kỳ thi."},{"en":"My teacher marked the wrong note in red.","vi":"Giáo viên khoanh nốt sai bằng màu đỏ."},{"en":"A single note rang out across the room.","vi":"Một nốt nhạc vang khắp căn phòng."}]},{"en":"scale","ipa":"/skeɪl/","vi":"âm giai","ex":"Practice the C major scale daily.","exvi":"Hãy luyện âm giai Đô trưởng mỗi ngày.","exs":[{"en":"He practices one scale before every lesson.","vi":"Anh ấy luyện một âm giai trước mỗi bài học."},{"en":"The teacher asked us to sing the scale.","vi":"Giáo viên yêu cầu chúng tôi hát âm giai."},{"en":"Learning the scale helps you play faster.","vi":"Học âm giai giúp bạn chơi nhanh hơn."},{"en":"She can play the scale with her eyes closed.","vi":"Cô ấy có thể chơi âm giai với đôi mắt nhắm."},{"en":"Start with a simple scale on the piano.","vi":"Bắt đầu với một âm giai đơn giản trên dương cầm."}]},{"en":"chord","ipa":"/kɔːrd/","vi":"hợp âm","ex":"Play the G chord here.","exvi":"Chơi hợp âm Sol ở đây.","exs":[{"en":"She strummed the first chord of the song.","vi":"Cô ấy đánh hợp âm đầu tiên của bài hát."},{"en":"This chord sounds sad and beautiful at once.","vi":"Hợp âm này nghe buồn và đẹp cùng lúc."},{"en":"He taught me a new chord yesterday.","vi":"Anh ấy dạy tôi một hợp âm mới hôm qua."},{"en":"The guitar lesson starts with easy chords.","vi":"Bài học ghi-ta bắt đầu với các hợp âm dễ."},{"en":"The musician ended the song with a soft chord.","vi":"Nhạc sĩ kết thúc bài hát bằng một hợp âm nhẹ."}]},{"en":"tune","ipa":"/tuːn/","vi":"giai điệu quen thuộc","ex":"I can hum the tune but not the words.","exvi":"Tôi có thể ngân giai điệu nhưng không nhớ lời.","exs":[{"en":"That tune has been stuck in my head.","vi":"Giai điệu đó cứ vương trong đầu tôi."},{"en":"He whistled a happy tune while walking.","vi":"Anh ấy huýt sáo một giai điệu vui khi đi bộ."},{"en":"The old tune reminds me of my childhood.","vi":"Giai điệu cũ gợi cho tôi nhớ tuổi thơ."},{"en":"She played a familiar tune on the piano.","vi":"Cô ấy chơi một giai điệu quen thuộc trên dương cầm."},{"en":"The radio played the same tune three times.","vi":"Radio phát cùng một giai điệu ba lần."}]},{"en":"rehearsal","ipa":"/rɪˈhɜːrsl/","vi":"buổi tập luyện","ex":"Rehearsal starts at six today.","exvi":"Buổi tập hôm nay bắt đầu lúc sáu giờ.","exs":[{"en":"The band was late for rehearsal again.","vi":"Ban nhạc lại đến muộn buổi tập luyện."},{"en":"Our rehearsal ended early because of the rain.","vi":"Buổi tập của chúng tôi kết thúc sớm vì trời mưa."},{"en":"She skipped rehearsal to study for a test.","vi":"Cô ấy bỏ buổi tập để ôn thi."},{"en":"The rehearsal room is small but quiet.","vi":"Phòng tập nhỏ nhưng yên tĩnh."},{"en":"We have a long rehearsal before the show.","vi":"Chúng tôi có một buổi tập dài trước khi diễn."}]},{"en":"tour","ipa":"/tʊr/","vi":"chuyến lưu diễn","ex":"The band went on a world tour.","exvi":"Ban nhạc đi lưu diễn vòng quanh thế giới.","exs":[{"en":"The singer canceled part of her tour.","vi":"Ca sĩ hủy một phần chuyến lưu diễn."},{"en":"We followed the band on their European tour.","vi":"Chúng tôi theo dõi ban nhạc trong chuyến lưu diễn châu Âu."},{"en":"His first tour included ten different cities.","vi":"Chuyến lưu diễn đầu tiên của anh ấy gồm mười thành phố khác nhau."},{"en":"The tour bus broke down on the highway.","vi":"Xe buýt lưu diễn bị hỏng trên xa lộ."},{"en":"Fans waited outside the hotel after the tour.","vi":"Người hâm mộ đợi bên ngoài khách sạn sau chuyến lưu diễn."}]},{"en":"microphone","ipa":"/ˈmaɪkrəfoʊn/","vi":"micro","ex":"Speak clearly into the microphone.","exvi":"Hãy nói rõ ràng vào micro.","exs":[{"en":"He handed the microphone to the shy singer.","vi":"Anh ấy đưa micro cho ca sĩ nhút nhát."},{"en":"The microphone made her voice sound very clear.","vi":"Chiếc micro làm giọng cô ấy nghe rất rõ."},{"en":"Please test the microphone before the meeting.","vi":"Hãy thử micro trước cuộc họp."},{"en":"The singer held the microphone very close.","vi":"Ca sĩ cầm micro rất gần."},{"en":"Our teacher bought a new microphone for class.","vi":"Giáo viên mua một chiếc micro mới cho lớp."}]},{"en":"amplifier","ipa":"/ˈæmplɪfaɪər/","vi":"bộ khuếch đại âm thanh","ex":"The guitarist turned up the amplifier.","exvi":"Nghệ sĩ ghi-ta vặn to bộ khuếch đại.","exs":[{"en":"The amplifier made the guitar sound too loud.","vi":"Bộ khuếch đại làm tiếng ghi-ta to quá."},{"en":"He carried the amplifier up two flights of stairs.","vi":"Anh ấy mang bộ khuếch đại lên hai tầng cầu thang."},{"en":"We need an amplifier for the outdoor show.","vi":"Chúng tôi cần một bộ khuếch đại cho buổi diễn ngoài trời."},{"en":"The old amplifier stopped working during the song.","vi":"Bộ khuếch đại cũ ngừng hoạt động trong lúc hát."},{"en":"She turned the amplifier down for the quiet part.","vi":"Cô ấy vặn nhỏ bộ khuếch đại cho phần yên tĩnh."}]},{"en":"loudspeaker","ipa":"/ˌlaʊdˈspiːkər/","vi":"loa phóng thanh","ex":"Music came from the loudspeakers.","exvi":"Âm nhạc phát ra từ những chiếc loa phóng thanh.","exs":[{"en":"The loudspeaker announced the train arrival.","vi":"Loa phóng thanh báo chuyến tàu đến."},{"en":"We heard the news from the loudspeaker outside.","vi":"Chúng tôi nghe tin từ chiếc loa phóng thanh bên ngoài."},{"en":"The school set up a loudspeaker in the yard.","vi":"Trường đặt một chiếc loa phóng thanh trong sân."},{"en":"Someone left music playing on the loudspeaker.","vi":"Ai đó để nhạc phát trên loa phóng thanh."},{"en":"The loudspeaker voice could be heard across the street.","vi":"Tiếng loa phóng thanh có thể nghe thấy qua đường."}]},{"en":"duet","ipa":"/duˈet/","vi":"bản song ca","ex":"They sang a duet at the party.","exvi":"Họ hát song ca tại bữa tiệc.","exs":[{"en":"They practiced the duet all week long.","vi":"Họ luyện bản song ca suốt cả tuần."},{"en":"The duet was the best part of the evening.","vi":"Bản song ca là phần hay nhất của buổi tối."},{"en":"My friend and I sang a duet at school.","vi":"Tôi và bạn tôi hát song ca ở trường."},{"en":"She asked him to sing a duet with her.","vi":"Cô ấy mời anh ấy hát song ca với mình."},{"en":"The famous duet was written fifty years ago.","vi":"Bản song ca nổi tiếng được viết cách đây năm mươi năm."}]},{"en":"solo","ipa":"/ˈsoʊloʊ/","vi":"tiết mục đơn ca","ex":"She performed a guitar solo.","exvi":"Cô ấy trình diễn tiết mục độc tấu ghi-ta.","exs":[{"en":"He played a short solo in the middle.","vi":"Anh ấy chơi một đoạn độc tấu ngắn ở giữa."},{"en":"The singer began the song with a solo.","vi":"Ca sĩ mở đầu bài hát bằng một phần độc tấu."},{"en":"Her piano solo left the audience speechless.","vi":"Phần độc tấu dương cầm của cô ấy khiến khán giả câm nín."},{"en":"The band gave the drummer a long solo.","vi":"Ban nhạc nhường tay trống một đoạn độc tấu dài."},{"en":"A solo needs both skill and courage.","vi":"Một tiết mục độc tấu cần cả kỹ năng lẫn can đảm."}]},{"en":"encore","ipa":"/ˈɑːŋkɔːr/","vi":"màn hát thêm","ex":"The fans shouted for an encore.","exvi":"Người hâm mộ hò hét đòi hát thêm một bài.","exs":[{"en":"The crowd called for an encore after the show.","vi":"Đám đông yêu cầu hát thêm sau buổi diễn."},{"en":"The band played one encore before leaving.","vi":"Ban nhạc chơi thêm một tiết mục trước khi rời đi."},{"en":"We were lucky to get an encore last night.","vi":"Chúng tôi may mắn được nghe hát thêm tối qua."},{"en":"The singer smiled and gave us an encore.","vi":"Ca sĩ mỉm cười và hát thêm cho chúng tôi."},{"en":"The audience would not stop asking for an encore.","vi":"Khán giả không ngừng đòi hát thêm."}]},{"en":"playlist","ipa":"/ˈpleɪlɪst/","vi":"danh sách phát","ex":"My playlist has fifty songs.","exvi":"Danh sách phát của tôi có năm mươi bài hát.","exs":[{"en":"I made a playlist for the long drive.","vi":"Tôi lập một danh sách phát cho chuyến đi dài."},{"en":"She shared her playlist with the whole class.","vi":"Cô ấy chia sẻ danh sách phát với cả lớp."},{"en":"My study playlist has only quiet songs.","vi":"Danh sách phát khi học của tôi chỉ có bài nhẹ nhàng."},{"en":"He added three new songs to his playlist.","vi":"Anh ấy thêm ba bài mới vào danh sách phát."},{"en":"The playlist stopped when my phone battery died.","vi":"Danh sách phát dừng khi pin điện thoại của tôi hết."}]},{"en":"soundtrack","ipa":"/ˈsaʊndtræk/","vi":"nhạc phim","ex":"The soundtrack of the movie was amazing.","exvi":"Nhạc phim của bộ phim thật tuyệt vời.","exs":[{"en":"The soundtrack made the sad scene even sadder.","vi":"Nhạc phim làm cảnh buồn càng thêm buồn."},{"en":"He bought the soundtrack of the video game.","vi":"Anh ấy mua nhạc phim của trò chơi điện tử."},{"en":"The soundtrack mixes old songs with new ones.","vi":"Nhạc phim phối hợp bài cũ với bài mới."},{"en":"I love the soundtrack of that animated film.","vi":"Tôi thích nhạc phim của bộ phim hoạt hình đó."},{"en":"The movie lost its soundtrack during the storm scene.","vi":"Bộ phim mất nhạc phim trong cảnh bão."}]},{"en":"keyboard","ipa":"/ˈkiːbɔːrd/","vi":"đàn phím điện tử","ex":"She plays the keyboard in the band.","exvi":"Cô ấy chơi đàn phím điện tử trong ban nhạc.","exs":[{"en":"She practices the keyboard after school.","vi":"Cô ấy tập đàn phím điện tử sau giờ học."},{"en":"He bought a used keyboard from a friend.","vi":"Anh ấy mua một cây đàn phím điện tử đã qua sử dụng."},{"en":"The keyboard has black and white keys.","vi":"Đàn phím điện tử có phím đen và trắng."},{"en":"Our band needs someone to play the keyboard.","vi":"Ban nhạc cần người chơi đàn phím điện tử."},{"en":"The keyboard came with a small stand.","vi":"Đàn phím điện tử đi kèm một giá đỡ nhỏ."}]},{"en":"anthem","ipa":"/ˈænθəm/","vi":"quốc ca, bài ca chính thức","ex":"The national anthem was played first.","exvi":"Quốc ca được cử trước tiên.","exs":[{"en":"Everyone sang the anthem before the game.","vi":"Mọi người hát quốc ca trước trận đấu."},{"en":"The crowd stood for the school anthem.","vi":"Đám đông đứng dậy vì bài hát chính thức của trường."},{"en":"She composed a new anthem for our team.","vi":"Cô ấy sáng tác một bài ca mới cho đội của chúng tôi."},{"en":"The anthem was played at the closing ceremony.","vi":"Bài ca chính thức được chơi trong lễ bế mạc."},{"en":"Learning the anthem is part of the lessons.","vi":"Học bài ca chính thức là một phần của các bài học."}]},{"en":"improvisation","ipa":"/ɪmˌprɑːvəˈzeɪʃn/","vi":"sự ứng tấu","ex":"Jazz players are good at improvisation.","exvi":"Các nghệ sĩ jazz rất giỏi ứng tấu.","exs":[{"en":"The solo was pure improvisation by the player.","vi":"Phần độc tấu hoàn toàn là sự ứng tấu của nhạc công."},{"en":"Good jazz depends on quick improvisation.","vi":"Nhạc jazz hay phụ thuộc vào sự ứng tấu nhanh."},{"en":"His improvisation amazed everyone in the room.","vi":"Sự ứng tấu của anh ấy làm mọi người trong phòng kinh ngạc."},{"en":"She is still learning the art of improvisation.","vi":"Cô ấy vẫn đang học nghệ thuật ứng tấu."},{"en":"The teacher encouraged improvisation during the lesson.","vi":"Giáo viên khuyến khích sự ứng tấu trong giờ học."}]},{"en":"vocalist","ipa":"/ˈvoʊkəlɪst/","vi":"giọng ca chính","ex":"The vocalist has a powerful voice.","exvi":"Giọng ca chính có chất giọng mạnh mẽ.","exs":[{"en":"The vocalist hit every high note perfectly.","vi":"Giọng ca chính hát trúng mọi nốt cao hoàn hảo."},{"en":"Our band is looking for a new vocalist.","vi":"Ban nhạc của chúng tôi đang tìm một giọng ca chính mới."},{"en":"The vocalist thanked the fans after the show.","vi":"Giọng ca chính cảm ơn người hâm mộ sau buổi diễn."},{"en":"She is the vocalist of a small jazz group.","vi":"Cô ấy là giọng ca chính của một nhóm nhạc jazz nhỏ."},{"en":"That young vocalist writes her own songs too.","vi":"Giọng ca trẻ đó cũng tự viết bài hát."}]}];
+  WORDS = window.EngBeeAdminData ? window.EngBeeAdminData.apply("music", WORDS) : WORDS;
+  var TID = "music";
+  var TNAME = "Music";
+  var TVI = "Âm nhạc";
+  var GRAD = ["#ec4899","#8b5cf6"];
+  var TOTAL = WORDS.length;
+  var KEY = "engbee_learned_" + (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  })() + "_" + TID;
+
+  function qs(s){ return document.querySelector(s); }
+
+  var state = { view: "cards", index: 0, flipped: false };
+
+  function loadSet(){
+    try {
+      var arr = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (Array.isArray(arr)) {
+        return arr.filter(function(x){ return typeof x === "number" && x >= 0 && x < TOTAL; });
+      }
+    } catch(e){}
+    return [];
+  }
+  var learned = loadSet();
+
+  function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
+  function hasLearned(i){ return learned.indexOf(i) !== -1; }
+  function toggleLearned(i){
+    var p = learned.indexOf(i);
+    if (p === -1) learned.push(i); else learned.splice(p,1);
+    saveSet();
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
+  }
+
+  function speak(word){
+    if (!("speechSynthesis" in window) || !word) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(word);
+      u.lang = "en-US"; u.rate = 0.85; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    } catch(e){}
+  }
+
+  function cardRef(){ return qs("#flashcard"); }
+
+  function setFlip(on){
+    state.flipped = !!on;
+    var card = qs("#flashcard");
+    if (card) card.classList.toggle("flipped", state.flipped);
+  }
+
+  function renderProgress(){
+    var fill = qs("#progress-fill"), txt = qs("#progress-text");
+    var pct = TOTAL > 0 ? Math.round(learned.length / TOTAL * 100) : 0;
+    if (fill) fill.style.width = pct + "%";
+    if (txt) txt.textContent = learned.length + " / " + TOTAL;
+    var fb = qs("#topic-feedback");
+    if (fb) {
+      if (TOTAL > 0 && learned.length === TOTAL) {
+        qs("#fb-text").textContent = "Chúc mừng! Bạn đã thuộc cả " + TOTAL + " từ của chủ đề " + TNAME + ".";
+        fb.hidden = false;
+      } else { fb.hidden = true; }
+    }
+  }
+
+
+  var exPool = [], exPos = 0;
+
+  function buildExPool(w){
+    var pool = [], seen = {};
+    function add(en, vi){
+      if (!en) return;
+      var k = String(en).trim().toLowerCase();
+      if (seen[k]) return;
+      seen[k] = true;
+      pool.push({ en: en, vi: vi || "" });
+    }
+    if (w) {
+      add(w.ex, w.exvi);
+      if (Array.isArray(w.exs)) w.exs.forEach(function(s){ if (s && typeof s === "object") add(s.en, s.vi); });
+    }
+    return pool;
+  }
+
+  function showExample(p){
+    var e = exPool[p];
+    var ex = qs("#word-ex"), exvi = qs("#word-exvi");
+    if (ex) ex.textContent = e ? e.en : "";
+    if (exvi) exvi.textContent = e ? e.vi : "";
+  }
+
+  function randomExample(){
+    if (exPool.length < 2) { exPos = 0; showExample(0); return; }
+    var p;
+    do { p = Math.floor(Math.random() * exPool.length); } while (p === exPos);
+    exPos = p;
+    showExample(p);
+  }
+
+  function flipCard(){
+    if (!state.flipped) randomExample();
+    setFlip(!state.flipped);
+  }
+
+  function renderCard(){
+    if (!TOTAL || !WORDS.length) {
+      if (qs("#view-cards")) qs("#view-cards").hidden = true;
+      return;
+    }
+    if (qs("#view-cards") && state.view === "cards") qs("#view-cards").hidden = false;
+    var w = WORDS[state.index];
+    if (!w) return;
+    var en = qs("#word-en"), ipa = qs("#word-ipa"), vi = qs("#word-vi"),
+        ci = qs("#card-index");
+    if (en) en.textContent = w.en;
+    if (ipa) ipa.textContent = w.ipa || "";
+    if (vi) vi.textContent = w.vi;
+    exPool = buildExPool(w);
+    exPos = 0;
+    showExample(0);
+    if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
+    var mb = qs("#mastered-btn"), nb = qs("#not-mastered-btn");
+    if (mb) mb.classList.toggle("active", hasLearned(state.index));
+    if (nb) nb.classList.toggle("active", !hasLearned(state.index));
+    setFlip(false);
+    renderProgress();
+  }
+
+  function renderGrid(){
+    var grid = qs("#word-grid");
+    grid.innerHTML = "";
+    var q = (qs("#search-box").value || "").trim().toLowerCase();
+    var list = WORDS;
+    if (q) list = WORDS.filter(function(w){ return (w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1); });
+
+    if (!list.length) {
+      var em = document.createElement("p");
+      em.className = "empty-note";
+      em.textContent = "Không tìm thấy từ nào.";
+      grid.appendChild(em);
+      return;
+    }
+    list.forEach(function(w){
+      var pos = WORDS.indexOf(w);
+      var card = document.createElement("div");
+      card.className = "word-card" + (hasLearned(pos) ? " learned" : "");
+      card.tabIndex = 0;
+
+      var top = document.createElement("div"); top.className = "wc-top";
+      var left = document.createElement("span");
+      var e = document.createElement("span"); e.className = "wc-en"; e.textContent = w.en;
+      var i = document.createElement("span"); i.className = "wc-ipa"; i.textContent = w.ipa || "";
+      left.appendChild(e); left.appendChild(i);
+
+      var s = document.createElement("button"); s.type = "button"; s.className = "wc-speak"; s.title = "Nghe phát âm";
+      s.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+      s.addEventListener("click", function(e){ e.stopPropagation(); speak(w.en); });
+      top.appendChild(left); top.appendChild(s);
+
+      var v = document.createElement("p"); v.className = "wc-vi"; v.textContent = w.vi;
+      var ex = document.createElement("p"); ex.className = "wc-ex"; ex.textContent = w.ex || "";
+      var exv = document.createElement("p"); exv.className = "wc-exvi"; exv.textContent = w.exvi || "";
+      var mk = document.createElement("span"); mk.className = "wc-mark";
+      mk.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      card.appendChild(top); card.appendChild(v); card.appendChild(ex); card.appendChild(exv); card.appendChild(mk);
+      card.addEventListener("click", function(){ toggleLearned(pos); render(); });
+      grid.appendChild(card);
+    });
+  }
+
+  function setView(v){
+    state.view = v;
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      var a = tabs[i].dataset.view === v;
+      tabs[i].classList.toggle("active", a);
+      tabs[i].setAttribute("aria-selected", a ? "true" : "false");
+    }
+    qs("#view-cards").hidden = v !== "cards";
+    qs("#view-list").hidden = v !== "list";
+    qs("#search-box").hidden = v !== "list";
+    if (v === "list") { qs("#search-box").value = ""; renderGrid(); }
+    else { renderCard(); }
+  }
+
+  function render(){ renderCard(); if (state.view === "list") renderGrid(); }
+  function go(step){ if (!TOTAL) return; state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
+
+  function bind(){
+    var card = qs("#flashcard");
+    if (card) {
+      card.addEventListener("click", function(){ flipCard(); });
+      qs("#flip-btn").addEventListener("click", function(ev){ ev.stopPropagation(); flipCard(); });
+      qs("#speak-front").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+      qs("#speak-back").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+    }
+    qs("#prev-btn").addEventListener("click", function(){ go(-1); });
+    qs("#next-btn").addEventListener("click", function(){ go(1); });
+    qs("#mastered-btn").addEventListener("click", function(){ if (!hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#not-mastered-btn").addEventListener("click", function(){ if (hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#reset-btn").addEventListener("click", function(){
+      if (!learned.length) return;
+      if (confirm("Xóa toàn bộ tiến độ chủ đề " + TNAME + "?")){ learned = []; saveSet(); render(); }
+    });
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      (function(t){ tabs[i].addEventListener("click", function(){ setView(t.dataset.view); }); })(tabs[i]);
+    }
+    qs("#search-box").addEventListener("input", renderGrid);
+    document.addEventListener("keydown", function(ev){
+      if (ev.target === qs("#search-box") || state.view !== "cards") return;
+      if (ev.key === "ArrowLeft") go(-1);
+      else if (ev.key === "ArrowRight") go(1);
+      else if (ev.key === " ") { ev.preventDefault(); flipCard(); }
+    });
+  }
+
+  bind();
+  if (window.EngBeeAdminData && window.EngBeeAdminData.initLearnPage) {
+    window.EngBeeAdminData.initLearnPage(TID, WORDS, function(newWords) {
+      WORDS = newWords;
+      TOTAL = newWords.length;
+      if (state.index >= TOTAL) state.index = Math.max(0, TOTAL - 1);
+      learned = loadSet();
+      render();
+    });
+  } else {
+    render();
+  }
+})();
+
+</script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+
+<div id="pron-overlay" class="pron-overlay" hidden>
+  <div class="pron-box" role="dialog" aria-modal="true" aria-label="Kiểm tra phát âm">
+    <div class="pron-head">
+      <h3>🎙 Kiểm tra phát âm</h3>
+      <button id="pron-close" class="pron-x" title="Đóng" aria-label="Đóng">✕</button>
+    </div>
+    <div class="pron-word">
+      <strong id="pron-word">—</strong>
+      <span id="pron-ipa"></span>
+    </div>
+    <p style="margin-top:10px"><button id="pron-sample" class="pron-btnme">🔊 Nghe mẫu</button></p>
+    <div class="pron-stage">
+      <p class="pron-status" id="pron-status">Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”.</p>
+      <p class="pron-choices" id="pron-choices"></p>
+    </div>
+    <div class="pron-bar"><span id="pron-bar"></span></div>
+    <p id="pron-verdict" class="pron-verdict"></p>
+    <div class="pron-actions">
+      <button id="pron-listen-btn" class="pron-btnme primary">🎙 Bắt đầu nói</button>
+      <button id="pron-again" class="pron-btnme">🔄 Nói lại</button>
+      <button id="pron-done" class="pron-btnme">Đóng</button>
+    </div>
+    <p class="pron-note">Bạn cần cho phép trình duyệt dùng micro. Dùng Chrome hoặc Edge để có kết quả tốt nhất.</p>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  "use strict";
+  function $_(s){return document.querySelector(s);}
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var rec = null, finalAlt = [], listening = false;
+
+  function norm(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/ +/g," ").trim(); }
+  function lev(a,b){
+    if(a===b)return 0;
+    var m=a.length,n=b.length,d=new Array(m+1);
+    for(var i=0;i<=m;i++){d[i]=new Array(n+1);d[i][0]=i;}
+    for(var j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+cost);
+    }
+    return d[m][n];
+  }
+  function matchScore(target,alt){
+    var t=norm(target),a=norm(alt);
+    if(!t||!a)return 0;
+    if(t===a)return 100;
+    if(a.split(" ").indexOf(t)>=0)return 100;
+    var sim=Math.round((1-lev(t,a)/Math.max(t.length,1))*100);
+    return sim<0?0:sim;
+  }
+  function speakWord(w){
+    try{var u=new SpeechSynthesisUtterance(w);u.lang="en-US";u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  }
+  function curWord(){
+    var el=$_("#word-en");
+    return el?el.textContent.trim():"";
+  }
+  function openPron(){
+    var w=curWord();
+    $_("#pron-word").textContent=w||"?";
+    var ipa=$_("#word-ipa");
+    $_("#pron-ipa").textContent=ipa?ipa.textContent:"";
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent=w?("Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”."):"Bạn cần ở chế độ Thẻ học để luyện phát âm từ.";
+    $_("#pron-overlay").hidden=false;
+    if(w)setTimeout(function(){speakWord(w);},300);
+  }
+  function closePron(){
+    $_("#pron-overlay").hidden=true;
+    try{if(rec)rec.stop();}catch(e){}
+    listening=false;
+  }
+  function beginListen(){
+    if(!SR){
+      $_("#pron-status").textContent="Trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome hoặc Edge.";
+      return;
+    }
+    if(listening)return;
+    listening=true;
+    finalAlt=[];
+    var btn=$_("#pron-listen-btn");
+    btn.disabled=true;
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent="🎙 Đang nghe... hãy nói to từ này.";
+    try{
+      rec=new SR();
+      rec.lang="en-US";
+      rec.interimResults=true;
+      rec.maxAlternatives=5;
+      rec.onresult=function(ev){
+        var pending="",tmp=[];
+        for(var i=ev.resultIndex;i<ev.results.length;i++){
+          var r=ev.results[i];
+          for(var k=0;k<r.length;k++){
+            if(r.isFinal)tmp.push(r[k].transcript);
+            else if(k===0)pending=r[k].transcript;
+          }
+        }
+        if(tmp.length)finalAlt=finalAlt.concat(tmp);
+        $_("#pron-choices").textContent=pending||(finalAlt.length?("Nghe thấy: "+finalAlt[0]):"");
+      };
+      rec.onerror=function(ev){
+        listening=false;btn.disabled=false;
+        $_("#pron-status").textContent="Lỗi "+ev.error+" — kiểm tra micro rồi bấm “Bắt đầu nói” lần nữa.";
+      };
+      rec.onend=function(){
+        listening=false;btn.disabled=false;
+        if(finalAlt.length)evaluate(finalAlt);
+      };
+      rec.start();
+    }catch(e){
+      listening=false;btn.disabled=false;
+      $_("#pron-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro.";
+    }
+  }
+  function evaluate(alts){
+    var w=$_("#pron-word").textContent.trim();
+    var best=0,bestText=alts[0]||"";
+    alts.forEach(function(a){
+      var s=matchScore(w,a);
+      if(s>best){best=s;bestText=a;}
+    });
+    $_("#pron-choices").textContent="Nghe thấy: “"+bestText+"”";
+    $_("#pron-bar").style.width=best+"%";
+    var v=$_("#pron-verdict");
+    if(best>=90){v.className="pron-verdict good";v.textContent="Chuẩn rồi! Phát âm rất tốt ("+best+"%).";}
+    else if(best>=75){v.className="pron-verdict ok";v.textContent="Gần chuẩn rồi, chú ý phát âm đuôi từ ("+best+"%).";}
+    else if(best>=40){v.className="pron-verdict bad";v.textContent="Còn lệch, nghe mẫu rồi nói chậm lại ("+best+"%).";}
+    else{v.className="pron-verdict bad";v.textContent="Chưa chuẩn, hãy thử lại theo mẫu ("+best+"%).";}
+    $_("#pron-status").textContent="Bấm “Nói lại” để phát âm thêm lần nữa.";
+  }
+  function wirePron(){
+    var b=$_("#pron-btn");
+    if(!b)return;
+    b.addEventListener("click",openPron);
+    $_("#pron-close").addEventListener("click",closePron);
+    $_("#pron-done").addEventListener("click",closePron);
+    $_("#pron-sample").addEventListener("click",function(){speakWord($_("#pron-word").textContent);});
+    $_("#pron-listen-btn").addEventListener("click",beginListen);
+    $_("#pron-again").addEventListener("click",function(){
+      try{if(rec)rec.stop();}catch(e){}
+      finalAlt=[];
+      beginListen();
+    });
+    $_("#pron-overlay").addEventListener("click",function(ev){
+      if(ev.target===this)closePron();
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wirePron);
+  else wirePron();
+})();
+</script>
+
+</body>
+</html>

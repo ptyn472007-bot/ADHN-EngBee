@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Từ vựng chủ đề Nature</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ==========================================
+   EngBee - learn.css (trang Học từ vựng)
+   ========================================== */
+
+:root {
+  --g1: #4facfe;
+  --g2: #00f2fe;
+  --ink: #1f2937;
+}
+
+body {
+  font-family: "Be Vietnam Pro", Arial, Helvetica, sans-serif;
+  background: #f6f7fb;
+}
+
+/* ---------- Hero ---------- */
+.learn-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 56px 0 40px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+}
+
+.learn-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% -20%, rgba(255, 255, 255, 0.35), transparent 55%),
+    radial-gradient(circle at 8% 120%, rgba(255, 255, 255, 0.25), transparent 45%);
+  pointer-events: none;
+}
+
+.deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.deco-a { width: 220px; height: 220px; top: -70px; right: -40px; }
+.deco-b { width: 140px; height: 140px; bottom: -50px; left: -30px; }
+
+.learn-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.learn-hero .eyebrow {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(4px);
+}
+
+.learn-hero h1 {
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.hero-sub {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.hero-sub strong {
+  font-weight: 800;
+}
+
+/* ---------- Topic pills ---------- */
+.topic-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.topic-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 18px 8px 8px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 52px;
+}
+
+.topic-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+.topic-pill.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.pill-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  flex: none;
+}
+
+.pill-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.pill-text strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.pill-text small {
+  font-size: 0.72rem;
+  opacity: 0.78;
+}
+
+.topic-pill.active .pill-badge {
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* ---------- Body / toolbar ---------- */
+.learn-body {
+  padding: 34px 0 70px;
+}
+
+.learn-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
+  margin-bottom: 22px;
+}
+
+.view-tabs {
+  display: inline-flex;
+  background: #eef1f8;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.view-tab {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  border-radius: 9px;
+  transition: all 0.2s;
+}
+
+.view-tab.active {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.progress-wrap {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #eef1f8;
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box {
+  border: 1px solid #e3e7f0;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 200px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus {
+  border-color: var(--g1);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.18);
+}
+
+.btn-ghost {
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: #f2a900;
+  color: #b07f00;
+  background: #fff8e6;
+}
+
+.topic-feedback {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  margin-bottom: 22px;
+  animation: popIn 0.4s ease;
+}
+
+.fb-badge {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Flashcard ---------- */
+.card-view {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.flashcard-shell {
+  perspective: 1400px;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  cursor: pointer;
+  outline: none;
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  box-shadow: 0 18px 44px rgba(31, 41, 55, 0.18);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.flashcard.flipped .flashcard-face.front {
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+}
+
+.flashcard.flipped .flashcard-face.back {
+  opacity: 1;
+  transform: rotateX(0deg) scale(1);
+  pointer-events: auto;
+}
+
+.flashcard-face.front {
+  background: #fff;
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(240, 165, 0, 0.12) 0, transparent 38%),
+    radial-gradient(circle at 88% 88%, var(--g1) 0, transparent 46%);
+  color: var(--ink);
+  z-index: 2;
+}
+
+.flashcard-face.back {
+  background: linear-gradient(145deg, var(--g1), var(--g2));
+  color: #fff;
+  opacity: 0;
+  transform: rotateX(-85deg) scale(0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-badge {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #9aa3b2;
+  background: #f2f4fa;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.back .card-badge.back-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  position: static;
+  margin-bottom: 8px;
+}
+
+.word-en {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-top: 6px;
+}
+
+.word-ipa {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+.tap-hint {
+  position: absolute;
+  bottom: 20px;
+  color: #b6bdcb;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.speak-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.22);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.speak-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.speak-btn.small {
+  position: static;
+  width: 42px;
+  height: 42px;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.word-vi {
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 800;
+}
+
+.word-ex {
+  margin-top: 14px;
+  font-size: 1.02rem;
+  font-style: italic;
+  max-width: 420px;
+}
+
+.word-exvi {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  opacity: 0.9;
+  max-width: 420px;
+}
+
+/* ---------- Card controls ---------- */
+.card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e3e7f0;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.ctl-btn:hover {
+  border-color: var(--g1);
+  box-shadow: 0 6px 16px rgba(31, 41, 55, 0.1);
+}
+
+.ctl-btn.primary {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  border: none;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(31, 41, 55, 0.18);
+}
+
+.ctl-btn.primary:hover {
+  transform: translateY(-2px);
+}
+
+.master-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.master-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #e3e7f0;
+  background: #fff;
+  color: #6b7280;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+}
+
+.master-btn.yes:hover,
+.master-btn.yes.active {
+  border-color: #22c55e;
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.master-btn.nope:hover,
+.master-btn.nope.active {
+  border-color: #ef4444;
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.master-btn.active {
+  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);
+}
+
+.keys-hint {
+  text-align: center;
+  color: #a2aabb;
+  font-size: 0.8rem;
+  margin-top: 14px;
+}
+
+/* ---------- List view ---------- */
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.word-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.05);
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.word-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
+}
+
+.word-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(31, 41, 55, 0.1);
+}
+
+.word-card.learned {
+  background: #f8fdf9;
+  border-color: #bbf7d0;
+}
+
+.wc-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wc-en {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.wc-ipa {
+  display: block;
+  color: #9aa3b2;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.wc-speak {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.wc-speak:hover {
+  transform: scale(1.12);
+}
+
+.wc-vi {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.wc-ex {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.wc-exvi {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #9aa3b2;
+}
+
+.wc-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eef1f8;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-card.learned .wc-mark {
+  display: inline-flex;
+  background: #22c55e;
+}
+
+.word-card.learned .wc-speak {
+  margin-right: 26px;
+}
+
+.empty-note {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #9aa3b2;
+  padding: 40px 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .learn-hero {
+    padding: 40px 0 32px;
+  }
+
+  .learn-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .progress-wrap {
+    order: -1;
+  }
+
+  .toolbar-actions {
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+    width: auto;
+  }
+
+  .flashcard {
+    height: 400px;
+  }
+}
+
+@media (max-width: 440px) {
+  .ctl-btn span {
+    display: none;
+  }
+
+  .ctl-btn {
+    padding: 12px 16px;
+  }
+
+  .master-bar {
+    flex-direction: column;
+  }
+
+  .master-btn {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-face {
+    transition: none;
+  }
+}
+/* ===== pronunciation check ===== */
+.pron-overlay{position:fixed;inset:0;z-index:999;background:rgba(16,26,51,.55);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+.pron-overlay[hidden]{display:none}
+.pron-box{background:#fff;border-radius:20px;max-width:470px;width:100%;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center;animation:pronIn .25s ease}
+@keyframes pronIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.pron-head{display:flex;align-items:center;justify-content:space-between}
+.pron-head h3{font-size:1.15rem;font-weight:800}
+.pron-x{border:none;background:#eef1f8;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;color:#6b7280}
+.pron-word{margin-top:14px}
+.pron-word strong{font-size:2rem;font-weight:800;display:block}
+.pron-word span{color:#6b7280}
+.pron-stage{margin:14px 0;background:#f7f8fc;border:1px dashed #dfe4ef;border-radius:14px;padding:14px;min-height:74px}
+.pron-status{font-weight:600;font-size:.95rem}
+.pron-choices{color:#6b7280;font-style:italic;margin-top:6px;min-height:20px}
+.pron-bar{height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
+.pron-bar span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(135deg,#22b573,#2ee59d);transition:width .4s}
+.pron-verdict{margin-top:10px;font-weight:800;font-size:1.02rem;min-height:26px}
+.pron-verdict.good{color:#157a4d}.pron-verdict.ok{color:#d97706}.pron-verdict.bad{color:#b91c1c}
+.pron-actions{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.pron-btnme{padding:10px 18px;border-radius:12px;border:1px solid #dfe4ef;background:#fff;color:#374151;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.pron-btnme.primary{background:linear-gradient(135deg,#ffb200,#ff7e00);color:#fff;border:none}
+.pron-btnme:hover{transform:translateY(-1px)}
+.pron-btnme:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.pron-note{font-size:.78rem;color:#9aa1b5;margin-top:12px}
+
+</style>
+  <script src="assets/js/engbee-admin-data.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html" class="active">Học từ vựng</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
+      </nav>
+  </div>
+</header>
+
+<main>
+  <section class="learn-hero" style="--g1:#56ab2f;--g2:#a8e063">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="learn-hero-inner">
+        <p class="eyebrow">Chủ đề: <span id="hero-name">Nature</span> (50 từ)</p>
+        <h1>Học từ vựng chủ đề <span style="color:#fff">Nature</span></h1>
+        <p class="hero-sub">50 từ thông dụng kèm phiên âm, nghĩa và ví dụ. Lật thẻ, nghe phát âm và đánh dấu đã thuộc để nhớ lâu hơn.</p>
+        <div class="topic-pills"><a class="topic-pill" href="learn-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="learn-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="learn-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="learn-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill active" href="learn-nature.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill" href="learn-sports.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="learn-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="learn-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="learn-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="learn-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="learn-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="learn-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="learn-body" style="--g1:#56ab2f;--g2:#a8e063">
+    <div class="container">
+      <div class="learn-toolbar">
+        <div class="view-tabs" role="tablist">
+          <button class="view-tab active" data-view="cards" role="tab" aria-selected="true">Thẻ học</button>
+          <button class="view-tab" data-view="list" role="tab" aria-selected="false">Danh sách từ</button>
+        </div>
+        <div class="progress-wrap" title="Tiến độ học của bạn">
+          <div class="progress-bar"><span class="progress-fill" id="progress-fill"></span></div>
+          <span class="progress-text" id="progress-text">0 / 50</span>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="search-box" class="search-box" placeholder="Tìm từ..." autocomplete="off" hidden>
+          <button id="pron-btn" class="btn-ghost" title="Kiểm tra phát âm từ đang học" style="color:#7a5c00;background:#fff7e6;border-color:#f3d9a4">🎙 Phát âm</button>
+          <button id="reset-btn" class="btn-ghost" title="Xóa tiến độ chủ đề này">Đặt lại</button>
+        </div>
+      </div>
+
+      <div class="topic-feedback" id="topic-feedback" hidden>
+        <span class="fb-badge">Hoàn thành</span>
+        <span id="fb-text"></span>
+      </div>
+
+      <section id="view-cards" class="card-view">
+        <div class="flashcard-shell">
+          <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Thẻ từ vựng - nhấn để lật">
+            <div class="flashcard-face front">
+              <span class="card-badge" id="card-index">1 / 50</span>
+              <button class="speak-btn" id="speak-front" title="Nghe phát âm">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h2 class="word-en" id="word-en">...</h2>
+              <p class="word-ipa" id="word-ipa">...</p>
+              <p class="tap-hint">Nhấn vào thẻ để xem nghĩa</p>
+            </div>
+            <div class="flashcard-face back">
+              <button class="speak-btn small" id="speak-back" title="Nghe phát âm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <h3 class="word-vi" id="word-vi">...</h3>
+              <p class="word-ex" id="word-ex">...</p>
+              <p class="word-exvi" id="word-exvi">...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-controls">
+          <button class="ctl-btn" id="prev-btn" title="Từ trước"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Trước</span></button>
+          <button class="ctl-btn primary" id="flip-btn">Lật thẻ</button>
+          <button class="ctl-btn" id="next-btn"><span>Sau</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+
+        <div class="master-bar">
+          <button class="master-btn nope" id="not-mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Chưa thuộc</span></button>
+          <button class="master-btn yes" id="mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Đã thuộc</span></button>
+        </div>
+        <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
+      </section>
+
+      <section id="view-list" class="list-view" hidden>
+        <div class="word-grid" id="word-grid"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+<script>
+
+(function(){
+  "use strict";
+  var WORDS = [{"en":"nature","ipa":"/ˈneɪtʃər/","vi":"thiên nhiên","ex":"We should protect nature.","exvi":"Chúng ta nên bảo vệ thiên nhiên.","exs":[{"en":"My grandmother loves walking in nature.","vi":"Bà tôi thích đi dạo trong thiên nhiên."},{"en":"Nature gives us clean air and water.","vi":"Thiên nhiên cho chúng ta không khí và nước sạch."},{"en":"We enjoyed the beauty of nature on the trip.","vi":"Chúng tôi tận hưởng vẻ đẹp thiên nhiên trong chuyến đi."},{"en":"Take a camera to photograph nature.","vi":"Mang theo máy ảnh để chụp ảnh thiên nhiên."},{"en":"Early morning is perfect for enjoying nature.","vi":"Buổi sáng sớm rất lý tưởng để thưởng thức thiên nhiên."}]},{"en":"environment","ipa":"/ɪnˈvaɪrənmənt/","vi":"môi trường","ex":"Keep the environment clean.","exvi":"Giữ môi trường sạch sẽ.","exs":[{"en":"Plastic waste harms the environment.","vi":"Rác thải nhựa gây hại cho môi trường."},{"en":"We learn about the environment at school.","vi":"Chúng tôi học về môi trường ở trường."},{"en":"We must protect the environment for future generations.","vi":"Chúng ta phải bảo vệ môi trường cho các thế hệ mai sau."},{"en":"Clean energy helps the environment a lot.","vi":"Năng lượng sạch giúp môi trường rất nhiều."},{"en":"The factory pollutes the environment every day.","vi":"Nhà máy gây ô nhiễm môi trường mỗi ngày."}]},{"en":"forest","ipa":"/ˈfɔːrɪst/","vi":"khu rừng","ex":"The forest is home to many animals.","exvi":"Khu rừng là nhà của nhiều loài động vật.","exs":[{"en":"They got lost in the forest.","vi":"Họ bị lạc trong khu rừng."},{"en":"We hiked through a beautiful forest.","vi":"Chúng tôi đi bộ đường dài qua một khu rừng đẹp."},{"en":"Many birds live in the forest.","vi":"Nhiều loài chim sống trong khu rừng."},{"en":"The forest fire spread very quickly.","vi":"Cháy rừng lan rất nhanh."},{"en":"We collected mushrooms in the forest.","vi":"Chúng tôi hái nấm trong khu rừng."}]},{"en":"mountain","ipa":"/ˈmaʊntn/","vi":"ngọn núi","ex":"They climbed the highest mountain.","exvi":"Họ trèo lên đỉnh núi cao nhất.","exs":[{"en":"The mountain is covered with snow.","vi":"Ngọn núi được phủ đầy tuyết."},{"en":"We took many photos of the mountain.","vi":"Chúng tôi chụp nhiều ảnh ngọn núi."},{"en":"The mountain looks blue in the distance.","vi":"Ngọn núi trông xanh ở phía xa."},{"en":"Villagers live at the foot of the mountain.","vi":"Người dân làng sống ở chân núi."},{"en":"We plan to climb the mountain next month.","vi":"Chúng tôi dự định leo núi vào tháng tới."}]},{"en":"river","ipa":"/ˈrɪvər/","vi":"dòng sông","ex":"The river flows to the sea.","exvi":"Dòng sông chảy ra biển.","exs":[{"en":"Children often swim in the river.","vi":"Trẻ em thường bơi trong dòng sông."},{"en":"A bridge crosses the river downtown.","vi":"Một cây cầu bắc qua dòng sông ở trung tâm thành phố."},{"en":"The river is very wide here.","vi":"Dòng sông rất rộng ở đây."},{"en":"We fished in the river last Sunday.","vi":"Chúng tôi câu cá trong sông hôm Chủ nhật."},{"en":"A small boat moved along the river.","vi":"Một chiếc thuyền nhỏ trôi theo dòng sông."}]},{"en":"lake","ipa":"/leɪk/","vi":"hồ","ex":"We swam in the clear lake.","exvi":"Chúng tôi bơi trong hồ nước trong xanh.","exs":[{"en":"The lake looks beautiful at sunset.","vi":"Hồ trông rất đẹp lúc hoàng hôn."},{"en":"They rowed a boat on the lake.","vi":"Họ chèo thuyền trên hồ."},{"en":"The lake is frozen in winter.","vi":"Hồ đóng băng vào mùa đông."},{"en":"Ducks swim near the lake every morning.","vi":"Vịt bơi gần hồ mỗi buổi sáng."},{"en":"We camped beside the quiet lake.","vi":"Chúng tôi cắm trại bên hồ yên tĩnh."}]},{"en":"ocean","ipa":"/ˈoʊʃn/","vi":"đại dương","ex":"The ocean covers most of Earth.","exvi":"Đại dương bao phủ hầu hết Trái Đất.","exs":[{"en":"The ocean looks endless from the beach.","vi":"Đại dương trông vô tận từ bãi biển."},{"en":"Many fish live in the deep ocean.","vi":"Nhiều loài cá sống ở đại dương sâu."},{"en":"The ocean water was cold and blue.","vi":"Nước đại dương lạnh và có màu xanh."},{"en":"We watched the ocean from the ship.","vi":"Chúng tôi ngắm đại dương từ trên tàu."},{"en":"Plastic waste is damaging the ocean.","vi":"Rác thải nhựa đang gây hại cho đại dương."}]},{"en":"sea","ipa":"/siː/","vi":"biển","ex":"The sea is calm today.","exvi":"Biển hôm nay rất yên ả.","exs":[{"en":"We collected shells by the sea.","vi":"Chúng tôi nhặt vỏ sò bên bờ biển."},{"en":"The sea water feels warm in June.","vi":"Nước biển ấm vào tháng Sáu."},{"en":"The sea turned rough in the afternoon.","vi":"Biển động vào buổi chiều."},{"en":"Children love playing by the sea.","vi":"Trẻ em thích chơi bên bờ biển."},{"en":"We could see fish in the sea.","vi":"Chúng tôi có thể nhìn thấy cá dưới biển."}]},{"en":"sky","ipa":"/skaɪ/","vi":"bầu trời","ex":"The sky is full of stars tonight.","exvi":"Bầu trời đầy sao đêm nay.","exs":[{"en":"The sky turned dark before the storm.","vi":"Bầu trời tối sầm trước cơn bão."},{"en":"Kites fly high in the sky.","vi":"Diều bay cao trên bầu trời."},{"en":"The sky is clear and blue today.","vi":"Bầu trời trong và xanh hôm nay."},{"en":"A plane crossed the sky slowly.","vi":"Máy bay lướt qua bầu trời chậm chạp."},{"en":"We watched the sunset colors in the sky.","vi":"Chúng tôi ngắm những màu hoàng hôn trên bầu trời."}]},{"en":"cloud","ipa":"/klaʊd/","vi":"đám mây","ex":"Dark clouds bring rain.","exvi":"Mây đen kéo mưa đến.","exs":[{"en":"A fluffy cloud floated above us.","vi":"Một đám mây bồng bềnh bay trên đầu chúng tôi."},{"en":"The gray cloud disappeared by noon.","vi":"Đám mây xám biến mất vào buổi trưa."},{"en":"A white cloud looked like a rabbit.","vi":"Một đám mây trắng trông giống con thỏ."},{"en":"There is not a single cloud today.","vi":"Hôm nay không có lấy một đám mây."},{"en":"We watched the cloud move across the sky.","vi":"Chúng tôi nhìn đám mây trôi ngang bầu trời."}]},{"en":"rainbow","ipa":"/ˈreɪnboʊ/","vi":"cầu vồng","ex":"A rainbow appeared after the rain.","exvi":"Cầu vồng hiện lên sau cơn mưa.","exs":[{"en":"The children shouted when they saw a rainbow.","vi":"Bọn trẻ hét lên khi thấy cầu vồng."},{"en":"We took a photo of the rainbow.","vi":"Chúng tôi chụp ảnh cầu vồng."},{"en":"We saw a rainbow above the school.","vi":"Chúng tôi thấy một cầu vồng trên ngôi trường."},{"en":"My sister drew a rainbow in class.","vi":"Em gái tôi vẽ một cầu vồng ở lớp."},{"en":"There were two rainbows this morning.","vi":"Có hai cầu vồng vào sáng nay."}]},{"en":"sun","ipa":"/sʌn/","vi":"mặt trời","ex":"The sun rises in the east.","exvi":"Mặt trời mọc ở hướng đông.","exs":[{"en":"The sun is very hot at noon.","vi":"Mặt trời rất gắt vào buổi trưa."},{"en":"We watched the sun go down.","vi":"Chúng tôi ngắm mặt trời lặn."},{"en":"The sun came out after the clouds.","vi":"Mặt trời ló ra sau những đám mây."},{"en":"Put on a hat to block the sun.","vi":"Hãy đội mũ để che nắng."},{"en":"The sun sets early in winter.","vi":"Mặt trời lặn sớm vào mùa đông."}]},{"en":"moon","ipa":"/muːn/","vi":"mặt trăng","ex":"The moon glows at night.","exvi":"Mặt trăng tỏa sáng trong đêm.","exs":[{"en":"The moon looks huge tonight.","vi":"Mặt trăng trông rất lớn đêm nay."},{"en":"We walked home under the moon.","vi":"Chúng tôi đi bộ về nhà dưới ánh trăng."},{"en":"The full moon lit up the garden.","vi":"Trăng tròn chiếu sáng khu vườn."},{"en":"Children looked for the moon behind clouds.","vi":"Bọn trẻ tìm mặt trăng sau những đám mây."},{"en":"The moon is brighter than usual tonight.","vi":"Mặt trăng sáng hơn bình thường đêm nay."}]},{"en":"star","ipa":"/stɑːr/","vi":"ngôi sao","ex":"The stars sparkle in the night sky.","exvi":"Những ngôi sao lấp lánh trên bầu trời đêm.","exs":[{"en":"She made a wish on a star.","vi":"Cô ấy ước một điều với ngôi sao."},{"en":"A bright star shone above the roof.","vi":"Một ngôi sao sáng lóe trên mái nhà."},{"en":"We counted every star from the hill.","vi":"Chúng tôi đếm từng ngôi sao từ trên đồi."},{"en":"A falling star crossed the dark sky.","vi":"Một ngôi sao băng cắt ngang bầu trời đêm."},{"en":"The morning star was visible at dawn.","vi":"Ngôi sao mai có thể nhìn thấy lúc rạng đông."}]},{"en":"wind","ipa":"/wɪnd/","vi":"gió","ex":"The wind blows the leaves away.","exvi":"Gió thổi lá bay đi.","exs":[{"en":"The wind was cold this morning.","vi":"Gió lạnh vào sáng nay."},{"en":"Strong wind closed the school today.","vi":"Gió mạnh khiến trường học phải đóng cửa hôm nay."},{"en":"The wind blew my hat off.","vi":"Gió thổi bay chiếc mũ của tôi."},{"en":"We flew a kite in the wind.","vi":"Chúng tôi thả diều trong gió."},{"en":"A cold wind came from the north.","vi":"Một cơn gió lạnh thổi từ phía bắc."}]},{"en":"rain","ipa":"/reɪn/","vi":"mưa","ex":"The rain lasted all afternoon.","exvi":"Cơn mưa kéo dài cả buổi chiều.","exs":[{"en":"We canceled the game because of rain.","vi":"Chúng tôi hủy trận đấu vì mưa."},{"en":"The light rain stopped before lunch.","vi":"Trận mưa nhẹ đã tạnh trước giờ ăn trưa."},{"en":"Take an umbrella because rain is coming.","vi":"Hãy mang ô vì sắp có mưa."},{"en":"The heavy rain flooded the street.","vi":"Mưa lớn làm ngập đường phố."},{"en":"We got wet in the rain.","vi":"Chúng tôi bị ướt mưa."}]},{"en":"snow","ipa":"/snoʊ/","vi":"tuyết","ex":"The children played in the snow.","exvi":"Bọn trẻ chơi đùa trong tuyết.","exs":[{"en":"Snow covered the streets overnight.","vi":"Tuyết phủ kín đường phố qua đêm."},{"en":"The snow made the roads very slippery.","vi":"Tuyết làm cho đường trơn trượt."},{"en":"Fresh snow fell during the night.","vi":"Tuyết mới rơi trong đêm."},{"en":"We played with snow in the yard.","vi":"Chúng tôi chơi với tuyết trong sân."},{"en":"The roof disappeared under deep snow.","vi":"Mái nhà biến mất dưới lớp tuyết dày."}]},{"en":"storm","ipa":"/stɔːrm/","vi":"cơn bão","ex":"The storm damaged many houses.","exvi":"Cơn bão đã tàn phá nhiều ngôi nhà.","exs":[{"en":"We stayed inside during the storm.","vi":"Chúng tôi ở trong nhà suốt cơn bão."},{"en":"The storm passed by evening.","vi":"Cơn bão tan vào buổi tối."},{"en":"The storm knocked down several trees.","vi":"Cơn bão làm đổ vài cái cây."},{"en":"Boats returned to harbor before the storm.","vi":"Những con thuyền trở về cảng trước cơn bão."},{"en":"A big storm is coming tomorrow.","vi":"Một cơn bão lớn sẽ đến vào ngày mai."}]},{"en":"thunder","ipa":"/ˈθʌndər/","vi":"sấm","ex":"Thunder followed the lightning.","exvi":"Sấm vang lên sau tia chớp.","exs":[{"en":"The thunder woke me up at midnight.","vi":"Tiếng sấm đánh thức tôi lúc nửa đêm."},{"en":"Loud thunder scared the little dog.","vi":"Tiếng sấm to làm con chó nhỏ sợ hãi."},{"en":"We heard thunder far away.","vi":"Chúng tôi nghe thấy tiếng sấm ở xa."},{"en":"Thunder made the baby cry.","vi":"Tiếng sấm làm em bé khóc."},{"en":"After the thunder, a heavy rain fell.","vi":"Sau tiếng sấm, một trận mưa lớn đổ xuống."}]},{"en":"season","ipa":"/ˈsiːzn/","vi":"mùa","ex":"Spring is my favorite season.","exvi":"Mùa xuân là mùa tôi yêu thích.","exs":[{"en":"Rainy season lasts from May to October.","vi":"Mùa mưa kéo dài từ tháng Năm đến tháng Mười."},{"en":"Each season has its own beauty.","vi":"Mùa nào cũng có vẻ đẹp riêng."},{"en":"Dry season begins in November here.","vi":"Mùa khô bắt đầu vào tháng Mười Một ở đây."},{"en":"The holiday season starts in December.","vi":"Mùa lễ hội bắt đầu vào tháng Mười Hai."},{"en":"This is the season for fresh fruit.","vi":"Đây là mùa của trái cây tươi."}]},{"en":"spring","ipa":"/sprɪŋ/","vi":"mùa xuân","ex":"Flowers bloom in spring.","exvi":"Hoa nở vào mùa xuân.","exs":[{"en":"We plant vegetables in early spring.","vi":"Chúng tôi trồng rau vào đầu mùa xuân."},{"en":"Spring is warm and rainy here.","vi":"Mùa xuân ở đây ấm và nhiều mưa."},{"en":"Birds return in spring every year.","vi":"Chim trở về vào mùa xuân mỗi năm."},{"en":"The garden looks fresh in spring.","vi":"Khu vườn trông tươi mới vào mùa xuân."},{"en":"We went on a picnic last spring.","vi":"Chúng tôi đi dã ngoại vào mùa xuân năm ngoái."}]},{"en":"summer","ipa":"/ˈsʌmər/","vi":"mùa hè","ex":"Summer is hot and sunny.","exvi":"Mùa hè nóng và nhiều nắng.","exs":[{"en":"Many students go swimming in summer.","vi":"Nhiều học sinh đi bơi vào mùa hè."},{"en":"We visited our grandparents last summer.","vi":"Chúng tôi thăm ông bà vào mùa hè năm ngoái."},{"en":"Ice cream sells well in summer.","vi":"Kem bán chạy vào mùa hè."},{"en":"We stay indoors during the summer heat.","vi":"Chúng tôi ở trong nhà trong nắng nóng mùa hè."},{"en":"Summer holidays last two months.","vi":"Kỳ nghỉ hè kéo dài hai tháng."}]},{"en":"autumn","ipa":"/ˈɔːtəm/","vi":"mùa thu","ex":"Leaves turn yellow in autumn.","exvi":"Lá chuyển vàng vào mùa thu.","exs":[{"en":"I like autumn because the air is cool.","vi":"Tôi thích mùa thu vì không khí mát mẻ."},{"en":"The mountains look beautiful in autumn.","vi":"Những ngọn núi đẹp vào mùa thu."},{"en":"Farmers harvest rice in autumn.","vi":"Nông dân thu hoạch lúa vào mùa thu."},{"en":"Autumn brings cool winds and dry days.","vi":"Mùa thu mang đến gió mát và những ngày khô ráo."},{"en":"We drank hot tea on an autumn evening.","vi":"Chúng tôi uống trà nóng vào một buổi tối mùa thu."}]},{"en":"winter","ipa":"/ˈwɪntər/","vi":"mùa đông","ex":"Winter mornings are cold here.","exvi":"Buổi sáng mùa đông ở đây rất lạnh.","exs":[{"en":"We wear thick coats in winter.","vi":"Chúng tôi mặc áo khoác dày vào mùa đông."},{"en":"Last winter was colder than usual.","vi":"Mùa đông năm ngoái lạnh hơn bình thường."},{"en":"Hot soup keeps us warm in winter.","vi":"Súp nóng giữ ấm cho chúng tôi vào mùa đông."},{"en":"Many birds fly south before winter.","vi":"Nhiều loài chim bay về phương Nam trước mùa đông."},{"en":"The lake freezes in deep winter.","vi":"Hồ đóng băng vào giữa mùa đông."}]},{"en":"plant","ipa":"/plænt/","vi":"cây, thực vật","ex":"This plant needs a lot of sunlight.","exvi":"Cây này cần nhiều ánh nắng mặt trời.","exs":[{"en":"She watered every plant in the garden.","vi":"Cô ấy tưới tất cả các cây trong vườn."},{"en":"My mother keeps a plant in the kitchen.","vi":"Mẹ tôi nuôi một cây trong nhà bếp."},{"en":"Each plant in the greenhouse gets water.","vi":"Mỗi cây trong nhà kính đều được tưới nước."},{"en":"He bought a small plant for his desk.","vi":"Anh ấy mua một cây nhỏ cho bàn làm việc."},{"en":"This plant grows quickly in warm weather.","vi":"Cây này phát triển nhanh trong tiết trời ấm."}]},{"en":"tree","ipa":"/triː/","vi":"cái cây","ex":"The tree gives us fresh air.","exvi":"Cái cây cho chúng ta không khí trong lành.","exs":[{"en":"An old tree stands in front of our house.","vi":"Một cái cây cổ thụ đứng trước nhà chúng tôi."},{"en":"Birds built a nest in the tree.","vi":"Chim đã xây tổ trong cái cây."},{"en":"The tree lost all its leaves in autumn.","vi":"Cái cây rụng hết lá vào mùa thu."},{"en":"We planted a tree in the school yard.","vi":"Chúng tôi trồng một cái cây trong sân trường."},{"en":"A tall tree shades our patio.","vi":"Một cái cây cao che bóng cho sân thượng."}]},{"en":"flower","ipa":"/ˈflaʊər/","vi":"bông hoa","ex":"She planted roses and flowers.","exvi":"Cô ấy trồng hoa hồng và các loài hoa.","exs":[{"en":"This flower smells very sweet.","vi":"Bông hoa này thơm rất ngọt."},{"en":"He gave his mother a yellow flower.","vi":"Anh ấy tặng mẹ một bông hoa vàng."},{"en":"The flower opened this morning.","vi":"Bông hoa đã nở sáng nay."},{"en":"She wears a flower in her hair.","vi":"Cô ấy cài một bông hoa trên tóc."},{"en":"Every flower in the vase is fresh.","vi":"Mỗi bông hoa trong lọ đều tươi."}]},{"en":"grass","ipa":"/ɡræs/","vi":"cỏ","ex":"We sat on the soft grass.","exvi":"Chúng tôi ngồi trên bãi cỏ mềm.","exs":[{"en":"Do not walk on the wet grass.","vi":"Đừng đi trên bãi cỏ ướt."},{"en":"The children lay on the green grass.","vi":"Bọn trẻ nằm trên bãi cỏ xanh."},{"en":"The grass needs cutting every week.","vi":"Cỏ cần cắt mỗi tuần."},{"en":"Dew covered the grass at dawn.","vi":"Sương phủ đầy bãi cỏ lúc rạng đông."},{"en":"Our dog loves running on the grass.","vi":"Chó của tôi thích chạy trên bãi cỏ."}]},{"en":"leaf","ipa":"/liːf/","vi":"chiếc lá","ex":"A green leaf fell to the ground.","exvi":"Một chiếc lá xanh rơi xuống đất.","exs":[{"en":"She kept a dry leaf in her book.","vi":"Cô ấy giữ một chiếc lá khô trong sách."},{"en":"A yellow leaf floated on the water.","vi":"Một chiếc lá vàng trôi trên mặt nước."},{"en":"Every leaf turned red after the cold night.","vi":"Mỗi chiếc lá đều đỏ sau đêm lạnh."},{"en":"The leaf was soft and brown.","vi":"Chiếc lá mềm và có màu nâu."},{"en":"A leaf stuck to my window.","vi":"Một chiếc lá dính vào cửa sổ của tôi."}]},{"en":"root","ipa":"/ruːt/","vi":"rễ cây","ex":"The tree roots are very deep.","exvi":"Rễ của cái cây này rất sâu.","exs":[{"en":"The root of the old tree is huge.","vi":"Rễ của cây cổ thụ rất to."},{"en":"The roots spread far under the garden.","vi":"Bộ rễ lan rộng khắp dưới vườn."},{"en":"The root holds the tree upright.","vi":"Rễ giữ cho cây đứng thẳng."},{"en":"Carrots are the roots of the plant.","vi":"Cà rốt là rễ của cây."},{"en":"Strong roots protect the tree from wind.","vi":"Bộ rễ chắc giúp cây chống gió."}]},{"en":"branch","ipa":"/bræntʃ/","vi":"cành cây","ex":"A bird sat on the branch.","exvi":"Một con chim đậu trên cành cây.","exs":[{"en":"A monkey jumped from branch to branch.","vi":"Con khỉ nhảy từ cành này sang cành khác."},{"en":"The branch broke under the heavy snow.","vi":"Cành cây gãy dưới sức nặng của tuyết."},{"en":"The branch was full of small green leaves.","vi":"Cành cây đầy những chiếc lá xanh nhỏ."},{"en":"He cut the low branch with a saw.","vi":"Anh ấy cắt cành thấp bằng cưa."},{"en":"A squirrel ran along the branch.","vi":"Con sóc chạy dọc theo cành cây."}]},{"en":"animal","ipa":"/ˈænɪml/","vi":"động vật","ex":"Many animals live in the wild.","exvi":"Nhiều loài động vật sống hoang dã.","exs":[{"en":"A dog is my favorite animal.","vi":"Con chó là động vật yêu thích của tôi."},{"en":"The zoo takes care of each animal.","vi":"Sở thú chăm sóc từng con vật."},{"en":"The elephant is a huge animal.","vi":"Voi là một loài động vật to lớn."},{"en":"We learned about one animal each week.","vi":"Chúng tôi học về một loài động vật mỗi tuần."},{"en":"A rabbit is a gentle animal.","vi":"Thỏ là một loài động vật hiền lành."}]},{"en":"bird","ipa":"/bɜːrd/","vi":"con chim","ex":"Birds sing at dawn.","exvi":"Chim hót lúc rạng đông.","exs":[{"en":"We watched a bird build its nest.","vi":"Chúng tôi xem một con chim xây tổ."},{"en":"The bird flew away when I came.","vi":"Con chim bay đi khi tôi đến."},{"en":"A little bird sang outside my window.","vi":"Một con chim nhỏ hót ngoài cửa sổ."},{"en":"That bird has beautiful blue feathers.","vi":"Con chim đó có bộ lông xanh đẹp."},{"en":"We put water out for the birds.","vi":"Chúng tôi đặt nước ra cho chim."}]},{"en":"butterfly","ipa":"/ˈbʌtərflaɪ/","vi":"con bướm","ex":"The butterfly landed on a flower.","exvi":"Con bướm đậu trên một bông hoa.","exs":[{"en":"A blue butterfly flew past us.","vi":"Một con bướm xanh bay qua chỗ chúng tôi."},{"en":"The child chased a butterfly in the garden.","vi":"Đứa trẻ đuổi theo một con bướm trong vườn."},{"en":"A butterfly has colorful wings.","vi":"Con bướm có cánh nhiều màu."},{"en":"The butterfly rested on a warm stone.","vi":"Con bướm đậu trên hòn đá ấm."},{"en":"We watched a butterfly all afternoon.","vi":"Chúng tôi ngắm một con bướm suốt buổi chiều."}]},{"en":"bee","ipa":"/biː/","vi":"con ong","ex":"Bees make sweet honey.","exvi":"Ong tạo ra mật ngọt.","exs":[{"en":"A bee stung my hand yesterday.","vi":"Một con ong đã đốt tay tôi hôm qua."},{"en":"The bee flew from flower to flower.","vi":"Con ong bay từ bông hoa này sang bông hoa khác."},{"en":"A bee buzzed near my ear.","vi":"Một con ong vo ve gần tai tôi."},{"en":"Each bee has an important job.","vi":"Mỗi con ong đều có một nhiệm vụ quan trọng."},{"en":"Bees are important for farmers.","vi":"Ong rất quan trọng đối với nông dân."}]},{"en":"fish","ipa":"/fɪʃ/","vi":"con cá","ex":"Colorful fish swim in the river.","exvi":"Những con cá sặc sỡ bơi trong sông.","exs":[{"en":"We fed the fish at the pond.","vi":"Chúng tôi cho cá ăn ở ao."},{"en":"My brother catches fish on weekends.","vi":"Em trai tôi câu cá vào cuối tuần."},{"en":"This fish has sharp little teeth.","vi":"Con cá này có những chiếc răng nhỏ sắc."},{"en":"We saw many fish in the aquarium.","vi":"Chúng tôi thấy nhiều con cá trong bể cá."},{"en":"The fish jumped out of the water.","vi":"Con cá nhảy khỏi mặt nước."}]},{"en":"turtle","ipa":"/ˈtɜːrtl/","vi":"con rùa","ex":"The turtle walks very slowly.","exvi":"Con rùa bò rất chậm.","exs":[{"en":"A turtle crossed the road slowly.","vi":"Một con rùa bò qua đường chậm chạp."},{"en":"The turtle hid inside its shell.","vi":"Con rùa rụt đầu vào trong mai."},{"en":"A turtle can live for many years.","vi":"Con rùa có thể sống nhiều năm."},{"en":"The turtle swam away from the boat.","vi":"Con rùa bơi xa khỏi chiếc thuyền."},{"en":"My daughter keeps a small turtle.","vi":"Con gái tôi nuôi một con rùa nhỏ."}]},{"en":"wildlife","ipa":"/ˈwaɪldlaɪf/","vi":"động vật hoang dã","ex":"This park protects local wildlife.","exvi":"Công viên này bảo vệ động vật hoang dã địa phương.","exs":[{"en":"Photographers come here to watch wildlife.","vi":"Nhiếp ảnh gia đến đây để ngắm động vật hoang dã."},{"en":"Illegal hunting threatens the wildlife.","vi":"Săn bắt trái phép đe dọa động vật hoang dã."},{"en":"The documentary shows African wildlife.","vi":"Bộ phim tài liệu cho thấy động vật hoang dã châu Phi."},{"en":"We must save wildlife from danger.","vi":"Chúng ta phải cứu động vật hoang dã khỏi nguy hiểm."},{"en":"National parks are home to rare wildlife.","vi":"Các công viên quốc gia là nơi sống của động vật hoang dã quý hiếm."}]},{"en":"habitat","ipa":"/ˈhæbɪtæt/","vi":"môi trường sống","ex":"The forest is their natural habitat.","exvi":"Khu rừng là môi trường sống tự nhiên của chúng.","exs":[{"en":"The wetland is a habitat for many birds.","vi":"Vùng đất ngập nước là môi trường sống của nhiều loài chim."},{"en":"Pollution destroys the habitat of fish.","vi":"Ô nhiễm phá hủy môi trường sống của loài cá."},{"en":"The panda's habitat is the bamboo forest.","vi":"Môi trường sống của gấu trúc là rừng tre."},{"en":"Building roads can split an animal's habitat.","vi":"Xây dựng đường xá có thể chia cắt môi trường sống của động vật."},{"en":"Wetlands are a safe habitat for frogs.","vi":"Đất ngập nước là môi trường sống an toàn cho ếch."}]},{"en":"ecosystem","ipa":"/ˈiːkoʊsɪstəm/","vi":"hệ sinh thái","ex":"Coral reefs are a rich ecosystem.","exvi":"Rạn san hô là một hệ sinh thái phong phú.","exs":[{"en":"The pond is a small ecosystem.","vi":"Ao nước là một hệ sinh thái nhỏ."},{"en":"Cutting forests harms the whole ecosystem.","vi":"Cắt phá rừng gây hại cho toàn bộ hệ sinh thái."},{"en":"Every species plays a role in the ecosystem.","vi":"Mỗi loài đều đóng vai trò trong hệ sinh thái."},{"en":"The river ecosystem supports many kinds of fish.","vi":"Hệ sinh thái của dòng sông hỗ trợ nhiều loại cá."},{"en":"A balanced ecosystem keeps nature healthy.","vi":"Hệ sinh thái cân bằng giữ cho thiên nhiên khỏe mạnh."}]},{"en":"climate","ipa":"/ˈklaɪmət/","vi":"khí hậu","ex":"The climate here is warm and wet.","exvi":"Khí hậu ở đây nóng và ẩm.","exs":[{"en":"Vietnam has a tropical climate.","vi":"Việt Nam có khí hậu nhiệt đới."},{"en":"The climate is getting warmer every year.","vi":"Khí hậu đang ấm lên mỗi năm."},{"en":"The climate in the north is cooler.","vi":"Khí hậu ở miền Bắc mát hơn."},{"en":"Scientists study changes in the climate.","vi":"Các nhà khoa học nghiên cứu những thay đổi của khí hậu."},{"en":"Coffee grows well in this climate.","vi":"Cà phê phát triển tốt trong khí hậu này."}]},{"en":"weather","ipa":"/ˈweðər/","vi":"thời tiết","ex":"The weather changed quickly.","exvi":"Thời tiết thay đổi rất nhanh.","exs":[{"en":"Check the weather before you go hiking.","vi":"Hãy kiểm tra thời tiết trước khi đi leo núi."},{"en":"The weather was sunny all week.","vi":"Thời tiết nắng suốt cả tuần."},{"en":"The weather report says it will rain.","vi":"Dự báo thời tiết nói rằng sẽ có mưa."},{"en":"We cancelled the trip because of bad weather.","vi":"Chúng tôi hủy chuyến đi vì thời tiết xấu."},{"en":"The weather is nice for a walk today.","vi":"Thời tiết hôm nay đẹp để đi dạo."}]},{"en":"pollution","ipa":"/pəˈluːʃn/","vi":"ô nhiễm","ex":"Air pollution is a serious problem.","exvi":"Ô nhiễm không khí là một vấn đề nghiêm trọng.","exs":[{"en":"We wear masks because of pollution.","vi":"Chúng tôi đeo khẩu trang vì ô nhiễm."},{"en":"Water pollution kills many fish.","vi":"Ô nhiễm nước làm chết nhiều loài cá."},{"en":"Noise pollution disturbs people in the city.","vi":"Ô nhiễm tiếng ồn làm phiền người dân trong thành phố."},{"en":"The government is fighting pollution now.","vi":"Chính phủ đang chống ô nhiễm ngay lúc này."},{"en":"Plastic waste causes pollution in the sea.","vi":"Rác thải nhựa gây ô nhiễm ở biển."}]},{"en":"recycle","ipa":"/ˌriːˈsaɪkl/","vi":"tái chế","ex":"We should recycle paper and plastic.","exvi":"Chúng ta nên tái chế giấy và nhựa.","exs":[{"en":"Our school recycles bottles every Friday.","vi":"Trường tôi tái chế chai lọ mỗi thứ Sáu."},{"en":"You can recycle old clothes too.","vi":"Bạn cũng có thể tái chế quần áo cũ."},{"en":"It is easy to recycle glass jars.","vi":"Rất dễ tái chế các hũ thủy tinh."},{"en":"My family recycles waste every week.","vi":"Gia đình tôi tái chế rác thải mỗi tuần."},{"en":"Recycle cans to keep the park clean.","vi":"Hãy tái chế lon để giữ công viên sạch."}]},{"en":"resource","ipa":"/ˈriːsɔːrs/","vi":"tài nguyên","ex":"Forests are valuable natural resources.","exvi":"Rừng là tài nguyên thiên nhiên quý giá.","exs":[{"en":"Water is a resource we must save.","vi":"Nước là tài nguyên mà chúng ta phải tiết kiệm."},{"en":"Books are a great resource for students.","vi":"Sách là một tài nguyên tuyệt vời cho học sinh."},{"en":"The library is a useful resource.","vi":"Thư viện là một nguồn tài nguyên hữu ích."},{"en":"Oil is a limited resource on Earth.","vi":"Dầu mỏ là tài nguyên hữu hạn trên Trái Đất."},{"en":"Sunlight is a clean energy resource.","vi":"Ánh nắng mặt trời là nguồn năng lượng sạch."}]},{"en":"desert","ipa":"/ˈdezərt/","vi":"sa mạc","ex":"Few plants grow in the desert.","exvi":"Ít cây cối có thể mọc ở sa mạc.","exs":[{"en":"The desert is hot during the day.","vi":"Sa mạc rất nóng vào ban ngày."},{"en":"Camels can walk for days in the desert.","vi":"Lạc đà có thể đi nhiều ngày trong sa mạc."},{"en":"The desert is very dry at night.","vi":"Sa mạc rất khô vào ban đêm."},{"en":"We crossed the desert by camel.","vi":"Chúng tôi vượt qua sa mạc bằng lạc đà."},{"en":"Cactus stores water in the desert.","vi":"Cây xương rọng tích trữ nước trong sa mạc."}]},{"en":"hill","ipa":"/hɪl/","vi":"đồi","ex":"We walked up the green hill.","exvi":"Chúng tôi đi lên ngọn đồi xanh.","exs":[{"en":"From the hill, we saw the whole town.","vi":"Từ trên đồi, chúng tôi nhìn thấy cả thị trấn."},{"en":"Our house stands on a small hill.","vi":"Nhà chúng tôi nằm trên một ngọn đồi nhỏ."},{"en":"The hill is covered with apple trees.","vi":"Ngọn đồi được phủ đầy cây táo."},{"en":"Children sledded down the snowy hill.","vi":"Bọn trẻ trượt xe trên đồi phủ tuyết."},{"en":"A temple sits on top of the hill.","vi":"Một ngôi chùa nằm trên đỉnh đồi."}]},{"en":"cave","ipa":"/keɪv/","vi":"hang động","ex":"The cave is dark and cool.","exvi":"Hang động tối và mát mẻ.","exs":[{"en":"Tourists entered the cave with flashlights.","vi":"Những du khách cầm đèn pin đi vào hang động."},{"en":"Bats sleep in the cave during the day.","vi":"Dơi ngủ trong hang động vào ban ngày."},{"en":"We explored a cave near the village.","vi":"Chúng tôi khám phá một hang động gần làng."},{"en":"The cave was full of big stones.","vi":"Hang động đầy những tảng đá lớn."},{"en":"Ancient people once lived in the cave.","vi":"Người xưa đã từng sống trong hang động."}]},{"en":"waterfall","ipa":"/ˈwɔːtərfɔːl/","vi":"thác nước","ex":"The waterfall roars loudly.","exvi":"Thác nước gầm vang dữ dội.","exs":[{"en":"We hiked for two hours to reach the waterfall.","vi":"Chúng tôi đi bộ hai giờ để tới thác nước."},{"en":"Tourists take photos at the waterfall.","vi":"Du khách chụp ảnh ở thác nước."},{"en":"The waterfall falls into a blue pool.","vi":"Thác nước đổ xuống một vũng nước xanh."},{"en":"We swam below the waterfall.","vi":"Chúng tôi bơi dưới chân thác nước."},{"en":"A rainbow appeared near the waterfall.","vi":"Một cầu vồng xuất hiện gần thác nước."}]},{"en":"soil","ipa":"/sɔɪl/","vi":"đất trồng","ex":"Rich soil helps plants grow.","exvi":"Đất giàu dinh dưỡng giúp cây phát triển.","exs":[{"en":"Add fresh soil before planting the seeds.","vi":"Thêm đất mới trước khi gieo hạt."},{"en":"The soil here is dry and sandy.","vi":"Đất ở đây khô và nhiều cát."},{"en":"The soil feels soft and wet.","vi":"Đất trồng có cảm giác mềm và ẩm."},{"en":"Farmers add compost to the soil.","vi":"Nông dân bón phân hữu cơ vào đất trồng."},{"en":"Too much water can wash away the soil.","vi":"Quá nhiều nước có thể rửa trôi đất trồng."}]}];
+  WORDS = window.EngBeeAdminData ? window.EngBeeAdminData.apply("nature", WORDS) : WORDS;
+  var TID = "nature";
+  var TNAME = "Nature";
+  var TVI = "Thiên nhiên";
+  var GRAD = ["#56ab2f","#a8e063"];
+  var TOTAL = WORDS.length;
+  var KEY = "engbee_learned_" + (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem("engbee_user") || "null");
+      if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+    } catch (e) { /* bỏ qua */ }
+    return "guest";
+  })() + "_" + TID;
+
+  function qs(s){ return document.querySelector(s); }
+
+  var state = { view: "cards", index: 0, flipped: false };
+
+  function loadSet(){
+    try {
+      var arr = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (Array.isArray(arr)) {
+        return arr.filter(function(x){ return typeof x === "number" && x >= 0 && x < TOTAL; });
+      }
+    } catch(e){}
+    return [];
+  }
+  var learned = loadSet();
+
+  function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
+  function hasLearned(i){ return learned.indexOf(i) !== -1; }
+  function toggleLearned(i){
+    var p = learned.indexOf(i);
+    if (p === -1) learned.push(i); else learned.splice(p,1);
+    saveSet();
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
+  }
+
+  function speak(word){
+    if (!("speechSynthesis" in window) || !word) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(word);
+      u.lang = "en-US"; u.rate = 0.85; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    } catch(e){}
+  }
+
+  function cardRef(){ return qs("#flashcard"); }
+
+  function setFlip(on){
+    state.flipped = !!on;
+    var card = qs("#flashcard");
+    if (card) card.classList.toggle("flipped", state.flipped);
+  }
+
+  function renderProgress(){
+    var fill = qs("#progress-fill"), txt = qs("#progress-text");
+    var pct = TOTAL > 0 ? Math.round(learned.length / TOTAL * 100) : 0;
+    if (fill) fill.style.width = pct + "%";
+    if (txt) txt.textContent = learned.length + " / " + TOTAL;
+    var fb = qs("#topic-feedback");
+    if (fb) {
+      if (TOTAL > 0 && learned.length === TOTAL) {
+        qs("#fb-text").textContent = "Chúc mừng! Bạn đã thuộc cả " + TOTAL + " từ của chủ đề " + TNAME + ".";
+        fb.hidden = false;
+      } else { fb.hidden = true; }
+    }
+  }
+
+
+  var exPool = [], exPos = 0;
+
+  function buildExPool(w){
+    var pool = [], seen = {};
+    function add(en, vi){
+      if (!en) return;
+      var k = String(en).trim().toLowerCase();
+      if (seen[k]) return;
+      seen[k] = true;
+      pool.push({ en: en, vi: vi || "" });
+    }
+    if (w) {
+      add(w.ex, w.exvi);
+      if (Array.isArray(w.exs)) w.exs.forEach(function(s){ if (s && typeof s === "object") add(s.en, s.vi); });
+    }
+    return pool;
+  }
+
+  function showExample(p){
+    var e = exPool[p];
+    var ex = qs("#word-ex"), exvi = qs("#word-exvi");
+    if (ex) ex.textContent = e ? e.en : "";
+    if (exvi) exvi.textContent = e ? e.vi : "";
+  }
+
+  function randomExample(){
+    if (exPool.length < 2) { exPos = 0; showExample(0); return; }
+    var p;
+    do { p = Math.floor(Math.random() * exPool.length); } while (p === exPos);
+    exPos = p;
+    showExample(p);
+  }
+
+  function flipCard(){
+    if (!state.flipped) randomExample();
+    setFlip(!state.flipped);
+  }
+
+  function renderCard(){
+    if (!TOTAL || !WORDS.length) {
+      if (qs("#view-cards")) qs("#view-cards").hidden = true;
+      return;
+    }
+    if (qs("#view-cards") && state.view === "cards") qs("#view-cards").hidden = false;
+    var w = WORDS[state.index];
+    if (!w) return;
+    var en = qs("#word-en"), ipa = qs("#word-ipa"), vi = qs("#word-vi"),
+        ci = qs("#card-index");
+    if (en) en.textContent = w.en;
+    if (ipa) ipa.textContent = w.ipa || "";
+    if (vi) vi.textContent = w.vi;
+    exPool = buildExPool(w);
+    exPos = 0;
+    showExample(0);
+    if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
+    var mb = qs("#mastered-btn"), nb = qs("#not-mastered-btn");
+    if (mb) mb.classList.toggle("active", hasLearned(state.index));
+    if (nb) nb.classList.toggle("active", !hasLearned(state.index));
+    setFlip(false);
+    renderProgress();
+  }
+
+  function renderGrid(){
+    var grid = qs("#word-grid");
+    grid.innerHTML = "";
+    var q = (qs("#search-box").value || "").trim().toLowerCase();
+    var list = WORDS;
+    if (q) list = WORDS.filter(function(w){ return (w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1); });
+
+    if (!list.length) {
+      var em = document.createElement("p");
+      em.className = "empty-note";
+      em.textContent = "Không tìm thấy từ nào.";
+      grid.appendChild(em);
+      return;
+    }
+    list.forEach(function(w){
+      var pos = WORDS.indexOf(w);
+      var card = document.createElement("div");
+      card.className = "word-card" + (hasLearned(pos) ? " learned" : "");
+      card.tabIndex = 0;
+
+      var top = document.createElement("div"); top.className = "wc-top";
+      var left = document.createElement("span");
+      var e = document.createElement("span"); e.className = "wc-en"; e.textContent = w.en;
+      var i = document.createElement("span"); i.className = "wc-ipa"; i.textContent = w.ipa || "";
+      left.appendChild(e); left.appendChild(i);
+
+      var s = document.createElement("button"); s.type = "button"; s.className = "wc-speak"; s.title = "Nghe phát âm";
+      s.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+      s.addEventListener("click", function(e){ e.stopPropagation(); speak(w.en); });
+      top.appendChild(left); top.appendChild(s);
+
+      var v = document.createElement("p"); v.className = "wc-vi"; v.textContent = w.vi;
+      var ex = document.createElement("p"); ex.className = "wc-ex"; ex.textContent = w.ex || "";
+      var exv = document.createElement("p"); exv.className = "wc-exvi"; exv.textContent = w.exvi || "";
+      var mk = document.createElement("span"); mk.className = "wc-mark";
+      mk.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      card.appendChild(top); card.appendChild(v); card.appendChild(ex); card.appendChild(exv); card.appendChild(mk);
+      card.addEventListener("click", function(){ toggleLearned(pos); render(); });
+      grid.appendChild(card);
+    });
+  }
+
+  function setView(v){
+    state.view = v;
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      var a = tabs[i].dataset.view === v;
+      tabs[i].classList.toggle("active", a);
+      tabs[i].setAttribute("aria-selected", a ? "true" : "false");
+    }
+    qs("#view-cards").hidden = v !== "cards";
+    qs("#view-list").hidden = v !== "list";
+    qs("#search-box").hidden = v !== "list";
+    if (v === "list") { qs("#search-box").value = ""; renderGrid(); }
+    else { renderCard(); }
+  }
+
+  function render(){ renderCard(); if (state.view === "list") renderGrid(); }
+  function go(step){ if (!TOTAL) return; state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
+
+  function bind(){
+    var card = qs("#flashcard");
+    if (card) {
+      card.addEventListener("click", function(){ flipCard(); });
+      qs("#flip-btn").addEventListener("click", function(ev){ ev.stopPropagation(); flipCard(); });
+      qs("#speak-front").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+      qs("#speak-back").addEventListener("click", function(ev){ ev.stopPropagation(); if (WORDS[state.index]) speak(WORDS[state.index].en); });
+    }
+    qs("#prev-btn").addEventListener("click", function(){ go(-1); });
+    qs("#next-btn").addEventListener("click", function(){ go(1); });
+    qs("#mastered-btn").addEventListener("click", function(){ if (!hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#not-mastered-btn").addEventListener("click", function(){ if (hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    qs("#reset-btn").addEventListener("click", function(){
+      if (!learned.length) return;
+      if (confirm("Xóa toàn bộ tiến độ chủ đề " + TNAME + "?")){ learned = []; saveSet(); render(); }
+    });
+    var tabs = document.querySelectorAll(".view-tab");
+    for (var i = 0; i < tabs.length; i++) {
+      (function(t){ tabs[i].addEventListener("click", function(){ setView(t.dataset.view); }); })(tabs[i]);
+    }
+    qs("#search-box").addEventListener("input", renderGrid);
+    document.addEventListener("keydown", function(ev){
+      if (ev.target === qs("#search-box") || state.view !== "cards") return;
+      if (ev.key === "ArrowLeft") go(-1);
+      else if (ev.key === "ArrowRight") go(1);
+      else if (ev.key === " ") { ev.preventDefault(); flipCard(); }
+    });
+  }
+
+  bind();
+  if (window.EngBeeAdminData && window.EngBeeAdminData.initLearnPage) {
+    window.EngBeeAdminData.initLearnPage(TID, WORDS, function(newWords) {
+      WORDS = newWords;
+      TOTAL = newWords.length;
+      if (state.index >= TOTAL) state.index = Math.max(0, TOTAL - 1);
+      learned = loadSet();
+      render();
+    });
+  } else {
+    render();
+  }
+})();
+
+</script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+
+<div id="pron-overlay" class="pron-overlay" hidden>
+  <div class="pron-box" role="dialog" aria-modal="true" aria-label="Kiểm tra phát âm">
+    <div class="pron-head">
+      <h3>🎙 Kiểm tra phát âm</h3>
+      <button id="pron-close" class="pron-x" title="Đóng" aria-label="Đóng">✕</button>
+    </div>
+    <div class="pron-word">
+      <strong id="pron-word">—</strong>
+      <span id="pron-ipa"></span>
+    </div>
+    <p style="margin-top:10px"><button id="pron-sample" class="pron-btnme">🔊 Nghe mẫu</button></p>
+    <div class="pron-stage">
+      <p class="pron-status" id="pron-status">Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”.</p>
+      <p class="pron-choices" id="pron-choices"></p>
+    </div>
+    <div class="pron-bar"><span id="pron-bar"></span></div>
+    <p id="pron-verdict" class="pron-verdict"></p>
+    <div class="pron-actions">
+      <button id="pron-listen-btn" class="pron-btnme primary">🎙 Bắt đầu nói</button>
+      <button id="pron-again" class="pron-btnme">🔄 Nói lại</button>
+      <button id="pron-done" class="pron-btnme">Đóng</button>
+    </div>
+    <p class="pron-note">Bạn cần cho phép trình duyệt dùng micro. Dùng Chrome hoặc Edge để có kết quả tốt nhất.</p>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  "use strict";
+  function $_(s){return document.querySelector(s);}
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var rec = null, finalAlt = [], listening = false;
+
+  function norm(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/ +/g," ").trim(); }
+  function lev(a,b){
+    if(a===b)return 0;
+    var m=a.length,n=b.length,d=new Array(m+1);
+    for(var i=0;i<=m;i++){d[i]=new Array(n+1);d[i][0]=i;}
+    for(var j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+cost);
+    }
+    return d[m][n];
+  }
+  function matchScore(target,alt){
+    var t=norm(target),a=norm(alt);
+    if(!t||!a)return 0;
+    if(t===a)return 100;
+    if(a.split(" ").indexOf(t)>=0)return 100;
+    var sim=Math.round((1-lev(t,a)/Math.max(t.length,1))*100);
+    return sim<0?0:sim;
+  }
+  function speakWord(w){
+    try{var u=new SpeechSynthesisUtterance(w);u.lang="en-US";u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  }
+  function curWord(){
+    var el=$_("#word-en");
+    return el?el.textContent.trim():"";
+  }
+  function openPron(){
+    var w=curWord();
+    $_("#pron-word").textContent=w||"?";
+    var ipa=$_("#word-ipa");
+    $_("#pron-ipa").textContent=ipa?ipa.textContent:"";
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent=w?("Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”."):"Bạn cần ở chế độ Thẻ học để luyện phát âm từ.";
+    $_("#pron-overlay").hidden=false;
+    if(w)setTimeout(function(){speakWord(w);},300);
+  }
+  function closePron(){
+    $_("#pron-overlay").hidden=true;
+    try{if(rec)rec.stop();}catch(e){}
+    listening=false;
+  }
+  function beginListen(){
+    if(!SR){
+      $_("#pron-status").textContent="Trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome hoặc Edge.";
+      return;
+    }
+    if(listening)return;
+    listening=true;
+    finalAlt=[];
+    var btn=$_("#pron-listen-btn");
+    btn.disabled=true;
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent="🎙 Đang nghe... hãy nói to từ này.";
+    try{
+      rec=new SR();
+      rec.lang="en-US";
+      rec.interimResults=true;
+      rec.maxAlternatives=5;
+      rec.onresult=function(ev){
+        var pending="",tmp=[];
+        for(var i=ev.resultIndex;i<ev.results.length;i++){
+          var r=ev.results[i];
+          for(var k=0;k<r.length;k++){
+            if(r.isFinal)tmp.push(r[k].transcript);
+            else if(k===0)pending=r[k].transcript;
+          }
+        }
+        if(tmp.length)finalAlt=finalAlt.concat(tmp);
+        $_("#pron-choices").textContent=pending||(finalAlt.length?("Nghe thấy: "+finalAlt[0]):"");
+      };
+      rec.onerror=function(ev){
+        listening=false;btn.disabled=false;
+        $_("#pron-status").textContent="Lỗi "+ev.error+" — kiểm tra micro rồi bấm “Bắt đầu nói” lần nữa.";
+      };
+      rec.onend=function(){
+        listening=false;btn.disabled=false;
+        if(finalAlt.length)evaluate(finalAlt);
+      };
+      rec.start();
+    }catch(e){
+      listening=false;btn.disabled=false;
+      $_("#pron-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro.";
+    }
+  }
+  function evaluate(alts){
+    var w=$_("#pron-word").textContent.trim();
+    var best=0,bestText=alts[0]||"";
+    alts.forEach(function(a){
+      var s=matchScore(w,a);
+      if(s>best){best=s;bestText=a;}
+    });
+    $_("#pron-choices").textContent="Nghe thấy: “"+bestText+"”";
+    $_("#pron-bar").style.width=best+"%";
+    var v=$_("#pron-verdict");
+    if(best>=90){v.className="pron-verdict good";v.textContent="Chuẩn rồi! Phát âm rất tốt ("+best+"%).";}
+    else if(best>=75){v.className="pron-verdict ok";v.textContent="Gần chuẩn rồi, chú ý phát âm đuôi từ ("+best+"%).";}
+    else if(best>=40){v.className="pron-verdict bad";v.textContent="Còn lệch, nghe mẫu rồi nói chậm lại ("+best+"%).";}
+    else{v.className="pron-verdict bad";v.textContent="Chưa chuẩn, hãy thử lại theo mẫu ("+best+"%).";}
+    $_("#pron-status").textContent="Bấm “Nói lại” để phát âm thêm lần nữa.";
+  }
+  function wirePron(){
+    var b=$_("#pron-btn");
+    if(!b)return;
+    b.addEventListener("click",openPron);
+    $_("#pron-close").addEventListener("click",closePron);
+    $_("#pron-done").addEventListener("click",closePron);
+    $_("#pron-sample").addEventListener("click",function(){speakWord($_("#pron-word").textContent);});
+    $_("#pron-listen-btn").addEventListener("click",beginListen);
+    $_("#pron-again").addEventListener("click",function(){
+      try{if(rec)rec.stop();}catch(e){}
+      finalAlt=[];
+      beginListen();
+    });
+    $_("#pron-overlay").addEventListener("click",function(ev){
+      if(ev.target===this)closePron();
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wirePron);
+  else wirePron();
+})();
+</script>
+
+</body>
+</html>
