@@ -65,15 +65,13 @@ const el = {
   // modal từ
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
   inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"),
-  inputEx: $("inputEx"), inputExVi: $("inputExVi"), inputTopic: $("inputTopic"),
-  inputPronHint: $("inputPronHint"),
   inputEx0En: $("inputEx0En"), inputEx0Vi: $("inputEx0Vi"),
   inputEx1En: $("inputEx1En"), inputEx1Vi: $("inputEx1Vi"),
   inputEx2En: $("inputEx2En"), inputEx2Vi: $("inputEx2Vi"),
   inputEx3En: $("inputEx3En"), inputEx3Vi: $("inputEx3Vi"),
   inputEx4En: $("inputEx4En"), inputEx4Vi: $("inputEx4Vi"),
-  errorEn: $("errorEn"), errorVi: $("errorVi"), errorIpa: $("errorIpa"),
-  errorEx: $("errorEx"), errorExVi: $("errorExVi"), errorTopicField: $("errorTopicField"),
+  errorEn: $("errorEn"), errorVi: $("errorVi"),   errorIpa: $("errorIpa"),
+  errorTopicField: $("errorTopicField"),
   // modal chủ đề
   topicModal: $("topicModal"), topicModalTitle: $("topicModalTitle"), topicForm: $("topicForm"),
   inputTopicMode: $("inputTopicMode"), inputTopicOriginalId: $("inputTopicOriginalId"),
@@ -867,10 +865,10 @@ function showFieldError(input, box, message) {
 }
 
 function clearFormErrors() {
-  [el.errorEn, el.errorVi, el.errorIpa, el.errorEx, el.errorExVi, el.errorTopicField].forEach(function (b) {
+  [el.errorEn, el.errorVi, el.errorIpa, el.errorTopicField].forEach(function (b) {
     if (b) { b.textContent = ""; b.classList.remove("is-show"); }
   });
-  [el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopic].forEach(function (i) {
+  [el.inputEn, el.inputVi, el.inputIpa, el.inputTopic].forEach(function (i) {
     if (i) i.classList.remove("is-error");
   });
 }
@@ -912,7 +910,6 @@ function openWordModal(mode, key) {
     el.inputEn.value = word.en;
     el.inputVi.value = word.vi;
     el.inputIpa.value = word.ipa || "";
-    el.inputPronHint.value = word.pronHint || "";
     el.inputTopic.value = word.topicId;
 // exs
     if (el.inputEx0En) el.inputEx0En.value = (word.exs && word.exs[0] && word.exs[0].en) ? word.exs[0].en : "";
@@ -1259,9 +1256,6 @@ function fillExamplesIfEmpty(en, vi, topicId) {
   else if (!/[\u00C0-\u1FFF]/.test(vi)) errors.push({ input: el.inputVi, box: el.errorVi, msg: "Nghĩa phải có chữ tiếng Việt có dấu." });
 
   if (ipa !== "" && ipa.length > 60) errors.push({ input: el.inputIpa, box: el.errorIpa, msg: "Phiên âm không quá 60 ký tự." });
-  if (ex !== "" && ex.length > 160) errors.push({ input: el.inputEx, box: el.errorEx, msg: "Ví dụ không quá 160 ký tự." });
-  if (exVi !== "" && exVi.length > 160) errors.push({ input: el.inputExVi, box: el.errorExVi, msg: "Dịch ví dụ không quá 160 ký tự." });
-
   if (topic === "") errors.push({ input: el.inputTopic, box: el.errorTopicField, msg: "Vui lòng chọn chủ đề." });
 
   return errors;
@@ -1277,7 +1271,6 @@ clearFormErrors();
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const pronHint = (el.inputPronHint && el.inputPronHint.value.trim()) || "";
   const topic = el.inputTopic.value;
   const key = wordKey(en);
 
@@ -1298,7 +1291,7 @@ clearFormErrors();
     // Thêm mới: lưu vào danh sách từ riêng của chủ đề
     const added = getAdded();
     if (!Array.isArray(added[topic])) added[topic] = [];
-      added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, pronHint: pronHint, ex: '', exvi: '', exs: exsArrSave.slice() });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: '', exvi: '', exs: exsArrSave.slice() });
     writeStore(KEY_ADDED, added);
 
     // Nếu từ này từng bị xóa trước đó thì gỡ khỏi danh sách đã xóa
@@ -1321,7 +1314,6 @@ clearFormErrors();
         en: en,
         vi: vi,
         ipa: ipa,
-        pronHint: pronHint,
         ex: '',
         exvi: '',
         exs: exsArrSave.slice()
@@ -1352,14 +1344,13 @@ clearFormErrors();
         foundWord.ipa = ipa;
 foundWord.ex = '';
 foundWord.exvi = '';
-foundWord.pronHint = pronHint;
 foundWord.exs = exsArrSave.slice();
         const targetTopic = topic || oldTopicId || "food";
         if (!Array.isArray(added[targetTopic])) added[targetTopic] = [];
         added[targetTopic].push(foundWord);
       } else {
         if (!Array.isArray(added[topic])) added[topic] = [];
-added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, pronHint: pronHint, ex: '', exvi: '', exs: exsArrSave.slice() });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: '', exvi: '', exs: exsArrSave.slice() });
       }
       writeStore(KEY_ADDED, added);
     }
@@ -1951,7 +1942,7 @@ el.wordForm.addEventListener("submit", handleWordSubmit);
 if (el.topicForm) el.topicForm.addEventListener("submit", handleTopicSubmit);
 
 // Gỡ lỗi khi người dùng đang gõ
-[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
+[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
   if (input) input.addEventListener("input", function () { input.classList.remove("is-error"); });
 });
 
