@@ -57,17 +57,21 @@ const el = {
   // người học
   userBody: $("userBody"), userEmpty: $("userEmpty"),
   // kết quả
-  resultBody: $("resultBody"), resultEmpty: $("resultEmpty"), btnClearResults: $("btnClearResults"),
+  resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
-  importFile: $("importFile"), btnClearUserData: $("btnClearUserData"), btnResetAll: $("btnResetAll"),
+  importFile: $("importFile"), btnResetAll: $("btnResetAll"),
   infoSession: $("infoSession"),
   // modal từ
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
-  inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"),
-  inputEx: $("inputEx"), inputExVi: $("inputExVi"), inputTopic: $("inputTopic"),
-  errorEn: $("errorEn"), errorVi: $("errorVi"), errorIpa: $("errorIpa"),
-  errorEx: $("errorEx"), errorExVi: $("errorExVi"), errorTopicField: $("errorTopicField"),
+  inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"), inputTopic: $("inputTopic"),
+  inputEx0En: $("inputEx0En"), inputEx0Vi: $("inputEx0Vi"),
+  inputEx1En: $("inputEx1En"), inputEx1Vi: $("inputEx1Vi"),
+  inputEx2En: $("inputEx2En"), inputEx2Vi: $("inputEx2Vi"),
+  inputEx3En: $("inputEx3En"), inputEx3Vi: $("inputEx3Vi"),
+  inputEx4En: $("inputEx4En"), inputEx4Vi: $("inputEx4Vi"),
+  errorEn: $("errorEn"), errorVi: $("errorVi"),   errorIpa: $("errorIpa"),
+  errorTopicField: $("errorTopicField"),
   // modal chủ đề
   topicModal: $("topicModal"), topicModalTitle: $("topicModalTitle"), topicForm: $("topicForm"),
   inputTopicMode: $("inputTopicMode"), inputTopicOriginalId: $("inputTopicOriginalId"),
@@ -90,7 +94,7 @@ const VIEW_ORDER = ["dashboard", "words", "topics", "users", "results", "setting
 const VIEW_INFO = {
   dashboard: ["Tổng quan", "Nhìn toàn cảnh hoạt động của website EngBee"],
   words: ["Quản lý từ vựng", "Thêm, sửa, xóa từ vựng của các chủ đề"],
-  topics: ["Quản lý chủ đề", "Bật hoặc tắt chủ đề, thêm chủ đề mới cho người học"],
+  topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
   settings: ["Cài đặt & bảo trì", "Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này"]
@@ -688,10 +692,7 @@ function renderTopics() {
             '</div>' +
           '</div>'
         ) : '') +
-        '<div class="topic-admin-card__toggle"><span>' + (isOff ? "Đang tắt" : "Đang bật") + "</span>" +
-          '<label class="switch"><input type="checkbox" data-act="toggle" data-topic="' + t.id + '"' + (isOff ? "" : " checked") + ">" +
-          '<span class="switch__slider"></span></label>' +
-        "</div>" +
+        '<div class="topic-admin-card__toggle"></div>' +
       "</div>";
 
     el.topicGrid.appendChild(card);
@@ -813,10 +814,7 @@ function renderUsers() {
       "<td><b>" + esc(u.name) + "</b></td>" +
       "<td>" + fmt(u.learned) + "</td>" +
       "<td>" + (u.best ? u.best + "/10" : "-") + "</td>" +
-      "<td>" + u.topics + "</td>" +
-      '<td class="td-action"><div class="row-actions">' +
-        '<button class="btn-delete" data-act="clear-user" data-user="' + esc(u.name) + '">Xóa tiến độ</button>' +
-      "</div></td>";
+      "<td>" + u.topics + "</td>";
     el.userBody.appendChild(tr);
   });
 }
@@ -867,11 +865,11 @@ function showFieldError(input, box, message) {
 }
 
 function clearFormErrors() {
-  [el.errorEn, el.errorVi, el.errorIpa, el.errorEx, el.errorExVi, el.errorTopicField].forEach(function (b) {
-    b.textContent = ""; b.classList.remove("is-show");
+  [el.errorEn, el.errorVi, el.errorIpa, el.errorTopicField].forEach(function (b) {
+    if (b) { b.textContent = ""; b.classList.remove("is-show"); }
   });
-  [el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopic].forEach(function (i) {
-    i.classList.remove("is-error");
+  [el.inputEn, el.inputVi, el.inputIpa, el.inputTopic].forEach(function (i) {
+    if (i) i.classList.remove("is-error");
   });
 }
 
@@ -912,9 +910,18 @@ function openWordModal(mode, key) {
     el.inputEn.value = word.en;
     el.inputVi.value = word.vi;
     el.inputIpa.value = word.ipa || "";
-    el.inputEx.value = word.ex || "";
-    el.inputExVi.value = word.exvi || "";
     el.inputTopic.value = word.topicId;
+// exs
+    if (el.inputEx0En) el.inputEx0En.value = (word.exs && word.exs[0] && word.exs[0].en) ? word.exs[0].en : "";
+    if (el.inputEx0Vi) el.inputEx0Vi.value = (word.exs && word.exs[0] && word.exs[0].vi) ? word.exs[0].vi : "";
+    if (el.inputEx1En) el.inputEx1En.value = (word.exs && word.exs[1] && word.exs[1].en) ? word.exs[1].en : "";
+    if (el.inputEx1Vi) el.inputEx1Vi.value = (word.exs && word.exs[1] && word.exs[1].vi) ? word.exs[1].vi : "";
+    if (el.inputEx2En) el.inputEx2En.value = (word.exs && word.exs[2] && word.exs[2].en) ? word.exs[2].en : "";
+    if (el.inputEx2Vi) el.inputEx2Vi.value = (word.exs && word.exs[2] && word.exs[2].vi) ? word.exs[2].vi : "";
+    if (el.inputEx3En) el.inputEx3En.value = (word.exs && word.exs[3] && word.exs[3].en) ? word.exs[3].en : "";
+    if (el.inputEx3Vi) el.inputEx3Vi.value = (word.exs && word.exs[3] && word.exs[3].vi) ? word.exs[3].vi : "";
+    if (el.inputEx4En) el.inputEx4En.value = (word.exs && word.exs[4] && word.exs[4].en) ? word.exs[4].en : "";
+    if (el.inputEx4Vi) el.inputEx4Vi.value = (word.exs && word.exs[4] && word.exs[4].vi) ? word.exs[4].vi : "";
     el.inputEn.disabled = true;  // không cho đổi khoá từ khi sửa
   } else {
     el.wordModalTitle.textContent = "Thêm từ mới";
@@ -940,12 +947,292 @@ function findWordAnywhere(key) {
 }
 
 // Kiểm tra dữ liệu trước khi lưu
-function validateWord() {
+function getTopicKey(tid) {
+  if (!tid) return "general";
+  var t = String(tid).toLowerCase();
+  if (t === "all") return "general";
+  if (t.indexOf("food") !== -1 || t.indexOf("fruit") !== -1 || t.indexOf("veget") !== -1 || t.indexOf("drink") !== -1 || t.indexOf("meal") !== -1) return "food";
+  if (t.indexOf("animal") !== -1 || t.indexOf("pet") !== -1 || t.indexOf("wild") !== -1 || t.indexOf("insect") !== -1) return "animals";
+  if (t.indexOf("travel") !== -1 || t.indexOf("tour") !== -1 || t.indexOf("place") !== -1 || t.indexOf("city") !== -1 || t.indexOf("country") !== -1) return "travel";
+  if (t.indexOf("transp") !== -1 || t.indexOf("vehicle") !== -1 || t.indexOf("car") !== -1 || t.indexOf("bus") !== -1 || t.indexOf("train") !== -1 || t.indexOf("plane") !== -1) return "transport";
+  if (t.indexOf("job") !== -1 || t.indexOf("work") !== -1 || t.indexOf("prof") !== -1 || t.indexOf("career") !== -1) return "jobs";
+  if (t.indexOf("school") !== -1 || t.indexOf("study") !== -1 || t.indexOf("class") !== -1 || t.indexOf("lesson") !== -1 || t.indexOf("educ") !== -1) return "school";
+  if (t.indexOf("home") !== -1 || t.indexOf("house") !== -1 || t.indexOf("room") !== -1 || t.indexOf("furn") !== -1) return "home";
+  if (t.indexOf("cloth") !== -1 || t.indexOf("wear") !== -1 || t.indexOf("dress") !== -1 || t.indexOf("shirt") !== -1) return "clothes";
+  if (t.indexOf("body") !== -1 || t.indexOf("health") !== -1 || t.indexOf("part") !== -1) return "body";
+  if (t.indexOf("nature") !== -1 || t.indexOf("weather") !== -1 || t.indexOf("plant") !== -1 || t.indexOf("tree") !== -1 || t.indexOf("sea") !== -1) return "nature";
+  if (t.indexOf("color") !== -1) return "colors";
+  if (t.indexOf("number") !== -1) return "numbers";
+  if (t.indexOf("time") !== -1 || t.indexOf("day") !== -1 || t.indexOf("month") !== -1) return "time";
+  if (t.indexOf("sport") !== -1 || t.indexOf("game") !== -1 || t.indexOf("play") !== -1) return "sports";
+  return "general";
+}
+
+function generateExamples(en, vi, topicId) {
+  var base = (en || '').replace(/[^a-zA-Z0-9 \-']+/g, '').trim().toLowerCase();
+  var vb = (vi || '').trim();
+  if (!base || !vb) {
+    var a = [];
+    for (var i = 0; i < 5; i++) a.push({ en: '', vi: '' });
+    return a;
+  }
+  var tk = getTopicKey(topicId);
+  var enTpl, viTpl;
+  if (tk === "food") {
+    enTpl = [
+      'I like to eat ' + base + ' every day.',
+      'She is cooking ' + base + ' for dinner.',
+      'We bought some fresh ' + base + ' at the market.',
+      'This ' + base + ' tastes really delicious.',
+      'Do you want to try this ' + base + '?'
+    ];
+    viTpl = [
+      'Tôi thích ăn ' + vb + ' mỗi ngày.',
+      'Cô ấy đang nấu ' + vb + ' cho bữa tối.',
+      'Chúng tôi đã mua ' + vb + ' tươi ở chợ.',
+      vb + ' này có vị rất ngon.',
+      'Bạn có muốn thử ' + vb + ' này không?'
+    ];
+  } else if (tk === "animals") {
+    enTpl = [
+      'I saw a ' + base + ' in the park today.',
+      'That ' + base + ' looks very friendly.',
+      'A baby ' + base + ' is playing with its mother.',
+      'This ' + base + ' lives in the forest.',
+      'We learned about a ' + base + ' in class today.'
+    ];
+    viTpl = [
+      'Hôm nay tôi thấy một con ' + vb + ' ở công viên.',
+      'Con ' + vb + ' đó trông rất thân thiện.',
+      'Một con ' + vb + ' con đang chơi với mẹ nó.',
+      'Con ' + vb + ' này sống trong rừng.',
+      'Hôm nay chúng tôi học về ' + vb + ' trong lớp.'
+    ];
+  } else if (tk === "travel") {
+    enTpl = [
+      'I want to visit a place famous for ' + base + '.',
+      'We took a lot of photos of ' + base + ' on our trip.',
+      'Many tourists come to see ' + base + ' every year.',
+      'I read about ' + base + ' in a travel guide.',
+      'It would be amazing to explore ' + base + '.'
+    ];
+    viTpl = [
+      'Tôi muốn đến thăm một nơi nổi tiếng với ' + vb + '.',
+      'Chúng tôi đã chụp rất nhiều ảnh về ' + vb + ' trong chuyến đi.',
+      'Nhiều du khách đến xem ' + vb + ' mỗi năm.',
+      'Tôi đã đọc về ' + vb + ' trong một cuốn sách du lịch.',
+      'Sẽ thật tuyệt vời nếu được khám phá ' + vb + '.'
+    ];
+  } else if (tk === "transport") {
+    enTpl = [
+      'I take a ' + base + ' to get to school every day.',
+      'This ' + base + ' is very fast and comfortable.',
+      'We waited for the ' + base + ' at the station.',
+      'A new ' + base + ' just arrived at the stop.',
+      'Is there a ' + base + ' going to the city center?'
+    ];
+    viTpl = [
+      'Tôi đi ' + vb + ' đến trường mỗi ngày.',
+      vb + ' này rất nhanh và thoải mái.',
+      'Chúng tôi đã đợi ' + vb + ' ở bến xe/ga.',
+      'Một chiếc ' + vb + ' mới vừa đến trạm.',
+      'Có ' + vb + ' nào đi đến trung tâm thành phố không?'
+    ];
+  } else if (tk === "jobs") {
+    enTpl = [
+      'My dream is to become a ' + base + '.',
+      'A good ' + base + ' must be very patient.',
+      'She works as a ' + base + ' in a big company.',
+      'I want to learn more about being a ' + base + '.',
+      'That ' + base + ' helps many people every day.'
+    ];
+    viTpl = [
+      'Ước mơ của tôi là trở thành một ' + vb + '.',
+      'Một ' + vb + ' giỏi phải rất kiên nhẫn.',
+      'Cô ấy làm ' + vb + ' tại một công ty lớn.',
+      'Tôi muốn học thêm về công việc của một ' + vb + '.',
+      vb + ' đó giúp đỡ rất nhiều người mỗi ngày.'
+    ];
+  } else if (tk === "school") {
+    enTpl = [
+      'We use a ' + base + ' in our English class.',
+      'I need to bring my ' + base + ' to school tomorrow.',
+      'The teacher explained the ' + base + ' very clearly.',
+      'We practiced this ' + base + ' in our lesson today.',
+      'Can I borrow your ' + base + ' for a minute?'
+    ];
+    viTpl = [
+      'Chúng tôi sử dụng ' + vb + ' trong giờ học tiếng Anh.',
+      'Ngày mai tôi cần mang ' + vb + ' đến trường.',
+      'Giáo viên đã giải thích ' + vb + ' rất rõ ràng.',
+      'Hôm nay chúng tôi đã luyện tập về ' + vb + '.',
+      'Tôi có thể mượn ' + vb + ' của bạn một chút không?'
+    ];
+  } else if (tk === "home") {
+    enTpl = [
+      'We have a nice ' + base + ' in our living room.',
+      'I put my keys on the ' + base + '.',
+      'This ' + base + ' makes our house look beautiful.',
+      'My family bought a new ' + base + ' last week.',
+      'I cleaned the ' + base + ' this morning.'
+    ];
+    viTpl = [
+      'Gia đình chúng tôi có một ' + vb + ' đẹp trong phòng khách.',
+      'Tôi để chìa khóa lên ' + vb + '.',
+      vb + ' này làm cho ngôi nhà của chúng tôi trông đẹp hơn.',
+      'Gia đình tôi đã mua một ' + vb + ' mới tuần trước.',
+      'Sáng nay tôi đã dọn dẹp ' + vb + '.'
+    ];
+  } else if (tk === "clothes") {
+    enTpl = [
+      'I bought a new ' + base + ' yesterday.',
+      'This ' + base + ' fits me very well.',
+      'She is wearing a blue ' + base + ' today.',
+      'I need to wash my ' + base + ' this weekend.',
+      'That ' + base + ' looks great on you.'
+    ];
+    viTpl = [
+      'Hôm qua tôi đã mua một chiếc ' + vb + ' mới.',
+      'Chiếc ' + vb + ' này vừa vặn với tôi rất tốt.',
+      'Hôm nay cô ấy đang mặc một chiếc ' + vb + ' màu xanh.',
+      'Cuối tuần này tôi cần giặt ' + vb + ' của mình.',
+      'Chiếc ' + vb + ' đó trông rất đẹp trên bạn.'
+    ];
+  } else if (tk === "body") {
+    enTpl = [
+      'I hurt my ' + base + ' while playing sports.',
+      'We use our ' + base + ' to see things around us.',
+      'My ' + base + ' feels tired after a long day.',
+      'It is important to take care of your ' + base + '.',
+      'He moved his ' + base + ' very quickly.'
+    ];
+    viTpl = [
+      'Tôi đã bị đau ' + vb + ' khi chơi thể thao.',
+      'Chúng ta dùng ' + vb + ' để nhìn thấy mọi thứ xung quanh.',
+      vb + ' của tôi cảm thấy mệt mỏi sau một ngày dài.',
+      'Việc chăm sóc ' + vb + ' của mình rất quan trọng.',
+      'Anh ấy đã di chuyển ' + vb + ' rất nhanh.'
+    ];
+  } else if (tk === "nature") {
+    enTpl = [
+      'We saw a beautiful ' + base + ' on our hike.',
+      'This ' + base + ' grows very well in the forest.',
+      'The ' + base + ' looks amazing in the morning light.',
+      'Many animals live near this ' + base + '.',
+      'I love to take pictures of a ' + base + '.'
+    ];
+    viTpl = [
+      'Chúng tôi đã thấy một ' + vb + ' rất đẹp trong chuyến đi bộ đường dài.',
+      vb + ' này phát triển rất tốt trong rừng.',
+      vb + ' trông thật tuyệt vời dưới ánh sáng ban mai.',
+      'Nhiều loài động vật sống gần ' + vb + ' này.',
+      'Tôi rất thích chụp ảnh về ' + vb + '.'
+    ];
+  } else if (tk === "colors") {
+    enTpl = [
+      'I really like the color ' + base + '.',
+      'She painted her room ' + base + '.',
+      'This ' + base + ' shirt looks very nice on him.',
+      'The sky turned a beautiful ' + base + ' this evening.',
+      'My favorite color is ' + base + '.'
+    ];
+    viTpl = [
+      'Tôi rất thích màu ' + vb + '.',
+      'Cô ấy đã sơn phòng của mình màu ' + vb + '.',
+      'Chiếc áo màu ' + vb + ' này trông rất đẹp trên anh ấy.',
+      'Buổi tối hôm nay bầu trời chuyển sang một màu ' + vb + ' rất đẹp.',
+      'Màu sắc yêu thích của tôi là màu ' + vb + '.'
+    ];
+  } else if (tk === "numbers") {
+    enTpl = [
+      'I have ' + base + ' apples in my bag.',
+      'There are ' + base + ' students in our class.',
+      'It costs ' + base + ' dollars.',
+      'We need to count to ' + base + '.',
+      'He can run ' + base + ' laps around the field.'
+    ];
+    viTpl = [
+      'Tôi có ' + vb + ' quả táo trong túi.',
+      'Có ' + vb + ' học sinh trong lớp chúng tôi.',
+      'Nó có giá ' + vb + ' đô la.',
+      'Chúng ta cần đếm đến ' + vb + '.',
+      'Anh ấy có thể chạy ' + vb + ' vòng quanh sân.'
+    ];
+  } else if (tk === "time") {
+    enTpl = [
+      'We meet at ' + base + ' every morning.',
+      'I usually wake up at ' + base + '.',
+      'This event happens on ' + base + '.',
+      'It takes about ' + base + ' to finish this work.',
+      'Let’s plan to meet around ' + base + '.'
+    ];
+    viTpl = [
+      'Chúng tôi gặp nhau lúc ' + vb + ' mỗi sáng.',
+      'Tôi thường thức dậy vào lúc ' + vb + '.',
+      'Sự kiện này diễn ra vào ' + vb + '.',
+      'Mất khoảng ' + vb + ' để hoàn thành công việc này.',
+      'Hãy cùng lên kế hoạch gặp nhau khoảng ' + vb + '.'
+    ];
+  } else if (tk === "sports") {
+    enTpl = [
+      'I like to play ' + base + ' with my friends.',
+      'We watch ' + base + ' on TV every weekend.',
+      'He is really good at ' + base + '.',
+      'Learning ' + base + ' helps me stay healthy.',
+      'Our school has a ' + base + ' team this year.'
+    ];
+    viTpl = [
+      'Tôi thích chơi ' + vb + ' với bạn bè.',
+      'Chúng tôi xem ' + vb + ' trên TV mỗi cuối tuần.',
+      'Anh ấy rất giỏi chơi ' + vb + '.',
+      'Chơi ' + vb + ' giúp tôi giữ gìn sức khỏe.',
+      'Năm nay trường chúng tôi có đội ' + vb + '.'
+    ];
+  } else {
+    enTpl = [
+      'I saw a ' + base + ' today.',
+      'She bought a new ' + base + '.',
+      'We need a ' + base + ' for our class.',
+      'This ' + base + ' is very useful.',
+      'Can you find a good ' + base + '?'
+    ];
+    viTpl = [
+      'Hôm nay tôi thấy một ' + vb + '.',
+      'Cô ấy đã mua một ' + vb + ' mới.',
+      'Chúng tôi cần một ' + vb + ' cho lớp học.',
+      vb + ' này rất hữu ích.',
+      'Bạn có thể tìm một ' + vb + ' tốt không?'
+    ];
+  }
+  var out = [];
+  for (var j = 0; j < 5; j++) out.push({ en: enTpl[j], vi: viTpl[j] });
+  return out;
+}
+
+function fillExamplesIfEmpty(en, vi, topicId) {
+  for (var i = 0; i < 5; i++) {
+    var enEl = el['inputEx' + i + 'En'];
+    var viEl = el['inputEx' + i + 'Vi'];
+    if (enEl && viEl && !enEl.value.trim() && !viEl.value.trim()) {
+      var g = generateExamples(en, vi, topicId);
+      if (g && g[i]) {
+        enEl.value = g[i].en;
+        viEl.value = g[i].vi;
+      }
+    }
+  }
+}
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
+  const topic = el.inputTopic.value;
+  const key = wordKey(en);
+  const errors = [];
+  
+  function validateWord() {
+  const en = el.inputEn.value.trim();
+  const vi = el.inputVi.value.trim();
+  const ipa = el.inputIpa.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
   const errors = [];
@@ -965,9 +1252,6 @@ function validateWord() {
   else if (!/[\u00C0-\u1FFF]/.test(vi)) errors.push({ input: el.inputVi, box: el.errorVi, msg: "Nghĩa phải có chữ tiếng Việt có dấu." });
 
   if (ipa !== "" && ipa.length > 60) errors.push({ input: el.inputIpa, box: el.errorIpa, msg: "Phiên âm không quá 60 ký tự." });
-  if (ex !== "" && ex.length > 160) errors.push({ input: el.inputEx, box: el.errorEx, msg: "Ví dụ không quá 160 ký tự." });
-  if (exVi !== "" && exVi.length > 160) errors.push({ input: el.inputExVi, box: el.errorExVi, msg: "Dịch ví dụ không quá 160 ký tự." });
-
   if (topic === "") errors.push({ input: el.inputTopic, box: el.errorTopicField, msg: "Vui lòng chọn chủ đề." });
 
   return errors;
@@ -977,27 +1261,33 @@ function handleWordSubmit(event) {
   event.preventDefault();
   if (!requireAdmin()) return;
 
-  clearFormErrors();
-  const errors = validateWord();
-  if (errors.length) {
-    errors.forEach(function (e) { showFieldError(e.input, e.box, e.msg); });
-    errors[0].input.focus();
-    return;
-  }
+clearFormErrors();
+  fillExamplesIfEmpty(en, vi, topic);
 
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
+
+  // build exs for save
+  function getExSave(i){
+    const en2 = (el['inputEx'+i+'En'] && el['inputEx'+i+'En'].value || '').trim();
+    const vi2 = (el['inputEx'+i+'Vi'] && el['inputEx'+i+'Vi'].value || '').trim();
+    if(!en2 && !vi2) return null;
+    return {en:en2, vi:vi2};
+  }
+  const exsArrSave = [];
+  for(let i=0;i<5;i++){ const e=getExSave(i); if(e) exsArrSave.push(e); }
+  // if any empty among saved, try to fill with generated samples? no, keep user input; but requirement says "AI tự thêm ví dụ vào admin" — maybe auto-fill when fields empty
+  while(exsArrSave.length<5) exsArrSave.push({en:'', vi:''});
+  exsArrSave.length=5;
 
   if (editingKey === "") {
     // Thêm mới: lưu vào danh sách từ riêng của chủ đề
     const added = getAdded();
     if (!Array.isArray(added[topic])) added[topic] = [];
-    added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: '', exvi: '', exs: exsArrSave.slice() });
     writeStore(KEY_ADDED, added);
 
     // Nếu từ này từng bị xóa trước đó thì gỡ khỏi danh sách đã xóa
@@ -1020,8 +1310,9 @@ function handleWordSubmit(event) {
         en: en,
         vi: vi,
         ipa: ipa,
-        ex: ex,
-        exvi: exVi
+        ex: '',
+        exvi: '',
+        exs: exsArrSave.slice()
       };
       writeStore(KEY_EDITED, edited);
     } else {
@@ -1047,14 +1338,15 @@ function handleWordSubmit(event) {
         foundWord.en = en;
         foundWord.vi = vi;
         foundWord.ipa = ipa;
-        foundWord.ex = ex;
-        foundWord.exvi = exVi;
+foundWord.ex = '';
+foundWord.exvi = '';
+foundWord.exs = exsArrSave.slice();
         const targetTopic = topic || oldTopicId || "food";
         if (!Array.isArray(added[targetTopic])) added[targetTopic] = [];
         added[targetTopic].push(foundWord);
       } else {
         if (!Array.isArray(added[topic])) added[topic] = [];
-        added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: '', exvi: '', exs: exsArrSave.slice() });
       }
       writeStore(KEY_ADDED, added);
     }
@@ -1266,7 +1558,7 @@ function deleteWord(key) {
 function resetWords() {
   askConfirm(
     "Khôi phục từ vựng gốc",
-    "Xóa toàn bộ từ đã thêm, sửa, xóa và bật lại các chủ đề đang tắt?",
+    "Xóa toàn bộ từ đã thêm, sửa, xóa và đưa hệ thống về dữ liệu gốc?",
     "Từ vựng sẽ trở về đúng dữ liệu ban đầu của website.",
     function () {
       [KEY_EDITED, KEY_ADDED, KEY_REMOVED, KEY_HIDDEN].forEach(removeStore);
@@ -1621,20 +1913,16 @@ if (el.inputTopicName && el.inputTopicId) {
 }
 
 // Người học: xóa tiến độ
-el.userBody.addEventListener("click", function (event) {
-  const btn = event.target.closest("button");
-  if (btn && btn.getAttribute("data-act") === "clear-user") clearUserProgress(btn.getAttribute("data-user"));
-});
+// (đã loại bỏ chức năng xóa tiến độ người học theo yêu cầu)
 
 // Kết quả quiz
-el.btnClearResults.addEventListener("click", clearAllResults);
+// (đã loại bỏ chức năng xóa toàn bộ kết quả theo yêu cầu)
 
 // Cài đặt
 el.btnResetWords.addEventListener("click", resetWords);
 el.btnExport.addEventListener("click", exportData);
 el.btnImport.addEventListener("click", function () { el.importFile.click(); });
 el.importFile.addEventListener("change", importData);
-el.btnClearUserData.addEventListener("click", clearAllUserData);
 el.btnResetAll.addEventListener("click", resetEverything);
 
 // Modal: đóng
@@ -1650,7 +1938,7 @@ el.wordForm.addEventListener("submit", handleWordSubmit);
 if (el.topicForm) el.topicForm.addEventListener("submit", handleTopicSubmit);
 
 // Gỡ lỗi khi người dùng đang gõ
-[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
+[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
   if (input) input.addEventListener("input", function () { input.classList.remove("is-error"); });
 });
 

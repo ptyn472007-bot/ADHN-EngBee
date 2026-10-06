@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề Food">
+  <defs>
+    <linearGradient id="bgF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe1a6"/><stop offset="1" stop-color="#ffc76b"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgF)"/>
+  <ellipse cx="200" cy="210" rx="120" ry="20" fill="#ffffff" opacity="0.35"/>
+  <path d="M200,70 a70,55 0 1,0 140,0 Z" fill="#f4a93c"/>
+  <circle cx="252" cy="52" r="58" fill="#f9c74f"/>
+  <rect x="130" y="98" width="140" height="26" rx="6" fill="#6fae3c" opacity="0.6"/>
+  <rect x="130" y="124" width="140" height="22" rx="5" fill="#e0782f"/>
+  <rect x="138" y="146" width="124" height="20" rx="5" fill="#fbe9c9"/>
+  <rect x="130" y="166" width="140" height="26" rx="6" fill="#e0782f"/>
+  <path d="M130,192 L270,192 L262,210 L138,210 Z" fill="#c9a227"/>
+  <circle cx="238" cy="66" r="5" fill="#ffffff" opacity="0.5"/>
+  <circle cx="216" cy="40" r="4" fill="#ffffff" opacity="0.4"/>
+  <circle cx="268" cy="94" r="6" fill="#ffffff" opacity="0.4"/>
+</svg>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EngBee - Trang quản trị</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ============ ĐĂNG NHẬP ADMIN ============ -->
+  <div class="login-screen" id="loginScreen">
+    <form class="login-card" id="loginForm" novalidate>
+      <h1 class="login-card__title">EngBee Admin</h1>
+      <p class="login-card__sub">Quản trị toàn bộ nội dung của website</p>
+
+      <div class="form-group">
+        <label for="loginEmail">Tên đăng nhập</label>
+        <input type="text" id="loginUsername" class="input" placeholder="Nhập tên đăng nhập quản trị" autocomplete="username" />
+        <small class="error-text" id="errorLoginUsername"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Mật khẩu</label>
+        <input type="password" id="loginPassword" class="input" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+        <small class="error-text" id="errorLoginPassword"></small>
+      </div>
+
+      <p class="login-error" id="loginError" hidden></p>
+
+      <button type="submit" class="btn-primary login-card__btn">Đăng nhập</button>
+
+      <div class="login-demo">
+        <strong>Tài khoản quản trị</strong>
+        <span>Tên đăng nhập: <code>EngBee</code></span>
+        <span>Mật khẩu: <code>EngBee123</code></span>
+      </div>
+
+      <a class="login-back go-home" href="/">← Quay lại trang chủ</a>
+    </form>
+  </div>
+
+  <!-- ============ KHU VỰC QUẢN TRỊ ============ -->
+  <div class="app" id="appShell" hidden>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar__brand go-home" href="/">
+        <div class="brand__logo">E</div>
+        <div class="brand__text">
+          <strong>EngBee</strong>
+          <span>Trang quản trị</span>
+        </div>
+      </a>
+
+      <nav class="sidebar__nav">
+        <p class="nav__title">Quản lý nội dung</p>
+        <button class="nav__item is-active" data-view="dashboard" type="button">
+          Tổng quan
+        </button>
+        <button class="nav__item" data-view="words" type="button">
+          Từ vựng
+        </button>
+        <button class="nav__item" data-view="topics" type="button">
+          Chủ đề
+        </button>
+
+        <p class="nav__title">Quản lý người dùng</p>
+        <button class="nav__item" data-view="users" type="button">
+          Người học
+        </button>
+        <button class="nav__item" data-view="results" type="button">
+          Kết quả Quiz
+        </button>
+
+        <p class="nav__title">Khác</p>
+        <button class="nav__item" data-view="settings" type="button">
+          Cài đặt
+        </button>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="lock-badge">Khu vực dành riêng cho Admin</div>
+        <a class="btn-reset-data go-home" href="/">← Về trang chủ</a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Nội dung -->
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-label="Mở menu">☰</button>
+        <div class="topbar__title">
+          <h2 id="viewTitle">Tổng quan</h2>
+          <p id="viewSubtitle">Nhìn toàn cảnh hoạt động của website EngBee</p>
+        </div>
+        <div class="topbar__user">
+          <span class="avatar" id="adminAvatar">A</span>
+          <div class="user__info">
+            <strong id="adminName">Quản trị viên</strong>
+            <span>Quyền: Admin</span>
+          </div>
+          <button class="btn-outline" id="btnLogout" type="button">Đăng xuất</button>
+        </div>
+      </header>
+
+      <main class="content">
+
+        <!-- ============ 1. TỔNG QUAN ============ -->
+        <section class="view is-active" id="view-dashboard">
+          <div class="page-head">
+            <div>
+              <h1>Tổng quan hệ thống</h1>
+              <p>Các số liệu quan trọng của website được cập nhật tự động.</p>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat-card">
+              <div><span class="stat-card__label">Chủ đề</span><strong class="stat-card__value" id="statTopics">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div><span class="stat-card__label">Tổng số từ vựng</span><strong class="stat-card__value" id="statWords">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div><span class="stat-card__label">Từ đã sửa / thêm / xóa</span><strong class="stat-card__value" id="statChanges">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div><span class="stat-card__label">Người đã học</span><strong class="stat-card__value" id="statUsers">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div><span class="stat-card__label">Lượt làm Quiz</span><strong class="stat-card__value" id="statAttempts">0</strong></div>
+            </div>
+            <div class="stat-card">
+              <div><span class="stat-card__label">Điểm trung bình</span><strong class="stat-card__value" id="statAvg">0</strong></div>
+            </div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel__head"><h3>Thay đổi của Admin</h3></div>
+              <div class="panel__body">
+                <ul class="summary-list" id="adminChangeList">
+                  <li class="summary-empty">Chưa có thay đổi nào.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Người học gần đây</h3></div>
+              <div class="panel__body">
+                <ul class="summary-list" id="recentUserList">
+                  <li class="summary-empty">Chưa có dữ liệu người học.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 2. TỪ VỰNG ============ -->
+        <section class="view" id="view-words">
+          <div class="page-head">
+            <div>
+              <h1>Quản lý từ vựng</h1>
+              <p>Thêm, sửa, xóa từ của từng chủ đề. Thay đổi có hiệu lực ngay trên trang học và quiz.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn-primary btn-sm" id="btnRestoreWords" type="button">Khôi phục từ gốc</button>
+              <button class="btn-primary" id="btnAddWord" type="button">Thêm từ</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__toolbar">
+              <label class="label-inline" for="wordTopicFilter">Chủ đề:</label>
+              <select id="wordTopicFilter" class="input input-select"></select>
+
+              <div class="search-box">
+                <input type="text" id="wordSearch" class="input" placeholder="Tìm từ tiếng Anh hoặc nghĩa tiếng Việt..." />
+              </div>
+            </div>
+
+            <div class="panel__info">
+              <span id="wordCountInfo">0 từ</span>
+            </div>
+
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th-stt">STT</th>
+                    <th>Từ tiếng Anh</th>
+                    <th class="th-ipa">Phiên âm</th>
+                    <th>Nghĩa tiếng Việt</th>
+                    <th class="th-status">Trạng thái</th>
+                    <th class="th-action">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="wordBody"></tbody>
+              </table>
+
+              <div class="empty" id="wordEmpty" hidden>
+                <h3>Không tìm thấy từ nào</h3>
+                <p>Thử từ khóa khác hoặc bấm <b>Thêm từ</b> để thêm mới.</p>
+              </div>
+            </div>
+
+            <div class="pagination" id="wordPagination"></div>
+          </div>
+        </section>
+
+        <!-- ============ 3. CHỦ ĐỀ ============ -->
+        <section class="view" id="view-topics">
+          <div class="page-head">
+            <div>
+              <h1>Quản lý chủ đề</h1>
+              <p>Bật hoặc tắt chủ đề, hoặc bấm Thêm chủ đề để mở rộng kho từ vựng.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn-primary" id="btnAddTopic" type="button">Thêm chủ đề</button>
+            </div>
+          </div>
+          <div class="topic-grid topic-grid-admin" id="topicGrid"></div>
+        </section>
+
+        <!-- ============ 4. NGƯỜI HỌC ============ -->
+        <section class="view" id="view-users">
+          <div class="page-head">
+            <div>
+              <h1>Người học</h1>
+              <p>Website lưu tiến độ của từng người trên trình duyệt của họ.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th-stt">STT</th>
+                    <th>Tên người học</th>
+                    <th>Từ đã học</th>
+                    <th>Điểm cao nhất</th>
+                    <th>Số chủ đề đã học</th>
+                  </tr>
+                </thead>
+                <tbody id="userBody"></tbody>
+              </table>
+              <div class="empty" id="userEmpty" hidden>
+                <h3>Chưa có dữ liệu người học</h3>
+                <p>Người dùng đăng nhập tại trang <b>Đăng nhập</b> sẽ xuất hiện ở đây.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 5. KẾT QUẢ QUIZ ============ -->
+        <section class="view" id="view-results">
+          <div class="page-head">
+            <div>
+              <h1>Kết quả Quiz</h1>
+              <p>Lịch sử làm bài của toàn bộ người học, mới nhất trước.</p>
+            </div>
+            <div class="head-actions"></div>
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th-stt">STT</th>
+                    <th>Thời gian</th>
+                    <th>Chủ đề</th>
+                    <th>Số câu đúng</th>
+                    <th>Điểm (%)</th>
+                    <th>Kết quả</th>
+                  </tr>
+                </thead>
+                <tbody id="resultBody"></tbody>
+              </table>
+              <div class="empty" id="resultEmpty" hidden>
+                <h3>Chưa có kết quả Quiz</h3>
+                <p>Khi người học làm bài, kết quả sẽ hiển thị ở đây.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 6. CÀI ĐẶT ============ -->
+        <section class="view" id="view-settings">
+          <div class="page-head">
+            <div>
+              <h1>Cài đặt &amp; bảo trì</h1>
+              <p>Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này.</p>
+            </div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel__head"><h3>Khôi phục từ vựng</h3></div>
+              <div class="panel__body">
+                <p class="panel__text">Xóa toàn bộ từ đã thêm, sửa, xóa và đưa hệ thống về dữ liệu gốc.</p>
+                <button class="btn-primary btn-sm" id="btnResetWords" type="button">Khôi phục từ vựng gốc</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Sao lưu dữ liệu Admin</h3></div>
+              <div class="panel__body">
+                <p class="panel__text">Tải file JSON chứa toàn bộ thay đổi của Admin, hoặc nạp lại từ file đã lưu.</p>
+                <div class="head-actions">
+                  <button class="btn-primary btn-sm" id="btnExport" type="button">Tải file JSON</button>
+                  <button class="btn-primary btn-sm" id="btnImport" type="button">Nạp từ file</button>
+                </div>
+                <input type="file" id="importFile" accept="application/json" hidden />
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head"><h3>Đặt lại toàn bộ</h3></div>
+              <div class="panel__body">
+                <p class="panel__text panel__text--warn">Xóa sạch mọi dữ liệu EngBee trên trình duyệt này, kể cả thông tin đăng nhập. Không thể hoàn tác.</p>
+                <button class="btn-primary btn-sm btn-danger" id="btnResetAll" type="button">Xóa toàn bộ dữ liệu</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head"><h3>Thông tin hệ thống</h3></div>
+            <div class="panel__body">
+              <table class="info-table">
+                <tbody>
+                  <tr><td>Đăng nhập quản trị</td><td>Chỉ tài khoản Admin được vào trang này</td></tr>
+                  <tr><td>Nơi lưu dữ liệu</td><td>LocalStorage của trình duyệt</td></tr>
+                  <tr><td>Phạm vi quản trị</td><td>Từ vựng, chủ đề, người học, kết quả Quiz</td></tr>
+                  <tr><td>Trạng thái phiên</td><td id="infoSession">-</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ MODAL THÊM / SỬA TỪ ============ -->
+  <div class="modal" id="wordModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="wordModalTitle">
+      <div class="modal__head">
+        <h3 id="wordModalTitle">Thêm từ mới</h3>
+        <button class="icon-btn" type="button" data-close="true" aria-label="Đóng">✕</button>
+      </div>
+
+      <form id="wordForm" novalidate>
+        <div class="modal__body">
+          <input type="hidden" id="inputKey" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputEn">Từ tiếng Anh <span class="required">*</span></label>
+              <input type="text" id="inputEn" class="input" placeholder="apple" autocomplete="off" />
+              <small class="error-text" id="errorEn"></small>
+            </div>
+            <div class="form-group">
+              <label for="inputTopic">Chủ đề <span class="required">*</span></label>
+              <select id="inputTopic" class="input"></select>
+              <small class="error-text" id="errorTopicField"></small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputVi">Nghĩa tiếng Việt <span class="required">*</span></label>
+            <input type="text" id="inputVi" class="input" placeholder="quả táo" autocomplete="off" />
+            <small class="error-text" id="errorVi"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="inputIpa">Phiên âm</label>
+            <input type="text" id="inputIpa" class="input" placeholder="/ˈæp.əl/" autocomplete="off" />
+            <small class="error-text" id="errorIpa"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="inputEx">Ví dụ (tiếng Anh)</label>
+            <input type="text" id="inputEx" class="input" placeholder="I eat an apple every day." autocomplete="off" />
+            <small class="error-text" id="errorEx"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="inputExVi">Dịch ví dụ</label>
+            <input type="text" id="inputExVi" class="input" placeholder="Tôi ăn một quả táo mỗi ngày." autocomplete="off" />
+            <small class="error-text" id="errorExVi"></small>
+          </div>
+
+          <div class="form-group">
+            <label>Ví dụ ngẫu nhiên khi lật thẻ (5 câu)</label>
+            <div class="exs-grid" style="display:flex;flex-direction:column;gap:8px;">
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx0En" class="input" placeholder="Câu ví dụ 1 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx0Vi" class="input" placeholder="Dịch câu ví dụ 1" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx1En" class="input" placeholder="Câu ví dụ 2 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx1Vi" class="input" placeholder="Dịch câu ví dụ 2" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx2En" class="input" placeholder="Câu ví dụ 3 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx2Vi" class="input" placeholder="Dịch câu ví dụ 3" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx3En" class="input" placeholder="Câu ví dụ 4 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx3Vi" class="input" placeholder="Dịch câu ví dụ 4" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx4En" class="input" placeholder="Câu ví dụ 5 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx4Vi" class="input" placeholder="Dịch câu ví dụ 5" autocomplete="off" />
+              </div>
+            </div>
+            <small class="note" style="color:#9aa1b5;">Các câu này sẽ được dùng khi lật thẻ flashcard (random ngẫu nhiên).</small>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
+          <button type="submit" class="btn-primary">Lưu lại</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL THÊM / SỬA CHỦ ĐỀ ============ -->
+  <div class="modal" id="topicModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="topicModalTitle">
+      <div class="modal__head">
+        <h3 id="topicModalTitle">Thêm chủ đề mới</h3>
+        <button class="icon-btn" type="button" data-close="true" aria-label="Đóng">✕</button>
+      </div>
+
+      <form id="topicForm" novalidate>
+        <div class="modal__body">
+          <input type="hidden" id="inputTopicMode" value="add" />
+          <input type="hidden" id="inputTopicOriginalId" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputTopicName">Tên tiếng Anh <span class="required">*</span></label>
+              <input type="text" id="inputTopicName" class="input" placeholder="Animals, Clothing, Family..." autocomplete="off" />
+              <small class="error-text" id="errorTopicName"></small>
+            </div>
+            <div class="form-group">
+              <label for="inputTopicVi">Tên tiếng Việt <span class="required">*</span></label>
+              <input type="text" id="inputTopicVi" class="input" placeholder="Động vật, Trang phục, Gia đình..." autocomplete="off" />
+              <small class="error-text" id="errorTopicVi"></small>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputTopicId">Mã chủ đề (ID duy nhất) <span class="required">*</span></label>
+              <input type="text" id="inputTopicId" class="input" placeholder="animals, clothing..." autocomplete="off" />
+              <small class="error-text" id="errorTopicId"></small>
+            </div>
+            <div class="form-group">
+              <label for="inputTopicEmoji">Biểu tượng (Icon / Emoji)</label>
+              <input type="text" id="inputTopicEmoji" class="input" placeholder="🦁, 👗, 👨‍👩‍👧, 🚗..." autocomplete="off" />
+              <small class="error-text" id="errorTopicEmoji"></small>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inputTopicG1">Màu Gradient 1</label>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="color" id="inputTopicG1Picker" value="#f59e0b" style="width:42px;height:38px;padding:2px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;" />
+                <input type="text" id="inputTopicG1" class="input" placeholder="#f59e0b" value="#f59e0b" autocomplete="off" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputTopicG2">Màu Gradient 2</label>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="color" id="inputTopicG2Picker" value="#f97316" style="width:42px;height:38px;padding:2px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;" />
+                <input type="text" id="inputTopicG2" class="input" placeholder="#f97316" value="#f97316" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputTopicDesc">Mô tả ngắn</label>
+            <input type="text" id="inputTopicDesc" class="input" placeholder="Từ vựng về các loài động vật, thú cưng và thiên nhiên hoang dã." autocomplete="off" />
+            <small class="error-text" id="errorTopicDesc"></small>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
+          <button type="submit" class="btn-primary">Lưu chủ đề</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL XÁC NHẬN ============ -->
+  <div class="modal" id="confirmModal" hidden>
+    <div class="modal__overlay" data-close="true"></div>
+    <div class="modal__box modal__box--sm" role="dialog" aria-modal="true">
+      <div class="modal__head">
+        <h3 id="confirmTitle">Xác nhận</h3>
+        <button class="icon-btn" type="button" data-close="true" aria-label="Đóng">✕</button>
+      </div>
+      <div class="modal__body">
+        <p class="confirm-text" id="confirmText">Bạn có chắc không?</p>
+        <p class="confirm-note" id="confirmNote">Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn-outline" data-close="true">Hủy bỏ</button>
+        <button type="button" class="btn-primary btn-danger" id="btnConfirmOk">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/engbee-admin-data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

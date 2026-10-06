@@ -247,7 +247,6 @@
                     <th>Từ đã học</th>
                     <th>Điểm cao nhất</th>
                     <th>Số chủ đề đã học</th>
-                    <th class="th-action">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody id="userBody"></tbody>
@@ -267,9 +266,7 @@
               <h1>Kết quả Quiz</h1>
               <p>Lịch sử làm bài của toàn bộ người học, mới nhất trước.</p>
             </div>
-            <div class="head-actions">
-              <button class="btn-primary btn-sm btn-danger" id="btnClearResults" type="button">Xóa toàn bộ kết quả</button>
-            </div>
+            <div class="head-actions"></div>
           </div>
 
           <div class="panel">
@@ -308,7 +305,7 @@
             <div class="panel">
               <div class="panel__head"><h3>Khôi phục từ vựng</h3></div>
               <div class="panel__body">
-                <p class="panel__text">Xóa toàn bộ từ đã thêm, sửa, xóa và bật lại các chủ đề đang bị tắt.</p>
+                <p class="panel__text">Xóa toàn bộ từ đã thêm, sửa, xóa và đưa hệ thống về dữ liệu gốc.</p>
                 <button class="btn-primary btn-sm" id="btnResetWords" type="button">Khôi phục từ vựng gốc</button>
               </div>
             </div>
@@ -322,14 +319,6 @@
                   <button class="btn-primary btn-sm" id="btnImport" type="button">Nạp từ file</button>
                 </div>
                 <input type="file" id="importFile" accept="application/json" hidden />
-              </div>
-            </div>
-
-            <div class="panel">
-              <div class="panel__head"><h3>Xóa dữ liệu người học</h3></div>
-              <div class="panel__body">
-                <p class="panel__text">Xóa toàn bộ tiến độ học và kết quả quiz của mọi người dùng trên trình duyệt này.</p>
-                <button class="btn-primary btn-sm btn-danger" id="btnClearUserData" type="button">Xóa dữ liệu người học</button>
               </div>
             </div>
 
@@ -399,16 +388,32 @@
             <small class="error-text" id="errorIpa"></small>
           </div>
 
-          <div class="form-group">
-            <label for="inputEx">Ví dụ (tiếng Anh)</label>
-            <input type="text" id="inputEx" class="input" placeholder="I eat an apple every day." autocomplete="off" />
-            <small class="error-text" id="errorEx"></small>
-          </div>
 
           <div class="form-group">
-            <label for="inputExVi">Dịch ví dụ</label>
-            <input type="text" id="inputExVi" class="input" placeholder="Tôi ăn một quả táo mỗi ngày." autocomplete="off" />
-            <small class="error-text" id="errorExVi"></small>
+            <label>Ví dụ ngẫu nhiên khi lật thẻ (5 câu)</label>
+            <div class="exs-grid" style="display:flex;flex-direction:column;gap:8px;">
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx0En" class="input" placeholder="Câu ví dụ 1 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx0Vi" class="input" placeholder="Dịch câu ví dụ 1" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx1En" class="input" placeholder="Câu ví dụ 2 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx1Vi" class="input" placeholder="Dịch câu ví dụ 2" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx2En" class="input" placeholder="Câu ví dụ 3 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx2Vi" class="input" placeholder="Dịch câu ví dụ 3" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx3En" class="input" placeholder="Câu ví dụ 4 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx3Vi" class="input" placeholder="Dịch câu ví dụ 4" autocomplete="off" />
+              </div>
+              <div class="exs-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <input type="text" id="inputEx4En" class="input" placeholder="Câu ví dụ 5 (Anh)" autocomplete="off" />
+                <input type="text" id="inputEx4Vi" class="input" placeholder="Dịch câu ví dụ 5" autocomplete="off" />
+              </div>
+            </div>
+            <small class="note" style="color:#9aa1b5;">Các câu này sẽ được dùng khi lật thẻ flashcard (random ngẫu nhiên).</small>
           </div>
         </div>
 

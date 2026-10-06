@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Chủ đề Technology">
+  <defs>
+    <linearGradient id="bgTe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9bb3d6"/><stop offset="1" stop-color="#e4edf7"/></linearGradient>
+  </defs>
+  <rect width="400" height="260" rx="12" fill="url(#bgTe)"/>
+  <g>
+    <rect x="85" y="70" width="150" height="105" rx="10" fill="#2c3e50"/>
+    <path d="M85,185 L235,185 L225,200 L95,200 Z" fill="#34495e"/>
+    <rect x="95" y="82" width="130" height="80" rx="4" fill="#16222e"/>
+    <rect x="175" y="180" width="30" height="6" rx="3" fill="#1f2d3a"/>
+  </g>
+  <rect x="95" y="95" width="30" height="4" rx="2" fill="#3ccd8c"/>
+  <rect x="95" y="107" width="50" height="4" rx="2" fill="#f7b733"/>
+  <rect x="95" y="119" width="40" height="4" rx="2" fill="#5d9bd6"/>
+  <text x="140" y="145" font-family="Consolas, monospace" font-size="20" font-weight="bold" fill="#3ccd8c">&lt;/&gt;</text>
+  <circle cx="280" cy="120" r="30" fill="#f7b733" opacity="0.85"/>
+  <path d="M280,108 L280,132 M268,120 L292,120" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+</svg>
