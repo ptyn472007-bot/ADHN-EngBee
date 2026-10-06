@@ -410,6 +410,9 @@ main{flex:1}
     var btn=qs("#btn-say");
     btn.disabled=false;
     btn.classList.remove("listening");
+    var speakBtn=qs("#btn-speak");
+    speakBtn.disabled=false;
+    speakBtn.style.opacity="1";
     qs("#pr-hint").textContent = "Chưa nói? Bạn vẫn có thể bấm “Câu tiếp →” để bỏ qua từ này (không được điểm).";
   }
 
@@ -501,6 +504,9 @@ main{flex:1}
     var btn=qs("#btn-say");
     btn.disabled=true;
     btn.classList.add("listening");
+    var speakBtn=qs("#btn-speak");
+    speakBtn.disabled=true;
+    speakBtn.style.opacity=".5";
     qs("#pr-status").textContent="🎙 Đang nghe... hãy đọc to từ phía trên.";
     try{
       rec=new SR();
@@ -522,6 +528,9 @@ main{flex:1}
         listening=false;
         var b=qs("#btn-say");
         b.classList.remove("listening");
+        var speakBtn=qs("#btn-speak");
+        speakBtn.disabled=false;
+        speakBtn.style.opacity="1";
         var cur=items[idx];
         if(cur && cur.tries<MAX_TRY) b.disabled=false;
         if(heardAlts.length){ evaluate(heardAlts.slice()); return; }
@@ -540,6 +549,9 @@ main{flex:1}
       listening=false;
       btn.disabled=false;
       btn.classList.remove("listening");
+      var speakBtn=qs("#btn-speak");
+      speakBtn.disabled=false;
+      speakBtn.style.opacity="1";
       qs("#pr-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro của trình duyệt.";
     }
   }
