@@ -70,6 +70,9 @@ main{flex:1}
 .qch-go:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(31,41,55,.2)}
 .qch-note{background:#fff;border:1px dashed #e4dcc6;border-radius:16px;padding:16px 20px;margin-top:26px;color:#6b7280;font-size:.9rem;text-align:center}
 .qch-note b{color:#374151}
+.qch-pron{background:linear-gradient(135deg,#6366f1,#8b5cf6);box-shadow:0 16px 40px rgba(99,102,241,.28)}
+.qch-pron::before{background:radial-gradient(circle at 90% -30%,rgba(255,255,255,.3),transparent 50%)}
+.qch-pron .qch-btn{color:#6366f1}
 </style>
   <script src="assets/js/engbee-admin-data.js"></script>
 </head>
@@ -117,6 +120,15 @@ main{flex:1}
         <p id="qch-all-desc">Câu hỏi được trộn ngẫu nhiên từ toàn bộ các từ vựng đang kích hoạt — dành cho bạn muốn thử thách lớn hơn.</p>
       </div>
       <a class="qch-btn" href="quiz-all.html">Bắt đầu &rarr;</a>
+    </div>
+
+    <div class="qch-all qch-pron">
+      <div class="qch-all-inner">
+        <span class="qch-all-badge">🎤 Phát âm</span>
+        <h2>Kiểm tra phát âm</h2>
+        <p>Đọc to từ vựng, EngBee sẽ nghe và so sánh với từ đúng — mỗi từ tối đa 3 lần, chấm điểm theo độ khớp và gợi ý những từ cần luyện lại.</p>
+      </div>
+      <a class="qch-btn" href="quiz-pronounce.html">Bắt đầu &rarr;</a>
     </div>
 
     <div class="qch-sec-title">

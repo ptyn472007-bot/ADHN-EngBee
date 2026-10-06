@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngBee - Kiểm tra phát âm</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
+main{flex:1}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo-icon{width:34px;height:34px}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#f0a500}
+.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
+.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.footer p{margin:4px 0}
+.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
+.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a:hover{color:#fff}
+.footer-copy{font-size:.9rem;margin-top:4px}
+@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
+@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
+
+/* ===== quiz chrome (giống các trang quiz-*.html) ===== */
+.quiz-hero{position:relative;overflow:hidden;color:#fff;padding:52px 0 40px;background:linear-gradient(135deg,var(--g1,#8b5cf6),var(--g2,#6366f1))}
+.quiz-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,rgba(255,255,255,.35),transparent 55%),radial-gradient(circle at 8% 120%,rgba(255,255,255,.25),transparent 45%);pointer-events:none}
+.deco{position:absolute;border-radius:50%;background:rgba(255,255,255,.14);pointer-events:none}
+.deco-a{width:220px;height:220px;top:-70px;right:-40px}
+.deco-b{width:140px;height:140px;bottom:-50px;left:-30px}
+.quiz-hero-inner{position:relative;z-index:1;text-align:center}
+.quiz-hero .eyebrow{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);padding:6px 18px;border-radius:999px;font-size:.85rem;font-weight:600;letter-spacing:.4px;margin-bottom:14px;backdrop-filter:blur(4px)}
+.quiz-hero h1{font-size:clamp(1.6rem,4.5vw,2.5rem);font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.18)}
+.hero-sub{max-width:640px;margin:12px auto 0;color:rgba(255,255,255,.95);font-size:clamp(.95rem,2vw,1.05rem)}
+.quiz-wrap{padding:36px 0 80px}
+.quiz-card{background:#fff;border:1px solid #eef0f6;border-radius:22px;box-shadow:0 16px 48px rgba(16,26,51,.10);padding:30px 28px;max-width:760px;margin:0 auto}
+.qz-screen{display:none}
+.qz-screen.active{display:block;animation:qzIn .35s ease}
+@keyframes qzIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qz-start{border-radius:16px;background:#fff}
+.qz-start-head{text-align:center;margin-bottom:22px;padding:10px 0 4px}
+.qz-start-head h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800}
+.qz-start-head p{color:#6b7280;margin-top:6px;font-size:.95rem}
+.qz-start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+.qz-stat{border:1px solid #eef0f6;border-radius:16px;padding:16px 18px;text-align:center;background:linear-gradient(180deg,#fff, #fafbfe)}
+.qz-stat b{display:block;font-size:1.7rem;font-weight:800}
+.qz-stat span{color:#6b7280;font-size:.82rem;font-weight:600}
+.qz-stat.hot b{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qz-start-cta{text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;border-radius:14px;padding:14px 26px;transition:transform .2s,box-shadow .2s,opacity .2s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-start{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 10px 24px rgba(16,26,51,.18);font-size:1.08rem;padding:16px 40px}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(16,26,51,.22)}
+.btn-plain{background:#eef1f8;color:#374151}
+.btn-amber{background:linear-gradient(135deg,#f0a500,#ff7e00);color:#fff}
+.qz-hint{text-align:center;color:#9aa1b5;font-size:.82rem;margin-top:16px}
+.qz-q-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.qz-progress-pill{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-weight:800;font-size:.82rem;padding:6px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.14)}
+.qz-progress{flex:1;height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
+.qz-progress-fill{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .35s ease}
+.qz-score-pill{font-size:.82rem;font-weight:700;color:#374151;background:#eef1f8;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.qz-word{border:1px solid #eef0f6;border-radius:18px;padding:26px 20px;text-align:center;background:linear-gradient(180deg,#fff,#fafbfe);margin-bottom:18px;position:relative}
+.qz-word-flag{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;color:#9aa1b5;background:#f2f4f9;padding:4px 10px;border-radius:999px;letter-spacing:.4px}
+.qz-word-ipa{font-size:1.05rem;color:#6b7280;margin-top:4px}
+.qz-word-en{font-size:clamp(1.7rem,5vw,2.3rem);font-weight:800}
+.qz-speak{display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:700;color:#374151;background:#fff;border:1px solid #d8dcea;border-radius:999px;padding:8px 18px;margin-top:12px;transition:all .2s}
+.qz-speak:hover{background:#eef1f8;transform:translateY(-1px)}
+.qz-next-row{display:flex;justify-content:flex-end;margin-top:18px}
+.qz-next-row[hidden]{display:none}
+.btn-next{background:#fff;color:#4b5563;border:1px solid #c3cad9;box-shadow:0 4px 12px rgba(16,26,51,.08)}
+.btn-next.ready{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(16,26,51,.18)}
+.btn-next.ready:hover{transform:translateY(-2px)}
+.qz-result{padding:6px 0}
+.qz-score-ring{width:150px;height:150px;margin:0 auto 18px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--g1) calc(var(--p,0)*1%), #eef1f8 0)}
+.qz-score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
+.qz-score-ring b{position:relative;font-size:2rem;font-weight:800}
+.qz-score-ring span{position:relative;font-size:.75rem;color:#9aa1b5;font-weight:700;letter-spacing:.5px}
+.qz-result-title{text-align:center}
+.qz-result-title h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800}
+.qz-result-title p{color:#6b7280;margin-top:4px}
+.qz-result-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* ===== phần riêng của chế độ kiểm tra phát âm ===== */
+.pr-unsupported{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;border-radius:14px;padding:14px 18px;font-weight:700;margin-bottom:18px;text-align:center}
+.pr-unsupported[hidden]{display:none}
+.pr-section-title{font-size:.82rem;text-transform:uppercase;letter-spacing:.6px;color:#9aa1b5;font-weight:700;text-align:center;margin-bottom:12px}
+.pr-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 24px}
+.pr-pill{border:1px solid #e3e7f0;background:#fff;border-radius:999px;padding:8px 16px;font-family:inherit;font-size:.88rem;font-weight:700;color:#374151;cursor:pointer;transition:all .18s}
+.pr-pill:hover{border-color:var(--g1);transform:translateY(-1px)}
+.pr-pill.active{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(16,26,51,.16)}
+.pr-mic{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;cursor:pointer;font-family:inherit;font-weight:800;font-size:1.15rem;color:#fff;padding:18px 20px;border-radius:18px;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 12px 28px rgba(16,26,51,.2);transition:transform .2s,box-shadow .2s,opacity .2s}
+.pr-mic:hover{transform:translateY(-2px)}
+.pr-mic:disabled{opacity:.6;cursor:default;transform:none}
+.pr-mic.listening{animation:prPulse 1.2s ease-in-out infinite}
+@keyframes prPulse{0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,.45)}50%{box-shadow:0 0 0 14px rgba(139,92,246,0)}}
+.pr-status{text-align:center;color:#6b7280;font-size:.95rem;font-weight:600;margin-top:12px;min-height:1.6em}
+.pr-tries{text-align:center;font-size:.82rem;font-weight:700;color:#9aa1b5;margin-top:4px}
+.pr-box{display:none;margin-top:16px;border:1px solid #eef0f6;border-radius:18px;padding:18px;background:linear-gradient(180deg,#fff,#fafbfe)}
+.pr-box.show{display:block;animation:qzIn .3s ease}
+.pr-result-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pr-score-badge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:104px;padding:10px 16px;border-radius:16px;font-weight:800;background:#eef1f8;color:#374151;flex:none}
+.pr-score-badge b{font-size:1.6rem;line-height:1.2}
+.pr-score-badge span{font-size:.68rem;letter-spacing:.5px;color:#9aa1b5;font-weight:700}
+.pr-verdict{flex:1;min-width:200px;border-radius:12px;padding:12px 14px;font-weight:800;font-size:.98rem}
+.pr-verdict.good{background:#e9f9ef;color:#157a4d;border:1px solid #b8ecd0}
+.pr-verdict.bad{background:#fdecec;color:#b91c1c;border:1px solid #f6c6c6}
+.pr-heard{margin-top:12px;font-size:.92rem;color:#374151;line-height:1.8}
+.pr-heard b{font-weight:800}
+.pr-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.pr-actions .btn{font-size:.95rem;padding:12px 22px}
+.pr-actions .btn[hidden]{display:none}
+.pr-note{margin-top:10px;font-size:.78rem;color:#9aa1b5;text-align:center}
+.pr-note[hidden]{display:none}
+.pr-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:22px 0}
+.pr-stats .qz-stat{padding:14px 10px}
+.pr-weak{display:flex;flex-direction:column;gap:8px}
+.pr-weak-row{display:flex;align-items:center;gap:10px;background:#f7f8fc;border:1px solid #eef0f6;border-radius:12px;padding:10px 14px;font-size:.9rem;flex-wrap:wrap}
+.pr-weak-row .en{font-weight:800}
+.pr-weak-row .vi{color:#6b7280}
+.pr-weak-row .score{margin-left:auto;font-weight:800;color:#b91c1c}
+.pr-weak-ok{background:#e9f9ef;border:1px solid #b8ecd0;color:#157a4d;border-radius:12px;padding:12px 14px;font-weight:700;font-size:.9rem}
+</style>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/engbee-admin-data.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <span>EngBee</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="learn.html">Học từ vựng</a>
+      <a href="quiz.html" class="active">Quiz</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Đăng nhập</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="quiz-hero" style="--g1:#8b5cf6;--g2:#6366f1">
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="container">
+      <div class="quiz-hero-inner">
+        <p class="eyebrow">Quiz phát âm · 10 từ · Nhận diện giọng nói</p>
+        <h1>Kiểm tra phát âm tiếng Anh</h1>
+        <p class="hero-sub">Mỗi câu hiển thị một từ kèm phiên âm — bấm 🎤 “Bấm để nói” và đọc to từ đó. Trình duyệt nghe qua microphone và chấm điểm mức độ giống với từ chuẩn. Mỗi từ được thử tối đa 3 lần.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container quiz-wrap" style="--g1:#8b5cf6;--g2:#6366f1">
+    <div class="quiz-card">
+
+      <div id="pr-start" class="qz-screen qz-start active">
+        <div class="qz-start-head">
+          <h2>🎤 Kiểm tra phát âm</h2>
+          <p>10 từ mỗi lượt · mỗi từ tối đa 3 lần thử · chấm điểm trực tiếp trên trình duyệt bằng Web Speech API</p>
+        </div>
+        <div class="pr-unsupported" id="pr-unsupported" hidden>⚠️ Trình duyệt của bạn không hỗ trợ kiểm tra phát âm.</div>
+        <div class="qz-start-grid">
+          <div class="qz-stat hot"><b id="pr-best">0%</b><span>CAO NHẤT</span></div>
+          <div class="qz-stat"><b id="pr-count">0</b><span>LƯỢT ĐÃ LÀM</span></div>
+          <div class="qz-stat"><b id="pr-words-count">600</b><span>SỐ TỪ KHO</span></div>
+        </div>
+        <p class="pr-section-title">Chọn chủ đề</p>
+        <div class="pr-pills" id="pr-pills"></div>
+        <div class="qz-start-cta">
+          <button type="button" class="btn btn-start" id="btn-start">🎤 Bắt đầu kiểm tra (10 từ)</button>
+          <p class="qz-hint" style="margin-top:12px">Khi bấm “Bấm để nói”, trình duyệt sẽ yêu cầu quyền sử dụng microphone. Dùng Chrome hoặc Edge để có kết quả tốt nhất.</p>
+        </div>
+      </div>
+
+      <div id="pr-question" class="qz-screen">
+        <div class="qz-q-top">
+          <span class="qz-progress-pill" id="pr-progress">1 / 10</span>
+          <div class="qz-progress"><span class="qz-progress-fill" id="pr-progress-fill"></span></div>
+          <span class="qz-score-pill" id="pr-good-count">0 tốt</span>
+        </div>
+        <div class="qz-word">
+          <span class="qz-word-flag" id="pr-topic-tag">Tổng hợp</span>
+          <div class="qz-word-en" id="pr-word-en">museum</div>
+          <div class="qz-word-ipa" id="pr-word-ipa">/mjuːziəm/</div>
+          <button type="button" class="qz-speak" id="btn-speak">🔊 Nghe mẫu</button>
+        </div>
+        <button type="button" class="pr-mic" id="btn-say">🎤 Bấm để nói</button>
+        <p class="pr-status" id="pr-status">Nhấn nút 🎤 và đọc to từ phía trên.</p>
+        <p class="pr-tries" id="pr-tries">Còn 3 lần thử</p>
+
+        <div class="pr-box" id="pr-box">
+          <div class="pr-result-top">
+            <div class="pr-score-badge"><b id="pr-score">0%</b><span>ĐIỂM PHÁT ÂM</span></div>
+            <div class="pr-verdict" id="pr-verdict"></div>
+          </div>
+          <div class="pr-heard">
+            Từ chuẩn: <b id="pr-correct-word"></b><br>
+            Từ hệ thống nghe được: <b id="pr-heard-word"></b>
+          </div>
+          <p class="pr-note" id="pr-best-note" hidden></p>
+          <div class="pr-actions">
+            <button type="button" class="btn btn-amber" id="btn-retry">🎤 Thử lại</button>
+            <button type="button" class="btn btn-start" id="btn-next2" style="font-size:.95rem;padding:12px 24px">Câu tiếp →</button>
+          </div>
+          <p class="pr-note">Điểm thể hiện mức độ giống giữa từ hệ thống nghe được và từ mục tiêu — Web Speech API không chấm chính xác từng âm vị.</p>
+        </div>
+
+        <div class="qz-next-row" id="pr-next-row">
+          <button type="button" class="btn btn-next ready" id="btn-next">Câu tiếp →</button>
+        </div>
+        <p class="qz-hint" id="pr-hint">Chưa nói? Bạn vẫn có thể bấm “Câu tiếp →” để bỏ qua từ này (không được điểm).</p>
+      </div>
+
+      <div id="pr-result" class="qz-screen qz-result">
+        <div class="qz-score-ring" id="pr-ring" style="--p:0">
+          <b id="pr-avg">0%</b>
+          <span>ĐIỂM TRUNG BÌNH</span>
+        </div>
+        <div class="qz-result-title">
+          <h2 id="pr-title"></h2>
+          <p id="pr-mode" style="font-weight:700"></p>
+          <p id="pr-note" style="margin-top:10px"></p>
+        </div>
+        <div class="pr-stats">
+          <div class="qz-stat"><b id="pr-stat-total">0</b><span>TỔNG SỐ TỪ</span></div>
+          <div class="qz-stat hot"><b id="pr-stat-avg">0%</b><span>ĐIỂM TRUNG BÌNH</span></div>
+          <div class="qz-stat"><b id="pr-stat-good">0</b><span>PHÁT ÂM TỐT</span></div>
+          <div class="qz-stat"><b id="pr-stat-bad">0</b><span>CẦN LUYỆN THÊM</span></div>
+        </div>
+        <p class="pr-section-title" style="text-align:left">Danh sách từ phát âm chưa tốt</p>
+        <div class="pr-weak" id="pr-weak"></div>
+        <div class="qz-result-actions" style="margin-top:24px">
+          <button type="button" class="btn btn-start" id="btn-restart" style="font-size:.95rem;padding:12px 24px">🔄 Làm lại</button>
+          <button type="button" class="btn btn-amber" id="btn-change" style="font-size:.95rem;padding:12px 24px">Chọn chủ đề khác</button>
+          <a class="btn btn-plain" href="quiz.html" style="font-size:.95rem;padding:12px 24px">Quiz trắc nghiệm</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-logo">EngBee</p>
+    <p>Website học từ vựng tiếng Anh</p>
+    <div class="footer-contact">
+      <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+      <a href="tel:0901234567">SĐT: 0901 234 567</a>
+      <a href="https://facebook.com/engbee" target="_blank">Facebook: engbee</a>
+      <a href="https://zalo.me/0901234567" target="_blank">Zalo: 0901 234 567</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 EngBee</p>
+  </div>
+</footer>
+
+<script>
+// ===== EngBee - Chế độ kiểm tra phát âm (Quiz) =====
+(function(){
+  "use strict";
+  function qs(s){return document.querySelector(s);}
+  function esc(s){return String(s==null?"":s).replace(/[<>&"]/g,function(c){return c==="<"?"&lt;":c===">"?"&gt;":c==="&"?"&amp;":"&quot;";});}
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  // Chỉ dùng được khi có SpeechRecognition + microphone (secure context: https hoặc localhost)
+  var SUPPORTED = !!(SR && navigator.mediaDevices && window.isSecureContext !== false);
+  var UNSUPPORTED_MSG = "Trình duyệt của bạn không hỗ trợ kiểm tra phát âm.";
+  var N = 10;          // số từ mỗi lượt
+  var MAX_TRY = 3;     // số lần thử tối đa mỗi từ
+  var GOOD = 70;       // ngưỡng "phát âm tốt" (điểm giống từ)
+  var KEY = "eb_pron_history";
+
+  // ---- nguồn từ vựng: data.js + overlay admin ----
+  var TOPICS = [];
+  if (typeof EngBeeData !== "undefined" && EngBeeData && EngBeeData.topics) {
+    TOPICS = EngBeeData.topics.filter(function(t){
+      return !(window.EngBeeAdminData && window.EngBeeAdminData.isTopicHidden && window.EngBeeAdminData.isTopicHidden(t.id));
+    });
+  }
+  var selectedTopic = "all";
+
+  function topicById(id){
+    for (var i=0;i<TOPICS.length;i++) if (TOPICS[i].id===id) return TOPICS[i];
+    return null;
+  }
+  function topicName(tid){
+    if (tid==="all") return "Tổng hợp";
+    var t=topicById(tid);
+    return t ? t.name : tid;
+  }
+  function wordsFor(tid){
+    var out=[];
+    TOPICS.forEach(function(t){
+      if (tid!=="all" && t.id!==tid) return;
+      var base = Array.isArray(t.words) ? t.words.slice() : [];
+      var list = (window.EngBeeAdminData && window.EngBeeAdminData.apply) ? window.EngBeeAdminData.apply(t.id, base) : base;
+      out = out.concat(list);
+    });
+    return out;
+  }
+
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+  // ---- chấm điểm: mức độ giống giữa từ nghe được và từ mục tiêu ----
+  function norm(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/ +/g," ").trim(); }
+  function lev(a,b){
+    if(a===b)return 0;
+    var m=a.length,n=b.length,d=new Array(m+1);
+    for(var i=0;i<=m;i++){d[i]=new Array(n+1);d[i][0]=i;}
+    for(var j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+cost);
+    }
+    return d[m][n];
+  }
+  function matchScore(target,alt){
+    var t=norm(target),a=norm(alt);
+    if(!t||!a)return 0;
+    if(t===a)return 100;
+    if(a.split(" ").indexOf(t)>=0)return 100;
+    var sim=Math.round((1-lev(t,a)/Math.max(t.length,1))*100);
+    return sim<0?0:sim;
+  }
+
+  function speak(word){
+    try{
+      if(!("speechSynthesis" in window))return;
+      var u=new SpeechSynthesisUtterance(word);
+      u.lang="en-US";u.rate=.9;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  // ---- lịch sử (riêng cho chế độ phát âm, không đụng quiz trắc nghiệm) ----
+  function getHist(){try{return JSON.parse(localStorage.getItem(KEY)||"[]");}catch(e){return [];}}
+  function saveHist(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(0,60)));}catch(e){}}
+  function myHist(){return getHist().filter(function(x){return x.topicId===selectedTopic;});}
+  function bestAvg(){var h=myHist(),b=0;for(var i=0;i<h.length;i++)if(h[i].avg>b)b=h[i].avg;return b;}
+
+  // ---- màn hình ----
+  function show(which){
+    qs("#pr-start").classList.toggle("active",which==="start");
+    qs("#pr-question").classList.toggle("active",which==="q");
+    qs("#pr-result").classList.toggle("active",which==="result");
+  }
+
+  function renderPills(){
+    var box=qs("#pr-pills");
+    box.innerHTML="";
+    var opts=[{id:"all",name:"Tổng hợp"}];
+    TOPICS.forEach(function(t){opts.push({id:t.id,name:t.name});});
+    opts.forEach(function(o){
+      var b=document.createElement("button");
+      b.type="button";
+      b.className="pr-pill"+(o.id===selectedTopic?" active":"");
+      b.textContent=o.name;
+      b.addEventListener("click",function(){
+        selectedTopic=o.id;
+        renderPills();
+        buildStart();
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function buildStart(){
+    qs("#pr-best").textContent = bestAvg()>0 ? bestAvg()+"%" : "0%";
+    qs("#pr-count").textContent = myHist().length + "";
+    qs("#pr-words-count").textContent = wordsFor(selectedTopic).length;
+    if(!SUPPORTED) qs("#pr-unsupported").hidden = false;
+  }
+
+  // ---- trạng thái lượt làm ----
+  var items=[], idx=0, listening=false, rec=null, heardAlts=[], lastErr="";
+
+  function updateGoodCount(){
+    var g=0;
+    for(var i=0;i<items.length;i++) if(items[i].best>=GOOD) g++;
+    qs("#pr-good-count").textContent = g + " tốt";
+  }
+
+  function renderQ(){
+    var it=items[idx];
+    if(!it) return;
+    qs("#pr-progress").textContent=(idx+1)+" / "+items.length;
+    qs("#pr-progress-fill").style.width=(idx/items.length*100)+"%";
+    updateGoodCount();
+    qs("#pr-topic-tag").textContent=topicName(selectedTopic);
+    qs("#pr-word-en").textContent=it.word.en;
+    qs("#pr-word-ipa").textContent=it.word.ipa||"";
+    qs("#pr-box").classList.remove("show");
+    qs("#pr-next-row").hidden = false;
+    qs("#btn-next").textContent = (idx+1)>=items.length ? "Xem kết quả →" : "Câu tiếp →";
+    qs("#pr-tries").textContent = "Còn " + MAX_TRY + " lần thử";
+    qs("#pr-status").textContent = "Nhấn nút 🎤 và đọc to từ phía trên. Nếu trình duyệt hỏi quyền micro, hãy chọn “Cho phép”.";
+    var btn=qs("#btn-say");
+    btn.disabled=false;
+    btn.classList.remove("listening");
+    qs("#pr-hint").textContent = "Chưa nói? Bạn vẫn có thể bấm “Câu tiếp →” để bỏ qua từ này (không được điểm).";
+  }
+
+  function start(){
+    var pool = shuffle(wordsFor(selectedTopic));
+    if(!pool.length){
+      buildStart();
+      return;
+    }
+    items = pool.slice(0, Math.min(N, pool.length)).map(function(w){
+      return {word:w, tries:0, best:0, heard:""};
+    });
+    idx = 0;
+    show("q");
+    renderQ();
+  }
+
+  function next(){
+    if(listening) return;
+    idx++;
+    if(idx<items.length) renderQ();
+    else finish();
+  }
+
+  function renderResult(score, heard, it, isFinal){
+    var box=qs("#pr-box");
+    box.classList.add("show");
+    qs("#pr-score").textContent = score + "%";
+    var v=qs("#pr-verdict");
+    if(score>=GOOD){
+      v.className="pr-verdict good";
+      v.textContent="✅ Phát âm tốt!";
+    }else{
+      v.className="pr-verdict bad";
+      v.innerHTML="❌ Hãy thử lại!<br>Từ đúng: <b>"+esc(it.word.en)+"</b>";
+    }
+    qs("#pr-correct-word").textContent = it.word.en;
+    qs("#pr-heard-word").textContent = heard ? "“"+heard+"”" : "(chưa nghe rõ)";
+    qs("#pr-tries").textContent = it.tries>=MAX_TRY
+      ? "Đã dùng hết " + MAX_TRY + " lần thử"
+      : "Còn " + (MAX_TRY-it.tries) + " lần thử";
+    qs("#btn-retry").hidden = it.tries>=MAX_TRY;
+    var note=qs("#pr-best-note");
+    if(it.tries>=MAX_TRY){
+      note.hidden=false;
+      note.textContent="Đã dùng hết " + MAX_TRY + " lần — kết quả tốt nhất của từ này: " + it.best + "%.";
+    }else if(it.best>score){
+      note.hidden=false;
+      note.textContent="Kết quả tốt nhất của bạn cho từ này: " + it.best + "%.";
+    }else{
+      note.hidden=true;
+      note.textContent="";
+    }
+    var btn=qs("#btn-say");
+    if(it.tries>=MAX_TRY){
+      btn.disabled=true;
+      btn.classList.remove("listening");
+      qs("#pr-status").textContent="Đã dùng hết " + MAX_TRY + " lần thử cho từ này. Bấm “Câu tiếp →” để tiếp tục.";
+    }else{
+      qs("#pr-status").textContent="Bấm “🎤 Thử lại” để nói lần nữa, hoặc “Câu tiếp →” để qua từ khác.";
+    }
+    qs("#pr-next-row").hidden = true;
+    qs("#btn-next2").textContent = (idx+1)>=items.length ? "Xem kết quả →" : "Câu tiếp →";
+    updateGoodCount();
+  }
+
+  function evaluate(alts){
+    var it=items[idx];
+    if(!it) return;
+    it.tries++;
+    var sc=0, ht=alts[0]||"";
+    alts.forEach(function(a){
+      var s=matchScore(it.word.en, a);
+      if(s>sc){sc=s;ht=a;}
+    });
+    if(sc>it.best){it.best=sc;it.heard=ht;}
+    var isFinal = it.tries>=MAX_TRY;
+    // Sau 3 lần: hiển thị kết quả tốt nhất của từ
+    renderResult(isFinal ? it.best : sc, isFinal ? (it.heard||ht) : ht, it, isFinal);
+  }
+
+  function listen(){
+    var it=items[idx];
+    if(!it) return;
+    if(!SUPPORTED){ qs("#pr-status").textContent = UNSUPPORTED_MSG; return; }
+    if(listening || it.tries>=MAX_TRY) return;
+    listening=true;
+    heardAlts=[]; lastErr="";
+    var btn=qs("#btn-say");
+    btn.disabled=true;
+    btn.classList.add("listening");
+    qs("#pr-status").textContent="🎙 Đang nghe... hãy đọc to từ phía trên.";
+    try{
+      rec=new SR();
+      rec.lang="en-US";
+      rec.interimResults=true;
+      rec.maxAlternatives=5;
+      rec.onresult=function(ev){
+        for(var i=ev.resultIndex;i<ev.results.length;i++){
+          var r=ev.results[i];
+          for(var k=0;k<r.length;k++){
+            var t=r[k].transcript;
+            if(r.isFinal){ if(heardAlts.indexOf(t)===-1) heardAlts.push(t); }
+            else if(k===0){ qs("#pr-status").textContent="🎙 Đang nghe: “"+t+"”"; }
+          }
+        }
+      };
+      rec.onerror=function(ev){ lastErr=(ev && ev.error) ? ev.error : ""; };
+      rec.onend=function(){
+        listening=false;
+        var b=qs("#btn-say");
+        b.classList.remove("listening");
+        var cur=items[idx];
+        if(cur && cur.tries<MAX_TRY) b.disabled=false;
+        if(heardAlts.length){ evaluate(heardAlts.slice()); return; }
+        if(lastErr==="not-allowed"||lastErr==="service-not-allowed"){
+          qs("#pr-status").textContent="Bạn chưa cho phép dùng micro. Hãy cho phép microphone trong trình duyệt rồi bấm “Bấm để nói” lại.";
+        }else if(lastErr==="no-speech"){
+          qs("#pr-status").textContent="Chưa nghe thấy tiếng nói. Hãy bấm nút và đọc to từ một lần nữa.";
+        }else if(lastErr){
+          qs("#pr-status").textContent="Không nhận diện được (“"+lastErr+"”). Hãy thử lại.";
+        }else{
+          qs("#pr-status").textContent="Chưa nghe rõ. Hãy bấm “Bấm để nói” và đọc to từ phía trên.";
+        }
+      };
+      rec.start(); // tại đây trình duyệt sẽ xin quyền microphone
+    }catch(e){
+      listening=false;
+      btn.disabled=false;
+      btn.classList.remove("listening");
+      qs("#pr-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro của trình duyệt.";
+    }
+  }
+
+  function tierTitle(p){
+    if(p>=90) return "🌟 Xuất sắc";
+    if(p>=70) return "👍 Tốt";
+    if(p>=50) return "💪 Cần luyện thêm";
+    return "📚 Hãy ôn lại từ vựng";
+  }
+  function tierNote(p){
+    if(p>=90) return "Phát âm của bạn rất rõ ràng — giữ phong độ này nhé!";
+    if(p>=70) return "Khá tốt! Luyện thêm vài từ nữa để hoàn thiện hơn.";
+    if(p>=50) return "Một số từ còn lệch — nghe mẫu và nói lại từng từ nhé.";
+    return "Hãy ôn lại từ vựng và luyện phát âm chậm rãi theo mẫu.";
+  }
+
+  function finish(){
+    var total=items.length;
+    var sum=0, good=0;
+    items.forEach(function(it){ sum+=it.best; if(it.best>=GOOD) good++; });
+    var avg = total ? Math.round(sum/total) : 0;
+    qs("#pr-ring").style.setProperty("--p", avg);
+    qs("#pr-avg").textContent = avg + "%";
+    qs("#pr-title").textContent = tierTitle(avg);
+    qs("#pr-mode").textContent = "Chủ đề: " + topicName(selectedTopic);
+    qs("#pr-note").textContent = tierNote(avg);
+    qs("#pr-stat-total").textContent = total;
+    qs("#pr-stat-avg").textContent = avg + "%";
+    qs("#pr-stat-good").textContent = good;
+    qs("#pr-stat-bad").textContent = (total-good);
+    var weak=qs("#pr-weak");
+    weak.innerHTML="";
+    var weakItems=items.filter(function(it){return it.best<GOOD;});
+    if(!weakItems.length){
+      var ok=document.createElement("div");
+      ok.className="pr-weak-ok";
+      ok.textContent="Tuyệt vời! Không có từ nào cần luyện thêm.";
+      weak.appendChild(ok);
+    }else{
+      weakItems.forEach(function(it){
+        var row=document.createElement("div");
+        row.className="pr-weak-row";
+        var en=document.createElement("span"); en.className="en"; en.textContent=it.word.en;
+        var vi=document.createElement("span"); vi.className="vi"; vi.textContent="· "+(it.word.vi||"");
+        var sc=document.createElement("span"); sc.className="score";
+        sc.textContent = it.best>0 ? it.best+"%" : "Chưa thử";
+        row.appendChild(en); row.appendChild(vi); row.appendChild(sc);
+        weak.appendChild(row);
+      });
+    }
+    var h=getHist();
+    h.unshift({ts:Date.now(), topicId:selectedTopic, avg:avg, good:good, total:total});
+    saveHist(h);
+    buildStart();
+    show("result");
+  }
+
+  // ---- sự kiện ----
+  qs("#btn-start").addEventListener("click", start);
+  qs("#btn-restart").addEventListener("click", start);
+  qs("#btn-change").addEventListener("click", function(){ buildStart(); show("start"); });
+  qs("#btn-say").addEventListener("click", listen);
+  qs("#btn-retry").addEventListener("click", function(){ if(!qs("#btn-retry").hidden) listen(); });
+  qs("#btn-next").addEventListener("click", next);
+  qs("#btn-next2").addEventListener("click", next);
+  qs("#btn-speak").addEventListener("click", function(){ if(items[idx]) speak(items[idx].word.en); });
+  document.addEventListener("keydown", function(ev){
+    if(!qs("#pr-question").classList.contains("active")) return;
+    if(ev.key==="ArrowRight") next();
+  });
+
+  // ---- khởi động ----
+  renderPills();
+  buildStart();
+  show("start");
+})();
+</script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+</body>
+</html>
