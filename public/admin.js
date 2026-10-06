@@ -66,6 +66,7 @@ const el = {
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
   inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"),
   inputEx: $("inputEx"), inputExVi: $("inputExVi"), inputTopic: $("inputTopic"),
+  inputPronHint: $("inputPronHint"),
   inputEx0En: $("inputEx0En"), inputEx0Vi: $("inputEx0Vi"),
   inputEx1En: $("inputEx1En"), inputEx1Vi: $("inputEx1Vi"),
   inputEx2En: $("inputEx2En"), inputEx2Vi: $("inputEx2Vi"),
@@ -911,8 +912,7 @@ function openWordModal(mode, key) {
     el.inputEn.value = word.en;
     el.inputVi.value = word.vi;
     el.inputIpa.value = word.ipa || "";
-    el.inputEx.value = word.ex || "";
-    el.inputExVi.value = word.exvi || "";
+    el.inputPronHint.value = word.pronHint || "";
     el.inputTopic.value = word.topicId;
 // exs
     if (el.inputEx0En) el.inputEx0En.value = (word.exs && word.exs[0] && word.exs[0].en) ? word.exs[0].en : "";
@@ -1277,6 +1277,7 @@ clearFormErrors();
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
+  const pronHint = (el.inputPronHint && el.inputPronHint.value.trim()) || "";
   const topic = el.inputTopic.value;
   const key = wordKey(en);
 
@@ -1297,7 +1298,7 @@ clearFormErrors();
     // Thêm mới: lưu vào danh sách từ riêng của chủ đề
     const added = getAdded();
     if (!Array.isArray(added[topic])) added[topic] = [];
-    added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi, exs: exsArrSave.slice() });
+      added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, pronHint: pronHint, ex: '', exvi: '', exs: exsArrSave.slice() });
     writeStore(KEY_ADDED, added);
 
     // Nếu từ này từng bị xóa trước đó thì gỡ khỏi danh sách đã xóa
@@ -1320,8 +1321,9 @@ clearFormErrors();
         en: en,
         vi: vi,
         ipa: ipa,
-        ex: ex,
-        exvi: exVi,
+        pronHint: pronHint,
+        ex: '',
+        exvi: '',
         exs: exsArrSave.slice()
       };
       writeStore(KEY_EDITED, edited);
@@ -1348,15 +1350,16 @@ clearFormErrors();
         foundWord.en = en;
         foundWord.vi = vi;
         foundWord.ipa = ipa;
-        foundWord.ex = ex;
-        foundWord.exvi = exVi;
-        foundWord.exs = exsArrSave.slice();
+foundWord.ex = '';
+foundWord.exvi = '';
+foundWord.pronHint = pronHint;
+foundWord.exs = exsArrSave.slice();
         const targetTopic = topic || oldTopicId || "food";
         if (!Array.isArray(added[targetTopic])) added[targetTopic] = [];
         added[targetTopic].push(foundWord);
       } else {
         if (!Array.isArray(added[topic])) added[topic] = [];
-        added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi, exs: exsArrSave.slice() });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, pronHint: pronHint, ex: '', exvi: '', exs: exsArrSave.slice() });
       }
       writeStore(KEY_ADDED, added);
     }
