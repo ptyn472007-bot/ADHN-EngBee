@@ -57,14 +57,14 @@ const el = {
   // người học
   userBody: $("userBody"), userEmpty: $("userEmpty"),
   // kết quả
-  resultBody: $("resultBody"), resultEmpty: $("resultEmpty"), btnClearResults: $("btnClearResults"),
+  resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
   importFile: $("importFile"), btnResetAll: $("btnResetAll"),
   infoSession: $("infoSession"),
   // modal từ
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
-  inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"),
+  inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"), inputTopic: $("inputTopic"),
   inputEx0En: $("inputEx0En"), inputEx0Vi: $("inputEx0Vi"),
   inputEx1En: $("inputEx1En"), inputEx1Vi: $("inputEx1Vi"),
   inputEx2En: $("inputEx2En"), inputEx2Vi: $("inputEx2Vi"),
@@ -1225,8 +1225,6 @@ function fillExamplesIfEmpty(en, vi, topicId) {
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
   const errors = [];
@@ -1235,8 +1233,6 @@ function fillExamplesIfEmpty(en, vi, topicId) {
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
   const errors = [];
