@@ -172,6 +172,43 @@
     if (flashcard) flashcard.classList.toggle("flipped", flipped);
   }
 
+  // ---- Ví dụ ngẫu nhiên: mỗi lần lật thẻ chọn 1 câu khác câu đang hiển thị ----
+  var exPool = [];
+  var exPos = 0;
+
+  function buildExPool(w) {
+    var pool = [];
+    var seen = {};
+    function add(en, vi) {
+      if (!en) return;
+      var k = String(en).trim().toLowerCase();
+      if (seen[k]) return;
+      seen[k] = true;
+      pool.push({ en: en, vi: vi || "" });
+    }
+    if (w) {
+      add(w.ex, w.exvi);
+      if (Array.isArray(w.exs)) {
+        w.exs.forEach(function (s) { if (s && typeof s === "object") add(s.en, s.vi); });
+      }
+    }
+    return pool;
+  }
+
+  function showExample(p) {
+    var e = exPool[p];
+    if (wordEx) wordEx.textContent = e ? e.en : "";
+    if (wordExvi) wordExvi.textContent = e ? e.vi : "";
+  }
+
+  function randomExample() {
+    if (exPool.length < 2) { exPos = 0; showExample(0); return; }
+    var p;
+    do { p = Math.floor(Math.random() * exPool.length); } while (p === exPos);
+    exPos = p;
+    showExample(p);
+  }
+
   function renderCard() {
     var w = currentTopic.words[index];
     if (!w) return;
@@ -179,8 +216,9 @@
     if (wordEn) wordEn.textContent = w.en;
     if (wordIpa) wordIpa.textContent = w.ipa || "";
     if (wordVi) wordVi.textContent = w.vi;
-    if (wordEx) wordEx.textContent = w.ex || "";
-    if (wordExvi) wordExvi.textContent = w.exvi || "";
+    exPool = buildExPool(w);
+    exPos = 0;
+    showExample(0);
     if (masteredBtn) masteredBtn.classList.toggle("active", hasMastered(index));
     if (notMasteredBtn) notMasteredBtn.classList.toggle("active", !hasMastered(index));
     renderProgress();
@@ -224,6 +262,7 @@
   }
 
   function flipCard() {
+    if (!flipped) randomExample();
     setFlip(!flipped);
   }
 

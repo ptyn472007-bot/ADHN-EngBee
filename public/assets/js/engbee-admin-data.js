@@ -137,7 +137,8 @@
                 ipa: edited[kAll].ipa !== undefined ? edited[kAll].ipa : item.ipa,
                 vi: edited[kAll].vi !== undefined ? edited[kAll].vi : item.vi,
                 ex: edited[kAll].ex !== undefined ? edited[kAll].ex : item.ex,
-                exvi: edited[kAll].exvi !== undefined ? edited[kAll].exvi : item.exvi
+                exvi: edited[kAll].exvi !== undefined ? edited[kAll].exvi : item.exvi,
+                exs: item.exs
               };
             }
             result.push(item);
@@ -155,7 +156,8 @@
               ipa: edited[kb].ipa !== undefined ? edited[kb].ipa : bw.ipa,
               vi: edited[kb].vi !== undefined ? edited[kb].vi : bw.vi,
               ex: edited[kb].ex !== undefined ? edited[kb].ex : bw.ex,
-              exvi: edited[kb].exvi !== undefined ? edited[kb].exvi : bw.exvi
+              exvi: edited[kb].exvi !== undefined ? edited[kb].exvi : bw.exvi,
+              exs: bw.exs
             };
           }
           result.push(bw);
@@ -195,7 +197,8 @@
             ipa: edited[key].ipa !== undefined ? edited[key].ipa : w.ipa,
             vi: edited[key].vi !== undefined ? edited[key].vi : w.vi,
             ex: edited[key].ex !== undefined ? edited[key].ex : w.ex,
-            exvi: edited[key].exvi !== undefined ? edited[key].exvi : w.exvi
+            exvi: edited[key].exvi !== undefined ? edited[key].exvi : w.exvi,
+            exs: w.exs
           };
         }
 
