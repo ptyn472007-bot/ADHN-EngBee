@@ -20,7 +20,7 @@ const USERS_REGISTRY_KEY = "engbee_users";            // danh sách mọi ngư�
 const SESSION_TTL = 8 * 60 * 60 * 1000;              // 8 giờ
 
 // Chỉ tài khoản này được vào trang quản trị
-const ADMIN_ACCOUNT = { username: "admin", password: "admin123", name: "Quản trị viên" };
+const ADMIN_ACCOUNT = { username: "EngBee", password: "EngBee123", name: "Quản trị viên" };
 
 /* ================= PHẦN 2: TRẠNG THÁI ================= */
 
