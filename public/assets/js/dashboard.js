@@ -4,6 +4,7 @@
 
   var LEARN_PREFIX = "engbee_learned_";
   var USER_KEY = "engbee_user";
+  var PRON_KEY = "eb_pron_history";
 
   function getUser() {
     try {
@@ -97,6 +98,22 @@
     return [];
   }
 
+  function getPronHistory() {
+    try {
+      var h = JSON.parse(localStorage.getItem(PRON_KEY) || "[]");
+      if (Array.isArray(h)) return h;
+    } catch (e) {}
+    return [];
+  }
+
+  function topicNameById(id) {
+    var topics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
+    for (var i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) return topics[i].name;
+    }
+    return id;
+  }
+
   // ------- Hiển thị -------
 
   function renderName() {
@@ -134,6 +151,43 @@
     document.getElementById("dash-best").textContent = best === null ? "Chưa có" : best + " / 10";
   }
 
+  function renderPronBest() {
+    var h = getPronHistory();
+    var b = 0;
+    h.forEach(function (x) {
+      var p = typeof x.avg === "number" ? x.avg : 0;
+      if (p > b) b = p;
+    });
+    document.getElementById("dash-pron-best").textContent = b > 0 ? b + "%" : "Chưa có";
+  }
+
+  function renderPronHistory() {
+    var history = getPronHistory();
+    var wrap = document.getElementById("dash-pron-wrap");
+    if (!wrap) return;
+    var html = "";
+
+    if (history.length === 0) {
+      html = '<p class="dash-empty">Chưa có lượt kiểm tra phát âm nào. Thử sức ngay!</p>';
+    } else {
+      html = '<table class="dash-table"><thead><tr><th>#</th><th>Ngày</th><th>Chủ đề</th><th>Điểm trung bình</th><th>Phát âm tốt</th></tr></thead><tbody>';
+      history
+        .slice(0, 15)
+        .forEach(function (item, index) {
+          var avg = typeof item.avg === "number" ? item.avg : "—";
+          var good = typeof item.good === "number" ? item.good : "—";
+          var dateStr = item.date || (item.ts ? new Date(item.ts).toLocaleString("vi-VN") : "—");
+          var modeStr = item.topicId ? topicNameById(item.topicId) : "Tổng hợp";
+          html +=
+            "<tr><td>" + (index + 1) + "</td><td>" +
+            dateStr + "</td><td>" + modeStr + "</td><td><strong>" + avg + "%</strong></td><td>" + good + "</td></tr>";
+        });
+      html += "</tbody></table>";
+    }
+
+    wrap.innerHTML = html;
+  }
+
   function renderHistory() {
     var history = getHistory();
     var wrap = document.getElementById("dash-history-wrap");
@@ -165,7 +219,9 @@
     renderName();
     renderStats();
     renderBest();
+    renderPronBest();
     renderHistory();
+    renderPronHistory();
   }
 
   // ------- Đặt lại dữ liệu -------
@@ -183,6 +239,7 @@
     localStorage.removeItem("engbee_quiz_history");
     localStorage.removeItem("engbee_quiz_best");
     localStorage.removeItem("eb_quiz_history");
+    localStorage.removeItem(PRON_KEY);
     renderAll();
   }
 
