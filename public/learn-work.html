@@ -775,6 +775,24 @@ body {
 .pron-btnme:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .pron-note{font-size:.78rem;color:#9aa1b5;margin-top:12px}
 
+
+/* ===== learned + quick check ===== */
+.master-bar{gap:12px;flex-wrap:wrap;justify-content:center}
+.learned-chip{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#22b573,#2ee59d);color:#fff;font-weight:800;font-size:.85rem;padding:7px 15px;border-radius:999px;box-shadow:0 6px 16px rgba(34,181,115,.35)}
+.learned-chip[hidden]{display:none}
+.learned-chip .lc-ic{background:#fff;color:#22b573;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+.learned-rule{color:#9aa1b5;font-size:.8rem;margin:10px 0 0;display:block;width:100%;text-align:center;line-height:1.6}
+.quick-check{margin:18px auto 0;max-width:560px;background:#fffdf5;border:1px solid #f0e7cf;border-radius:16px;padding:14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.qc-q{font-weight:700;font-size:.92rem;color:#4b5563;margin:0}
+.qc-q b{color:#111827}
+.qc-row{display:flex;gap:10px;margin-top:10px}
+.qc-row input{flex:1;border:1px solid #e5dfc8;background:#fff;border-radius:10px;padding:9px 12px;font-size:.95rem;outline:none;font-family:inherit}
+.qc-row input:focus{border-color:#f5b014;box-shadow:0 0 0 3px rgba(245,176,20,.15)}
+.qc-row button{border:none;background:linear-gradient(135deg,#f5b014,#f97316);color:#fff;font-weight:800;border-radius:10px;padding:9px 18px;cursor:pointer;font-family:inherit}
+.qc-row button:active{transform:translateY(1px)}
+.qc-fb{margin-top:8px;font-size:.85rem;font-weight:700;min-height:18px}
+.qc-fb.good{color:#157a4d}
+.qc-fb.bad{color:#b91c1c}
 </style>
   <script src="assets/js/engbee-admin-data.js"></script>
 </head>
@@ -861,9 +879,18 @@ body {
           <button class="ctl-btn" id="next-btn"><span>Sau</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
 
-        <div class="master-bar">
-          <button class="master-btn nope" id="not-mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Chưa thuộc</span></button>
-          <button class="master-btn yes" id="mastered-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Đã thuộc</span></button>
+                <div class="master-bar">
+          <span class="learned-chip" id="learned-chip" hidden><span class="lc-ic">✓</span><span>Đã học</span></span>
+          <span class="learned-rule">Được đánh dấu <b>Đã học</b> khi bạn phát âm đạt yêu cầu <b>và</b> trả lời đúng câu hỏi về từ này.</span>
+        </div>
+
+        <div class="quick-check" id="quick-check">
+          <p class="qc-q">📝 Tự kiểm tra: “<span id="qc-word">…</span>” nghĩa là gì?</p>
+          <div class="qc-row">
+            <input type="text" id="qc-input" placeholder="Gõ nghĩa tiếng Việt…" autocomplete="off">
+            <button type="button" id="qc-btn">Kiểm tra</button>
+          </div>
+          <p class="qc-fb" id="qc-fb"></p>
         </div>
         <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
       </section>
@@ -921,6 +948,57 @@ body {
     return [];
   }
   var learned = loadSet();
+  var PKEY = KEY + "_PRON";
+  var CKEY = KEY + "_CORR";
+
+  function loadIdx(key){
+    try {
+      var arr = JSON.parse(localStorage.getItem(key) || "null");
+      if (Array.isArray(arr)) return arr.filter(function(x){ return typeof x === "number" && x >= 0; });
+    } catch(e){}
+    return [];
+  }
+  var pronounced = loadIdx(PKEY);
+  var answeredOk = loadIdx(CKEY);
+
+  function saveIdx(key, arr){ try { localStorage.setItem(key, JSON.stringify(arr)); } catch(e){} }
+
+  function validIndex(i){ return typeof i === "number" && i >= 0 && i < TOTAL; }
+  function markPronounced(i){
+    if (!validIndex(i) || pronounced.indexOf(i) !== -1) return;
+    pronounced.push(i);
+    saveIdx(PKEY, pronounced);
+    recalcLearned();
+  }
+  function markAnswerOk(i){
+    if (!validIndex(i) || answeredOk.indexOf(i) !== -1) return;
+    answeredOk.push(i);
+    saveIdx(CKEY, answeredOk);
+    recalcLearned();
+  }
+  function recalcLearned(){
+    learned = pronounced.filter(function(i){ return i >= 0 && i < TOTAL && answeredOk.indexOf(i) !== -1; });
+    saveSet();
+    if (window.EngBeeTrackUser) window.EngBeeTrackUser();
+    render();
+  }
+  function syncQuizCorrect(){
+    if (!window.EngBeeAdminData || !window.EngBeeAdminData.apply) return;
+    var raw = null;
+    try { raw = JSON.parse(localStorage.getItem("engbee_quiz_corr_" + TID) || "null"); } catch(e){ return; }
+    if (!Array.isArray(raw) || !raw.length) return;
+    var map = {};
+    for (var m = 0; m < raw.length; m++) map[String(raw[m]).trim().toLowerCase()] = 1;
+    var changed = false;
+    for (var i = 0; i < WORDS.length; i++) {
+      if (answeredOk.indexOf(i) !== -1) continue;
+      if (map[String(WORDS[i].en).trim().toLowerCase()]) { answeredOk.push(i); changed = true; }
+    }
+    if (changed) { saveIdx(CKEY, answeredOk); recalcLearned(); }
+  }
+  window.addEventListener("engbee_pron_ok", function(){
+    if (WORDS[state.index]) markPronounced(state.index);
+  });
 
   function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
   function hasLearned(i){ return learned.indexOf(i) !== -1; }
@@ -957,7 +1035,7 @@ body {
     var fb = qs("#topic-feedback");
     if (fb) {
       if (TOTAL > 0 && learned.length === TOTAL) {
-        qs("#fb-text").textContent = "Chúc mừng! Bạn đã thuộc cả " + TOTAL + " từ của chủ đề " + TNAME + ".";
+        qs("#fb-text").textContent = "Chúc mừng! Bạn đã học cả " + TOTAL + " từ của chủ đề " + TNAME + ".";
         fb.hidden = false;
       } else { fb.hidden = true; }
     }
@@ -1019,9 +1097,14 @@ body {
     exPos = 0;
     showExample(0);
     if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
-    var mb = qs("#mastered-btn"), nb = qs("#not-mastered-btn");
-    if (mb) mb.classList.toggle("active", hasLearned(state.index));
-    if (nb) nb.classList.toggle("active", !hasLearned(state.index));
+    var chip = qs("#learned-chip");
+    if (chip) chip.hidden = !hasLearned(state.index);
+    var qcw = qs("#qc-word");
+    if (qcw) qcw.textContent = w.en;
+    var qci = qs("#qc-input");
+    if (qci) qci.value = "";
+    var qfb = qs("#qc-fb");
+    if (qfb) { qfb.textContent = ""; qfb.className = "qc-fb"; }
     setFlip(false);
     renderProgress();
   }
@@ -1064,7 +1147,7 @@ body {
       mk.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
       card.appendChild(top); card.appendChild(v); card.appendChild(ex); card.appendChild(exv); card.appendChild(mk);
-      card.addEventListener("click", function(){ toggleLearned(pos); render(); });
+      card.addEventListener("click", function(){ state.index = pos; setView("cards"); });
       grid.appendChild(card);
     });
   }
@@ -1087,6 +1170,20 @@ body {
   function render(){ renderCard(); if (state.view === "list") renderGrid(); }
   function go(step){ if (!TOTAL) return; state.index = (state.index + step + TOTAL) % TOTAL; renderCard(); }
 
+  function checkQuick(){
+    var w = WORDS[state.index];
+    if (!w) return;
+    var input = qs("#qc-input"), fb = qs("#qc-fb");
+    var ans = (input ? input.value : "").trim().toLowerCase().replace(/\s+/g, " ");
+    var targets = String(w.vi || "").split(/[;,/()]+/).map(function(s){ return s.trim().toLowerCase(); }).filter(Boolean);
+    var ok = targets.indexOf(ans) !== -1;
+    if (!ok) {
+      if (fb) { fb.textContent = "Chưa đúng, hãy thử lại nhé."; fb.className = "qc-fb bad"; }
+      return;
+    }
+    markAnswerOk(state.index);
+    if (fb) { fb.textContent = "Chính xác ✓ — đã ghi nhận từ “" + w.en + "”."; fb.className = "qc-fb good"; }
+  }
   function bind(){
     var card = qs("#flashcard");
     if (card) {
@@ -1097,11 +1194,18 @@ body {
     }
     qs("#prev-btn").addEventListener("click", function(){ go(-1); });
     qs("#next-btn").addEventListener("click", function(){ go(1); });
-    qs("#mastered-btn").addEventListener("click", function(){ if (!hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
-    qs("#not-mastered-btn").addEventListener("click", function(){ if (hasLearned(state.index)) toggleLearned(state.index); renderCard(); });
+    var qcBtn = qs("#qc-btn"), qcInp = qs("#qc-input");
+    if (qcBtn) {
+      qcBtn.addEventListener("click", checkQuick);
+      if (qcInp) qcInp.addEventListener("keydown", function(ev){ if (ev.key === "Enter") { ev.preventDefault(); checkQuick(); } });
+    }
     qs("#reset-btn").addEventListener("click", function(){
-      if (!learned.length) return;
-      if (confirm("Xóa toàn bộ tiến độ chủ đề " + TNAME + "?")){ learned = []; saveSet(); render(); }
+      if (!learned.length && !pronounced.length && !answeredOk.length) return;
+      if (confirm("Xóa toàn bộ tiến độ chủ đề " + TNAME + "?")){
+        learned = []; pronounced = []; answeredOk = [];
+        saveSet(); saveIdx(PKEY, []); saveIdx(CKEY, []);
+        render();
+      }
     });
     var tabs = document.querySelectorAll(".view-tab");
     for (var i = 0; i < tabs.length; i++) {
@@ -1123,9 +1227,11 @@ body {
       TOTAL = newWords.length;
       if (state.index >= TOTAL) state.index = Math.max(0, TOTAL - 1);
       learned = loadSet();
+      syncQuizCorrect();
       render();
     });
   } else {
+    syncQuizCorrect();
     render();
   }
 })();
@@ -1273,6 +1379,7 @@ body {
     else if(best>=75){v.className="pron-verdict ok";v.textContent="Gần chuẩn rồi, chú ý phát âm đuôi từ ("+best+"%).";}
     else if(best>=40){v.className="pron-verdict bad";v.textContent="Còn lệch, nghe mẫu rồi nói chậm lại ("+best+"%).";}
     else{v.className="pron-verdict bad";v.textContent="Chưa chuẩn, hãy thử lại theo mẫu ("+best+"%).";}
+    if(best>=75){try{window.dispatchEvent(new Event("engbee_pron_ok"));}catch(e){}}
     $_("#pron-status").textContent="Bấm “Nói lại” để phát âm thêm lần nữa.";
   }
   function wirePron(){
