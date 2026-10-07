@@ -306,7 +306,7 @@ main{flex:1}
       if (tid!=="all" && t.id!==tid) return;
       var base = Array.isArray(t.words) ? t.words.slice() : [];
       var list = (window.EngBeeAdminData && window.EngBeeAdminData.apply) ? window.EngBeeAdminData.apply(t.id, base) : base;
-      out = out.concat(list);
+      list.forEach(function(w){ out.push({ en:w.en, ipa:w.ipa, vi:w.vi, tid:t.id }); });
     });
     return out;
   }
@@ -350,6 +350,48 @@ main{flex:1}
   function saveHist(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(0,60)));}catch(e){}}
   function myHist(){return getHist().filter(function(x){return x.topicId===selectedTopic;});}
   function bestAvg(){var h=myHist(),b=0;for(var i=0;i<h.length;i++)if(h[i].avg>b)b=h[i].avg;return b;}
+
+  // ---- ghi nhận từ phát âm tốt vào tiến độ (đồng bộ với Dashboard) ----
+  function userScope(){
+    try{var p=JSON.parse(localStorage.getItem("engbee_user")||"null");if(p&&typeof p.name==="string"&&p.name.trim())return p.name.trim();}catch(e){}
+    return "guest";
+  }
+  function getArr(key){try{var a=JSON.parse(localStorage.getItem(key)||"null");return Array.isArray(a)?a:[];}catch(e){return [];}}
+  function setArr(key,a){try{localStorage.setItem(key,JSON.stringify(a));}catch(e){}}
+  function recomputeLearned(tid,scope){
+    var baseKey="engbee_learned_"+scope+"_"+tid;
+    var words=wordsFor(tid);
+    var pron=getArr(baseKey+"_PRON");
+    var corr=getArr(baseKey+"_CORR");
+    var qc=getArr("engbee_quiz_corr_"+tid);
+    var qmap={};
+    qc.forEach(function(s){ qmap[String(s).trim().toLowerCase()]=1; });
+    var answered={};
+    corr.forEach(function(i){ answered[i]=1; });
+    words.forEach(function(w,i){ if(qmap[String(w.en).trim().toLowerCase()]) answered[i]=1; });
+    var learned=pron.filter(function(i){ return answered[i]===1; }).sort(function(a,b){ return a-b; });
+    setArr(baseKey,learned);
+  }
+  function recordGoodPron(items,scope){
+    var pronByTid={};
+    items.forEach(function(it){
+      if(it.best<GOOD) return;
+      var tid=(it.word&&it.word.tid)?it.word.tid:"";
+      if(!tid) return;
+      if(!pronByTid[tid]) pronByTid[tid]={words:wordsFor(tid),list:getArr("engbee_learned_"+scope+"_"+tid+"_PRON")};
+      var wl=pronByTid[tid].words;
+      var idx=-1;
+      for(var k=0;k<wl.length;k++){ if(wl[k].en===it.word.en){ idx=k; break; } }
+      if(idx===-1) return;
+      if(pronByTid[tid].list.indexOf(idx)===-1) pronByTid[tid].list.push(idx);
+    });
+    Object.keys(pronByTid).forEach(function(tid){
+      var g=pronByTid[tid];
+      g.list.sort(function(a,b){ return a-b; });
+      setArr("engbee_learned_"+scope+"_"+tid+"_PRON",g.list);
+      recomputeLearned(tid,scope);
+    });
+  }
 
   // ---- màn hình ----
   function show(which){
@@ -573,6 +615,7 @@ main{flex:1}
     var total=items.length;
     var sum=0, good=0;
     items.forEach(function(it){ sum+=it.best; if(it.best>=GOOD) good++; });
+    recordGoodPron(items,userScope());
     var avg = total ? Math.round(sum/total) : 0;
     qs("#pr-ring").style.setProperty("--p", avg);
     qs("#pr-avg").textContent = avg + "%";

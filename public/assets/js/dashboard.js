@@ -212,7 +212,7 @@
   function renderStats() {
     var activeTopics = getActiveTopics();
     var totalWords = getTotalWords(activeTopics);
-    var learned = getLearnedCount(activeTopics);
+    var learned = getLearnedWords().full.length;
 
     document.getElementById("dash-learned").textContent = learned + " / " + totalWords;
 
@@ -229,7 +229,7 @@
       } else if (percent === 100) {
         note.textContent = "Tuyệt vời! Bạn đã thuộc toàn bộ từ vựng.";
       } else {
-        note.textContent = "Bạn đã thuộc " + learned + " trên tổng " + totalWords + " từ. Cố lên nhé!";
+        note.textContent = "Bạn đã thuộc " + learned + " trên tổng " + totalWords + " từ (đủ cả nghĩa và phát âm). Cố lên nhé!";
       }
     }
   }
