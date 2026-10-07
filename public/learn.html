@@ -1123,13 +1123,15 @@ body {
     var grid = qs("#word-grid");
     grid.innerHTML = "";
     var q = (qs("#search-box").value || "").trim().toLowerCase();
-    var list = WORDS;
-    if (q) list = WORDS.filter(function(w){ return (w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1); });
+    var list = WORDS.filter(function(w, wi){ return !hasLearned(wi); });
+    if (q) list = WORDS.filter(function(w, wi){ return !hasLearned(wi) && ((w.en && w.en.toLowerCase().indexOf(q) !== -1) || (w.vi && w.vi.toLowerCase().indexOf(q) !== -1)); });
 
     if (!list.length) {
       var em = document.createElement("p");
       em.className = "empty-note";
-      em.textContent = "Không tìm thấy từ nào.";
+      em.textContent = (TOTAL > 0 && learned.length === TOTAL)
+        ? "Bạn đã học hết từ của chủ đề " + TNAME + "! Xem chi tiết ở mục Dashboard."
+        : "Không tìm thấy từ nào.";
       grid.appendChild(em);
       return;
     }
