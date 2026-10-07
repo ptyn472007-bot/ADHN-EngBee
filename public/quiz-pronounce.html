@@ -392,6 +392,18 @@ main{flex:1}
       recomputeLearned(tid,scope);
     });
   }
+  function recordOnePron(it,scope){
+    if(!it || it.best<GOOD) return;
+    var tid=(it.word&&it.word.tid)?it.word.tid:"";
+    if(!tid) return;
+    var list=getArr("engbee_learned_"+scope+"_"+tid+"_PRON");
+    var wl=wordsFor(tid);
+    var idx=-1;
+    for(var k=0;k<wl.length;k++){ if(wl[k].en===it.word.en){ idx=k; break; } }
+    if(idx===-1) return;
+    if(list.indexOf(idx)===-1){ list.push(idx); list.sort(function(a,b){ return a-b; }); setArr("engbee_learned_"+scope+"_"+tid+"_PRON",list); }
+    recomputeLearned(tid,scope);
+  }
 
   // ---- màn hình ----
   function show(which){
@@ -486,7 +498,7 @@ main{flex:1}
     var v=qs("#pr-verdict");
     if(score>=GOOD){
       v.className="pr-verdict good";
-      v.textContent="✅ Phát âm tốt!";
+      v.textContent="✅ Phát âm tốt! Đã lưu vào Dashboard.";
     }else{
       v.className="pr-verdict bad";
       v.innerHTML="❌ Hãy thử lại!<br>Từ đúng: <b>"+esc(it.word.en)+"</b>";
@@ -532,6 +544,8 @@ main{flex:1}
     });
     if(sc>it.best){it.best=sc;it.heard=ht;}
     var isFinal = it.tries>=MAX_TRY;
+    // Ghi nhận ngay từ này vào tiến độ nếu đạt "Phát âm tốt"
+    if(it.best>=GOOD) recordOnePron(it,userScope());
     // Sau 3 lần: hiển thị kết quả tốt nhất của từ
     renderResult(isFinal ? it.best : sc, isFinal ? (it.heard||ht) : ht, it, isFinal);
   }
