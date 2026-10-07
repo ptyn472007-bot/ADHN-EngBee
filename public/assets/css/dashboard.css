@@ -197,18 +197,11 @@
 .lw-title {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 8px;
   font-size: 15px;
   font-weight: 800;
   color: #221800;
   margin: 0 0 10px;
-}
-
-.lw-title .lw-sub {
-  font-size: 12px;
-  font-weight: 600;
-  color: #999;
 }
 
 .lw-count {
@@ -223,82 +216,72 @@
   padding: 2px 9px;
 }
 
-.lw-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.lw-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: #fff;
+/* Bảng từ đã học (gọn, 3 cột: từ / nghĩa / chủ đề) */
+.lw-tbl {
   border: 1px solid #f0e7cf;
-  border-radius: 999px;
-  padding: 5px 13px;
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.lw-tbl table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lw-tbl tr {
+  border-bottom: 1px solid #f5efe0;
+}
+
+.lw-tbl tr:last-child {
+  border-bottom: 0;
+}
+
+.lw-tbl td {
+  padding: 7px 12px;
   font-size: 13px;
-  box-shadow: 0 2px 6px -3px rgba(120, 90, 20, 0.25);
+  vertical-align: middle;
 }
 
-.lw-chip b {
-  color: #221800;
+.lw-tbl .lw-en {
   font-weight: 700;
+  color: #221800;
+  width: 32%;
 }
 
-.lw-chip i {
-  font-style: normal;
-  color: #777;
+.lw-tbl .lw-vi {
+  color: #666;
 }
 
-.lw-chip em {
-  font-style: normal;
-  font-size: 11px;
+.lw-tbl .lw-topic {
+  text-align: right;
   color: #b98a00;
-  background: #fff7e6;
-  border: 1px solid #f3d9a4;
-  border-radius: 999px;
-  padding: 1px 8px;
+  width: 18%;
+  white-space: nowrap;
 }
 
-.lw-chip.full {
-  border-color: #cdeacd;
-  background: #f2fbf2;
-}
-
-.lw-chip.full em {
-  background: #e6f7e6;
-  color: #2b7a2b;
-  border-color: #bfe3bf;
-}
-
-.lw-chip.meaning {
-  border-color: #f5e0a8;
-  background: #fffaf0;
-}
-
-.lw-chip.meaning em {
-  background: #fff3d6;
-  color: #a07600;
-  border-color: #f0d690;
-}
-
-.lw-chip.pron {
-  border-color: #cfe0f5;
-  background: #f4f8fe;
-}
-
-.lw-chip.pron em {
-  background: #e3eefb;
-  color: #2d6bb3;
-  border-color: #c1d8f2;
-}
-
-.lw-more {
-  font-size: 12px;
+.lw-tbl .lw-more-row td {
+  text-align: center;
   color: #999;
-  align-self: center;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.lw-group.full .lw-tbl {
+  border-color: #cdeacd;
+}
+
+.lw-group.full .lw-tbl .lw-en {
+  color: #2b7a2b;
+}
+
+.lw-group.meaning .lw-tbl {
+  border-color: #f5e0a8;
+}
+
+.lw-group.pron .lw-tbl {
+  border-color: #cfe0f5;
 }
 
 /* Khu vực đặt lại dữ liệu */

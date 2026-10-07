@@ -43,15 +43,26 @@
     "học viên #4993": {
       "name": "Học viên #4993",
       "firstSeen": 1791340748392,
-      "lastActive": 1791370932178,
+      "lastActive": 1791371189983,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
       "bestScore": 8,
-      "totalQuizzes": 2
+      "totalQuizzes": 3
     }
   },
   "quizHistory": [
+    {
+      "id": "q_1791371185949_1215",
+      "userName": "Học viên #4993",
+      "topicId": "school",
+      "modeName": "School",
+      "correct": 8,
+      "total": 10,
+      "pct": 80,
+      "score": 8,
+      "ts": 1791371185949
+    },
     {
       "id": "q_1791369996103_430",
       "userName": "Học viên #4993",

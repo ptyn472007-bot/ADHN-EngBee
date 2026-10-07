@@ -1016,6 +1016,20 @@ body {
     if (WORDS[state.index]) markPronounced(state.index);
   });
 
+  function poolToPron(){ return answeredOk.filter(function(i){ return validIndex(i) && pronounced.indexOf(i) === -1; }); }
+  function poolToMeaning(){ return pronounced.filter(function(i){ return validIndex(i) && answeredOk.indexOf(i) === -1; }); }
+  function pickRand(arr){ if (!arr || !arr.length) return -1; return arr[Math.floor(Math.random() * arr.length)]; }
+  var pronBtn = qs("#pron-btn");
+  if (pronBtn) pronBtn.addEventListener("click", function(){
+    var p = poolToPron();
+    if (p.length) { state.index = pickRand(p); renderCard(); }
+  });
+  var qcOpen = qs("#qc-open");
+  if (qcOpen) qcOpen.addEventListener("click", function(){
+    var p = poolToMeaning();
+    if (p.length) { state.index = pickRand(p); renderCard(); }
+  });
+
   function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
   function hasLearned(i){ return learned.indexOf(i) !== -1; }
   function toggleLearned(i){
@@ -1379,6 +1393,7 @@ body {
     }
     if(norm(en)===ans){
       setFb("Chính xác ✓. Giờ kiểm tra cách đọc.","good");
+      try{ window.dispatchEvent(new Event("engbee_recall_ok")); }catch(e){}
       step=3;
       $r("#qc-row").hidden=true;
       $r("#recall-pron").hidden=false;

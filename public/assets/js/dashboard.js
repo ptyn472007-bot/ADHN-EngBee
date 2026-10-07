@@ -173,19 +173,19 @@
     return result;
   }
 
-  function lwChips(arr, cls, label) {
+  function lwTable(arr, cls, label) {
     if (!arr.length) return "";
-    var html = '<div class="lw-group"><h3 class="lw-title ' + cls + '">' + label +
-      ' <span class="lw-count">' + arr.length + "</span></h3><div class=\"lw-chips\">";
-    var max = 60;
+    var max = 80;
+    var rows = "";
     arr.slice(0, max).forEach(function (r) {
-      html += '<span class="lw-chip ' + cls + '"><b>' + escapeHtml(r.en) + "</b>" +
-        (r.vi ? "<i>" + escapeHtml(r.vi) + "</i>" : "") +
-        "<em>" + escapeHtml(r.topic) + "</em></span>";
+      rows += '<tr><td class="lw-en">' + escapeHtml(r.en) +
+        "</td><td class=\"lw-vi\">" + escapeHtml(r.vi) +
+        "</td><td class=\"lw-topic\">" + escapeHtml(r.topic) + "</td></tr>";
     });
-    if (arr.length > max) html += '<span class="lw-more">+ ' + (arr.length - max) + " từ nữa</span>";
-    html += "</div></div>";
-    return html;
+    if (arr.length > max) rows += '<tr class="lw-more-row"><td colspan="3">+ ' + (arr.length - max) + " từ nữa</td></tr>";
+    return '<div class="lw-group ' + cls + '"><h3 class="lw-title">' + label +
+      ' <span class="lw-count">' + arr.length + "</span></h3>" +
+      '<div class="lw-tbl"><table><tbody>' + rows + "</tbody></table></div></div>";
   }
 
   function renderLearnedWords() {
@@ -197,9 +197,9 @@
       return;
     }
     wrap.innerHTML =
-      lwChips(data.full, "full", "✅ Từ đã thuộc &nbsp;<span class=\"lw-sub\">100% — đủ nghĩa + phát âm</span>") +
-      lwChips(data.meaning, "meaning", "🟡 Thuộc nghĩa &nbsp;<span class=\"lw-sub\">50% — đúng Quiz / ghi nhớ, chưa kiểm tra phát âm</span>") +
-      lwChips(data.pron, "pron", "🎙 Phát âm được &nbsp;<span class=\"lw-sub\">50% — đọc chuẩn, cần ôn lại nghĩa</span>");
+      lwTable(data.full, "full", "✅ Đã thuộc (100%) — đủ nghĩa + phát âm") +
+      lwTable(data.meaning, "meaning", "🟡 Thuộc nghĩa (50%) — đúng Quiz / ghi nhớ, chưa kiểm tra phát âm") +
+      lwTable(data.pron, "pron", "🎙 Phát âm được (50%) — đọc chuẩn, cần ôn lại nghĩa");
   }
 
   // ------- Hiển thị -------
