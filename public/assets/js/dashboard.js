@@ -3,6 +3,7 @@
   "use strict";
 
   var LEARN_PREFIX = "engbee_learned_";
+  var QUIZ_CORR_PREFIX = "engbee_quiz_corr_";
   var USER_KEY = "engbee_user";
   var PRON_KEY = "eb_pron_history";
 
@@ -114,6 +115,93 @@
     return id;
   }
 
+  // ------- Từ đã học chi tiết (chia nhóm theo mức độ) -------
+
+  function escapeHtml(s) {
+    return String(s === null || s === undefined ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function getIdxSet(key) {
+    var set = {};
+    try {
+      var arr = JSON.parse(localStorage.getItem(key) || "null");
+      if (Array.isArray(arr)) {
+        arr.forEach(function (x) { if (typeof x === "number" && x >= 0) set[x] = 1; });
+      }
+    } catch (e) {}
+    return set;
+  }
+
+  function getQuizCorrectSet(topicId) {
+    var set = {};
+    try {
+      var arr = JSON.parse(localStorage.getItem(QUIZ_CORR_PREFIX + topicId) || "null");
+      if (Array.isArray(arr)) {
+        arr.forEach(function (k) { set[String(k).trim().toLowerCase()] = 1; });
+      }
+    } catch (e) {}
+    return set;
+  }
+
+  // Trả về 3 nhóm từ đã được ghi nhận:
+  //   full    = thuộc nghĩa + phát âm (100%)
+  //   meaning = làm đúng Quiz / ghi nhớ đúng nghĩa, chưa kiểm tra phát âm (50%)
+  //   pron    = đã phát âm chuẩn, chưa ôn lại nghĩa (50%)
+  function getLearnedWords() {
+    var scope = getUser() || "guest";
+    var active = getActiveTopics();
+    var result = { full: [], meaning: [], pron: [] };
+    active.forEach(function (t) {
+      var words = (t.words && t.words.slice()) || [];
+      var baseKey = LEARN_PREFIX + scope + "_" + t.id;
+      var answered = getIdxSet(baseKey + "_CORR");
+      var pron = getIdxSet(baseKey + "_PRON");
+      var qc = getQuizCorrectSet(t.id);
+      for (var i = 0; i < words.length; i++) {
+        var w = words[i] || {};
+        var hasAnswer = !!answered[i] || !!qc[String(w.en || "").trim().toLowerCase()];
+        var hasPron = !!pron[i];
+        if (!hasAnswer && !hasPron) continue;
+        var rec = { en: w.en || "", vi: w.vi || "", topic: t.name || t.id };
+        if (hasAnswer && hasPron) result.full.push(rec);
+        else if (hasAnswer) result.meaning.push(rec);
+        else result.pron.push(rec);
+      }
+    });
+    return result;
+  }
+
+  function lwTable(arr, cls, label) {
+    if (!arr.length) return "";
+    var max = 80;
+    var rows = "";
+    arr.slice(0, max).forEach(function (r) {
+      rows += '<tr><td class="lw-en">' + escapeHtml(r.en) +
+        "</td><td class=\"lw-vi\">" + escapeHtml(r.vi) +
+        "</td><td class=\"lw-topic\">" + escapeHtml(r.topic) + "</td></tr>";
+    });
+    if (arr.length > max) rows += '<tr class="lw-more-row"><td colspan="3">+ ' + (arr.length - max) + " từ nữa</td></tr>";
+    return '<div class="lw-group ' + cls + '"><h3 class="lw-title">' + label +
+      ' <span class="lw-count">' + arr.length + "</span></h3>" +
+      '<div class="lw-tbl"><table><tbody>' + rows + "</tbody></table></div></div>";
+  }
+
+  function renderLearnedWords() {
+    var wrap = document.getElementById("dash-learned-words");
+    if (!wrap) return;
+    var data = getLearnedWords();
+    if (!data.full.length && !data.meaning.length && !data.pron.length) {
+      wrap.innerHTML = '<p class="dash-empty">Chưa có từ nào được ghi nhận. Hãy vào Học từ vựng hoặc làm Quiz để bắt đầu!</p>';
+      return;
+    }
+    wrap.innerHTML =
+      lwTable(data.full, "full", "✅ Đã thuộc (100%) — đủ nghĩa + phát âm") +
+      lwTable(data.meaning, "meaning", "🟡 Thuộc nghĩa (50%) — đúng Quiz / ghi nhớ, chưa kiểm tra phát âm") +
+      lwTable(data.pron, "pron", "🎙 Phát âm được (50%) — đọc chuẩn, cần ôn lại nghĩa");
+  }
+
   // ------- Hiển thị -------
 
   function renderName() {
@@ -124,7 +212,7 @@
   function renderStats() {
     var activeTopics = getActiveTopics();
     var totalWords = getTotalWords(activeTopics);
-    var learned = getLearnedCount(activeTopics);
+    var learned = getLearnedWords().full.length;
 
     document.getElementById("dash-learned").textContent = learned + " / " + totalWords;
 
@@ -141,7 +229,7 @@
       } else if (percent === 100) {
         note.textContent = "Tuyệt vời! Bạn đã thuộc toàn bộ từ vựng.";
       } else {
-        note.textContent = "Bạn đã thuộc " + learned + " trên tổng " + totalWords + " từ. Cố lên nhé!";
+        note.textContent = "Bạn đã thuộc " + learned + " trên tổng " + totalWords + " từ (đủ cả nghĩa và phát âm). Cố lên nhé!";
       }
     }
   }
@@ -222,6 +310,7 @@
     renderPronBest();
     renderHistory();
     renderPronHistory();
+    renderLearnedWords();
   }
 
   // ------- Đặt lại dữ liệu -------
@@ -231,8 +320,11 @@
     var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
     rawTopics.forEach(function (t) {
       localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id);
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id + "_PRON");
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id + "_CORR");
       localStorage.removeItem(LEARN_PREFIX + t.id);
       localStorage.removeItem("eb_learned_" + t.id);
+      localStorage.removeItem(QUIZ_CORR_PREFIX + t.id);
     });
     localStorage.removeItem("engbee_quiz_history_" + scope);
     localStorage.removeItem("engbee_quiz_best_" + scope);
