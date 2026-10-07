@@ -794,6 +794,15 @@ body {
 .qc-step{display:inline-flex;align-items:center;justify-content:center;min-width:34px;background:#f5b014;color:#fff;border-radius:999px;font-size:.72rem;padding:2px 8px;margin-right:6px;font-weight:800}
 .qc-fb.good{color:#157a4d}
 .qc-fb.bad{color:#b91c1c}
+
+/* ===== recall check ===== */
+.qc-note{color:#9aa1b5;font-size:.78rem;margin:10px 0 0;line-height:1.6;text-align:center}
+#qc-open{width:100%;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;border:none;font-weight:800;padding:12px;border-radius:12px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.95rem;box-shadow:0 8px 20px rgba(245,158,11,.3)}
+#qc-open:active{transform:translateY(1px)}
+.recall-q{font-size:1rem;font-weight:700;color:#1f2937;line-height:1.6;margin:0 0 4px}
+.recall-reveal{margin-top:12px;display:flex;justify-content:center}
+.recall-reveal .btn-ghost{font-size:.82rem;padding:8px 14px}
+.recall-note{margin-top:14px;font-size:.78rem;color:#9aa1b5;line-height:1.6;text-align:center}
 </style>
   <script src="assets/js/engbee-admin-data.js"></script>
 </head>
@@ -886,12 +895,8 @@ body {
         </div>
 
         <div class="quick-check" id="quick-check">
-          <p class="qc-q">📝 Tự kiểm tra: “<span id="qc-word">…</span>” nghĩa là gì?</p>
-          <div class="qc-row">
-            <input type="text" id="qc-input" placeholder="Gõ nghĩa tiếng Việt…" autocomplete="off">
-            <button type="button" id="qc-btn">Kiểm tra</button>
-          </div>
-          <p class="qc-fb" id="qc-fb"></p>
+          <button type="button" id="qc-open">📝 Kiểm tra ghi nhớ</button>
+          <p class="qc-note">Nhớ đúng <b>2 chiều</b> (từ → nghĩa và nghĩa → từ) rồi phát âm chuẩn thì từ được đánh dấu <b>Đã học</b>.</p>
         </div>
         <p class="keys-hint">Dùng phím ← → để chuyển từ, Space để lật thẻ</p>
       </section>
@@ -1000,6 +1005,9 @@ body {
   window.addEventListener("engbee_pron_ok", function(){
     if (WORDS[state.index]) markPronounced(state.index);
   });
+  window.addEventListener("engbee_recall_ok", function(){
+    if (WORDS[state.index]) markAnswerOk(state.index);
+  });
 
   function saveSet(){ try { localStorage.setItem(KEY, JSON.stringify(learned)); } catch(e){} }
   function hasLearned(i){ return learned.indexOf(i) !== -1; }
@@ -1100,12 +1108,6 @@ body {
     if (ci) ci.textContent = (state.index + 1) + " / " + TOTAL;
     var chip = qs("#learned-chip");
     if (chip) chip.hidden = !hasLearned(state.index);
-    var qcw = qs("#qc-word");
-    if (qcw) qcw.textContent = w.en;
-    var qci = qs("#qc-input");
-    if (qci) qci.value = "";
-    var qfb = qs("#qc-fb");
-    if (qfb) { qfb.textContent = ""; qfb.className = "qc-fb"; }
     setFlip(false);
     renderProgress();
   }
@@ -1214,7 +1216,7 @@ body {
     }
     qs("#search-box").addEventListener("input", renderGrid);
     document.addEventListener("keydown", function(ev){
-      if (ev.target === qs("#search-box") || state.view !== "cards") return;
+      if (ev.target === qs("#search-box") || ev.target === qs("#recall-input") || state.view !== "cards") return;
       if (ev.key === "ArrowLeft") go(-1);
       else if (ev.key === "ArrowRight") go(1);
       else if (ev.key === " ") { ev.preventDefault(); flipCard(); }
@@ -1267,6 +1269,83 @@ body {
   </div>
 </div>
 
+
+<div id="recall-overlay" class="pron-overlay" hidden>
+  <div class="pron-box" role="dialog" aria-modal="true" aria-label="Kiểm tra ghi nhớ">
+    <div class="pron-head">
+      <h3>📝 Kiểm tra ghi nhớ</h3>
+      <button id="recall-close" class="pron-x" title="Đóng" aria-label="Đóng">✕</button>
+    </div>
+    <p class="recall-q" id="recall-q">…</p>
+    <div class="qc-row">
+      <input type="text" id="recall-input" placeholder="Nhập câu trả lời" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button type="button" id="recall-btn">Kiểm tra</button>
+    </div>
+    <p class="qc-fb" id="recall-fb"></p>
+    <div class="recall-reveal">
+      <button type="button" id="recall-hint" class="btn-ghost">Xem lại từ (không tính là nhớ)</button>
+    </div>
+    <p class="recall-note">Gõ câu trả lời rồi bấm Enter hoặc “Kiểm tra”. Chỉ được đánh dấu <b>Đã học</b> khi phát âm chuẩn và nhớ đúng cả hai chiều.</p>
+  </div>
+</div>
+
+
+
+<script>
+(function(){
+  "use strict";
+  function $r(s){ return document.querySelector(s); }
+  var step = 1, en = "", vi = "";
+  function norm(s){ return String(s||"").trim().toLowerCase().replace(/\s+/g," "); }
+  function splitVi(v){ return String(v||"").split(/[;,/()]+/).map(function(s){ return norm(s); }).filter(Boolean); }
+  function curWord(){ var el=$r("#word-en"); return el?el.textContent.trim():""; }
+  function curVi(){ var el=$r("#word-vi"); return el?String(el.textContent||"").trim():""; }
+  function setFb(t,c){ var f=$r("#recall-fb"); if(f){ f.textContent=t; f.className="qc-fb "+(c||""); } }
+  function openRecall(){
+    en=curWord(); vi=curVi(); step=1;
+    $r("#recall-q").textContent="Bước 1/2 — Từ “"+en+"” nghĩa là gì?";
+    var inp=$r("#recall-input"); inp.value=""; inp.disabled=false;
+    $r("#recall-btn").disabled=false;
+    setFb("","");
+    $r("#recall-overlay").hidden=false;
+    setTimeout(function(){ inp.focus(); },50);
+  }
+  function check(){
+    var inp=$r("#recall-input"), ans=norm(inp.value);
+    if(!ans){ setFb("Bạn chưa nhập đáp án.","bad"); return; }
+    if(step===1){
+      if(splitVi(vi).indexOf(ans)>=0){
+        step=2; inp.value="";
+        $r("#recall-q").textContent="Bước 2/2 — Nghĩa “"+vi+"” là từ tiếng Anh nào?";
+        setFb("Đúng! Giờ viết lại từ tiếng Anh.","good");
+      } else { setFb("Chưa đúng. Thử lại nhé.","bad"); }
+      return;
+    }
+    if(norm(en)===ans){
+      setFb("Chính xác ✓ — bạn nhớ đúng cả hai chiều.","good");
+      var b=$r("#recall-btn"); b.disabled=true; inp.disabled=true;
+      $r("#recall-q").textContent="Từ này đã được ghi nhận ✓.";
+      try{ window.dispatchEvent(new Event("engbee_recall_ok")); }catch(e){}
+    } else {
+      setFb("Chưa đúng từ tiếng Anh. Gợi ý: “"+en+"”.","bad");
+    }
+  }
+  function wireRecall(){
+    var o=$r("#qc-open"); if(!o)return;
+    o.addEventListener("click",openRecall);
+    $r("#recall-close").addEventListener("click",function(){ $r("#recall-overlay").hidden=true; step=1; });
+    $r("#recall-btn").addEventListener("click",check);
+    $r("#recall-input").addEventListener("keydown",function(ev){ if(ev.key==="Enter"){ ev.preventDefault(); check(); } });
+    $r("#recall-hint").addEventListener("click",function(){
+      $r("#recall-q").textContent="Từ cần nhớ: “"+en+"” — nghĩa: “"+vi+"”. Trả lời đúng rồi mới được tính.";
+      setFb("Đã xem lại từ — chưa tính là nhớ cho tới khi trả lời đúng.","bad");
+    });
+    $r("#recall-overlay").addEventListener("click",function(ev){ if(ev.target===this){ $r("#recall-overlay").hidden=true; step=1; } });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wireRecall);
+  else wireRecall();
+})();
+</script>
 
 <script>
 (function(){
