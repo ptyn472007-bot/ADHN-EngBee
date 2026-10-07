@@ -43,15 +43,27 @@
     "học viên #4993": {
       "name": "Học viên #4993",
       "firstSeen": 1791340748392,
-      "lastActive": 1791344147505,
+      "lastActive": 1791368770969,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
+      "bestScore": 7,
+      "totalQuizzes": 1
     }
   },
-  "quizHistory": [],
+  "quizHistory": [
+    {
+      "id": "q_1791368759249_7599",
+      "userName": "Học viên #4993",
+      "topicId": "travel",
+      "modeName": "Travel",
+      "correct": 7,
+      "total": 10,
+      "pct": 70,
+      "score": 7,
+      "ts": 1791368759249
+    }
+  ],
   "admin": {
     "editedWords": {},
     "addedWords": {},
