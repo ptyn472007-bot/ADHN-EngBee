@@ -177,6 +177,130 @@
   padding: 28px 0;
 }
 
+/* Từ đã học chi tiết */
+.dash-learned-note {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #5b5340;
+  max-width: 720px;
+  margin-bottom: 18px;
+}
+
+.dash-learned-note b {
+  color: #d98e00;
+}
+
+.lw-group {
+  padding: 10px 0 6px;
+}
+
+.lw-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #221800;
+  margin: 0 0 10px;
+}
+
+.lw-title .lw-sub {
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+}
+
+.lw-count {
+  display: inline-block;
+  min-width: 26px;
+  text-align: center;
+  background: #f3ead3;
+  color: #8a6d00;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.lw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.lw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff;
+  border: 1px solid #f0e7cf;
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 13px;
+  box-shadow: 0 2px 6px -3px rgba(120, 90, 20, 0.25);
+}
+
+.lw-chip b {
+  color: #221800;
+  font-weight: 700;
+}
+
+.lw-chip i {
+  font-style: normal;
+  color: #777;
+}
+
+.lw-chip em {
+  font-style: normal;
+  font-size: 11px;
+  color: #b98a00;
+  background: #fff7e6;
+  border: 1px solid #f3d9a4;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.lw-chip.full {
+  border-color: #cdeacd;
+  background: #f2fbf2;
+}
+
+.lw-chip.full em {
+  background: #e6f7e6;
+  color: #2b7a2b;
+  border-color: #bfe3bf;
+}
+
+.lw-chip.meaning {
+  border-color: #f5e0a8;
+  background: #fffaf0;
+}
+
+.lw-chip.meaning em {
+  background: #fff3d6;
+  color: #a07600;
+  border-color: #f0d690;
+}
+
+.lw-chip.pron {
+  border-color: #cfe0f5;
+  background: #f4f8fe;
+}
+
+.lw-chip.pron em {
+  background: #e3eefb;
+  color: #2d6bb3;
+  border-color: #c1d8f2;
+}
+
+.lw-more {
+  font-size: 12px;
+  color: #999;
+  align-self: center;
+}
+
 /* Khu vực đặt lại dữ liệu */
 .dash-danger {
   border-color: #f6d0d0;
