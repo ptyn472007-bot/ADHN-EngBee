@@ -1222,13 +1222,6 @@ function fillExamplesIfEmpty(en, vi, topicId) {
     }
   }
 }
-  const en = el.inputEn.value.trim();
-  const vi = el.inputVi.value.trim();
-  const ipa = el.inputIpa.value.trim();
-  const topic = el.inputTopic.value;
-  const key = wordKey(en);
-  const errors = [];
-  
   function validateWord() {
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
@@ -1261,14 +1254,21 @@ function handleWordSubmit(event) {
   event.preventDefault();
   if (!requireAdmin()) return;
 
-clearFormErrors();
-  fillExamplesIfEmpty(en, vi, topic);
+  clearFormErrors();
+  const errors = validateWord();
+  if (errors.length) {
+    errors.forEach(function (e) { showFieldError(e.input, e.box, e.msg); });
+    errors[0].input.focus();
+    return;
+  }
 
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
+
+  fillExamplesIfEmpty(en, vi, topic);
 
   // build exs for save
   function getExSave(i){

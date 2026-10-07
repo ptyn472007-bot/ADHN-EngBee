@@ -39,6 +39,16 @@
       "learnedByTopic": {},
       "bestScore": 0,
       "totalQuizzes": 0
+    },
+    "học viên #4993": {
+      "name": "Học viên #4993",
+      "firstSeen": 1791340748392,
+      "lastActive": 1791344147505,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
     }
   },
   "quizHistory": [],
@@ -48,6 +58,6 @@
     "removedWords": [],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1791322433164
+    "lastUpdate": 1791341056101
   }
 }
