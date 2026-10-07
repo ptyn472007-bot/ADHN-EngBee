@@ -1437,5 +1437,142 @@ body {
 })();
 </script>
 
+<script>
+(function(){
+  "use strict";
+  function $_(s){return document.querySelector(s);}
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var rec = null, finalAlt = [], listening = false;
+
+  function norm(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/ +/g," ").trim(); }
+  function lev(a,b){
+    if(a===b)return 0;
+    var m=a.length,n=b.length,d=new Array(m+1);
+    for(var i=0;i<=m;i++){d[i]=new Array(n+1);d[i][0]=i;}
+    for(var j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+cost);
+    }
+    return d[m][n];
+  }
+  function matchScore(target,alt){
+    var t=norm(target),a=norm(alt);
+    if(!t||!a)return 0;
+    if(t===a)return 100;
+    if(a.split(" ").indexOf(t)>=0)return 100;
+    var sim=Math.round((1-lev(t,a)/Math.max(t.length,1))*100);
+    return sim<0?0:sim;
+  }
+  function speakWord(w){
+    try{var u=new SpeechSynthesisUtterance(w);u.lang="en-US";u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  }
+  function curWord(){
+    var el=$_("#word-en");
+    return el?el.textContent.trim():"";
+  }
+  function openPron(){
+    var w=curWord();
+    $_("#pron-word").textContent=w||"?";
+    var ipa=$_("#word-ipa");
+    $_("#pron-ipa").textContent=ipa?ipa.textContent:"";
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent=w?("Đọc to từ này theo mẫu, sau đó bấm “Bắt đầu nói”."):"Bạn cần ở chế độ Thẻ học để luyện phát âm từ.";
+    $_("#pron-overlay").hidden=false;
+    if(w)setTimeout(function(){speakWord(w);},300);
+  }
+  function closePron(){
+    $_("#pron-overlay").hidden=true;
+    try{if(rec)rec.stop();}catch(e){}
+    listening=false;
+  }
+  function beginListen(){
+    if(!SR){
+      $_("#pron-status").textContent="Trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome hoặc Edge.";
+      return;
+    }
+    if(listening)return;
+    listening=true;
+    finalAlt=[];
+    var btn=$_("#pron-listen-btn");
+    btn.disabled=true;
+    $_("#pron-choices").textContent="";
+    $_("#pron-bar").style.width="0%";
+    $_("#pron-verdict").className="pron-verdict";
+    $_("#pron-verdict").textContent="";
+    $_("#pron-status").textContent="🎙 Đang nghe... hãy nói to từ này.";
+    try{
+      rec=new SR();
+      rec.lang="en-US";
+      rec.interimResults=true;
+      rec.maxAlternatives=5;
+      rec.onresult=function(ev){
+        var pending="",tmp=[];
+        for(var i=ev.resultIndex;i<ev.results.length;i++){
+          var r=ev.results[i];
+          for(var k=0;k<r.length;k++){
+            if(r.isFinal)tmp.push(r[k].transcript);
+            else if(k===0)pending=r[k].transcript;
+          }
+        }
+        if(tmp.length)finalAlt=finalAlt.concat(tmp);
+        $_("#pron-choices").textContent=pending||(finalAlt.length?("Nghe thấy: "+finalAlt[0]):"");
+      };
+      rec.onerror=function(ev){
+        listening=false;btn.disabled=false;
+        $_("#pron-status").textContent="Lỗi "+ev.error+" — kiểm tra micro rồi bấm “Bắt đầu nói” lần nữa.";
+      };
+      rec.onend=function(){
+        listening=false;btn.disabled=false;
+        if(finalAlt.length)evaluate(finalAlt);
+      };
+      rec.start();
+    }catch(e){
+      listening=false;btn.disabled=false;
+      $_("#pron-status").textContent="Không khởi động được micro. Kiểm tra quyền truy cập micro.";
+    }
+  }
+  function evaluate(alts){
+    var w=$_("#pron-word").textContent.trim();
+    var best=0,bestText=alts[0]||"";
+    alts.forEach(function(a){
+      var s=matchScore(w,a);
+      if(s>best){best=s;bestText=a;}
+    });
+    $_("#pron-choices").textContent="Nghe thấy: “"+bestText+"”";
+    $_("#pron-bar").style.width=best+"%";
+    var v=$_("#pron-verdict");
+    if(best>=90){v.className="pron-verdict good";v.textContent="Chuẩn rồi! Phát âm rất tốt ("+best+"%).";}
+    else if(best>=75){v.className="pron-verdict ok";v.textContent="Gần chuẩn rồi, chú ý phát âm đuôi từ ("+best+"%).";}
+    else if(best>=40){v.className="pron-verdict bad";v.textContent="Còn lệch, nghe mẫu rồi nói chậm lại ("+best+"%).";}
+    else{v.className="pron-verdict bad";v.textContent="Chưa chuẩn, hãy thử lại theo mẫu ("+best+"%).";}
+    if(best>=75){try{window.dispatchEvent(new Event("engbee_pron_ok"));}catch(e){}}
+    $_("#pron-status").textContent="Bấm “Nói lại” để phát âm thêm lần nữa.";
+  }
+  function wirePron(){
+    var b=$_("#pron-btn");
+    if(!b)return;
+    b.addEventListener("click",openPron);
+    $_("#pron-close").addEventListener("click",closePron);
+    $_("#pron-done").addEventListener("click",closePron);
+    $_("#pron-sample").addEventListener("click",function(){speakWord($_("#pron-word").textContent);});
+    $_("#pron-listen-btn").addEventListener("click",beginListen);
+    $_("#pron-again").addEventListener("click",function(){
+      try{if(rec)rec.stop();}catch(e){}
+      finalAlt=[];
+      beginListen();
+    });
+    $_("#pron-overlay").addEventListener("click",function(ev){
+      if(ev.target===this)closePron();
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wirePron);
+  else wirePron();
+})();
+</script>
+
 </body>
 </html>
