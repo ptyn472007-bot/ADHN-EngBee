@@ -60,7 +60,7 @@ const el = {
   resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
-  importFile: $("importFile"), btnResetAll: $("btnResetAll"),
+  importFile: $("importFile"),
   infoSession: $("infoSession"),
   // modal từ
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
@@ -1731,31 +1731,7 @@ function importData(event) {
   event.target.value = "";
 }
 
-function resetEverything() {
-  askConfirm(
-    "Xóa toàn bộ dữ liệu",
-    "Xóa sạch mọi dữ liệu EngBee trên hệ thống và trình duyệt này?",
-    "Bao gồm cả từ vựng, tiến độ học, kết quả quiz và thông tin đăng nhập.",
-    function () {
-      const keys = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        // xóa cả dữ liệu quản trị, tiến độ học và lịch sử quiz (eb_quiz_history)
-        if (key && (key.indexOf("engbee_") === 0 || key.indexOf("eb_") === 0)) keys.push(key);
-      }
-      keys.forEach(removeStore);
-
-      // Reset server DB
-      if (window.fetch) {
-        fetch("/api/admin/reset", { method: "POST" }).catch(function () {});
-      }
-
-      closeAllModals();
-      showLogin();
-      showToast("Đã xóa toàn bộ dữ liệu.", "info");
-    }
-  );
-}
+// (đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu)
 
 /* ================= PHẦN 17: RENDER TỔNG HỢP ================= */
 
@@ -1924,7 +1900,6 @@ el.btnExport.addEventListener("click", exportData);
 el.btnImport.addEventListener("click", function () { el.importFile.click(); });
 el.importFile.addEventListener("change", importData);
 // (đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu)
-if (el.btnResetAll) el.btnResetAll.addEventListener("click", resetEverything);
 
 // Modal: đóng
 document.querySelectorAll("[data-close='true']").forEach(function (node) {

@@ -305,13 +305,7 @@ export async function handleApiRequest(req, res) {
     return true;
   }
 
-  // 8. POST /api/admin/reset - Đặt lại toàn bộ dữ liệu
-  if (req.method === 'POST' && pathname === '/api/admin/reset') {
-    const fresh = getInitialData();
-    writeDb(fresh);
-    sendJson(200, { ok: true, stats: computeStats(fresh) });
-    return true;
-  }
+  // 8. Đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu
 
   sendJson(404, { error: 'Not found' });
   return true;
