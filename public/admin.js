@@ -97,7 +97,7 @@ const VIEW_INFO = {
   topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
-  settings: ["Cài đặt & bảo trì", "Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này"]
+  settings: ["Cài đặt & bảo trì", "Khôi phục hoặc sao lưu dữ liệu trên trình duyệt này"]
 };
 
 /* ================= PHẦN 4: HÀM TIỆN ÍCH ================= */
@@ -1923,7 +1923,8 @@ el.btnResetWords.addEventListener("click", resetWords);
 el.btnExport.addEventListener("click", exportData);
 el.btnImport.addEventListener("click", function () { el.importFile.click(); });
 el.importFile.addEventListener("change", importData);
-el.btnResetAll.addEventListener("click", resetEverything);
+// (đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu)
+if (el.btnResetAll) el.btnResetAll.addEventListener("click", resetEverything);
 
 // Modal: đóng
 document.querySelectorAll("[data-close='true']").forEach(function (node) {
