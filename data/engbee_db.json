@@ -43,55 +43,16 @@
     "học viên #4993": {
       "name": "Học viên #4993",
       "firstSeen": 1791340748392,
-      "lastActive": 1791344147505,
+      "lastActive": 1791373338407,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "học viên #8783": {
-      "name": "Học viên #8783",
-      "firstSeen": 1791728699151,
-      "lastActive": 1791730283297,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "nxa": {
-      "name": "NXA",
-      "firstSeen": 1791728705542,
-      "lastActive": 1791728754793,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 1
-    },
-    "học viên #1376": {
-      "name": "Học viên #1376",
-      "firstSeen": 1791728730518,
-      "lastActive": 1791728730518,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
+
     }
   },
   "quizHistory": [
     {
-      "id": "q_1791728754786_8813",
-      "userName": "NXA",
-      "topicId": "travel",
-      "modeName": "Travel",
-      "correct": 0,
-      "total": 10,
-      "pct": 0,
-      "score": 0,
-      "ts": 1791728754786
+
     }
   ],
   "admin": {

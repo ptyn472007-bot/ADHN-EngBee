@@ -177,6 +177,113 @@
   padding: 28px 0;
 }
 
+/* Từ đã học chi tiết */
+.dash-learned-note {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #5b5340;
+  max-width: 720px;
+  margin-bottom: 18px;
+}
+
+.dash-learned-note b {
+  color: #d98e00;
+}
+
+.lw-group {
+  padding: 10px 0 6px;
+}
+
+.lw-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #221800;
+  margin: 0 0 10px;
+}
+
+.lw-count {
+  display: inline-block;
+  min-width: 26px;
+  text-align: center;
+  background: #f3ead3;
+  color: #8a6d00;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+/* Bảng từ đã học (gọn, 3 cột: từ / nghĩa / chủ đề) */
+.lw-tbl {
+  border: 1px solid #f0e7cf;
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.lw-tbl table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lw-tbl tr {
+  border-bottom: 1px solid #f5efe0;
+}
+
+.lw-tbl tr:last-child {
+  border-bottom: 0;
+}
+
+.lw-tbl td {
+  padding: 7px 12px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.lw-tbl .lw-en {
+  font-weight: 700;
+  color: #221800;
+  width: 32%;
+}
+
+.lw-tbl .lw-vi {
+  color: #666;
+}
+
+.lw-tbl .lw-topic {
+  text-align: right;
+  color: #b98a00;
+  width: 18%;
+  white-space: nowrap;
+}
+
+.lw-tbl .lw-more-row td {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.lw-group.full .lw-tbl {
+  border-color: #cdeacd;
+}
+
+.lw-group.full .lw-tbl .lw-en {
+  color: #2b7a2b;
+}
+
+.lw-group.meaning .lw-tbl {
+  border-color: #f5e0a8;
+}
+
+.lw-group.pron .lw-tbl {
+  border-color: #cfe0f5;
+}
+
 /* Khu vực đặt lại dữ liệu */
 .dash-danger {
   border-color: #f6d0d0;

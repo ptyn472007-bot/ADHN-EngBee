@@ -265,6 +265,14 @@ main{flex:1}
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
   function getHistory(){try{return JSON.parse(localStorage.getItem(KEY)||"[]");}catch(e){return [];}}
   function saveHistory(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(0,60)));}catch(e){}}
+  function recordQuizCorrect(en){
+    if(!TID||TID==="all"||!en)return;
+    var ckey="engbee_quiz_corr_"+TID,ca=[];
+    try{ca=JSON.parse(localStorage.getItem(ckey)||"[]");}catch(e){}
+    var k=String(en).trim().toLowerCase();
+    if(ca.indexOf(k)===-1)ca.push(k);
+    try{localStorage.setItem(ckey,JSON.stringify(ca.slice(-120)));}catch(e){}
+  }
   function myHistory(){return getHistory().filter(function(x){return x.mode===TID;});}
   function best(){var h=myHistory(),b=0;for(var i=0;i<h.length;i++)if(h[i].pct>b)b=h[i].pct;return b;}
   function speak(word){try{var u=new SpeechSynthesisUtterance(word);u.lang="en-US";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
@@ -420,6 +428,7 @@ main{flex:1}
     chosenVi=chosen;
     if(chosen===it.word.vi){
       correct++;
+      if(it.word&&it.word.en)recordQuizCorrect(it.word.en);
     }
     applyAnswerUI(chosen, true);
     saveState();
