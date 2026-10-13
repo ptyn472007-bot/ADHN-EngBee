@@ -53,7 +53,17 @@
     "học viên #8783": {
       "name": "Học viên #8783",
       "firstSeen": 1791730759304,
-      "lastActive": 1791730759304,
+      "lastActive": 1791916024198,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "nxa": {
+      "name": "NXA",
+      "firstSeen": 1791730924198,
+      "lastActive": 1791730966028,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
