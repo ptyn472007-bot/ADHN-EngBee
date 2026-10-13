@@ -826,9 +826,19 @@ function renderResults() {
   el.resultEmpty.hidden = history.length > 0;
 
   history.forEach(function (h, index) {
-    const pct = h.pct || 0;
-    const tag = pct >= 8 ? '<span class="tag tag--good">Tốt</span>'
-      : pct >= 5 ? '<span class="tag tag--mid">Khá</span>'
+    const total = Number(h.total) || 10;
+    const correct = Number(h.correct) || 0;
+    let pct = (typeof h.pct === "number" && !isNaN(h.pct))
+      ? h.pct
+      : (total > 0 ? Math.round((correct / total) * 100) : 0);
+    if (pct <= 1 && pct > 0) {
+      pct = Math.round(pct * 100);
+    } else if (pct <= 10 && total > 0 && correct > 1) {
+      pct = Math.round((correct / total) * 100);
+    }
+
+    const tag = pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
       : '<span class="tag tag--bad">Cần luyện thêm</span>';
 
     const tr = document.createElement("tr");
@@ -836,8 +846,8 @@ function renderResults() {
       '<td class="td-stt">' + (index + 1) + "</td>" +
       "<td>" + esc(fmtTime(h.ts)) + "</td>" +
       "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
-      "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
-      "<td><b>" + pct + "/10</b></td>" +
+      "<td>" + correct + " / " + total + "</td>" +
+      "<td><b>" + pct + "%</b></td>" +
       "<td>" + tag + "</td>";
     el.resultBody.appendChild(tr);
   });

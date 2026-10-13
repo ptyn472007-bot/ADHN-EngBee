@@ -63,15 +63,46 @@
     "nxa": {
       "name": "NXA",
       "firstSeen": 1791730924198,
-      "lastActive": 1791730966028,
+      "lastActive": 1791916442670,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
       "bestScore": 0,
       "totalQuizzes": 0
+    },
+    "học viên #1376": {
+      "name": "Học viên #1376",
+      "firstSeen": 1791916445763,
+      "lastActive": 1791916447112,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "nvt": {
+      "name": "NVT",
+      "firstSeen": 1791916450520,
+      "lastActive": 1791916502159,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 3,
+      "totalQuizzes": 1
     }
   },
   "quizHistory": [
+    {
+      "id": "q_1791916502151_2676",
+      "userName": "NVT",
+      "topicId": "travel",
+      "modeName": "Travel",
+      "correct": 3,
+      "total": 10,
+      "pct": 30,
+      "score": 3,
+      "ts": 1791916502151
+    },
     {
       "id": "q_1791371185949_1215",
       "userName": "Học viên #4993",
@@ -107,11 +138,45 @@
     }
   ],
   "admin": {
-    "editedWords": {},
-    "addedWords": {},
-    "removedWords": [],
+    "editedWords": {
+      "journey": {
+        "en": "journey",
+        "vi": "hành trình",
+        "ipa": "/ˈdʒɜːrni/",
+        "ex": "",
+        "exvi": "",
+        "exs": [
+          {
+            "en": "I want to visit a place famous for journey.",
+            "vi": "Tôi muốn đến thăm một nơi nổi tiếng với hành trình."
+          },
+          {
+            "en": "We took a lot of photos of journey on our trip.",
+            "vi": "Chúng tôi đã chụp rất nhiều ảnh về hành trình trong chuyến đi."
+          },
+          {
+            "en": "Many tourists come to see journey every year.",
+            "vi": "Nhiều du khách đến xem hành trình mỗi năm."
+          },
+          {
+            "en": "I read about journey in a travel guide.",
+            "vi": "Tôi đã đọc về hành trình trong một cuốn sách du lịch."
+          },
+          {
+            "en": "It would be amazing to explore journey.",
+            "vi": "Sẽ thật tuyệt vời nếu được khám phá hành trình."
+          }
+        ]
+      }
+    },
+    "addedWords": {
+      "travel": []
+    },
+    "removedWords": [
+      "z"
+    ],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1791341056101
+    "lastUpdate": 1791916391197
   }
 }
