@@ -836,7 +836,7 @@ function renderResults() {
       "<td>" + esc(fmtTime(h.ts)) + "</td>" +
       "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
       "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
-      "<td><b>" + pct + "/10</b></td>" +
+      "<td><b>" + pct + "%</b></td>" +
       "<td>" + tag + "</td>";
     el.resultBody.appendChild(tr);
   });
