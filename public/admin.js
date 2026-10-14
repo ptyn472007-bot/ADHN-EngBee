@@ -826,8 +826,8 @@ function renderResults() {
 
   history.forEach(function (h, index) {
     const pct = h.pct || 0;
-    const tag = pct >= 8 ? '<span class="tag tag--good">Tốt</span>'
-      : pct >= 5 ? '<span class="tag tag--mid">Khá</span>'
+    const tag = pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
       : '<span class="tag tag--bad">Cần luyện thêm</span>';
 
     const tr = document.createElement("tr");

@@ -3,15 +3,37 @@
     "nam": {
       "name": "Nam",
       "firstSeen": 1791938578872,
-      "lastActive": 1791939244109,
+      "lastActive": 1791939570498,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
-      "bestScore": 2,
-      "totalQuizzes": 2
+      "bestScore": 8,
+      "totalQuizzes": 4
     }
   },
   "quizHistory": [
+    {
+      "id": "q_1791939570485_8039",
+      "userName": "Nam",
+      "topicId": "work",
+      "modeName": "Work",
+      "correct": 8,
+      "total": 10,
+      "pct": 80,
+      "score": 8,
+      "ts": 1791939570485
+    },
+    {
+      "id": "q_1791939501780_8091",
+      "userName": "Nam",
+      "topicId": "school",
+      "modeName": "School",
+      "correct": 0,
+      "total": 10,
+      "pct": 0,
+      "score": 0,
+      "ts": 1791939501780
+    },
     {
       "id": "q_1791939244092_8887",
       "userName": "Nam",
