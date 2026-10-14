@@ -9,9 +9,41 @@
       "learnedByTopic": {},
       "bestScore": 8,
       "totalQuizzes": 7
+    },
+    "học viên #4993": {
+      "name": "Học viên #4993",
+      "firstSeen": 1791944461735,
+      "lastActive": 1791949335284,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 10,
+      "totalQuizzes": 2
     }
   },
   "quizHistory": [
+    {
+      "id": "q_1791945636762_1957",
+      "userName": "Học viên #4993",
+      "topicId": "technology",
+      "modeName": "Technology",
+      "correct": 7,
+      "total": 10,
+      "pct": 70,
+      "score": 7,
+      "ts": 1791945636762
+    },
+    {
+      "id": "q_1791944574061_3587",
+      "userName": "Học viên #4993",
+      "topicId": "food",
+      "modeName": "Food",
+      "correct": 10,
+      "total": 10,
+      "pct": 100,
+      "score": 10,
+      "ts": 1791944574061
+    },
     {
       "id": "q_1791941514989_7050",
       "userName": "Nam",
@@ -96,6 +128,6 @@
     "removedWords": [],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1791938578872
+    "lastUpdate": 1791944496262
   }
 }

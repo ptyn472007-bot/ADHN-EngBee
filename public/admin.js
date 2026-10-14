@@ -613,7 +613,6 @@ function renderWords() {
       "<td>" + statusTag + "</td>" +
       '<td class="td-action"><div class="row-actions">' +
         '<button class="btn-edit" data-act="edit" data-key="' + esc(wordKey(w.en)) + '">Sửa</button>' +
-        '<button class="btn-delete" data-act="del" data-key="' + esc(wordKey(w.en)) + '">Xóa</button>' +
       "</div></td>";
 
     el.wordBody.appendChild(tr);
@@ -1817,7 +1816,6 @@ el.wordBody.addEventListener("click", function (event) {
   if (!btn) return;
   const key = btn.getAttribute("data-key");
   if (btn.getAttribute("data-act") === "edit") openWordModal("edit", key);
-  if (btn.getAttribute("data-act") === "del") deleteWord(key);
 });
 
 // Bộ lọc và tìm kiếm từ vựng
