@@ -826,8 +826,8 @@ function renderResults() {
 
   history.forEach(function (h, index) {
     const pct = h.pct || 0;
-    const tag = pct >= 8 ? '<span class="tag tag--good">Tốt</span>'
-      : pct >= 5 ? '<span class="tag tag--mid">Khá</span>'
+    const tag = pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
       : '<span class="tag tag--bad">Cần luyện thêm</span>';
 
     const tr = document.createElement("tr");
@@ -836,7 +836,7 @@ function renderResults() {
       "<td>" + esc(fmtTime(h.ts)) + "</td>" +
       "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
       "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
-      "<td><b>" + pct + "/10</b></td>" +
+      "<td><b>" + pct + "%</b></td>" +
       "<td>" + tag + "</td>";
     el.resultBody.appendChild(tr);
   });
