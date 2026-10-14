@@ -12,6 +12,7 @@ const KEY_ADDED = "engbee_admin_added_words";         // từ đã thêm
 const KEY_REMOVED = "engbee_admin_removed_words";     // từ đã xóa
 const KEY_HIDDEN = "engbee_admin_hidden_topics";      // chủ đề đang tắt
 const KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // chủ đề mới do admin tạo
+const KEY_TOPIC_EDITS = "engbee_admin_topic_edits";   // thông tin chủ đề gốc đã sửa
 const KEY_USER = "engbee_user";                      // người dùng hiện tại
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
@@ -153,7 +154,8 @@ function pushAdminDataToServer() {
       addedWords: getAdded(),
       removedWords: getRemoved(),
       hiddenTopics: getHiddenTopics(),
-      customTopics: getCustomTopics()
+      customTopics: getCustomTopics(),
+      topicEdits: getTopicEdits()
     })
   }).catch(function () {});
 }
@@ -181,6 +183,7 @@ async function syncServerStats() {
       if (data.admin.removedWords) try { localStorage.setItem(KEY_REMOVED, JSON.stringify(data.admin.removedWords)); } catch (e) {}
       if (data.admin.hiddenTopics) try { localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.admin.hiddenTopics)); } catch (e) {}
       if (data.admin.customTopics) try { localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.admin.customTopics)); } catch (e) {}
+      if (data.admin.topicEdits) try { localStorage.setItem(KEY_TOPIC_EDITS, JSON.stringify(data.admin.topicEdits)); } catch (e) {}
     }
 
     if (currentAdmin) {
@@ -325,6 +328,12 @@ function getCustomTopics() {
   return Array.isArray(t) ? t : [];
 }
 
+// Lấy thông tin các chủ đề gốc đã được Admin sửa (đè lên dữ liệu gốc)
+function getTopicEdits() {
+  const e = readStore(KEY_TOPIC_EDITS, {});
+  return e && typeof e === "object" && !Array.isArray(e) ? e : {};
+}
+
 // Lấy toàn bộ chủ đề (gốc data.js + do Admin tạo thêm)
 function allTopics() {
   const base = (window.EngBeeData && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics.slice() : [];
@@ -337,7 +346,10 @@ function allTopics() {
       map[t.id] = t;
     }
   });
-  return base;
+  const edits = getTopicEdits();
+  return base.map(function (t) {
+    return edits[t.id] ? Object.assign({}, t, edits[t.id]) : t;
+  });
 }
 
 // Lấy danh sách từ gốc của một chủ đề
@@ -682,15 +694,12 @@ function renderTopics() {
         '<div class="topic-admin-card__row"><span>Số từ</span><b>' + count + "</b></div>" +
         '<div class="topic-admin-card__row"><span>Trang học</span><b><a href="' + learnLink + '" target="_blank">Mở</a></b></div>' +
         '<div class="topic-admin-card__row"><span>Trang quiz</span><b><a href="' + quizLink + '" target="_blank">Mở</a></b></div>' +
-        (isCustom ? (
-          '<div class="topic-admin-card__row" style="padding-top:8px;border-top:1px dashed var(--border);">' +
-            '<span>Tùy chỉnh:</span>' +
-            '<div style="display:flex;gap:6px;">' +
-              '<button type="button" class="btn-edit" style="padding:3px 8px;font-size:12px;" data-act="edit-topic" data-topic="' + esc(t.id) + '">Sửa</button>' +
-              '<button type="button" class="btn-delete" style="padding:3px 8px;font-size:12px;" data-act="del-topic" data-topic="' + esc(t.id) + '">Xóa</button>' +
-            '</div>' +
-          '</div>'
-        ) : '') +
+        '<div class="topic-admin-card__row" style="padding-top:8px;border-top:1px dashed var(--border);">' +
+          '<span>Tùy chỉnh:</span>' +
+          '<div style="display:flex;gap:6px;">' +
+            '<button type="button" class="btn-edit" style="padding:3px 8px;font-size:12px;" data-act="edit-topic" data-topic="' + esc(t.id) + '">Sửa</button>' +
+          '</div>' +
+        '</div>' +
         '<div class="topic-admin-card__toggle"></div>' +
       "</div>";
 
@@ -1465,7 +1474,19 @@ function handleTopicSubmit(event) {
     if (idx !== -1) {
       customTopics[idx] = Object.assign({}, customTopics[idx], topicData);
     } else {
-      customTopics.push(topicData);
+      // Chủ đề gốc: lưu thông tin đã sửa vào kho riêng, không đổi từ vựng
+      const edits = getTopicEdits();
+      edits[originalId] = {
+        name: name,
+        en: name,
+        vi: vi,
+        emoji: emoji,
+        g1: g1,
+        g2: g2,
+        gradient: [g1, g2],
+        desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi)
+      };
+      writeStore(KEY_TOPIC_EDITS, edits);
     }
   } else {
     customTopics.push(topicData);
@@ -1478,33 +1499,6 @@ function handleTopicSubmit(event) {
   showToast('Đã lưu chủ đề "' + name + '" thành công!');
 }
 
-function deleteTopic(topicId) {
-  if (!requireAdmin()) return;
-  const topic = allTopics().find(function (t) { return t.id === topicId; });
-  const name = topic ? topic.name : topicId;
-
-  askConfirm(
-    "Xóa chủ đề",
-    'Bạn có chắc chắn muốn xóa chủ đề "' + name + '" không?',
-    "Toàn bộ từ vựng thuộc chủ đề này do Admin thêm vào cũng sẽ bị xóa.",
-    function () {
-      let customTopics = getCustomTopics().filter(function (t) { return t.id !== topicId; });
-      writeStore(KEY_CUSTOM_TOPICS, customTopics);
-
-      // Xóa từ vựng thuộc chủ đề này trong addedWords
-      const added = getAdded();
-      if (added[topicId]) {
-        delete added[topicId];
-        writeStore(KEY_ADDED, added);
-      }
-
-      renderAll();
-      renderTopicSelects();
-      showToast('Đã xóa chủ đề "' + name + '".');
-    }
-  );
-}
-
 /* ================= PHẦN 14: XÓA / KHÔI PHỤC ================= */
 
 // Các chủ đề đang chứa từ này (từ trùng tên có thể nằm ở nhiều chủ đề)
@@ -1512,46 +1506,6 @@ function topicsWithWord(key) {
   return allTopics().filter(function (t) {
     return effectiveWords(t.id).some(function (w) { return wordKey(w.en) === key; });
   }).map(function (t) { return t.name; });
-}
-
-function deleteWord(key) {
-  const word = findWordAnywhere(key);
-  if (!word) { showToast("Không tìm thấy từ này.", "error"); return; }
-  const names = topicsWithWord(key);
-  const where = names.length > 1
-    ? "khỏi " + names.length + " chủ đề: " + names.join(", ")
-    : "khỏi chủ đề " + (names[0] || word.topicName || "");
-
-  askConfirm(
-    "Xóa từ vựng",
-    'Bạn có chắc muốn xóa từ "' + word.en + '" ' + where + '?',
-    "Từ này sẽ không còn xuất hiện trên trang học và quiz.",
-    function () {
-      const removed = getRemoved();
-      if (removed.indexOf(key) === -1) removed.push(key);
-      writeStore(KEY_REMOVED, removed);
-
-      // Gỡ khỏi danh sách từ tự thêm (nếu có)
-      const added = getAdded();
-      let changedAdded = false;
-      Object.keys(added).forEach(function (tid) {
-        const before = added[tid].length;
-        added[tid] = added[tid].filter(function (w) { return wordKey(w.en) !== key; });
-        if (added[tid].length !== before) changedAdded = true;
-      });
-      if (changedAdded) writeStore(KEY_ADDED, added);
-
-      // Gỡ khỏi danh sách từ đã sửa (nếu có)
-      const edited = getEdited();
-      if (edited[key]) {
-        delete edited[key];
-        writeStore(KEY_EDITED, edited);
-      }
-
-      renderAll();
-      showToast('Đã xóa từ "' + word.en + '".');
-    }
-  );
 }
 
 function resetWords() {
@@ -1691,6 +1645,7 @@ function exportData() {
   data[KEY_REMOVED] = getRemoved();
   data[KEY_HIDDEN] = getHiddenTopics();
   data[KEY_CUSTOM_TOPICS] = getCustomTopics();
+  data[KEY_TOPIC_EDITS] = getTopicEdits();
   data[USERS_REGISTRY_KEY] = readStore(USERS_REGISTRY_KEY, []);
 
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -1718,6 +1673,7 @@ function importData(event) {
       if (data[KEY_REMOVED]) writeStore(KEY_REMOVED, data[KEY_REMOVED]);
       if (data[KEY_HIDDEN]) writeStore(KEY_HIDDEN, data[KEY_HIDDEN]);
       if (data[KEY_CUSTOM_TOPICS]) writeStore(KEY_CUSTOM_TOPICS, data[KEY_CUSTOM_TOPICS]);
+      if (data[KEY_TOPIC_EDITS]) writeStore(KEY_TOPIC_EDITS, data[KEY_TOPIC_EDITS]);
       if (data[USERS_REGISTRY_KEY]) writeStore(USERS_REGISTRY_KEY, data[USERS_REGISTRY_KEY]);
       pushAdminDataToServer();
       renderAll();
@@ -1844,14 +1800,13 @@ if (el.btnAddTopic) {
   el.btnAddTopic.addEventListener("click", function () { openTopicModal("add", ""); });
 }
 
-// Chủ đề: Sửa / Xóa chủ đề tự tạo
+// Chủ đề: Sửa thông tin chủ đề
 el.topicGrid.addEventListener("click", function (event) {
   const btn = event.target.closest("button");
   if (!btn) return;
   const act = btn.getAttribute("data-act");
   const topicId = btn.getAttribute("data-topic");
   if (act === "edit-topic") openTopicModal("edit", topicId);
-  if (act === "del-topic") deleteTopic(topicId);
 });
 
 // Chủ đề: công tắc bật/tắt
