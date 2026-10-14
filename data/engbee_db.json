@@ -69,6 +69,16 @@
       "learnedByTopic": {},
       "bestScore": 0,
       "totalQuizzes": 0
+    },
+    "nvt": {
+      "name": "NVT",
+      "firstSeen": 1791945498002,
+      "lastActive": 1791945498002,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
     }
   },
   "quizHistory": [
@@ -107,11 +117,45 @@
     }
   ],
   "admin": {
-    "editedWords": {},
-    "addedWords": {},
-    "removedWords": [],
+    "editedWords": {
+      "journey": {
+        "en": "journey",
+        "vi": "hành trình",
+        "ipa": "/ˈdʒɜːrni/",
+        "ex": "",
+        "exvi": "",
+        "exs": [
+          {
+            "en": "I want to visit a place famous for journey.",
+            "vi": "Tôi muốn đến thăm một nơi nổi tiếng với hành trình."
+          },
+          {
+            "en": "We took a lot of photos of journey on our trip.",
+            "vi": "Chúng tôi đã chụp rất nhiều ảnh về hành trình trong chuyến đi."
+          },
+          {
+            "en": "Many tourists come to see journey every year.",
+            "vi": "Nhiều du khách đến xem hành trình mỗi năm."
+          },
+          {
+            "en": "I read about journey in a travel guide.",
+            "vi": "Tôi đã đọc về hành trình trong một cuốn sách du lịch."
+          },
+          {
+            "en": "It would be amazing to explore journey.",
+            "vi": "Sẽ thật tuyệt vời nếu được khám phá hành trình."
+          }
+        ]
+      }
+    },
+    "addedWords": {
+      "travel": []
+    },
+    "removedWords": [
+      "z"
+    ],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1791341056101
+    "lastUpdate": 1791945519681
   }
 }
