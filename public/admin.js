@@ -60,7 +60,7 @@ const el = {
   resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
-  importFile: $("importFile"), btnResetAll: $("btnResetAll"),
+  importFile: $("importFile"),
   infoSession: $("infoSession"),
   // modal từ
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
@@ -97,7 +97,7 @@ const VIEW_INFO = {
   topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
-  settings: ["Cài đặt & bảo trì", "Khôi phục dữ liệu hoặc xóa toàn bộ dữ liệu trên trình duyệt này"]
+  settings: ["Cài đặt & bảo trì", "Khôi phục hoặc sao lưu dữ liệu trên trình duyệt này"]
 };
 
 /* ================= PHẦN 4: HÀM TIỆN ÍCH ================= */
@@ -826,8 +826,8 @@ function renderResults() {
 
   history.forEach(function (h, index) {
     const pct = h.pct || 0;
-    const tag = pct >= 8 ? '<span class="tag tag--good">Tốt</span>'
-      : pct >= 5 ? '<span class="tag tag--mid">Khá</span>'
+    const tag = pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
       : '<span class="tag tag--bad">Cần luyện thêm</span>';
 
     const tr = document.createElement("tr");
@@ -836,7 +836,7 @@ function renderResults() {
       "<td>" + esc(fmtTime(h.ts)) + "</td>" +
       "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
       "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
-      "<td><b>" + pct + "/10</b></td>" +
+      "<td><b>" + pct + "%</b></td>" +
       "<td>" + tag + "</td>";
     el.resultBody.appendChild(tr);
   });
@@ -1731,31 +1731,7 @@ function importData(event) {
   event.target.value = "";
 }
 
-function resetEverything() {
-  askConfirm(
-    "Xóa toàn bộ dữ liệu",
-    "Xóa sạch mọi dữ liệu EngBee trên hệ thống và trình duyệt này?",
-    "Bao gồm cả từ vựng, tiến độ học, kết quả quiz và thông tin đăng nhập.",
-    function () {
-      const keys = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        // xóa cả dữ liệu quản trị, tiến độ học và lịch sử quiz (eb_quiz_history)
-        if (key && (key.indexOf("engbee_") === 0 || key.indexOf("eb_") === 0)) keys.push(key);
-      }
-      keys.forEach(removeStore);
-
-      // Reset server DB
-      if (window.fetch) {
-        fetch("/api/admin/reset", { method: "POST" }).catch(function () {});
-      }
-
-      closeAllModals();
-      showLogin();
-      showToast("Đã xóa toàn bộ dữ liệu.", "info");
-    }
-  );
-}
+// (đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu)
 
 /* ================= PHẦN 17: RENDER TỔNG HỢP ================= */
 
@@ -1923,7 +1899,7 @@ el.btnResetWords.addEventListener("click", resetWords);
 el.btnExport.addEventListener("click", exportData);
 el.btnImport.addEventListener("click", function () { el.importFile.click(); });
 el.importFile.addEventListener("change", importData);
-el.btnResetAll.addEventListener("click", resetEverything);
+// (đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu)
 
 // Modal: đóng
 document.querySelectorAll("[data-close='true']").forEach(function (node) {

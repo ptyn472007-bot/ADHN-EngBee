@@ -1,119 +1,93 @@
 {
   "users": {
-    "học viên #9591": {
-      "name": "Học viên #9591",
-      "firstSeen": 1791318756845,
-      "lastActive": 1791320879145,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "phạm thị yến nhi": {
-      "name": "Phạm Thị Yến Nhi",
-      "firstSeen": 1791320882238,
-      "lastActive": 1791325230311,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "học viên #8466": {
-      "name": "Học viên #8466",
-      "firstSeen": 1791326648317,
-      "lastActive": 1791326651506,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "học viên #7876": {
-      "name": "Học viên #7876",
-      "firstSeen": 1791326733531,
-      "lastActive": 1791326736557,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "học viên #4993": {
-      "name": "Học viên #4993",
-      "firstSeen": 1791340748392,
-      "lastActive": 1791373338407,
+    "nam": {
+      "name": "Nam",
+      "firstSeen": 1791938578872,
+      "lastActive": 1791941514999,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
       "bestScore": 8,
-      "totalQuizzes": 3
-    },
-    "học viên #8783": {
-      "name": "Học viên #8783",
-      "firstSeen": 1791730759304,
-      "lastActive": 1791916024198,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "nxa": {
-      "name": "NXA",
-      "firstSeen": 1791730924198,
-      "lastActive": 1791730966028,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
-    },
-    "nvt": {
-      "name": "NVT",
-      "firstSeen": 1791945498002,
-      "lastActive": 1791945498002,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
+      "totalQuizzes": 7
     }
   },
   "quizHistory": [
     {
-      "id": "q_1791371185949_1215",
-      "userName": "Học viên #4993",
+      "id": "q_1791941514989_7050",
+      "userName": "Nam",
       "topicId": "school",
       "modeName": "School",
-      "correct": 8,
+      "correct": 4,
       "total": 10,
-      "pct": 80,
-      "score": 8,
-      "ts": 1791371185949
+      "pct": 40,
+      "score": 4,
+      "ts": 1791941514989
     },
     {
-      "id": "q_1791369996103_430",
-      "userName": "Học viên #4993",
+      "id": "q_1791941404933_4749",
+      "userName": "Nam",
       "topicId": "school",
       "modeName": "School",
-      "correct": 8,
+      "correct": 5,
       "total": 10,
-      "pct": 80,
-      "score": 8,
-      "ts": 1791369996103
+      "pct": 50,
+      "score": 5,
+      "ts": 1791941404933
     },
     {
-      "id": "q_1791368759249_7599",
-      "userName": "Học viên #4993",
-      "topicId": "travel",
-      "modeName": "Travel",
+      "id": "q_1791941362805_7130",
+      "userName": "Nam",
+      "topicId": "school",
+      "modeName": "School",
       "correct": 7,
       "total": 10,
       "pct": 70,
       "score": 7,
-      "ts": 1791368759249
+      "ts": 1791941362805
+    },
+    {
+      "id": "q_1791939570485_8039",
+      "userName": "Nam",
+      "topicId": "work",
+      "modeName": "Work",
+      "correct": 8,
+      "total": 10,
+      "pct": 80,
+      "score": 8,
+      "ts": 1791939570485
+    },
+    {
+      "id": "q_1791939501780_8091",
+      "userName": "Nam",
+      "topicId": "school",
+      "modeName": "School",
+      "correct": 0,
+      "total": 10,
+      "pct": 0,
+      "score": 0,
+      "ts": 1791939501780
+    },
+    {
+      "id": "q_1791939244092_8887",
+      "userName": "Nam",
+      "topicId": "school",
+      "modeName": "School",
+      "correct": 1,
+      "total": 10,
+      "pct": 10,
+      "score": 1,
+      "ts": 1791939244092
+    },
+    {
+      "id": "q_1791938595828_7193",
+      "userName": "Nam",
+      "topicId": "nature",
+      "modeName": "Nature",
+      "correct": 2,
+      "total": 10,
+      "pct": 20,
+      "score": 2,
+      "ts": 1791938595828
     }
   ],
   "admin": {
@@ -156,6 +130,6 @@
     ],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1791945519681
+    "lastUpdate": 1791938578872
   }
 }
