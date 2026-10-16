@@ -335,7 +335,7 @@
 
       // (2) Cập nhật tiêu đề & số từ
       var heroSub = document.querySelector(".learn-hero .eyebrow");
-      var topicObj = DEFAULT_TOPICS.find(function(t) { return t.id === topicId; });
+      var topicObj = getAllTopics().find(function(t) { return t.id === topicId; });
       var tName = topicObj ? topicObj.name : topicId;
       if (heroSub) {
         heroSub.textContent = "Chủ đề: " + tName + " (" + words.length + " từ)";
@@ -348,9 +348,14 @@
         pillsWrap.innerHTML = activeTopics.map(function(t) {
           var count = getTopicWordCount(t.id, 50);
           var isCurrent = t.id === topicId;
-          var href = t.id === "travel" ? "learn-travel.html" : "learn-" + t.id + ".html";
+          var isBase = DEFAULT_TOPICS.some(function(d) { return d.id === t.id; });
+          var href = isBase
+            ? (t.id === "travel" ? "learn-travel.html" : "learn-" + t.id + ".html")
+            : "flashcard.html?topic=" + encodeURIComponent(t.id);
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
           return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
-            '<span class="pill-badge" style="background:linear-gradient(135deg,' + t.g1 + ',' + t.g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
+            '<span class="pill-badge" style="background:linear-gradient(135deg,' + g1 + ',' + g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
             '<span class="pill-text"><strong>' + t.name + '</strong><small>' + t.vi + ' - ' + count + ' từ</small></span>' +
             '</a>';
         }).join("");
@@ -410,8 +415,12 @@
         html += activeTopics.map(function(t) {
           var count = getTopicWordCount(t.id, 50);
           var isCurrent = t.id === topicId;
-          return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="quiz-' + t.id + '.html" aria-current="' + isCurrent + '">' +
-            '<span class="pill-badge" style="background:linear-gradient(135deg,' + t.g1 + ',' + t.g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
+          var isBase = DEFAULT_TOPICS.some(function(d) { return d.id === t.id; });
+          var href = isBase ? "quiz-" + t.id + ".html" : "quiz-topic.html?topic=" + encodeURIComponent(t.id);
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
+          return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
+            '<span class="pill-badge" style="background:linear-gradient(135deg,' + g1 + ',' + g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
             '<span class="pill-text"><strong>' + t.name + '</strong><small>' + t.vi + ' - ' + count + ' từ</small></span>' +
             '</a>';
         }).join("");

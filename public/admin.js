@@ -1462,7 +1462,6 @@ function handleTopicSubmit(event) {
     g1: g1,
     g2: g2,
     gradient: [g1, g2],
-    desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi),
     isCustom: true,
     words: []
   };
@@ -1481,12 +1480,12 @@ function handleTopicSubmit(event) {
         emoji: emoji,
         g1: g1,
         g2: g2,
-        gradient: [g1, g2],
-        desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi)
+        gradient: [g1, g2]
       };
       writeStore(KEY_TOPIC_EDITS, edits);
     }
   } else {
+    topicData.desc = "Từ vựng tiếng Anh chủ đề " + vi;
     customTopics.push(topicData);
   }
 
