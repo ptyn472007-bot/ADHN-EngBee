@@ -77,7 +77,9 @@ export function computeStats(db) {
       });
       if (sum > 0) learnedWordsCount = Math.max(learnedWordsCount, sum);
     }
-    const topicsCount = u.learnedByTopic ? Object.keys(u.learnedByTopic).length : (u.topicsCount || 0);
+    const topicsCount = (u.learnedByTopic && Object.keys(u.learnedByTopic).length > 0)
+      ? Object.keys(u.learnedByTopic).length
+      : (u.topicsCount || 0);
 
     return {
       name: u.name,
@@ -163,12 +165,24 @@ export async function handleApiRequest(req, res) {
   // 2. POST /api/track-user - Ghi nhận người dùng & tiến độ học
   if (req.method === 'POST' && pathname === '/api/track-user') {
     const rawName = (body.name || '').trim();
-    if (!rawName) {
-      sendJson(400, { error: 'Name is required' });
+    if (!rawName || rawName.toLowerCase() === 'guest') {
+      sendJson(200, { ok: true, ignored: true, stats: computeStats(db) });
       return true;
     }
 
     const key = rawName.toLowerCase();
+    const hasDummyName = key.startsWith('học viên #') || key.startsWith('hoc vien #');
+    const hasRealProgress = (typeof body.learnedCount === 'number' && body.learnedCount > 0) ||
+      (body.learnedIndices && Array.isArray(body.learnedIndices) && body.learnedIndices.length > 0) ||
+      (body.learnedByTopic && typeof body.learnedByTopic === 'object' && Object.keys(body.learnedByTopic).length > 0) ||
+      (typeof body.bestScore === 'number' && body.bestScore > 0);
+
+    // Bỏ qua tạo mới nếu là tên tự sinh Học viên #xxxx mà chưa hề có tiến độ gì
+    if (hasDummyName && !hasRealProgress && !db.users[key]) {
+      sendJson(200, { ok: true, ignored: true, stats: computeStats(db) });
+      return true;
+    }
+
     const now = Date.now();
 
     if (!db.users[key]) {
@@ -188,22 +202,47 @@ export async function handleApiRequest(req, res) {
     user.name = rawName; // Giữ nguyên chữ hoa/thường mới nhất
     user.lastActive = now;
 
-    if (body.topicId && Array.isArray(body.learnedIndices)) {
+    // Cập nhật learnedByTopic
+    if (body.learnedByTopic && typeof body.learnedByTopic === 'object') {
+      if (!user.learnedByTopic) user.learnedByTopic = {};
+      Object.keys(body.learnedByTopic).forEach(tid => {
+        if (Array.isArray(body.learnedByTopic[tid])) {
+          user.learnedByTopic[tid] = body.learnedByTopic[tid];
+        }
+      });
+      let sum = 0;
+      Object.keys(user.learnedByTopic).forEach(t => {
+        if (Array.isArray(user.learnedByTopic[t])) {
+          sum += user.learnedByTopic[t].length;
+        }
+      });
+      user.learnedWordsCount = sum;
+      user.topicsCount = Object.keys(user.learnedByTopic).length;
+    } else if (body.topicId && Array.isArray(body.learnedIndices)) {
       if (!user.learnedByTopic) user.learnedByTopic = {};
       user.learnedByTopic[body.topicId] = body.learnedIndices;
       
       let sum = 0;
       Object.keys(user.learnedByTopic).forEach(t => {
-        sum += user.learnedByTopic[t].length;
+        if (Array.isArray(user.learnedByTopic[t])) {
+          sum += user.learnedByTopic[t].length;
+        }
       });
       user.learnedWordsCount = sum;
       user.topicsCount = Object.keys(user.learnedByTopic).length;
-    } else if (typeof body.learnedCount === 'number') {
-      user.learnedWordsCount = Math.max(user.learnedWordsCount || 0, body.learnedCount);
     }
 
-    if (typeof body.bestScore === 'number' && body.bestScore > (user.bestScore || 0)) {
-      user.bestScore = body.bestScore;
+    if (typeof body.learnedCount === 'number') {
+      user.learnedWordsCount = Math.max(user.learnedWordsCount || 0, body.learnedCount);
+    }
+    if (typeof body.topicsCount === 'number') {
+      user.topicsCount = Math.max(user.topicsCount || 0, body.topicsCount);
+    }
+    if (typeof body.bestScore === 'number') {
+      user.bestScore = Math.max(user.bestScore || 0, body.bestScore);
+    }
+    if (typeof body.totalQuizzes === 'number') {
+      user.totalQuizzes = Math.max(user.totalQuizzes || 0, body.totalQuizzes);
     }
 
     writeDb(db);
@@ -300,7 +339,30 @@ export async function handleApiRequest(req, res) {
     return true;
   }
 
-  // 7. POST /api/admin/clear-results - Xóa lịch sử quiz
+  // 6b. POST /api/admin/clean-dummy-users - Xóa bỏ toàn bộ các tài khoản khách / học viên rác chưa học gì
+  if (req.method === 'POST' && pathname === '/api/admin/clean-dummy-users') {
+    let removedCount = 0;
+    if (db.users && typeof db.users === 'object') {
+      Object.keys(db.users).forEach(k => {
+        const u = db.users[k];
+        const isDummy = k.startsWith('học viên #') || k.startsWith('hoc vien #') || k === 'guest';
+        const hasNoData = (!u.learnedWordsCount || u.learnedWordsCount === 0) &&
+                          (!u.totalQuizzes || u.totalQuizzes === 0) &&
+                          (!u.bestScore || u.bestScore === 0);
+        if (isDummy && hasNoData) {
+          delete db.users[k];
+          removedCount++;
+        }
+      });
+      if (removedCount > 0) {
+        writeDb(db);
+      }
+    }
+    sendJson(200, { ok: true, removedCount, stats: computeStats(db) });
+    return true;
+  }
+
+  // 7. POST /api/admin/clear-results - Xóa toàn bộ lịch sử quiz
   if (req.method === 'POST' && pathname === '/api/admin/clear-results') {
     db.quizHistory = [];
     writeDb(db);
@@ -308,7 +370,21 @@ export async function handleApiRequest(req, res) {
     return true;
   }
 
-  // 8. Đã loại bỏ chức năng đặt lại toàn bộ theo yêu cầu
+  // 7b. POST /api/admin/delete-quiz-item - Xóa 1 bản ghi quiz
+  if (req.method === 'POST' && pathname === '/api/admin/delete-quiz-item') {
+    const id = body.id;
+    const ts = Number(body.ts);
+    if (Array.isArray(db.quizHistory)) {
+      db.quizHistory = db.quizHistory.filter(q => {
+        if (id && q.id === id) return false;
+        if (ts && q.ts === ts) return false;
+        return true;
+      });
+      writeDb(db);
+    }
+    sendJson(200, { ok: true, stats: computeStats(db) });
+    return true;
+  }
 
   sendJson(404, { error: 'Not found' });
   return true;
