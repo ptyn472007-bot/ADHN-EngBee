@@ -116,7 +116,7 @@ function topicCard(t) {
   const totalCount = topicWordCount(t.id)
   const learned = learnedOf(t.id, totalCount)
   const pct = totalCount > 0 ? Math.round((learned / totalCount) * 100) : 0
-  const learnLink = TOPICS.some((def) => def.id === t.id) ? `learn-${t.id}.html` : `flashcard.html?topic=${t.id}`
+  const learnLink = TOPICS.some((def) => def.id === t.id) ? `learn-${t.id}.html` : `learn-topic.html?topic=${t.id}`
   return `
   <article class="topic-card" style="--g1:${t.g1};--g2:${t.g2}">
     <div class="topic-icon">${t.emoji}</div>

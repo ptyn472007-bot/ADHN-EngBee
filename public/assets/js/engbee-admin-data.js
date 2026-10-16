@@ -351,7 +351,7 @@
           var isBase = DEFAULT_TOPICS.some(function(d) { return d.id === t.id; });
           var href = isBase
             ? (t.id === "travel" ? "learn-travel.html" : "learn-" + t.id + ".html")
-            : "flashcard.html?topic=" + encodeURIComponent(t.id);
+            : "learn-topic.html?topic=" + encodeURIComponent(t.id);
           var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
           var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
           return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
