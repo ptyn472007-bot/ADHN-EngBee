@@ -882,3 +882,27 @@ html {
   line-height: 34px;
 }
 .pagination--center { justify-content: center; }
+
+/* Nút hành động nhỏ & nút xóa */
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+.btn-sm:hover {
+  transform: translateY(-1px);
+}
+.btn-danger-outline {
+  color: #ef4444 !important;
+  border-color: #fca5a5 !important;
+}
+.btn-danger-outline:hover {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+}

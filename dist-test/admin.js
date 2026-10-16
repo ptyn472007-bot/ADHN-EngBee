@@ -12,6 +12,7 @@ const KEY_ADDED = "engbee_admin_added_words";         // từ đã thêm
 const KEY_REMOVED = "engbee_admin_removed_words";     // từ đã xóa
 const KEY_HIDDEN = "engbee_admin_hidden_topics";      // chủ đề đang tắt
 const KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // chủ đề mới do admin tạo
+const KEY_TOPIC_EDITS = "engbee_admin_topic_edits";   // thông tin chủ đề gốc đã sửa
 const KEY_USER = "engbee_user";                      // người dùng hiện tại
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
@@ -20,7 +21,7 @@ const USERS_REGISTRY_KEY = "engbee_users";            // danh sách mọi ngư�
 const SESSION_TTL = 8 * 60 * 60 * 1000;              // 8 giờ
 
 // Chỉ tài khoản này được vào trang quản trị
-const ADMIN_ACCOUNT = { username: "EngBee", password: "EngBee123", name: "Quản trị viên" };
+const ADMIN_ACCOUNT = { username: "admin", password: "admin123", name: "Quản trị viên" };
 
 /* ================= PHẦN 2: TRẠNG THÁI ================= */
 
@@ -56,23 +57,26 @@ const el = {
   btnAddTopic: $("btnAddTopic"), topicGrid: $("topicGrid"),
   // người học
   userBody: $("userBody"), userEmpty: $("userEmpty"),
+  btnCleanDummyUsers: $("btnCleanDummyUsers"), btnRefreshUsers: $("btnRefreshUsers"),
+  userSearch: $("userSearch"), userCountBadge: $("userCountBadge"),
   // kết quả
-  resultBody: $("resultBody"), resultEmpty: $("resultEmpty"), btnClearResults: $("btnClearResults"),
+  resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
+  btnRefreshResults: $("btnRefreshResults"), btnClearAllResults: $("btnClearAllResults"),
+  resultSearch: $("resultSearch"), resultCountBadge: $("resultCountBadge"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
   importFile: $("importFile"),
   infoSession: $("infoSession"),
   // modal từ
   wordModal: $("wordModal"), wordModalTitle: $("wordModalTitle"), wordForm: $("wordForm"),
-  inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"),
-  inputEx: $("inputEx"), inputExVi: $("inputExVi"), inputTopic: $("inputTopic"),
+  inputKey: $("inputKey"), inputEn: $("inputEn"), inputVi: $("inputVi"), inputIpa: $("inputIpa"), inputTopic: $("inputTopic"),
   inputEx0En: $("inputEx0En"), inputEx0Vi: $("inputEx0Vi"),
   inputEx1En: $("inputEx1En"), inputEx1Vi: $("inputEx1Vi"),
   inputEx2En: $("inputEx2En"), inputEx2Vi: $("inputEx2Vi"),
   inputEx3En: $("inputEx3En"), inputEx3Vi: $("inputEx3Vi"),
   inputEx4En: $("inputEx4En"), inputEx4Vi: $("inputEx4Vi"),
-  errorEn: $("errorEn"), errorVi: $("errorVi"), errorIpa: $("errorIpa"),
-  errorEx: $("errorEx"), errorExVi: $("errorExVi"), errorTopicField: $("errorTopicField"),
+  errorEn: $("errorEn"), errorVi: $("errorVi"),   errorIpa: $("errorIpa"),
+  errorTopicField: $("errorTopicField"),
   // modal chủ đề
   topicModal: $("topicModal"), topicModalTitle: $("topicModalTitle"), topicForm: $("topicForm"),
   inputTopicMode: $("inputTopicMode"), inputTopicOriginalId: $("inputTopicOriginalId"),
@@ -94,7 +98,7 @@ const VIEW_ORDER = ["dashboard", "words", "topics", "users", "results", "setting
 
 const VIEW_INFO = {
   dashboard: ["Tổng quan", "Nhìn toàn cảnh hoạt động của website EngBee"],
-  words: ["Quản lý từ vựng", "Thêm, sửa, xóa từ vựng của các chủ đề"],
+  words: ["Quản lý từ vựng", "Thêm, sửa từ vựng của các chủ đề"],
   topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
@@ -154,7 +158,8 @@ function pushAdminDataToServer() {
       addedWords: getAdded(),
       removedWords: getRemoved(),
       hiddenTopics: getHiddenTopics(),
-      customTopics: getCustomTopics()
+      customTopics: getCustomTopics(),
+      topicEdits: getTopicEdits()
     })
   }).catch(function () {});
 }
@@ -182,6 +187,7 @@ async function syncServerStats() {
       if (data.admin.removedWords) try { localStorage.setItem(KEY_REMOVED, JSON.stringify(data.admin.removedWords)); } catch (e) {}
       if (data.admin.hiddenTopics) try { localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.admin.hiddenTopics)); } catch (e) {}
       if (data.admin.customTopics) try { localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.admin.customTopics)); } catch (e) {}
+      if (data.admin.topicEdits) try { localStorage.setItem(KEY_TOPIC_EDITS, JSON.stringify(data.admin.topicEdits)); } catch (e) {}
     }
 
     if (currentAdmin) {
@@ -326,6 +332,12 @@ function getCustomTopics() {
   return Array.isArray(t) ? t : [];
 }
 
+// Lấy thông tin các chủ đề gốc đã được Admin sửa (đè lên dữ liệu gốc)
+function getTopicEdits() {
+  const e = readStore(KEY_TOPIC_EDITS, {});
+  return e && typeof e === "object" && !Array.isArray(e) ? e : {};
+}
+
 // Lấy toàn bộ chủ đề (gốc data.js + do Admin tạo thêm)
 function allTopics() {
   const base = (window.EngBeeData && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics.slice() : [];
@@ -338,7 +350,10 @@ function allTopics() {
       map[t.id] = t;
     }
   });
-  return base;
+  const edits = getTopicEdits();
+  return base.map(function (t) {
+    return edits[t.id] ? Object.assign({}, t, edits[t.id]) : t;
+  });
 }
 
 // Lấy danh sách từ gốc của một chủ đề
@@ -507,20 +522,19 @@ function renderDashboard() {
   const hidden = getHiddenTopics();
   const addedCount = Object.keys(getAdded()).reduce(function (n, k) { return n + getAdded()[k].length; }, 0);
   const editedCount = Object.keys(getEdited()).length;
-  const removedCount = getRemoved().length;
 
   el.statTopics.textContent = topics.length - hidden.length + " / " + topics.length;
   el.statWords.textContent = fmt(totalWords());
-  el.statChanges.textContent = fmt(addedCount + editedCount + removedCount);
+  el.statChanges.textContent = fmt(addedCount + editedCount);
 
   const users = listUsers();
   const history = getQuizHistory();
 
-  const totalUsersCount = (serverStats && typeof serverStats.totalUsers === "number") ? serverStats.totalUsers : users.length;
-  const totalAttemptsCount = (serverStats && typeof serverStats.totalAttempts === "number") ? serverStats.totalAttempts : history.length;
-  const avgScoreVal = (serverStats && typeof serverStats.avgScore === "number")
-    ? serverStats.avgScore + "%"
-    : (history.length ? Math.round(history.reduce(function (s, h) { return s + (h.pct || 0); }, 0) / history.length) + "%" : "0%");
+  const totalUsersCount = users.length;
+  const totalAttemptsCount = history.length;
+  const avgScoreVal = history.length
+    ? Math.round(history.reduce(function (s, h) { return s + (Number(h.pct) || 0); }, 0) / history.length) + "%"
+    : "0%";
 
   el.statUsers.textContent = fmt(totalUsersCount);
   el.statAttempts.textContent = fmt(totalAttemptsCount);
@@ -530,7 +544,6 @@ function renderDashboard() {
   const changes = [];
   if (addedCount) changes.push(["Từ đã thêm", addedCount]);
   if (editedCount) changes.push(["Từ đã sửa", editedCount]);
-  if (removedCount) changes.push(["Từ đã xóa", removedCount]);
   if (hidden.length) changes.push(["Chủ đề đang tắt", hidden.length]);
 
   if (changes.length === 0) {
@@ -541,10 +554,8 @@ function renderDashboard() {
     }).join("");
   }
 
-  // Người học gần đây (đồng bộ từ server)
-  const recentUsers = (serverStats && Array.isArray(serverStats.recentUsers) && serverStats.recentUsers.length)
-    ? serverStats.recentUsers
-    : users.sort(function (a, b) { return b.lastSeen - a.lastSeen; }).slice(0, 5);
+  // Người học gần đây
+  const recentUsers = users.slice(0, 5);
 
   if (recentUsers.length === 0) {
     el.recentUserList.innerHTML = '<li class="summary-empty">Chưa có dữ liệu người học.</li>';
@@ -614,7 +625,6 @@ function renderWords() {
       "<td>" + statusTag + "</td>" +
       '<td class="td-action"><div class="row-actions">' +
         '<button class="btn-edit" data-act="edit" data-key="' + esc(wordKey(w.en)) + '">Sửa</button>' +
-        '<button class="btn-delete" data-act="del" data-key="' + esc(wordKey(w.en)) + '">Xóa</button>' +
       "</div></td>";
 
     el.wordBody.appendChild(tr);
@@ -664,8 +674,8 @@ function renderTopics() {
     const badge = t.emoji ? t.emoji : esc(t.name.slice(0, 1).toUpperCase());
     const isCustom = !!t.isCustom;
 
-    const learnLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "learn-" + t.id + ".html" : "flashcard.html?topic=" + t.id);
-    const quizLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "quiz-" + t.id + ".html" : "quiz.html?topic=" + t.id);
+    const learnLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "learn-" + t.id + ".html" : "learn-topic.html?topic=" + t.id);
+    const quizLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "quiz-" + t.id + ".html" : "quiz-topic.html?topic=" + t.id);
 
     const card = document.createElement("div");
     card.className = "topic-admin-card" + (isOff ? " is-off" : "");
@@ -684,15 +694,12 @@ function renderTopics() {
         '<div class="topic-admin-card__row"><span>Số từ</span><b>' + count + "</b></div>" +
         '<div class="topic-admin-card__row"><span>Trang học</span><b><a href="' + learnLink + '" target="_blank">Mở</a></b></div>' +
         '<div class="topic-admin-card__row"><span>Trang quiz</span><b><a href="' + quizLink + '" target="_blank">Mở</a></b></div>' +
-        (isCustom ? (
-          '<div class="topic-admin-card__row" style="padding-top:8px;border-top:1px dashed var(--border);">' +
-            '<span>Tùy chỉnh:</span>' +
-            '<div style="display:flex;gap:6px;">' +
-              '<button type="button" class="btn-edit" style="padding:3px 8px;font-size:12px;" data-act="edit-topic" data-topic="' + esc(t.id) + '">Sửa</button>' +
-              '<button type="button" class="btn-delete" style="padding:3px 8px;font-size:12px;" data-act="del-topic" data-topic="' + esc(t.id) + '">Xóa</button>' +
-            '</div>' +
-          '</div>'
-        ) : '') +
+        '<div class="topic-admin-card__row" style="padding-top:8px;border-top:1px dashed var(--border);">' +
+          '<span>Tùy chỉnh:</span>' +
+          '<div style="display:flex;gap:6px;">' +
+            '<button type="button" class="btn-edit" style="padding:3px 8px;font-size:12px;" data-act="edit-topic" data-topic="' + esc(t.id) + '">Sửa</button>' +
+          '</div>' +
+        '</div>' +
         '<div class="topic-admin-card__toggle"></div>' +
       "</div>";
 
@@ -707,21 +714,22 @@ function getCurrentUserName() {
   return u && typeof u.name === "string" && u.name.trim() ? u.name.trim() : "";
 }
 
-// Gom danh sách người học từ server và LocalStorage
+// Gom danh sách người học từ server và LocalStorage (đã lọc sạch tài khoản rác)
 function listUsers() {
   const map = {};
 
   // 1. Nạp từ serverStats (đồng bộ thời gian thực từ mọi thiết bị / máy tính khác)
   if (serverStats && Array.isArray(serverStats.users)) {
     serverStats.users.forEach(function (u) {
-      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim() !== "guest") {
+      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim().toLowerCase() !== "guest") {
         const name = u.name.trim();
         map[name] = {
           name: name,
-          learned: u.learned || 0,
-          topics: u.topics || 0,
-          best: u.best || 0,
-          lastSeen: u.lastSeen || 0
+          learned: Number(u.learned) || 0,
+          topics: Number(u.topics) || 0,
+          best: Number(u.best) || 0,
+          totalQuizzes: Number(u.totalQuizzes) || 0,
+          lastSeen: Number(u.lastSeen) || 0
         };
       }
     });
@@ -731,12 +739,22 @@ function listUsers() {
   const reg = readStore(USERS_REGISTRY_KEY, []);
   if (Array.isArray(reg)) {
     reg.forEach(function (u) {
-      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim() !== "guest") {
+      if (u && typeof u.name === "string" && u.name.trim() && u.name.trim().toLowerCase() !== "guest") {
         const name = u.name.trim();
         if (!map[name]) {
-          map[name] = { name: name, learned: 0, topics: 0, best: 0, lastSeen: u.lastActive || 0 };
+          map[name] = {
+            name: name,
+            learned: Number(u.learned) || 0,
+            topics: Number(u.topics) || 0,
+            best: Number(u.best) || 0,
+            totalQuizzes: Number(u.totalQuizzes) || 0,
+            lastSeen: Number(u.lastActive || u.lastSeen) || 0
+          };
         } else {
-          map[name].lastSeen = Math.max(map[name].lastSeen, u.lastActive || 0);
+          map[name].lastSeen = Math.max(map[name].lastSeen, Number(u.lastActive || u.lastSeen) || 0);
+          map[name].learned = Math.max(map[name].learned, Number(u.learned) || 0);
+          map[name].topics = Math.max(map[name].topics, Number(u.topics) || 0);
+          map[name].best = Math.max(map[name].best, Number(u.best) || 0);
         }
       }
     });
@@ -744,8 +762,8 @@ function listUsers() {
 
   // 3. Người đang đăng nhập trên trang chính máy này
   const cur = getCurrentUserName();
-  if (cur && cur !== "guest") {
-    if (!map[cur]) map[cur] = { name: cur, learned: 0, topics: 0, best: 0, lastSeen: Date.now() };
+  if (cur && cur.toLowerCase() !== "guest") {
+    if (!map[cur]) map[cur] = { name: cur, learned: 0, topics: 0, best: 0, totalQuizzes: 0, lastSeen: Date.now() };
     else map[cur].lastSeen = Math.max(map[cur].lastSeen, Date.now());
   }
 
@@ -753,12 +771,13 @@ function listUsers() {
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (!key || key.indexOf(PREFIX_LEARNED) !== 0) continue;
+    if (key.indexOf("_PRON") !== -1 || key.indexOf("_CORR") !== -1) continue;
     const rest = key.slice(PREFIX_LEARNED.length);
     const cut = rest.lastIndexOf("_");
     if (cut < 0) continue;
     const name = rest.slice(0, cut);
-    if (name === "guest") continue;
-    if (!map[name]) map[name] = { name: name, learned: 0, topics: 0, best: 0, lastSeen: 0 };
+    if (!name || name.toLowerCase() === "guest") continue;
+    if (!map[name]) map[name] = { name: name, learned: 0, topics: 0, best: 0, totalQuizzes: 0, lastSeen: 0 };
   }
 
   // 5. Quét điểm cao nhất cục bộ: engbee_quiz_best_<tên>
@@ -766,36 +785,53 @@ function listUsers() {
     const key = localStorage.key(i);
     if (!key || key.indexOf(PREFIX_BEST) !== 0) continue;
     const name = key.slice(PREFIX_BEST.length);
-    if (name === "guest") continue;
-    if (!map[name]) map[name] = { name: name, learned: 0, topics: 0, best: 0, lastSeen: 0 };
+    if (!name || name.toLowerCase() === "guest") continue;
+    if (!map[name]) map[name] = { name: name, learned: 0, topics: 0, best: 0, totalQuizzes: 0, lastSeen: 0 };
   }
 
   // Tổng hợp số từ đã học, số chủ đề và điểm cao nhất
   const result = [];
   Object.keys(map).forEach(function (name) {
-    if (name === "guest") return;
+    if (!name || name.toLowerCase() === "guest") return;
+    const lower = name.toLowerCase();
+
     let localLearned = 0;
     const topicSet = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (!key || key.indexOf(PREFIX_LEARNED + name + "_") !== 0) continue;
+      if (key.indexOf("_PRON") !== -1 || key.indexOf("_CORR") !== -1) continue;
       const arr = readStore(key, []);
-      if (Array.isArray(arr)) localLearned += arr.length;
-      topicSet[key.slice((PREFIX_LEARNED + name + "_").length)] = true;
+      if (Array.isArray(arr) && arr.length > 0) {
+        localLearned += arr.length;
+        topicSet[key.slice((PREFIX_LEARNED + name + "_").length)] = true;
+      }
     }
     const localBest = Number(localStorage.getItem(PREFIX_BEST + name) || 0);
     const localTopics = Object.keys(topicSet).length;
+
+    let localQuizzes = 0;
+    const userHist = readStore("engbee_quiz_history_" + name, []);
+    if (Array.isArray(userHist)) localQuizzes = userHist.length;
 
     const item = map[name];
     const learned = Math.max(item.learned || 0, localLearned);
     const topics = Math.max(item.topics || 0, localTopics);
     const best = Math.max(item.best || 0, localBest);
+    const totalQuizzes = Math.max(item.totalQuizzes || 0, localQuizzes);
+
+    // Lọc bỏ tài khoản rác: tên dạng "Học viên #xxxx" mà không có từ nào, không có quiz, không có điểm
+    const isDummy = lower.indexOf("học viên #") === 0 || lower.indexOf("hoc vien #") === 0;
+    if (isDummy && learned === 0 && best === 0 && totalQuizzes === 0) {
+      return; // Bỏ qua
+    }
 
     result.push({
       name: name,
       learned: learned,
       topics: topics,
       best: best,
+      totalQuizzes: totalQuizzes,
       lastSeen: item.lastSeen || 0
     });
   });
@@ -804,7 +840,16 @@ function listUsers() {
 }
 
 function renderUsers() {
-  const users = listUsers();
+  const allUsers = listUsers();
+  const query = el.userSearch ? el.userSearch.value.trim().toLowerCase() : "";
+  const users = query ? allUsers.filter(function (u) {
+    return u.name.toLowerCase().indexOf(query) !== -1;
+  }) : allUsers;
+
+  if (el.userCountBadge) {
+    el.userCountBadge.textContent = "Hiển thị: " + users.length + " / " + allUsers.length + " người học";
+  }
+
   el.userBody.innerHTML = "";
   el.userEmpty.hidden = users.length > 0;
 
@@ -813,42 +858,185 @@ function renderUsers() {
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
       "<td><b>" + esc(u.name) + "</b></td>" +
-      "<td>" + fmt(u.learned) + "</td>" +
-      "<td>" + (u.best ? u.best + "/10" : "-") + "</td>" +
-      "<td>" + u.topics + "</td>";
+      "<td>" + fmt(u.learned) + " từ</td>" +
+      "<td>" + u.topics + " chủ đề</td>" +
+      "<td>" + (u.best ? "<b>" + u.best + "</b>/10" : "-") + "</td>" +
+      "<td>" + (u.totalQuizzes ? u.totalQuizzes + " lượt" : "-") + "</td>" +
+      "<td style=\"font-size:13px;color:#6b7280;\">" + esc(fmtTime(u.lastSeen)) + "</td>" +
+      "<td style=\"text-align:right;\">" +
+        '<button type="button" class="btn-sm btn-outline" style="color:#ef4444;border-color:#fca5a5;padding:4px 10px;font-size:12px;" data-act="delete-user" data-user="' + esc(u.name) + '">Xóa</button>' +
+      "</td>";
     el.userBody.appendChild(tr);
   });
 }
 
 function renderResults() {
-  const history = getQuizHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+  const allHistory = getQuizHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+  const query = el.resultSearch ? el.resultSearch.value.trim().toLowerCase() : "";
+  const history = query ? allHistory.filter(function (h) {
+    const un = (h.userName || "").toLowerCase();
+    const mn = (h.modeName || h.topicId || "").toLowerCase();
+    return un.indexOf(query) !== -1 || mn.indexOf(query) !== -1;
+  }) : allHistory;
+
+  if (el.resultCountBadge) {
+    el.resultCountBadge.textContent = "Hiển thị: " + history.length + " / " + allHistory.length + " lượt thi";
+  }
+
   el.resultBody.innerHTML = "";
   el.resultEmpty.hidden = history.length > 0;
 
   history.forEach(function (h, index) {
-    const pct = h.pct || 0;
-    const tag = pct >= 8 ? '<span class="tag tag--good">Tốt</span>'
-      : pct >= 5 ? '<span class="tag tag--mid">Khá</span>'
+    const pct = typeof h.pct === "number" ? h.pct : 0;
+    const tag = pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
       : '<span class="tag tag--bad">Cần luyện thêm</span>';
 
     const tr = document.createElement("tr");
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
-      "<td>" + esc(fmtTime(h.ts)) + "</td>" +
-      "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
+      "<td style=\"font-size:13px;color:#6b7280;\">" + esc(fmtTime(h.ts)) + "</td>" +
+      "<td><b>" + esc(h.userName || "Học viên") + "</b></td>" +
+      "<td>" + esc(h.modeName || h.topicId || "Tổng hợp") + "</td>" +
       "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
-      "<td><b>" + pct + "/10</b></td>" +
-      "<td>" + tag + "</td>";
+      "<td><b>" + pct + "%</b></td>" +
+      "<td>" + tag + "</td>" +
+      "<td style=\"text-align:right;\">" +
+        '<button type="button" class="btn-sm btn-outline" style="color:#ef4444;border-color:#fca5a5;padding:4px 8px;font-size:12px;" data-act="delete-quiz" data-id="' + esc(h.id || '') + '" data-ts="' + (h.ts || '') + '">✕</button>' +
+      "</td>";
     el.resultBody.appendChild(tr);
   });
 }
 
 function getQuizHistory() {
-  if (serverStats && Array.isArray(serverStats.quizHistory) && serverStats.quizHistory.length > 0) {
+  if (serverStats && Array.isArray(serverStats.quizHistory)) {
     return serverStats.quizHistory;
   }
   const h = readStore(KEY_QUIZ_HISTORY, []);
   return Array.isArray(h) ? h : [];
+}
+
+// Xóa một người học khỏi server và LocalStorage
+async function deleteUser(name) {
+  if (!name) return;
+  try {
+    // 1. Gọi API server
+    if (window.fetch) {
+      await fetch("/api/admin/clear-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name })
+      });
+    }
+
+    // 2. Dọn LocalStorage
+    const reg = readStore(USERS_REGISTRY_KEY, []);
+    if (Array.isArray(reg)) {
+      const clean = reg.filter(function (u) { return !u || u.name !== name; });
+      localStorage.setItem(USERS_REGISTRY_KEY, JSON.stringify(clean));
+    }
+    localStorage.removeItem(PREFIX_BEST + name);
+    localStorage.removeItem("engbee_quiz_history_" + name);
+
+    // Xóa các key tiến độ học của người này
+    const toRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.indexOf(PREFIX_LEARNED + name + "_") === 0) {
+        toRemove.push(k);
+      }
+    }
+    toRemove.forEach(function (k) { localStorage.removeItem(k); });
+
+    await syncServerStats();
+    showToast("Đã xóa dữ liệu người học: " + name, "success");
+  } catch (e) {
+    showToast("Không thể xóa người học lúc này.", "error");
+  }
+}
+
+// Dọn dẹp tất cả tài khoản trống / học viên rác
+async function cleanDummyUsers() {
+  try {
+    let count = 0;
+    if (window.fetch) {
+      const res = await fetch("/api/admin/clean-dummy-users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+      if (res.ok) {
+        const d = await res.json();
+        if (d && typeof d.removedCount === "number") count = d.removedCount;
+      }
+    }
+
+    // Dọn trong LocalStorage
+    const reg = readStore(USERS_REGISTRY_KEY, []);
+    if (Array.isArray(reg)) {
+      const clean = reg.filter(function (u) {
+        if (!u || !u.name) return false;
+        const low = u.name.toLowerCase();
+        if (low === "guest") return false;
+        if ((low.indexOf("học viên #") === 0 || low.indexOf("hoc vien #") === 0) &&
+            (!u.learned || u.learned === 0) && (!u.best || u.best === 0)) {
+          return false;
+        }
+        return true;
+      });
+      localStorage.setItem(USERS_REGISTRY_KEY, JSON.stringify(clean));
+    }
+
+    await syncServerStats();
+    showToast("Đã dọn dẹp các tài khoản trống thành công!", "success");
+  } catch (e) {
+    showToast("Có lỗi khi dọn dẹp tài khoản trống.", "error");
+  }
+}
+
+// Xóa một lượt thi Quiz
+async function deleteQuizItem(id, ts) {
+  try {
+    if (window.fetch) {
+      await fetch("/api/admin/delete-quiz-item", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id, ts: ts })
+      });
+    }
+
+    // Xóa trong LocalStorage
+    const h = readStore(KEY_QUIZ_HISTORY, []);
+    if (Array.isArray(h)) {
+      const clean = h.filter(function (q) {
+        if (id && q.id === id) return false;
+        if (ts && q.ts === Number(ts)) return false;
+        return true;
+      });
+      localStorage.setItem(KEY_QUIZ_HISTORY, JSON.stringify(clean));
+    }
+
+    await syncServerStats();
+    showToast("Đã xóa lượt làm Quiz này.", "success");
+  } catch (e) {
+    showToast("Không thể xóa kết quả quiz.", "error");
+  }
+}
+
+// Xóa toàn bộ kết quả Quiz
+async function clearAllResults() {
+  try {
+    if (window.fetch) {
+      await fetch("/api/admin/clear-results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    localStorage.removeItem(KEY_QUIZ_HISTORY);
+    await syncServerStats();
+    showToast("Đã xóa toàn bộ kết quả Quiz!", "success");
+  } catch (e) {
+    showToast("Không thể xóa kết quả quiz.", "error");
+  }
 }
 
 /* ================= PHẦN 12: MODAL & XÁC NHẬN ================= */
@@ -866,10 +1054,10 @@ function showFieldError(input, box, message) {
 }
 
 function clearFormErrors() {
-  [el.errorEn, el.errorVi, el.errorIpa, el.errorEx, el.errorExVi, el.errorTopicField].forEach(function (b) {
+  [el.errorEn, el.errorVi, el.errorIpa, el.errorTopicField].forEach(function (b) {
     if (b) { b.textContent = ""; b.classList.remove("is-show"); }
   });
-  [el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopic].forEach(function (i) {
+  [el.inputEn, el.inputVi, el.inputIpa, el.inputTopic].forEach(function (i) {
     if (i) i.classList.remove("is-error");
   });
 }
@@ -911,8 +1099,6 @@ function openWordModal(mode, key) {
     el.inputEn.value = word.en;
     el.inputVi.value = word.vi;
     el.inputIpa.value = word.ipa || "";
-    el.inputEx.value = word.ex || "";
-    el.inputExVi.value = word.exvi || "";
     el.inputTopic.value = word.topicId;
 // exs
     if (el.inputEx0En) el.inputEx0En.value = (word.exs && word.exs[0] && word.exs[0].en) ? word.exs[0].en : "";
@@ -950,7 +1136,28 @@ function findWordAnywhere(key) {
 }
 
 // Kiểm tra dữ liệu trước khi lưu
-function generateExamples(en, vi) {
+function getTopicKey(tid) {
+  if (!tid) return "general";
+  var t = String(tid).toLowerCase();
+  if (t === "all") return "general";
+  if (t.indexOf("food") !== -1 || t.indexOf("fruit") !== -1 || t.indexOf("veget") !== -1 || t.indexOf("drink") !== -1 || t.indexOf("meal") !== -1) return "food";
+  if (t.indexOf("animal") !== -1 || t.indexOf("pet") !== -1 || t.indexOf("wild") !== -1 || t.indexOf("insect") !== -1) return "animals";
+  if (t.indexOf("travel") !== -1 || t.indexOf("tour") !== -1 || t.indexOf("place") !== -1 || t.indexOf("city") !== -1 || t.indexOf("country") !== -1) return "travel";
+  if (t.indexOf("transp") !== -1 || t.indexOf("vehicle") !== -1 || t.indexOf("car") !== -1 || t.indexOf("bus") !== -1 || t.indexOf("train") !== -1 || t.indexOf("plane") !== -1) return "transport";
+  if (t.indexOf("job") !== -1 || t.indexOf("work") !== -1 || t.indexOf("prof") !== -1 || t.indexOf("career") !== -1) return "jobs";
+  if (t.indexOf("school") !== -1 || t.indexOf("study") !== -1 || t.indexOf("class") !== -1 || t.indexOf("lesson") !== -1 || t.indexOf("educ") !== -1) return "school";
+  if (t.indexOf("home") !== -1 || t.indexOf("house") !== -1 || t.indexOf("room") !== -1 || t.indexOf("furn") !== -1) return "home";
+  if (t.indexOf("cloth") !== -1 || t.indexOf("wear") !== -1 || t.indexOf("dress") !== -1 || t.indexOf("shirt") !== -1) return "clothes";
+  if (t.indexOf("body") !== -1 || t.indexOf("health") !== -1 || t.indexOf("part") !== -1) return "body";
+  if (t.indexOf("nature") !== -1 || t.indexOf("weather") !== -1 || t.indexOf("plant") !== -1 || t.indexOf("tree") !== -1 || t.indexOf("sea") !== -1) return "nature";
+  if (t.indexOf("color") !== -1) return "colors";
+  if (t.indexOf("number") !== -1) return "numbers";
+  if (t.indexOf("time") !== -1 || t.indexOf("day") !== -1 || t.indexOf("month") !== -1) return "time";
+  if (t.indexOf("sport") !== -1 || t.indexOf("game") !== -1 || t.indexOf("play") !== -1) return "sports";
+  return "general";
+}
+
+function generateExamples(en, vi, topicId) {
   var base = (en || '').replace(/[^a-zA-Z0-9 \-']+/g, '').trim().toLowerCase();
   var vb = (vi || '').trim();
   if (!base || !vb) {
@@ -958,30 +1165,245 @@ function generateExamples(en, vi) {
     for (var i = 0; i < 5; i++) a.push({ en: '', vi: '' });
     return a;
   }
-  var enS = [
-    'I saw a ' + base + ' today.',
-    'She bought a new ' + base + '.',
-    'We need a ' + base + ' for our class.',
-    'This ' + base + ' is very useful.',
-    'Can you find a good ' + base + '?'
-  ];
-  var viS = [
-    'Hôm nay tôi thấy một ' + vb + '.',
-    'Cô ấy đã mua một ' + vb + ' mới.',
-    'Chúng tôi cần một ' + vb + ' cho lớp học.',
-    vb + ' này rất hữu ích.',
-    'Bạn có thể tìm một ' + vb + ' tốt không?'
-  ];
+  var tk = getTopicKey(topicId);
+  var enTpl, viTpl;
+  if (tk === "food") {
+    enTpl = [
+      'I like to eat ' + base + ' every day.',
+      'She is cooking ' + base + ' for dinner.',
+      'We bought some fresh ' + base + ' at the market.',
+      'This ' + base + ' tastes really delicious.',
+      'Do you want to try this ' + base + '?'
+    ];
+    viTpl = [
+      'Tôi thích ăn ' + vb + ' mỗi ngày.',
+      'Cô ấy đang nấu ' + vb + ' cho bữa tối.',
+      'Chúng tôi đã mua ' + vb + ' tươi ở chợ.',
+      vb + ' này có vị rất ngon.',
+      'Bạn có muốn thử ' + vb + ' này không?'
+    ];
+  } else if (tk === "animals") {
+    enTpl = [
+      'I saw a ' + base + ' in the park today.',
+      'That ' + base + ' looks very friendly.',
+      'A baby ' + base + ' is playing with its mother.',
+      'This ' + base + ' lives in the forest.',
+      'We learned about a ' + base + ' in class today.'
+    ];
+    viTpl = [
+      'Hôm nay tôi thấy một con ' + vb + ' ở công viên.',
+      'Con ' + vb + ' đó trông rất thân thiện.',
+      'Một con ' + vb + ' con đang chơi với mẹ nó.',
+      'Con ' + vb + ' này sống trong rừng.',
+      'Hôm nay chúng tôi học về ' + vb + ' trong lớp.'
+    ];
+  } else if (tk === "travel") {
+    enTpl = [
+      'I want to visit a place famous for ' + base + '.',
+      'We took a lot of photos of ' + base + ' on our trip.',
+      'Many tourists come to see ' + base + ' every year.',
+      'I read about ' + base + ' in a travel guide.',
+      'It would be amazing to explore ' + base + '.'
+    ];
+    viTpl = [
+      'Tôi muốn đến thăm một nơi nổi tiếng với ' + vb + '.',
+      'Chúng tôi đã chụp rất nhiều ảnh về ' + vb + ' trong chuyến đi.',
+      'Nhiều du khách đến xem ' + vb + ' mỗi năm.',
+      'Tôi đã đọc về ' + vb + ' trong một cuốn sách du lịch.',
+      'Sẽ thật tuyệt vời nếu được khám phá ' + vb + '.'
+    ];
+  } else if (tk === "transport") {
+    enTpl = [
+      'I take a ' + base + ' to get to school every day.',
+      'This ' + base + ' is very fast and comfortable.',
+      'We waited for the ' + base + ' at the station.',
+      'A new ' + base + ' just arrived at the stop.',
+      'Is there a ' + base + ' going to the city center?'
+    ];
+    viTpl = [
+      'Tôi đi ' + vb + ' đến trường mỗi ngày.',
+      vb + ' này rất nhanh và thoải mái.',
+      'Chúng tôi đã đợi ' + vb + ' ở bến xe/ga.',
+      'Một chiếc ' + vb + ' mới vừa đến trạm.',
+      'Có ' + vb + ' nào đi đến trung tâm thành phố không?'
+    ];
+  } else if (tk === "jobs") {
+    enTpl = [
+      'My dream is to become a ' + base + '.',
+      'A good ' + base + ' must be very patient.',
+      'She works as a ' + base + ' in a big company.',
+      'I want to learn more about being a ' + base + '.',
+      'That ' + base + ' helps many people every day.'
+    ];
+    viTpl = [
+      'Ước mơ của tôi là trở thành một ' + vb + '.',
+      'Một ' + vb + ' giỏi phải rất kiên nhẫn.',
+      'Cô ấy làm ' + vb + ' tại một công ty lớn.',
+      'Tôi muốn học thêm về công việc của một ' + vb + '.',
+      vb + ' đó giúp đỡ rất nhiều người mỗi ngày.'
+    ];
+  } else if (tk === "school") {
+    enTpl = [
+      'We use a ' + base + ' in our English class.',
+      'I need to bring my ' + base + ' to school tomorrow.',
+      'The teacher explained the ' + base + ' very clearly.',
+      'We practiced this ' + base + ' in our lesson today.',
+      'Can I borrow your ' + base + ' for a minute?'
+    ];
+    viTpl = [
+      'Chúng tôi sử dụng ' + vb + ' trong giờ học tiếng Anh.',
+      'Ngày mai tôi cần mang ' + vb + ' đến trường.',
+      'Giáo viên đã giải thích ' + vb + ' rất rõ ràng.',
+      'Hôm nay chúng tôi đã luyện tập về ' + vb + '.',
+      'Tôi có thể mượn ' + vb + ' của bạn một chút không?'
+    ];
+  } else if (tk === "home") {
+    enTpl = [
+      'We have a nice ' + base + ' in our living room.',
+      'I put my keys on the ' + base + '.',
+      'This ' + base + ' makes our house look beautiful.',
+      'My family bought a new ' + base + ' last week.',
+      'I cleaned the ' + base + ' this morning.'
+    ];
+    viTpl = [
+      'Gia đình chúng tôi có một ' + vb + ' đẹp trong phòng khách.',
+      'Tôi để chìa khóa lên ' + vb + '.',
+      vb + ' này làm cho ngôi nhà của chúng tôi trông đẹp hơn.',
+      'Gia đình tôi đã mua một ' + vb + ' mới tuần trước.',
+      'Sáng nay tôi đã dọn dẹp ' + vb + '.'
+    ];
+  } else if (tk === "clothes") {
+    enTpl = [
+      'I bought a new ' + base + ' yesterday.',
+      'This ' + base + ' fits me very well.',
+      'She is wearing a blue ' + base + ' today.',
+      'I need to wash my ' + base + ' this weekend.',
+      'That ' + base + ' looks great on you.'
+    ];
+    viTpl = [
+      'Hôm qua tôi đã mua một chiếc ' + vb + ' mới.',
+      'Chiếc ' + vb + ' này vừa vặn với tôi rất tốt.',
+      'Hôm nay cô ấy đang mặc một chiếc ' + vb + ' màu xanh.',
+      'Cuối tuần này tôi cần giặt ' + vb + ' của mình.',
+      'Chiếc ' + vb + ' đó trông rất đẹp trên bạn.'
+    ];
+  } else if (tk === "body") {
+    enTpl = [
+      'I hurt my ' + base + ' while playing sports.',
+      'We use our ' + base + ' to see things around us.',
+      'My ' + base + ' feels tired after a long day.',
+      'It is important to take care of your ' + base + '.',
+      'He moved his ' + base + ' very quickly.'
+    ];
+    viTpl = [
+      'Tôi đã bị đau ' + vb + ' khi chơi thể thao.',
+      'Chúng ta dùng ' + vb + ' để nhìn thấy mọi thứ xung quanh.',
+      vb + ' của tôi cảm thấy mệt mỏi sau một ngày dài.',
+      'Việc chăm sóc ' + vb + ' của mình rất quan trọng.',
+      'Anh ấy đã di chuyển ' + vb + ' rất nhanh.'
+    ];
+  } else if (tk === "nature") {
+    enTpl = [
+      'We saw a beautiful ' + base + ' on our hike.',
+      'This ' + base + ' grows very well in the forest.',
+      'The ' + base + ' looks amazing in the morning light.',
+      'Many animals live near this ' + base + '.',
+      'I love to take pictures of a ' + base + '.'
+    ];
+    viTpl = [
+      'Chúng tôi đã thấy một ' + vb + ' rất đẹp trong chuyến đi bộ đường dài.',
+      vb + ' này phát triển rất tốt trong rừng.',
+      vb + ' trông thật tuyệt vời dưới ánh sáng ban mai.',
+      'Nhiều loài động vật sống gần ' + vb + ' này.',
+      'Tôi rất thích chụp ảnh về ' + vb + '.'
+    ];
+  } else if (tk === "colors") {
+    enTpl = [
+      'I really like the color ' + base + '.',
+      'She painted her room ' + base + '.',
+      'This ' + base + ' shirt looks very nice on him.',
+      'The sky turned a beautiful ' + base + ' this evening.',
+      'My favorite color is ' + base + '.'
+    ];
+    viTpl = [
+      'Tôi rất thích màu ' + vb + '.',
+      'Cô ấy đã sơn phòng của mình màu ' + vb + '.',
+      'Chiếc áo màu ' + vb + ' này trông rất đẹp trên anh ấy.',
+      'Buổi tối hôm nay bầu trời chuyển sang một màu ' + vb + ' rất đẹp.',
+      'Màu sắc yêu thích của tôi là màu ' + vb + '.'
+    ];
+  } else if (tk === "numbers") {
+    enTpl = [
+      'I have ' + base + ' apples in my bag.',
+      'There are ' + base + ' students in our class.',
+      'It costs ' + base + ' dollars.',
+      'We need to count to ' + base + '.',
+      'He can run ' + base + ' laps around the field.'
+    ];
+    viTpl = [
+      'Tôi có ' + vb + ' quả táo trong túi.',
+      'Có ' + vb + ' học sinh trong lớp chúng tôi.',
+      'Nó có giá ' + vb + ' đô la.',
+      'Chúng ta cần đếm đến ' + vb + '.',
+      'Anh ấy có thể chạy ' + vb + ' vòng quanh sân.'
+    ];
+  } else if (tk === "time") {
+    enTpl = [
+      'We meet at ' + base + ' every morning.',
+      'I usually wake up at ' + base + '.',
+      'This event happens on ' + base + '.',
+      'It takes about ' + base + ' to finish this work.',
+      'Let’s plan to meet around ' + base + '.'
+    ];
+    viTpl = [
+      'Chúng tôi gặp nhau lúc ' + vb + ' mỗi sáng.',
+      'Tôi thường thức dậy vào lúc ' + vb + '.',
+      'Sự kiện này diễn ra vào ' + vb + '.',
+      'Mất khoảng ' + vb + ' để hoàn thành công việc này.',
+      'Hãy cùng lên kế hoạch gặp nhau khoảng ' + vb + '.'
+    ];
+  } else if (tk === "sports") {
+    enTpl = [
+      'I like to play ' + base + ' with my friends.',
+      'We watch ' + base + ' on TV every weekend.',
+      'He is really good at ' + base + '.',
+      'Learning ' + base + ' helps me stay healthy.',
+      'Our school has a ' + base + ' team this year.'
+    ];
+    viTpl = [
+      'Tôi thích chơi ' + vb + ' với bạn bè.',
+      'Chúng tôi xem ' + vb + ' trên TV mỗi cuối tuần.',
+      'Anh ấy rất giỏi chơi ' + vb + '.',
+      'Chơi ' + vb + ' giúp tôi giữ gìn sức khỏe.',
+      'Năm nay trường chúng tôi có đội ' + vb + '.'
+    ];
+  } else {
+    enTpl = [
+      'I saw a ' + base + ' today.',
+      'She bought a new ' + base + '.',
+      'We need a ' + base + ' for our class.',
+      'This ' + base + ' is very useful.',
+      'Can you find a good ' + base + '?'
+    ];
+    viTpl = [
+      'Hôm nay tôi thấy một ' + vb + '.',
+      'Cô ấy đã mua một ' + vb + ' mới.',
+      'Chúng tôi cần một ' + vb + ' cho lớp học.',
+      vb + ' này rất hữu ích.',
+      'Bạn có thể tìm một ' + vb + ' tốt không?'
+    ];
+  }
   var out = [];
-  for (var j = 0; j < 5; j++) out.push({ en: enS[j], vi: viS[j] });
+  for (var j = 0; j < 5; j++) out.push({ en: enTpl[j], vi: viTpl[j] });
   return out;
 }
-function fillExamplesIfEmpty(en, vi) {
+
+function fillExamplesIfEmpty(en, vi, topicId) {
   for (var i = 0; i < 5; i++) {
     var enEl = el['inputEx' + i + 'En'];
     var viEl = el['inputEx' + i + 'Vi'];
     if (enEl && viEl && !enEl.value.trim() && !viEl.value.trim()) {
-      var g = generateExamples(en, vi);
+      var g = generateExamples(en, vi, topicId);
       if (g && g[i]) {
         enEl.value = g[i].en;
         viEl.value = g[i].vi;
@@ -989,21 +1411,10 @@ function fillExamplesIfEmpty(en, vi) {
     }
   }
 }
-  const en = el.inputEn.value.trim();
-  const vi = el.inputVi.value.trim();
-  const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
-  const topic = el.inputTopic.value;
-  const key = wordKey(en);
-  const errors = [];
-  
   function validateWord() {
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
   const errors = [];
@@ -1023,9 +1434,6 @@ function fillExamplesIfEmpty(en, vi) {
   else if (!/[\u00C0-\u1FFF]/.test(vi)) errors.push({ input: el.inputVi, box: el.errorVi, msg: "Nghĩa phải có chữ tiếng Việt có dấu." });
 
   if (ipa !== "" && ipa.length > 60) errors.push({ input: el.inputIpa, box: el.errorIpa, msg: "Phiên âm không quá 60 ký tự." });
-  if (ex !== "" && ex.length > 160) errors.push({ input: el.inputEx, box: el.errorEx, msg: "Ví dụ không quá 160 ký tự." });
-  if (exVi !== "" && exVi.length > 160) errors.push({ input: el.inputExVi, box: el.errorExVi, msg: "Dịch ví dụ không quá 160 ký tự." });
-
   if (topic === "") errors.push({ input: el.inputTopic, box: el.errorTopicField, msg: "Vui lòng chọn chủ đề." });
 
   return errors;
@@ -1036,15 +1444,20 @@ function handleWordSubmit(event) {
   if (!requireAdmin()) return;
 
   clearFormErrors();
-  fillExamplesIfEmpty(en, vi);
+  const errors = validateWord();
+  if (errors.length) {
+    errors.forEach(function (e) { showFieldError(e.input, e.box, e.msg); });
+    errors[0].input.focus();
+    return;
+  }
 
   const en = el.inputEn.value.trim();
   const vi = el.inputVi.value.trim();
   const ipa = el.inputIpa.value.trim();
-  const ex = el.inputEx.value.trim();
-  const exVi = el.inputExVi.value.trim();
   const topic = el.inputTopic.value;
   const key = wordKey(en);
+
+  fillExamplesIfEmpty(en, vi, topic);
 
   // build exs for save
   function getExSave(i){
@@ -1063,7 +1476,7 @@ function handleWordSubmit(event) {
     // Thêm mới: lưu vào danh sách từ riêng của chủ đề
     const added = getAdded();
     if (!Array.isArray(added[topic])) added[topic] = [];
-    added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi, exs: exsArrSave.slice() });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: '', exvi: '', exs: exsArrSave.slice() });
     writeStore(KEY_ADDED, added);
 
     // Nếu từ này từng bị xóa trước đó thì gỡ khỏi danh sách đã xóa
@@ -1086,8 +1499,8 @@ function handleWordSubmit(event) {
         en: en,
         vi: vi,
         ipa: ipa,
-        ex: ex,
-        exvi: exVi,
+        ex: '',
+        exvi: '',
         exs: exsArrSave.slice()
       };
       writeStore(KEY_EDITED, edited);
@@ -1114,15 +1527,15 @@ function handleWordSubmit(event) {
         foundWord.en = en;
         foundWord.vi = vi;
         foundWord.ipa = ipa;
-        foundWord.ex = ex;
-        foundWord.exvi = exVi;
-        foundWord.exs = exsArrSave.slice();
+foundWord.ex = '';
+foundWord.exvi = '';
+foundWord.exs = exsArrSave.slice();
         const targetTopic = topic || oldTopicId || "food";
         if (!Array.isArray(added[targetTopic])) added[targetTopic] = [];
         added[targetTopic].push(foundWord);
       } else {
         if (!Array.isArray(added[topic])) added[topic] = [];
-        added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: ex, exvi: exVi, exs: exsArrSave.slice() });
+added[topic].push({ id: makeId(), en: en, vi: vi, ipa: ipa, ex: '', exvi: '', exs: exsArrSave.slice() });
       }
       writeStore(KEY_ADDED, added);
     }
@@ -1167,7 +1580,6 @@ function openTopicModal(mode, topicId) {
     el.inputTopicG1Picker.value = g1;
     el.inputTopicG2.value = g2;
     el.inputTopicG2Picker.value = g2;
-    el.inputTopicDesc.value = topic.desc || "";
   } else {
     el.topicModalTitle.textContent = "Thêm chủ đề mới";
     el.inputTopicOriginalId.value = "";
@@ -1198,7 +1610,6 @@ function handleTopicSubmit(event) {
   const emoji = el.inputTopicEmoji.value.trim() || "📚";
   const g1 = el.inputTopicG1.value.trim() || "#f59e0b";
   const g2 = el.inputTopicG2.value.trim() || "#f97316";
-  const desc = el.inputTopicDesc.value.trim();
 
   let hasError = false;
   if (!name) { showFieldError(el.inputTopicName, el.errorTopicName, "Vui lòng nhập tên tiếng Anh của chủ đề."); hasError = true; }
@@ -1232,7 +1643,6 @@ function handleTopicSubmit(event) {
     g1: g1,
     g2: g2,
     gradient: [g1, g2],
-    desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi),
     isCustom: true,
     words: []
   };
@@ -1242,9 +1652,21 @@ function handleTopicSubmit(event) {
     if (idx !== -1) {
       customTopics[idx] = Object.assign({}, customTopics[idx], topicData);
     } else {
-      customTopics.push(topicData);
+      // Chủ đề gốc: lưu thông tin đã sửa vào kho riêng, không đổi từ vựng
+      const edits = getTopicEdits();
+      edits[originalId] = {
+        name: name,
+        en: name,
+        vi: vi,
+        emoji: emoji,
+        g1: g1,
+        g2: g2,
+        gradient: [g1, g2]
+      };
+      writeStore(KEY_TOPIC_EDITS, edits);
     }
   } else {
+    topicData.desc = "Từ vựng tiếng Anh chủ đề " + vi;
     customTopics.push(topicData);
   }
 
@@ -1253,33 +1675,6 @@ function handleTopicSubmit(event) {
   renderAll();
   renderTopicSelects();
   showToast('Đã lưu chủ đề "' + name + '" thành công!');
-}
-
-function deleteTopic(topicId) {
-  if (!requireAdmin()) return;
-  const topic = allTopics().find(function (t) { return t.id === topicId; });
-  const name = topic ? topic.name : topicId;
-
-  askConfirm(
-    "Xóa chủ đề",
-    'Bạn có chắc chắn muốn xóa chủ đề "' + name + '" không?',
-    "Toàn bộ từ vựng thuộc chủ đề này do Admin thêm vào cũng sẽ bị xóa.",
-    function () {
-      let customTopics = getCustomTopics().filter(function (t) { return t.id !== topicId; });
-      writeStore(KEY_CUSTOM_TOPICS, customTopics);
-
-      // Xóa từ vựng thuộc chủ đề này trong addedWords
-      const added = getAdded();
-      if (added[topicId]) {
-        delete added[topicId];
-        writeStore(KEY_ADDED, added);
-      }
-
-      renderAll();
-      renderTopicSelects();
-      showToast('Đã xóa chủ đề "' + name + '".');
-    }
-  );
 }
 
 /* ================= PHẦN 14: XÓA / KHÔI PHỤC ================= */
@@ -1291,50 +1686,10 @@ function topicsWithWord(key) {
   }).map(function (t) { return t.name; });
 }
 
-function deleteWord(key) {
-  const word = findWordAnywhere(key);
-  if (!word) { showToast("Không tìm thấy từ này.", "error"); return; }
-  const names = topicsWithWord(key);
-  const where = names.length > 1
-    ? "khỏi " + names.length + " chủ đề: " + names.join(", ")
-    : "khỏi chủ đề " + (names[0] || word.topicName || "");
-
-  askConfirm(
-    "Xóa từ vựng",
-    'Bạn có chắc muốn xóa từ "' + word.en + '" ' + where + '?',
-    "Từ này sẽ không còn xuất hiện trên trang học và quiz.",
-    function () {
-      const removed = getRemoved();
-      if (removed.indexOf(key) === -1) removed.push(key);
-      writeStore(KEY_REMOVED, removed);
-
-      // Gỡ khỏi danh sách từ tự thêm (nếu có)
-      const added = getAdded();
-      let changedAdded = false;
-      Object.keys(added).forEach(function (tid) {
-        const before = added[tid].length;
-        added[tid] = added[tid].filter(function (w) { return wordKey(w.en) !== key; });
-        if (added[tid].length !== before) changedAdded = true;
-      });
-      if (changedAdded) writeStore(KEY_ADDED, added);
-
-      // Gỡ khỏi danh sách từ đã sửa (nếu có)
-      const edited = getEdited();
-      if (edited[key]) {
-        delete edited[key];
-        writeStore(KEY_EDITED, edited);
-      }
-
-      renderAll();
-      showToast('Đã xóa từ "' + word.en + '".');
-    }
-  );
-}
-
 function resetWords() {
   askConfirm(
     "Khôi phục từ vựng gốc",
-    "Xóa toàn bộ từ đã thêm, sửa, xóa và đưa hệ thống về dữ liệu gốc?",
+    "Xóa toàn bộ từ đã thêm, sửa và đưa hệ thống về dữ liệu gốc?",
     "Từ vựng sẽ trở về đúng dữ liệu ban đầu của website.",
     function () {
       [KEY_EDITED, KEY_ADDED, KEY_REMOVED, KEY_HIDDEN].forEach(removeStore);
@@ -1364,70 +1719,10 @@ function toggleTopic(topicId) {
 function clearUserProgress(name) {
   askConfirm(
     "Xóa tiến độ người học",
-    "Xóa toàn bộ tiến độ học của \"" + name + "\"?",
+    'Xóa toàn bộ tiến độ học của "' + name + '"?',
     "Tiến độ và kết quả của người học này trên hệ thống sẽ được xóa.",
     function () {
-      const keys = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (!key) continue;
-        if (key.indexOf(PREFIX_LEARNED + name + "_") === 0) keys.push(key);
-        if (key === PREFIX_BEST + name) keys.push(key);
-      }
-      keys.forEach(removeStore);
-
-      // gỡ người học khỏi danh sách đã đăng ký
-      const reg = readStore(USERS_REGISTRY_KEY, []);
-      writeStore(USERS_REGISTRY_KEY, reg.filter(function (u) { return u.name !== name; }));
-
-      // gỡ luôn hồ sơ nếu đang là người dùng hiện tại trên máy này
-      if (getCurrentUserName() === name) removeStore(KEY_USER);
-
-      // Gửi yêu cầu xóa lên Server để đồng bộ mọi máy
-      if (window.fetch) {
-        fetch("/api/admin/clear-user", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: name })
-        }).then(function (res) { return res.ok ? res.json() : null; })
-          .then(function (data) {
-            if (data && data.stats) {
-              serverStats = data.stats;
-              renderAll();
-            }
-          }).catch(function () {});
-      }
-
-      renderAll();
-      showToast('Đã xóa tiến độ của "' + name + '".');
-    }
-  );
-}
-
-function clearAllResults() {
-  askConfirm(
-    "Xóa toàn bộ kết quả Quiz",
-    "Xóa lịch sử làm bài của tất cả người học trên toàn hệ thống?",
-    "Tiến độ học từ vựng vẫn được giữ nguyên.",
-    function () {
-      removeStore(KEY_QUIZ_HISTORY);
-
-      // Gửi yêu cầu xóa lịch sử quiz lên Server để đồng bộ mọi máy
-      if (window.fetch) {
-        fetch("/api/admin/clear-results", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" }
-        }).then(function (res) { return res.ok ? res.json() : null; })
-          .then(function (data) {
-            if (data && data.stats) {
-              serverStats = data.stats;
-              renderAll();
-            }
-          }).catch(function () {});
-      }
-
-      renderAll();
-      showToast("Đã xóa toàn bộ kết quả Quiz.", "info");
+      deleteUser(name);
     }
   );
 }
@@ -1437,24 +1732,11 @@ function clearAllUserData() {
     "Xóa dữ liệu người học",
     "Xóa toàn bộ tiến độ học và kết quả quiz của mọi người dùng?",
     "Từ vựng do Admin quản lý sẽ không bị ảnh hưởng.",
-    function () {
-      const keys = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (!key) continue;
-        if (key.indexOf(PREFIX_LEARNED) === 0 || key.indexOf(PREFIX_BEST) === 0 || key === KEY_QUIZ_HISTORY || key === USERS_REGISTRY_KEY) {
-          keys.push(key);
-        }
-      }
-      keys.forEach(removeStore);
-
-      // Xóa trên Server
-      if (window.fetch) {
-        fetch("/api/admin/clear-results", { method: "POST" }).catch(function () {});
-      }
-
+    async function () {
+      await clearAllResults();
+      await cleanDummyUsers();
       renderAll();
-      showToast("Đã xóa dữ liệu người học.", "info");
+      showToast("Đã dọn dẹp dữ liệu người học.", "info");
     }
   );
 }
@@ -1468,6 +1750,7 @@ function exportData() {
   data[KEY_REMOVED] = getRemoved();
   data[KEY_HIDDEN] = getHiddenTopics();
   data[KEY_CUSTOM_TOPICS] = getCustomTopics();
+  data[KEY_TOPIC_EDITS] = getTopicEdits();
   data[USERS_REGISTRY_KEY] = readStore(USERS_REGISTRY_KEY, []);
 
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -1495,6 +1778,7 @@ function importData(event) {
       if (data[KEY_REMOVED]) writeStore(KEY_REMOVED, data[KEY_REMOVED]);
       if (data[KEY_HIDDEN]) writeStore(KEY_HIDDEN, data[KEY_HIDDEN]);
       if (data[KEY_CUSTOM_TOPICS]) writeStore(KEY_CUSTOM_TOPICS, data[KEY_CUSTOM_TOPICS]);
+      if (data[KEY_TOPIC_EDITS]) writeStore(KEY_TOPIC_EDITS, data[KEY_TOPIC_EDITS]);
       if (data[USERS_REGISTRY_KEY]) writeStore(USERS_REGISTRY_KEY, data[USERS_REGISTRY_KEY]);
       pushAdminDataToServer();
       renderAll();
@@ -1587,13 +1871,12 @@ window.addEventListener("resize", function () {
 el.loginForm.addEventListener("submit", handleLogin);
 el.btnLogout.addEventListener("click", handleLogout);
 
-// Bảng từ vựng: Sửa / Xóa
+// Bảng từ vựng: Sửa
 el.wordBody.addEventListener("click", function (event) {
   const btn = event.target.closest("button");
   if (!btn) return;
   const key = btn.getAttribute("data-key");
   if (btn.getAttribute("data-act") === "edit") openWordModal("edit", key);
-  if (btn.getAttribute("data-act") === "del") deleteWord(key);
 });
 
 // Bộ lọc và tìm kiếm từ vựng
@@ -1622,14 +1905,13 @@ if (el.btnAddTopic) {
   el.btnAddTopic.addEventListener("click", function () { openTopicModal("add", ""); });
 }
 
-// Chủ đề: Sửa / Xóa chủ đề tự tạo
+// Chủ đề: Sửa thông tin chủ đề
 el.topicGrid.addEventListener("click", function (event) {
   const btn = event.target.closest("button");
   if (!btn) return;
   const act = btn.getAttribute("data-act");
   const topicId = btn.getAttribute("data-topic");
   if (act === "edit-topic") openTopicModal("edit", topicId);
-  if (act === "del-topic") deleteTopic(topicId);
 });
 
 // Chủ đề: công tắc bật/tắt
@@ -1664,11 +1946,88 @@ if (el.inputTopicName && el.inputTopicId) {
   });
 }
 
-// Người học: xóa tiến độ
-// (đã loại bỏ chức năng xóa tiến độ người học theo yêu cầu)
+// Người học: Sự kiện tìm kiếm, làm mới, dọn dẹp, xóa
+if (el.userSearch) {
+  el.userSearch.addEventListener("input", renderUsers);
+}
+if (el.btnRefreshUsers) {
+  el.btnRefreshUsers.addEventListener("click", async function () {
+    await syncServerStats();
+    showToast("Đã làm mới dữ liệu người học từ máy chủ!", "info");
+  });
+}
+if (el.btnCleanDummyUsers) {
+  el.btnCleanDummyUsers.addEventListener("click", function () {
+    askConfirm(
+      "Dọn dẹp tài khoản trống",
+      "Bạn có chắc muốn dọn sạch toàn bộ các tài khoản khách / học viên ảo chưa có tiến độ học tập nào không?",
+      "Các học viên thật đã học từ vựng hoặc đã làm quiz sẽ được giữ nguyên hoàn toàn.",
+      cleanDummyUsers
+    );
+  });
+}
+if (el.userBody) {
+  el.userBody.addEventListener("click", function (event) {
+    const btn = event.target.closest("button[data-act='delete-user']");
+    if (!btn) return;
+    const name = btn.getAttribute("data-user");
+    if (!name) return;
+    askConfirm(
+      "Xóa người học",
+      'Bạn có chắc chắn muốn xóa học viên "' + name + '" không?',
+      "Toàn bộ tiến độ học từ vựng và điểm số của người này sẽ bị xóa khỏi hệ thống.",
+      function () { deleteUser(name); }
+    );
+  });
+}
 
-// Kết quả quiz
-// (đã loại bỏ chức năng xóa toàn bộ kết quả theo yêu cầu)
+// Kết quả quiz: Sự kiện tìm kiếm, làm mới, xóa 1 bài, xóa tất cả
+if (el.resultSearch) {
+  el.resultSearch.addEventListener("input", renderResults);
+}
+if (el.btnRefreshResults) {
+  el.btnRefreshResults.addEventListener("click", async function () {
+    await syncServerStats();
+    showToast("Đã làm mới kết quả Quiz từ máy chủ!", "info");
+  });
+}
+if (el.btnClearAllResults) {
+  el.btnClearAllResults.addEventListener("click", function () {
+    askConfirm(
+      "Xóa toàn bộ kết quả Quiz",
+      "Bạn có chắc chắn muốn xóa sạch toàn bộ lịch sử làm bài thi Quiz của mọi học viên không?",
+      "Toàn bộ danh sách điểm số và lượt thi trước đây sẽ bị xóa hoàn toàn.",
+      clearAllResults
+    );
+  });
+}
+if (el.resultBody) {
+  el.resultBody.addEventListener("click", function (event) {
+    const btn = event.target.closest("button[data-act='delete-quiz']");
+    if (!btn) return;
+    const id = btn.getAttribute("data-id");
+    const ts = btn.getAttribute("data-ts");
+    askConfirm(
+      "Xóa kết quả bài thi",
+      "Bạn có muốn xóa lượt làm bài thi này khỏi lịch sử không?",
+      "Điểm số của lượt thi này sẽ không còn xuất hiện trong báo cáo.",
+      function () { deleteQuizItem(id, ts); }
+    );
+  });
+}
+
+// Tự động đồng bộ ngầm định kỳ khi tab đang mở
+setInterval(function () {
+  if (currentAdmin && document.visibilityState === "visible") {
+    syncServerStats();
+  }
+}, 15000);
+
+window.addEventListener("focus", function () {
+  if (currentAdmin) {
+    syncServerStats();
+  }
+});
 
 // Cài đặt
 el.btnResetWords.addEventListener("click", resetWords);
@@ -1690,7 +2049,7 @@ el.wordForm.addEventListener("submit", handleWordSubmit);
 if (el.topicForm) el.topicForm.addEventListener("submit", handleTopicSubmit);
 
 // Gỡ lỗi khi người dùng đang gõ
-[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputEx, el.inputExVi, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
+[el.loginName, el.loginPass, el.inputEn, el.inputVi, el.inputIpa, el.inputTopicName, el.inputTopicVi, el.inputTopicId].forEach(function (input) {
   if (input) input.addEventListener("input", function () { input.classList.remove("is-error"); });
 });
 

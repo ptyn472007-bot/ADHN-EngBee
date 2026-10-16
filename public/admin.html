@@ -232,9 +232,18 @@
         <section class="view" id="view-users">
           <div class="page-head">
             <div>
-              <h1>Người học</h1>
-              <p>Website lưu tiến độ của từng người trên trình duyệt của họ.</p>
+              <h1>Quản lý người học</h1>
+              <p>Danh sách học viên và tiến độ học tập thực tế trên toàn hệ thống.</p>
             </div>
+            <div class="head-actions">
+              <button class="btn-outline" id="btnCleanDummyUsers" type="button" title="Xóa các tài khoản khách hoặc học viên rác không có dữ liệu học tập">🧹 Dọn dẹp tài khoản trống</button>
+              <button class="btn-outline" id="btnRefreshUsers" type="button" title="Đồng bộ lại từ máy chủ">🔄 Làm mới</button>
+            </div>
+          </div>
+
+          <div class="toolbar" style="margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <input type="text" id="userSearch" class="input" placeholder="🔍 Tìm theo tên người học..." style="max-width:320px;" />
+            <span id="userCountBadge" style="font-size:13px;color:#6b7280;font-weight:600;"></span>
           </div>
 
           <div class="panel">
@@ -245,15 +254,18 @@
                     <th class="th-stt">STT</th>
                     <th>Tên người học</th>
                     <th>Từ đã học</th>
+                    <th>Số chủ đề</th>
                     <th>Điểm cao nhất</th>
-                    <th>Số chủ đề đã học</th>
+                    <th>Lượt thi Quiz</th>
+                    <th>Hoạt động gần nhất</th>
+                    <th style="text-align:right;">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody id="userBody"></tbody>
               </table>
               <div class="empty" id="userEmpty" hidden>
                 <h3>Chưa có dữ liệu người học</h3>
-                <p>Người dùng đăng nhập tại trang <b>Đăng nhập</b> sẽ xuất hiện ở đây.</p>
+                <p>Học viên đăng nhập và bắt đầu học sẽ tự động hiển thị tại đây.</p>
               </div>
             </div>
           </div>
@@ -264,9 +276,17 @@
           <div class="page-head">
             <div>
               <h1>Kết quả Quiz</h1>
-              <p>Lịch sử làm bài của toàn bộ người học, mới nhất trước.</p>
+              <p>Lịch sử làm bài thi trắc nghiệm của toàn bộ người học, mới nhất trước.</p>
             </div>
-            <div class="head-actions"></div>
+            <div class="head-actions">
+              <button class="btn-outline" id="btnRefreshResults" type="button">🔄 Làm mới</button>
+              <button class="btn-outline" id="btnClearAllResults" type="button" style="color:#ef4444;border-color:#fca5a5;">🗑️ Xóa tất cả kết quả</button>
+            </div>
+          </div>
+
+          <div class="toolbar" style="margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <input type="text" id="resultSearch" class="input" placeholder="🔍 Tìm theo tên hoặc chủ đề..." style="max-width:320px;" />
+            <span id="resultCountBadge" style="font-size:13px;color:#6b7280;font-weight:600;"></span>
           </div>
 
           <div class="result-tabs">
