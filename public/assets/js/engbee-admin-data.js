@@ -14,6 +14,7 @@
   var KEY_REMOVED = "engbee_admin_removed_words"; // ["từ1", "từ2"]
   var KEY_HIDDEN = "engbee_admin_hidden_topics";  // ["movie", "music"]
   var KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // [{ id, name, vi, emoji, ... }]
+  var KEY_TOPIC_EDITS = "engbee_admin_topic_edits";   // { id: { name, vi, emoji, g1, g2, desc } } cho chủ đề gốc
   var KEY_UPDATE = "engbee_admin_last_update";    // timestamp
 
   /* ----- 2. Danh sách 12 chủ đề chuẩn ----- */
@@ -245,7 +246,21 @@
         }
       });
     }
+    var edits = read(KEY_TOPIC_EDITS, {});
+    if (edits && typeof edits === "object" && !Array.isArray(edits)) {
+      list = list.map(function (t) {
+        return edits[t.id] ? Object.assign({}, t, edits[t.id]) : t;
+      });
+    }
     return list;
+  }
+
+  /* ----- 10b. Áp thông tin đã sửa của Admin vào một chủ đề ----- */
+  function applyTopicMeta(topic) {
+    if (!topic || !topic.id) return topic;
+    var edits = read(KEY_TOPIC_EDITS, {});
+    if (edits && edits[topic.id]) return Object.assign({}, topic, edits[topic.id]);
+    return topic;
   }
 
   function getActiveTopics(baseTopics) {
@@ -427,6 +442,8 @@
     isTopicHidden: isTopicHidden,
     getHiddenTopics: getHiddenTopics,
     getActiveTopics: getActiveTopics,
+    getAllTopics: getAllTopics,
+    applyTopicMeta: applyTopicMeta,
     apply: apply,
     getTopicWordCount: getTopicWordCount,
     getTotalActiveWordCount: getTotalActiveWordCount,
@@ -463,6 +480,10 @@
         }
         if (data.customTopics && JSON.stringify(data.customTopics) !== localStorage.getItem(KEY_CUSTOM_TOPICS)) {
           localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.customTopics));
+          changed = true;
+        }
+        if (data.topicEdits && JSON.stringify(data.topicEdits) !== localStorage.getItem(KEY_TOPIC_EDITS)) {
+          localStorage.setItem(KEY_TOPIC_EDITS, JSON.stringify(data.topicEdits));
           changed = true;
         }
         if (changed) {
