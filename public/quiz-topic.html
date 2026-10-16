@@ -290,9 +290,21 @@ main{flex:1}
   function saveHistory(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(0,60)));}catch(e){}}
   function recordQuizCorrect(en){
     if(!TID||TID==="all"||!en)return;
+    var k=String(en).trim().toLowerCase();
+    var scope=(function(){try{var p=JSON.parse(localStorage.getItem("engbee_user")||"null");if(p&&typeof p.name==="string"&&p.name.trim())return p.name.trim();}catch(e){}return "guest";})();
+    try{
+      var lk="engbee_learned_"+scope+"_"+TID+"_CORR",la=[];
+      try{la=JSON.parse(localStorage.getItem(lk)||"[]");}catch(e){}
+      if(!Array.isArray(la))la=[];
+      for(var i=0;i<WORDS.length;i++){
+        if(String(WORDS[i]&&WORDS[i].en).trim().toLowerCase()===k){
+          if(la.indexOf(i)===-1){la.push(i);try{localStorage.setItem(lk,JSON.stringify(la));}catch(e){}}
+          break;
+        }
+      }
+    }catch(e){}
     var ckey="engbee_quiz_corr_"+TID,ca=[];
     try{ca=JSON.parse(localStorage.getItem(ckey)||"[]");}catch(e){}
-    var k=String(en).trim().toLowerCase();
     if(ca.indexOf(k)===-1)ca.push(k);
     try{localStorage.setItem(ckey,JSON.stringify(ca.slice(-120)));}catch(e){}
   }

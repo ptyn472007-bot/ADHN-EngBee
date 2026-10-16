@@ -73,17 +73,29 @@
     "phạm thị yến nhi": {
       "name": "Phạm Thị Yến Nhi",
       "firstSeen": 1792162446766,
-      "lastActive": 1792166469533,
+      "lastActive": 1792171719869,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0,
+      "bestScore": 1,
+      "totalQuizzes": 1,
       "totalPron": 1,
       "bestPron": 51
     }
   },
-  "quizHistory": [],
+  "quizHistory": [
+    {
+      "id": "q_1792171705646_9163",
+      "userName": "Phạm Thị Yến Nhi",
+      "topicId": "weather",
+      "modeName": "Weather",
+      "correct": 1,
+      "total": 10,
+      "pct": 10,
+      "score": 1,
+      "ts": 1792171705646
+    }
+  ],
   "admin": {
     "editedWords": {},
     "addedWords": {

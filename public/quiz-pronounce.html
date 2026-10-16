@@ -666,9 +666,19 @@ main{flex:1}
         weak.appendChild(row);
       });
     }
+    var nowTs=Date.now();
     var h=getHist();
-    h.unshift({ts:Date.now(), topicId:selectedTopic, avg:avg, good:good, total:total});
+    h.unshift({ts:nowTs, topicId:selectedTopic, userName:displayName(), avg:avg, good:good, total:total});
     saveHist(h);
+
+    // Lưu lịch sử phát âm riêng cho từng người dùng (Dashboard đọc theo người dùng)
+    try{
+      var phKey="engbee_pron_history_"+userScope(), ph=[];
+      try{ph=JSON.parse(localStorage.getItem(phKey)||"[]");}catch(e){}
+      if(!Array.isArray(ph))ph=[];
+      ph.unshift({ts:nowTs, topicId:selectedTopic, modeName:topicName(selectedTopic), avg:avg, good:good, total:total, date:new Date(nowTs).toLocaleString("vi-VN")});
+      localStorage.setItem(phKey, JSON.stringify(ph.slice(0,60)));
+    }catch(e){}
 
     // Gửi kết quả lên máy chủ để Admin lưu lại
     var record={
@@ -679,7 +689,7 @@ main{flex:1}
       good:good,
       total:total,
       weak:weakItems.map(function(it){ return {en:it.word.en, vi:it.word.vi||"", best:it.best}; }),
-      ts:Date.now()
+      ts:nowTs
     };
     try{
       if(window.EngBeeRecordPronounce){ window.EngBeeRecordPronounce(record); }
