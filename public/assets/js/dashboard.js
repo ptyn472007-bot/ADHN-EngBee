@@ -20,17 +20,28 @@
     }
   }
 
+  function lightTopics() {
+    return Object.keys(window.EngBeeAllWords || {});
+  }
+
+  function topicMeta() {
+    var EBD = window.EngBeeAdminData;
+    if (EBD && typeof EBD.getAllTopics === "function") return EBD.getAllTopics();
+    return [];
+  }
+
   function getActiveTopics() {
-    var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
-    if (window.EngBeeAdminData) {
-      return rawTopics.filter(function (t) {
-        return !window.EngBeeAdminData.isTopicHidden(t.id);
-      }).map(function (t) {
-        var words = window.EngBeeAdminData.apply(t.id, t.words);
-        return { id: t.id, name: t.name, vi: t.vi, words: words };
-      });
-    }
-    return rawTopics;
+    var LIGHT = window.EngBeeAllWords || {};
+    var EBD = window.EngBeeAdminData;
+    return topicMeta().filter(function (t) {
+      return Object.prototype.hasOwnProperty.call(LIGHT, t.id);
+    }).filter(function (t) {
+      return !(EBD && EBD.isTopicHidden && EBD.isTopicHidden(t.id));
+    }).map(function (t) {
+      var base = LIGHT[t.id] || [];
+      var words = (EBD && EBD.apply) ? EBD.apply(t.id, base) : base;
+      return { id: t.id, name: t.name, vi: t.vi, words: words };
+    });
   }
 
   function getTotalWords(activeTopics) {
@@ -99,7 +110,7 @@
   }
 
   function topicNameById(id) {
-    var topics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
+    var topics = topicMeta();
     for (var i = 0; i < topics.length; i++) {
       if (topics[i].id === id) return topics[i].name;
     }
@@ -296,11 +307,10 @@
 
   function resetData() {
     var scope = getUser() || "guest";
-    var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
-    rawTopics.forEach(function (t) {
-      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id);
-      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id + "_PRON");
-      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id + "_CORR");
+    lightTopics().forEach(function (id) {
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + id);
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + id + "_PRON");
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + id + "_CORR");
     });
     localStorage.removeItem(QUIZ_HIST_PREFIX + scope);
     localStorage.removeItem(QUIZ_BEST_PREFIX + scope);

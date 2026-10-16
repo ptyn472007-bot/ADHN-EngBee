@@ -315,12 +315,12 @@
         if (!existingNotice) {
           var notice = document.createElement("div");
           notice.id = "topic-hidden-notice";
-          notice.style.cssText = "background:#fff;border:2px dashed #f59e0b;border-radius:18px;padding:36px 24px;text-align:center;margin:32px auto;max-width:800px;box-shadow:0 8px 24px rgba(0,0,0,0.06);";
+          notice.style.cssText = "background:#fff;border:2px dashed #c98a0e;border-radius:18px;padding:36px 24px;text-align:center;margin:32px auto;max-width:800px;box-shadow:0 8px 24px rgba(0,0,0,0.06);";
           notice.innerHTML = '<div style="font-size:2.8rem;margin-bottom:12px;">🔒</div>' +
             '<h2 style="font-size:1.5rem;font-weight:800;color:#1f2937;margin-bottom:8px;">Chủ đề này đang tạm tắt</h2>' +
             '<p style="color:#6b7280;margin-bottom:20px;font-size:1rem;">Quản trị viên đã tạm ẩn chủ đề này. Vui lòng chọn học chủ đề khác hoặc quay lại trang chủ.</p>' +
             '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">' +
-              '<a href="index.html" class="ctl-btn" style="background:#f0a500;color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;">← Về trang chủ</a>' +
+              '<a href="index.html" class="ctl-btn" style="background:#c98a0e;color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;">← Về trang chủ</a>' +
               '<a href="learn.html" class="ctl-btn" style="background:#4facfe;color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;">Học chủ đề khác</a>' +
             '</div>';
           if (body && body.parentNode) {
@@ -352,8 +352,8 @@
           var href = isBase
             ? (t.id === "travel" ? "learn-travel.html" : "learn-" + t.id + ".html")
             : "learn-topic.html?topic=" + encodeURIComponent(t.id);
-          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
-          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#c98a0e";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#e0a52a";
           return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
             '<span class="pill-badge" style="background:linear-gradient(135deg,' + g1 + ',' + g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
             '<span class="pill-text"><strong>' + t.name + '</strong><small>' + t.vi + ' - ' + count + ' từ</small></span>' +
@@ -381,7 +381,7 @@
         if (!existingNotice) {
           var notice = document.createElement("div");
           notice.id = "quiz-hidden-notice";
-          notice.style.cssText = "background:#fff;border:2px dashed #f59e0b;border-radius:18px;padding:36px 24px;text-align:center;margin:32px auto;max-width:800px;box-shadow:0 8px 24px rgba(0,0,0,0.06);";
+          notice.style.cssText = "background:#fff;border:2px dashed #c98a0e;border-radius:18px;padding:36px 24px;text-align:center;margin:32px auto;max-width:800px;box-shadow:0 8px 24px rgba(0,0,0,0.06);";
           notice.innerHTML = '<div style="font-size:2.8rem;margin-bottom:12px;">🔒</div>' +
             '<h2 style="font-size:1.5rem;font-weight:800;color:#1f2937;margin-bottom:8px;">Quiz chủ đề này đang tạm tắt</h2>' +
             '<p style="color:#6b7280;margin-bottom:20px;font-size:1rem;">Quản trị viên đã tạm ẩn chủ đề này. Bạn có thể chọn làm Quiz các chủ đề khác.</p>' +
@@ -408,7 +408,7 @@
         var totalActive = getTotalActiveWordCount();
         var isAll = topicId === "all";
         var html = '<a class="topic-pill' + (isAll ? ' active' : '') + '" href="quiz-all.html" aria-current="' + isAll + '">' +
-          '<span class="pill-badge" style="background:linear-gradient(135deg,#f0a500,#ff7e00)">⚡</span>' +
+          '<span class="pill-badge" style="background:linear-gradient(135deg,#c98a0e,#e0a52a)">⚡</span>' +
           '<span class="pill-text"><strong>Quiz tổng hợp</strong><small>' + activeTopics.length + ' chủ đề - ' + totalActive + ' từ</small></span>' +
           '</a>';
 
@@ -417,8 +417,8 @@
           var isCurrent = t.id === topicId;
           var isBase = DEFAULT_TOPICS.some(function(d) { return d.id === t.id; });
           var href = isBase ? "quiz-" + t.id + ".html" : "quiz-topic.html?topic=" + encodeURIComponent(t.id);
-          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
-          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#c98a0e";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#e0a52a";
           return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
             '<span class="pill-badge" style="background:linear-gradient(135deg,' + g1 + ',' + g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
             '<span class="pill-text"><strong>' + t.name + '</strong><small>' + t.vi + ' - ' + count + ' từ</small></span>' +

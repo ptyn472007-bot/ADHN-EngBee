@@ -11,15 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
 :root {
-  --amber: #f0a500;
-  --amber-deep: #d98e00;
-  --amber-light: #fff3cc;
-  --ink: #221800;
-  --ink-soft: #5b5340;
-  --bg: #fffdf7;
+  --amber: #c98a0e;
+  --amber-deep: #b87f0a;
+  --amber-light: #fdf3da;
+  --ink: #1f2937;
+  --ink-soft: #6b7280;
+  --bg: #fffcf6;
   --card: #ffffff;
-  --line: #f0e7cf;
-  --navy: #1f2440;
+  --line: #f0e4c6;
+  --navy: #1f2937;
   --radius: 20px;
   --shadow: 0 18px 45px -18px rgba(120, 90, 20, 0.35);
   --shadow-sm: 0 8px 22px -10px rgba(120, 90, 20, 0.3);
@@ -32,8 +32,8 @@ body {
   font-family: var(--sans);
   color: var(--ink);
   background:
-    radial-gradient(1200px 500px at 85% -10%, rgba(240, 165, 0, 0.12), transparent 60%),
-    radial-gradient(900px 450px at -10% 10%, rgba(255, 243, 204, 0.7), transparent 55%),
+    radial-gradient(1200px 500px at 85% -10%, rgba(201, 138, 14, 0.12), transparent 60%),
+    radial-gradient(900px 450px at -10% 10%, rgba(253, 243, 218, 0.7), transparent 55%),
     var(--bg);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -42,12 +42,12 @@ a { color: inherit; }
 h1, h2, h3, p { margin: 0; }
 .container { width: min(1160px, 92%); margin-inline: auto; }
 .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; text-decoration: none; letter-spacing: 0.2px; }
-.logo-icon { width: 42px; height: 42px; flex: none; filter: drop-shadow(0 4px 8px rgba(240, 165, 0, 0.35)); }
-.navbar { position: sticky; top: 0; z-index: 50; background: rgba(255, 253, 247, 0.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.logo-icon { width: 42px; height: 42px; flex: none; filter: drop-shadow(0 4px 8px rgba(201, 138, 14, 0.35)); }
+.navbar { position: sticky; top: 0; z-index: 50; background: rgba(255, 252, 246, 0.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .navbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 14px; }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a { position: relative; text-decoration: none; font-size: 15px; font-weight: 600; color: var(--ink-soft); padding: 8px 14px; border-radius: 10px; transition: color 0.2s, background 0.2s; }
-.nav-links a:hover { color: var(--ink); background: rgba(240, 165, 0, 0.1); }
+.nav-links a:hover { color: var(--ink); background: rgba(201, 138, 14, 0.1); }
 .nav-links a.active { color: var(--amber-deep); }
 .nav-links a.active::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 3px; border-radius: 3px; background: var(--amber); }
 .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 8px; }
@@ -58,7 +58,7 @@ h1, h2, h3, p { margin: 0; }
 .hero { position: relative; overflow: hidden; text-align: center; padding-block: 72px 64px; }
 .hero-inner { position: relative; z-index: 1; }
 .hero-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5; pointer-events: none; }
-.hero-blob-a { width: 420px; height: 420px; background: rgba(240, 165, 0, 0.4); top: -120px; left: -80px; }
+.hero-blob-a { width: 420px; height: 420px; background: rgba(201, 138, 14, 0.4); top: -120px; left: -80px; }
 .hero-blob-b { width: 380px; height: 380px; background: rgba(255, 190, 60, 0.4); bottom: -140px; right: -60px; }
 .hero-bee .logo-icon { width: 96px; height: 96px; margin-bottom: 8px; }
 .hero h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.15; font-weight: 800; letter-spacing: -0.5px; margin: 10px auto 18px; max-width: 800px; }
@@ -66,8 +66,8 @@ h1, h2, h3, p { margin: 0; }
 .hero p { color: var(--ink-soft); font-size: 17px; max-width: 640px; margin: 0 auto 30px; }
 .hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
 .btn-primary, .btn-ghost { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 16px; padding: 14px 28px; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
-.btn-primary { background: linear-gradient(135deg, var(--amber), #ffb52e); color: #fff; box-shadow: 0 12px 26px -10px rgba(217, 142, 0, 0.55); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -10px rgba(217, 142, 0, 0.6); }
+.btn-primary { background: linear-gradient(135deg, var(--amber), #e6b23a); color: #fff; box-shadow: 0 12px 26px -10px rgba(184, 127, 10, 0.55); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -10px rgba(184, 127, 10, 0.6); }
 .btn-ghost { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); }
 .btn-ghost:hover { border-color: var(--amber); transform: translateY(-2px); }
 .hero-stats { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 44px; }
@@ -88,7 +88,7 @@ h1, h2, h3, p { margin: 0; }
 .topic-vi { font-size: 13px; font-weight: 600; color: var(--ink-soft); background: var(--amber-light); border-radius: 999px; padding: 2px 10px; margin-left: 2px; }
 .topic-body p { font-size: 14px; color: var(--ink-soft); flex: 1; }
 .topic-progress { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
-.topic-progress-bar { flex: 1; height: 8px; border-radius: 8px; background: #f3ead3; overflow: hidden; }
+.topic-progress-bar { flex: 1; height: 8px; border-radius: 8px; background: #eee4cd; overflow: hidden; }
 .topic-progress-bar i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--g1), var(--g2)); transition: width 0.4s; }
 .topic-progress.empty .topic-progress-bar { opacity: 0; }
 .btn-learn { margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700; font-size: 15px; color: var(--ink); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 16px; transition: background 0.2s, border-color 0.2s, color 0.2s; }
@@ -100,22 +100,22 @@ h1, h2, h3, p { margin: 0; }
 .feature-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
 .feature-card p { font-size: 15px; color: var(--ink-soft); }
 .cta { padding-block: 20px 70px; }
-.cta-inner { position: relative; overflow: hidden; text-align: center; background: linear-gradient(120deg, #2b2110, #4d3a12 55%, #6b4e14); border-radius: 28px; color: #fff; padding: 64px 32px; }
+.cta-inner { position: relative; overflow: hidden; text-align: center; background: linear-gradient(120deg, #1f2937, #4b5563 55%, #6b7280); border-radius: 28px; color: #fff; padding: 64px 32px; }
 .cta-inner::before, .cta-inner::after { content: ''; position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55; }
-.cta-inner::before { width: 320px; height: 320px; background: rgba(240, 165, 0, 0.55); top: -120px; right: -60px; }
+.cta-inner::before { width: 320px; height: 320px; background: rgba(201, 138, 14, 0.55); top: -120px; right: -60px; }
 .cta-inner::after { width: 280px; height: 280px; background: rgba(255, 190, 60, 0.4); bottom: -130px; left: -50px; }
 .cta-inner h2 { position: relative; z-index: 1; font-size: clamp(24px, 3.4vw, 36px); font-weight: 800; letter-spacing: -0.4px; }
 .cta-inner p { position: relative; z-index: 1; max-width: 520px; margin: 12px auto 28px; color: rgba(255, 255, 255, 0.85); }
 .cta-inner .btn-primary { position: relative; z-index: 1; }
-.footer { background: #1b1e33; color: #c7cbe0; padding-top: 48px; }
+.footer { background: #111827; color: #d1d5db; padding-top: 48px; }
 .footer-inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-bottom: 34px; }
 .footer .logo { color: #fff; font-size: 20px; margin-bottom: 10px; }
 .footer .logo-icon { width: 36px; height: 36px; }
-.footer-tag { font-size: 14px; color: #9aa0bd; margin-top: 8px; max-width: 260px; }
+.footer-tag { font-size: 14px; color: #9ca3af; margin-top: 8px; max-width: 260px; }
 .footer-links, .footer-contact { display: flex; flex-direction: column; gap: 8px; }
-.footer-links a, .footer-contact a { color: #c7cbe0; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.footer-links a, .footer-contact a { color: #d1d5db; text-decoration: none; font-size: 14px; transition: color 0.2s; }
 .footer-links a:hover, .footer-contact a:hover { color: var(--amber); }
-.footer-copy { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-block: 18px; font-size: 13px; color: #8b91ad; }
+.footer-copy { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-block: 18px; font-size: 13px; color: #6b7280; }
 @media (max-width: 960px) {
   .topic-grid { grid-template-columns: repeat(2, 1fr); }
   .feature-grid { grid-template-columns: 1fr; }
@@ -138,14 +138,14 @@ h1, h2, h3, p { margin: 0; }
     <div class="container navbar-inner">
       <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
         <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="30" fill="#fff3cc"/>
-          <ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/>
-          <rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-          <rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-          <circle cx="15" cy="38" r="11" fill="#f5b200"/>
-          <circle cx="12" cy="34" r="2" fill="#3a2a00"/>
-          <circle cx="18" cy="32" r="2" fill="#3a2a00"/>
-          <path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="30" fill="#fdf3da"/>
+          <ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/>
+          <rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+          <rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+          <circle cx="15" cy="38" r="11" fill="#e0a52a"/>
+          <circle cx="12" cy="34" r="2" fill="#374151"/>
+          <circle cx="18" cy="32" r="2" fill="#374151"/>
+          <path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
           <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
           <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
         </svg>
@@ -169,14 +169,14 @@ h1, h2, h3, p { margin: 0; }
       <div class="container hero-inner">
         <div class="hero-bee">
           <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="32" cy="32" r="30" fill="#fff3cc"/>
-            <ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/>
-            <rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-            <rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-            <circle cx="15" cy="38" r="11" fill="#f5b200"/>
-            <circle cx="12" cy="34" r="2" fill="#3a2a00"/>
-            <circle cx="18" cy="32" r="2" fill="#3a2a00"/>
-            <path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="30" fill="#fdf3da"/>
+            <ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/>
+            <rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <circle cx="15" cy="38" r="11" fill="#e0a52a"/>
+            <circle cx="12" cy="34" r="2" fill="#374151"/>
+            <circle cx="18" cy="32" r="2" fill="#374151"/>
+            <path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
             <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
             <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
           </svg>
@@ -246,14 +246,14 @@ h1, h2, h3, p { margin: 0; }
       <div>
         <a href="index.html" class="logo">
           <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="32" cy="32" r="30" fill="#fff3cc"/>
-            <ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/>
-            <rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-            <rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/>
-            <circle cx="15" cy="38" r="11" fill="#f5b200"/>
-            <circle cx="12" cy="34" r="2" fill="#3a2a00"/>
-            <circle cx="18" cy="32" r="2" fill="#3a2a00"/>
-            <path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="30" fill="#fdf3da"/>
+            <ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/>
+            <rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <circle cx="15" cy="38" r="11" fill="#e0a52a"/>
+            <circle cx="12" cy="34" r="2" fill="#374151"/>
+            <circle cx="18" cy="32" r="2" fill="#374151"/>
+            <path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
             <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
             <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
           </svg>
@@ -277,8 +277,6 @@ h1, h2, h3, p { margin: 0; }
     </div>
     <div class="container footer-copy">&copy; 2026 EngBee. Học vui, nhớ lâu.</div>
   </footer>
-
-  <script src="assets/js/data.js"></script>
   <script src="assets/js/engbee-admin-data.js"></script>
   <script src="assets/js/user-registry.js"></script>
   <script src="assets/js/auth-nav.js"></script>
@@ -320,7 +318,7 @@ h1, h2, h3, p { margin: 0; }
       }
       if (window.EngBeeData && Array.isArray(window.EngBeeData.topics)) {
         return window.EngBeeData.topics.map(function (t) {
-          var g = Array.isArray(t.gradient) ? t.gradient : ["#f0a500", "#ff7e00"];
+          var g = Array.isArray(t.gradient) ? t.gradient : ["#c98a0e", "#e0a52a"];
           return { id: t.id, name: t.name, vi: t.vi, emoji: "📚", g1: g[0], g2: g[1], desc: "Từ vựng về " + (t.vi || t.name) + "." };
         });
       }
@@ -376,7 +374,7 @@ h1, h2, h3, p { margin: 0; }
         ? "learn-" + t.id + ".html"
         : "learn-topic.html?topic=" + encodeURIComponent(t.id);
       var emoji = t.emoji || "📚";
-      return '<article class="topic-card" style="--g1:' + (t.g1 || "#f0a500") + ';--g2:' + (t.g2 || "#ff7e00") + '">' +
+      return '<article class="topic-card" style="--g1:' + (t.g1 || "#c98a0e") + ';--g2:' + (t.g2 || "#e0a52a") + '">' +
         '<div class="topic-icon">' + emoji + '</div>' +
         '<div class="topic-body">' +
           '<h3>' + escapeHtml(t.name) + ' <span class="topic-vi">' + escapeHtml(t.vi) + '</span></h3>' +
@@ -398,7 +396,7 @@ h1, h2, h3, p { margin: 0; }
       if (grid) {
         grid.innerHTML = visible.length
           ? visible.map(topicCard).join("")
-          : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">Hiện chưa có chủ đề nào được bật.</p>';
+          : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7280;">Hiện chưa có chủ đề nào được bật.</p>';
       }
 
       var sub = document.getElementById("home-hero-sub");

@@ -18,7 +18,7 @@ html {
 body {
   font-family: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: #374151;
   background-color: #f9fafb;
   display: flex;
   flex-direction: column;
@@ -67,7 +67,7 @@ img {
   gap: 8px;
   font-size: clamp(1.3rem, 4vw, 1.6rem);
   font-weight: bold;
-  color: #f0a500;
+  color: #c98a0e;
   text-decoration: none;
 }
 
@@ -77,7 +77,7 @@ img {
 }
 
 .nav-links a {
-  color: #444;
+  color: #4b5563;
   text-decoration: none;
   margin-left: 20px;
   padding-bottom: 4px;
@@ -86,18 +86,18 @@ img {
 }
 
 .nav-links a:focus-visible {
-  outline: 2px solid #f0a500;
+  outline: 2px solid #c98a0e;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 .nav-links a:hover {
-  color: #f0a500;
+  color: #c98a0e;
 }
 
 .nav-links a.active {
-  color: #f0a500;
-  border-bottom: 2px solid #f0a500;
+  color: #c98a0e;
+  border-bottom: 2px solid #c98a0e;
 }
 
 /* ==========================================
@@ -154,7 +154,7 @@ img {
 
 .btn-primary {
   display: inline-block;
-  background: linear-gradient(135deg, #f0a500, #ffb52e);
+  background: linear-gradient(135deg, #c98a0e, #e6b23a);
   color: #ffffff;
   font-weight: bold;
   padding: 14px 36px;
@@ -186,7 +186,7 @@ img {
   text-align: center;
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   margin-bottom: 36px;
-  color: #222;
+  color: #1f2937;
 }
 
 .topic-grid {
@@ -221,7 +221,7 @@ img {
 }
 
 .topic-card h3 {
-  color: #f0a500;
+  color: #c98a0e;
   font-size: clamp(1.2rem, 2.5vw, 1.4rem);
   margin-bottom: 10px;
 }
@@ -234,7 +234,7 @@ img {
 
 .btn-secondary {
   display: inline-block;
-  background-color: #f0a500;
+  background-color: #c98a0e;
   color: #ffffff;
   font-weight: bold;
   padding: 10px 26px;
@@ -245,11 +245,11 @@ img {
 }
 
 .btn-secondary:hover {
-  background-color: #d99400;
+  background-color: #b87f0a;
 }
 
 .btn-secondary:focus-visible {
-  outline: 3px solid #f0a500;
+  outline: 3px solid #c98a0e;
   outline-offset: 2px;
 }
 
@@ -272,13 +272,13 @@ img {
 
 .login-card h2 {
   text-align: center;
-  color: #222;
+  color: #1f2937;
   margin-bottom: 6px;
 }
 
 .login-note {
   text-align: center;
-  color: #888;
+  color: #6b7280;
   font-size: 0.9rem;
   margin-bottom: 20px;
 }
@@ -294,7 +294,7 @@ img {
 .login-form input {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s;
@@ -302,19 +302,19 @@ img {
 
 .login-form input:focus {
   outline: none;
-  border-color: #f0a500;
-  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.2);
+  border-color: #c98a0e;
+  box-shadow: 0 0 0 3px rgba(201, 138, 14, 0.2);
 }
 
 .login-error {
-  color: #d94f4f;
+  color: #dc2626;
   font-size: 0.9rem;
   margin: 12px 0 0;
 }
 
 .login-help {
   text-align: center;
-  color: #888;
+  color: #6b7280;
   font-size: 0.85rem;
   margin-top: 16px;
 }
@@ -341,18 +341,18 @@ img {
 }
 
 .admin-header h2 {
-  color: #222;
+  color: #1f2937;
   font-size: clamp(1.4rem, 3vw, 1.8rem);
 }
 
 .admin-placeholder {
   margin-top: 20px;
-  border: 2px dashed #d9b45b;
+  border: 2px dashed #e0c98a;
   border-radius: 12px;
   text-align: center;
-  color: #b07f00;
+  color: #8f6608;
   padding: 40px 20px;
-  background-color: #fff8e6;
+  background-color: #fdf6e6;
 }
 
 /* ==========================================
@@ -360,8 +360,8 @@ img {
    ========================================== */
 
 .footer {
-  background-color: #222;
-  color: #ccc;
+  background-color: #1f2937;
+  color: #d1d5db;
   text-align: center;
   padding: 28px 0;
 }
@@ -369,7 +369,7 @@ img {
 .footer-logo {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #f0a500;
+  color: #c98a0e;
 }
 
 .footer p {
@@ -385,7 +385,7 @@ img {
 }
 
 .footer-contact a {
-  color: #f7b733;
+  color: #e0a52a;
   text-decoration: none;
   transition: color 0.2s;
 }

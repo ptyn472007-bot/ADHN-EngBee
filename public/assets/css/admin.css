@@ -12,7 +12,7 @@
 }
 
 .admin-sub {
-  color: #777;
+  color: #6b7280;
   font-size: 0.95rem;
   margin-top: 4px;
 }
@@ -34,7 +34,7 @@
 
 .admin-stat {
   background: #fff;
-  border: 1px solid #f0e7cf;
+  border: 1px solid #f0e4c6;
   border-radius: 16px;
   box-shadow: 0 6px 18px -12px rgba(120, 90, 20, 0.4);
   padding: 18px 16px;
@@ -46,27 +46,27 @@
   font-size: 1.8rem;
   font-weight: 800;
   line-height: 1.2;
-  color: #d98e00;
+  color: #b87f0a;
   word-break: break-word;
 }
 
 .admin-stat-label {
   display: block;
   font-size: 0.82rem;
-  color: #8a8378;
+  color: #6b7280;
   margin-top: 4px;
 }
 
 .admin-stat.is-added .admin-stat-value {
-  color: #1f9d55;
+  color: #16a34a;
 }
 
 .admin-stat.is-edited .admin-stat-value {
-  color: #2f6fd0;
+  color: #2563eb;
 }
 
 .admin-stat.is-removed .admin-stat-value {
-  color: #d94f4f;
+  color: #dc2626;
 }
 
 /* ---------- Thanh công cụ ---------- */
@@ -76,7 +76,7 @@
   align-items: center;
   gap: 12px;
   background: #fff;
-  border: 1px solid #f0e7cf;
+  border: 1px solid #f0e4c6;
   border-radius: 16px;
   box-shadow: 0 6px 18px -12px rgba(120, 90, 20, 0.4);
   padding: 16px;
@@ -91,7 +91,7 @@
 .admin-search input {
   width: 100%;
   padding: 11px 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 0.95rem;
   background: #fff;
@@ -100,25 +100,25 @@
 
 .admin-search input:focus {
   outline: none;
-  border-color: #f0a500;
-  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.2);
+  border-color: #c98a0e;
+  box-shadow: 0 0 0 3px rgba(201, 138, 14, 0.2);
 }
 
 .admin-select {
   padding: 11px 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 0.95rem;
   background: #fff;
-  color: #333;
+  color: #374151;
   cursor: pointer;
   min-height: 44px;
 }
 
 .admin-select:focus {
   outline: none;
-  border-color: #f0a500;
-  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.2);
+  border-color: #c98a0e;
+  box-shadow: 0 0 0 3px rgba(201, 138, 14, 0.2);
 }
 
 .admin-btn {
@@ -137,14 +137,14 @@
 }
 
 .admin-btn:focus-visible {
-  outline: 3px solid rgba(240, 165, 0, 0.6);
+  outline: 3px solid rgba(201, 138, 14, 0.6);
   outline-offset: 2px;
 }
 
 .admin-btn-primary {
-  background: linear-gradient(135deg, #f0a500, #ffb52e);
+  background: linear-gradient(135deg, #c98a0e, #e6b23a);
   color: #fff;
-  box-shadow: 0 8px 18px -10px rgba(217, 142, 0, 0.7);
+  box-shadow: 0 8px 18px -10px rgba(184, 127, 10, 0.7);
 }
 
 .admin-btn-primary:hover {
@@ -153,22 +153,22 @@
 
 .admin-btn-outline {
   background: #fff;
-  border-color: #e05b5b;
-  color: #d94f4f;
+  border-color: #dc2626;
+  color: #dc2626;
 }
 
 .admin-btn-outline:hover {
-  background: #d94f4f;
+  background: #dc2626;
   color: #fff;
 }
 
 .admin-btn-ghost {
-  background: #f4f1e8;
-  color: #5b5340;
+  background: #efece2;
+  color: #6b7280;
 }
 
 .admin-btn-ghost:hover {
-  background: #ece5d6;
+  background: #e8e0cd;
 }
 
 .admin-btn-sm {
@@ -180,7 +180,7 @@
 /* ---------- Bảng danh sách từ ---------- */
 .admin-panel {
   background: #fff;
-  border: 1px solid #f0e7cf;
+  border: 1px solid #f0e4c6;
   border-radius: 16px;
   box-shadow: 0 6px 18px -12px rgba(120, 90, 20, 0.4);
   padding: 20px;
@@ -198,12 +198,12 @@
 
 .admin-panel-head h3 {
   font-size: 1.1rem;
-  color: #222;
+  color: #1f2937;
 }
 
 .admin-count {
   font-size: 0.88rem;
-  color: #8a8378;
+  color: #6b7280;
 }
 
 .admin-table-wrap {
@@ -221,13 +221,13 @@
 .admin-table td {
   padding: 12px 12px;
   text-align: left;
-  border-bottom: 1px solid #f3ead3;
+  border-bottom: 1px solid #eee4cd;
   font-size: 0.9rem;
   vertical-align: top;
 }
 
 .admin-table th {
-  color: #8a8378;
+  color: #6b7280;
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -236,7 +236,7 @@
 }
 
 .admin-table tbody tr:hover {
-  background: #fffaf0;
+  background: #fdf8ee;
 }
 
 .admin-table tbody tr:last-child td {
@@ -244,30 +244,30 @@
 }
 
 .admin-cell-index {
-  color: #aaa49a;
+  color: #9ca3af;
   width: 48px;
 }
 
 .admin-word-en {
   font-weight: 700;
-  color: #222;
+  color: #1f2937;
   word-break: break-word;
 }
 
 .admin-word-ipa {
   display: block;
   font-size: 0.82rem;
-  color: #b07f00;
+  color: #8f6608;
   margin-top: 2px;
 }
 
 .admin-word-vi {
-  color: #333;
+  color: #374151;
   word-break: break-word;
 }
 
 .admin-word-ex {
-  color: #6b6b6b;
+  color: #6b7280;
   font-style: italic;
   max-width: 260px;
   word-break: break-word;
@@ -277,14 +277,14 @@
   display: block;
   font-style: normal;
   font-size: 0.82rem;
-  color: #9a948a;
+  color: #9ca3af;
   margin-top: 2px;
 }
 
 .admin-tag {
   display: inline-block;
-  background: #fff3cc;
-  color: #a06f00;
+  background: #fdf3da;
+  color: #8f6608;
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
@@ -304,12 +304,12 @@
 
 .admin-badge-new {
   background: #e3f7ec;
-  color: #1f9d55;
+  color: #16a34a;
 }
 
 .admin-badge-edit {
   background: #e6efff;
-  color: #2f6fd0;
+  color: #2563eb;
 }
 
 .admin-actions {
@@ -319,14 +319,14 @@
 }
 
 .admin-empty {
-  color: #999;
+  color: #9ca3af;
   text-align: center;
   padding: 36px 10px;
 }
 
 .admin-empty strong {
   display: block;
-  color: #555;
+  color: #4b5563;
   font-size: 1rem;
   margin-bottom: 6px;
 }
@@ -340,12 +340,12 @@
   flex-wrap: wrap;
   margin-top: 18px;
   padding-top: 16px;
-  border-top: 1px solid #f3ead3;
+  border-top: 1px solid #eee4cd;
 }
 
 .admin-page-info {
   font-size: 0.88rem;
-  color: #6b6b6b;
+  color: #6b7280;
   min-width: 140px;
   text-align: center;
 }
@@ -370,7 +370,7 @@
 .modal-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(34, 24, 0, 0.55);
+  background: rgba(31, 41, 55, 0.55);
   backdrop-filter: blur(2px);
 }
 
@@ -412,31 +412,31 @@
 
 .modal-head h3 {
   font-size: 1.2rem;
-  color: #222;
+  color: #1f2937;
 }
 
 .modal-head p {
   font-size: 0.88rem;
-  color: #8a8378;
+  color: #6b7280;
   margin-top: 4px;
 }
 
 .modal-close {
-  background: #f4f1e8;
+  background: #efece2;
   border: none;
   border-radius: 50%;
   width: 36px;
   height: 36px;
   font-size: 1.3rem;
   line-height: 1;
-  color: #5b5340;
+  color: #6b7280;
   cursor: pointer;
   flex: none;
   transition: background-color 0.2s;
 }
 
 .modal-close:hover {
-  background: #ece5d6;
+  background: #e8e0cd;
 }
 
 .modal-foot {
@@ -445,21 +445,21 @@
   gap: 10px;
   margin-top: 22px;
   padding-top: 18px;
-  border-top: 1px solid #f3ead3;
+  border-top: 1px solid #eee4cd;
 }
 
 .modal-text {
-  color: #555;
+  color: #4b5563;
   font-size: 0.95rem;
   margin-bottom: 6px;
 }
 
 .modal-text strong {
-  color: #222;
+  color: #1f2937;
 }
 
 .modal-text.is-danger {
-  color: #d94f4f;
+  color: #dc2626;
   font-weight: 600;
 }
 
@@ -479,12 +479,12 @@
 .field label {
   font-size: 0.88rem;
   font-weight: 700;
-  color: #4a443a;
+  color: #4b5563;
   margin-bottom: 6px;
 }
 
 .field .req {
-  color: #d94f4f;
+  color: #dc2626;
 }
 
 .field input,
@@ -492,12 +492,12 @@
 .field textarea {
   width: 100%;
   padding: 11px 13px;
-  border: 1px solid #ddd;
+  border: 1px solid #d1d5db;
   border-radius: 10px;
   font-family: inherit;
   font-size: 0.95rem;
   background: #fff;
-  color: #333;
+  color: #374151;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -510,31 +510,31 @@
 .field select:focus,
 .field textarea:focus {
   outline: none;
-  border-color: #f0a500;
-  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.2);
+  border-color: #c98a0e;
+  box-shadow: 0 0 0 3px rgba(201, 138, 14, 0.2);
 }
 
 .field.has-error input,
 .field.has-error select,
 .field.has-error textarea {
-  border-color: #e05b5b;
+  border-color: #dc2626;
   background: #fff6f6;
 }
 
 .field.has-error input:focus,
 .field.has-error select:focus,
 .field.has-error textarea:focus {
-  box-shadow: 0 0 0 3px rgba(224, 91, 91, 0.2);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
 }
 
 .field-error {
-  color: #d94f4f;
+  color: #dc2626;
   font-size: 0.82rem;
   margin-top: 5px;
 }
 
 .field-hint {
-  color: #9a948a;
+  color: #9ca3af;
   font-size: 0.78rem;
   margin-top: 5px;
 }
@@ -543,7 +543,7 @@
   background: #fff1f1;
   border: 1px solid #f6d0d0;
   border-radius: 10px;
-  color: #c0392b;
+  color: #b91c1c;
   font-size: 0.88rem;
   padding: 10px 14px;
   margin-top: 4px;
@@ -558,7 +558,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #221800;
+  background: #1f2937;
   color: #fff;
   border-radius: 12px;
   box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.5);
@@ -573,12 +573,12 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f0a500;
+  background: #c98a0e;
   flex: none;
 }
 
 .toast.is-error::before {
-  background: #ff6b6b;
+  background: #ef4444;
 }
 
 @keyframes admin-toast {

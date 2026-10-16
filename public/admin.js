@@ -622,7 +622,7 @@ function renderWords() {
 
     tr.innerHTML =
       '<td class="td-stt">' + (start + index + 1) + "</td>" +
-      "<td><b class=\"td-en\">" + esc(w.en) + '</b><br><small style="color:#999">' + esc(row.topic.name) + "</small></td>" +
+      "<td><b class=\"td-en\">" + esc(w.en) + '</b><br><small style="color:#9ca3af">' + esc(row.topic.name) + "</small></td>" +
       '<td class="td-ipa">' + esc(w.ipa) + "</td>" +
       "<td>" + esc(w.vi) + "</td>" +
       "<td>" + statusTag + "</td>" +
@@ -672,8 +672,8 @@ function renderTopics() {
   allTopics().forEach(function (t) {
     const isOff = hidden.indexOf(t.id) !== -1;
     const count = effectiveWords(t.id).length;
-    const g1 = (t.gradient && t.gradient[0]) || t.g1 || "#f0a500";
-    const g2 = (t.gradient && t.gradient[1]) || t.g2 || "#ffb52e";
+    const g1 = (t.gradient && t.gradient[0]) || t.g1 || "#c98a0e";
+    const g2 = (t.gradient && t.gradient[1]) || t.g2 || "#e6b23a";
     const badge = t.emoji ? t.emoji : esc(t.name.slice(0, 1).toUpperCase());
     const isCustom = !!t.isCustom;
 
@@ -1434,7 +1434,7 @@ function openTopicModal(mode, topicId) {
     el.inputTopicId.value = topic.id || "";
     el.inputTopicId.readOnly = true;
     el.inputTopicEmoji.value = topic.emoji || "";
-    const g1 = (topic.gradient && topic.gradient[0]) || topic.g1 || "#f59e0b";
+    const g1 = (topic.gradient && topic.gradient[0]) || topic.g1 || "#c98a0e";
     const g2 = (topic.gradient && topic.gradient[1]) || topic.g2 || "#f97316";
     el.inputTopicG1.value = g1;
     el.inputTopicG1Picker.value = g1;
@@ -1445,8 +1445,8 @@ function openTopicModal(mode, topicId) {
     el.inputTopicOriginalId.value = "";
     el.inputTopicId.readOnly = false;
     delete el.inputTopicId.dataset.userEdited;
-    el.inputTopicG1.value = "#f59e0b";
-    el.inputTopicG1Picker.value = "#f59e0b";
+    el.inputTopicG1.value = "#c98a0e";
+    el.inputTopicG1Picker.value = "#c98a0e";
     el.inputTopicG2.value = "#f97316";
     el.inputTopicG2Picker.value = "#f97316";
     el.inputTopicEmoji.value = "📚";
@@ -1468,7 +1468,7 @@ function handleTopicSubmit(event) {
   const vi = el.inputTopicVi.value.trim();
   let id = el.inputTopicId.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
   const emoji = el.inputTopicEmoji.value.trim() || "📚";
-  const g1 = el.inputTopicG1.value.trim() || "#f59e0b";
+  const g1 = el.inputTopicG1.value.trim() || "#c98a0e";
   const g2 = el.inputTopicG2.value.trim() || "#f97316";
 
   let hasError = false;

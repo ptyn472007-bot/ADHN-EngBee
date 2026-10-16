@@ -1,9 +1,9 @@
 import './style.css'
 
-const BEE_LOGO = `<svg class="logo-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity=".5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity=".5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>`
+const BEE_LOGO = `<svg class="logo-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fdf3da"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/><rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity=".5"/><rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity=".5"/><circle cx="15" cy="38" r="11" fill="#e0a52a"/><circle cx="12" cy="34" r="2" fill="#374151"/><circle cx="18" cy="32" r="2" fill="#374151"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>`
 
 const TOPICS = [
-  { id: 'travel', en: 'Travel', vi: 'Du lịch', emoji: '✈️', g1: '#f59e0b', g2: '#f97316', desc: 'Từ vựng về du lịch, phương tiện di chuyển và khám phá những vùng đất mới.' },
+  { id: 'travel', en: 'Travel', vi: 'Du lịch', emoji: '✈️', g1: '#c98a0e', g2: '#f97316', desc: 'Từ vựng về du lịch, phương tiện di chuyển và khám phá những vùng đất mới.' },
   { id: 'food', en: 'Food', vi: 'Ẩm thực', emoji: '🍜', g1: '#ef4444', g2: '#f97316', desc: 'Từ vựng về ẩm thực, món ăn, đồ uống và nhà hàng trong đời sống hằng ngày.' },
   { id: 'work', en: 'Work', vi: 'Công việc', emoji: '💼', g1: '#6366f1', g2: '#8b5cf6', desc: 'Từ vựng tiếng Anh trong công việc, văn phòng và giao tiếp chuyên nghiệp.' },
   { id: 'school', en: 'School', vi: 'Trường học', emoji: '🎓', g1: '#0ea5e9', g2: '#6366f1', desc: 'Từ vựng về trường học, môn học và các hoạt động của học sinh, sinh viên.' },
@@ -48,7 +48,7 @@ function getAllTopics() {
           en: ct.name || ct.en,
           vi: ct.vi,
           emoji: ct.emoji || '📚',
-          g1: ct.g1 || (ct.gradient && ct.gradient[0]) || '#f59e0b',
+          g1: ct.g1 || (ct.gradient && ct.gradient[0]) || '#c98a0e',
           g2: ct.g2 || (ct.gradient && ct.gradient[1]) || '#f97316',
           desc: ct.desc || `Từ vựng về ${ct.vi || ct.name}`
         })
@@ -182,7 +182,7 @@ function renderApp() {
         <p>Kho từ vựng tiếng Anh cập nhật liên tục với phiên âm, nghĩa tiếng Việt và ví dụ minh họa.</p>
       </div>
       <div class="topic-grid">
-        ${visibleTopics.length ? visibleTopics.map(topicCard).join('') : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">Hiện chưa có chủ đề nào được bật.</p>'}
+        ${visibleTopics.length ? visibleTopics.map(topicCard).join('') : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7280;">Hiện chưa có chủ đề nào được bật.</p>'}
       </div>
     </div>
   </section>
