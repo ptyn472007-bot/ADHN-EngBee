@@ -178,13 +178,17 @@ main{flex:1}
 
   function renderAll(){
     var topics = RAW_TOPICS;
+    if (window.EngBeeAdminData && typeof window.EngBeeAdminData.getAllTopics === "function") {
+      topics = window.EngBeeAdminData.getAllTopics();
+    }
     if (window.EngBeeAdminData) {
       topics = topics.filter(function(t){ return !window.EngBeeAdminData.isTopicHidden(t.id); });
     }
 
     var totalWords = 0;
     topics.forEach(function(t){
-      var count = window.EngBeeAdminData ? window.EngBeeAdminData.getTopicWordCount(t.id, 50) : 50;
+      var fallback = RAW_TOPICS.some(function(b){ return b.id === t.id; }) ? 50 : 0;
+      var count = window.EngBeeAdminData ? window.EngBeeAdminData.getTopicWordCount(t.id, fallback) : fallback;
       t.wordCount = count;
       totalWords += count;
     });
@@ -205,14 +209,19 @@ main{flex:1}
       } else {
         grid.innerHTML = topics.map(function(t){
           var best = bestOf(t.id);
-          var count = t.wordCount || 50;
-          return '<a class="qch-card" href="quiz-'+t.id+'.html">' +
+          var count = t.wordCount || 0;
+          var isBase = RAW_TOPICS.some(function(b){ return b.id === t.id; });
+          var href = isBase ? "quiz-"+t.id+".html" : "quiz-topic.html?topic="+encodeURIComponent(t.id);
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
+          var emoji = t.emoji || t.name.slice(0,1).toUpperCase();
+          return '<a class="qch-card" href="'+href+'">' +
             '<div class="qch-card-head">' +
-              '<span class="qch-badge" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">'+t.emoji+'</span>' +
+              '<span class="qch-badge" style="background:linear-gradient(135deg,'+g1+','+g2+')">'+emoji+'</span>' +
               '<div><h3>'+t.name+'</h3><div class="vi">'+t.vi+'</div></div>' +
             '</div>' +
             '<div class="meta"><span>'+count+' từ · 10 câu</span><span class="qch-best">'+(best>0?'Cao nhất '+best+'%':'Chưa làm')+'</span></div>' +
-            '<span class="qch-go" style="background:linear-gradient(135deg,'+t.g1+','+t.g2+')">Làm quiz &rarr;</span>' +
+            '<span class="qch-go" style="background:linear-gradient(135deg,'+g1+','+g2+')">Làm quiz &rarr;</span>' +
             '</a>';
         }).join("");
       }

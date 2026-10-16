@@ -464,6 +464,12 @@
   };
 
   /* ----- 16. Tự động lấy dữ liệu quản trị mới nhất từ máy chủ ----- */
+  function hasItems(v) {
+    if (Array.isArray(v)) return v.length > 0;
+    if (v && typeof v === "object") return Object.keys(v).length > 0;
+    return false;
+  }
+
   function syncFromServer() {
     if (typeof window === "undefined" || !window.fetch) return;
     fetch("/api/admin/data")
@@ -471,27 +477,27 @@
       .then(function (data) {
         if (!data) return;
         var changed = false;
-        if (data.editedWords && JSON.stringify(data.editedWords) !== localStorage.getItem(KEY_EDITED)) {
+        if (hasItems(data.editedWords) && JSON.stringify(data.editedWords) !== localStorage.getItem(KEY_EDITED)) {
           localStorage.setItem(KEY_EDITED, JSON.stringify(data.editedWords));
           changed = true;
         }
-        if (data.addedWords && JSON.stringify(data.addedWords) !== localStorage.getItem(KEY_ADDED)) {
+        if (hasItems(data.addedWords) && JSON.stringify(data.addedWords) !== localStorage.getItem(KEY_ADDED)) {
           localStorage.setItem(KEY_ADDED, JSON.stringify(data.addedWords));
           changed = true;
         }
-        if (data.removedWords && JSON.stringify(data.removedWords) !== localStorage.getItem(KEY_REMOVED)) {
+        if (hasItems(data.removedWords) && JSON.stringify(data.removedWords) !== localStorage.getItem(KEY_REMOVED)) {
           localStorage.setItem(KEY_REMOVED, JSON.stringify(data.removedWords));
           changed = true;
         }
-        if (data.hiddenTopics && JSON.stringify(data.hiddenTopics) !== localStorage.getItem(KEY_HIDDEN)) {
+        if (hasItems(data.hiddenTopics) && JSON.stringify(data.hiddenTopics) !== localStorage.getItem(KEY_HIDDEN)) {
           localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.hiddenTopics));
           changed = true;
         }
-        if (data.customTopics && JSON.stringify(data.customTopics) !== localStorage.getItem(KEY_CUSTOM_TOPICS)) {
+        if (hasItems(data.customTopics) && JSON.stringify(data.customTopics) !== localStorage.getItem(KEY_CUSTOM_TOPICS)) {
           localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.customTopics));
           changed = true;
         }
-        if (data.topicEdits && JSON.stringify(data.topicEdits) !== localStorage.getItem(KEY_TOPIC_EDITS)) {
+        if (hasItems(data.topicEdits) && JSON.stringify(data.topicEdits) !== localStorage.getItem(KEY_TOPIC_EDITS)) {
           localStorage.setItem(KEY_TOPIC_EDITS, JSON.stringify(data.topicEdits));
           changed = true;
         }
