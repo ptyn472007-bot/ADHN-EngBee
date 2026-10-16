@@ -61,7 +61,7 @@
   }
 
   function pageName(id) {
-    if (!isBaseTopic(id)) return "flashcard.html?topic=" + encodeURIComponent(id);
+    if (!isBaseTopic(id)) return "learn-topic.html?topic=" + encodeURIComponent(id);
     return id === "travel" ? "learn.html" : "learn-" + id + ".html";
   }
 
@@ -69,6 +69,12 @@
   try {
     initialTopicId = new URLSearchParams(window.location.search).get("topic");
   } catch (e) { /* bỏ qua */ }
+
+  // Chủ đề tự tạo dùng trang học đầy đủ (có kiểm tra phát âm) thay vì trang flashcard.
+  if (initialTopicId && !isBaseTopic(initialTopicId)) {
+    window.location.replace("learn-topic.html?topic=" + encodeURIComponent(initialTopicId));
+    return;
+  }
 
   var requestedTopicId = initialTopicId;
   var currentTopic = topicById(initialTopicId || topics[0].id);
@@ -184,6 +190,8 @@
       a.appendChild(textWrap);
 
       a.addEventListener("click", function (ev) {
+        // Chủ đề tự tạo: mở trang học đầy đủ (có kiểm tra phát âm).
+        if (!isBaseTopic(t.id)) return;
         ev.preventDefault();
         switchTopic(t.id);
       });

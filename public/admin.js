@@ -672,8 +672,8 @@ function renderTopics() {
     const badge = t.emoji ? t.emoji : esc(t.name.slice(0, 1).toUpperCase());
     const isCustom = !!t.isCustom;
 
-    const learnLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "learn-" + t.id + ".html" : "flashcard.html?topic=" + t.id);
-    const quizLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "quiz-" + t.id + ".html" : "quiz.html?topic=" + t.id);
+    const learnLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "learn-" + t.id + ".html" : "learn-topic.html?topic=" + t.id);
+    const quizLink = (["travel","food","work","school","nature","sports","health","technology","music","movie","weather","shopping"].indexOf(t.id) !== -1 ? "quiz-" + t.id + ".html" : "quiz-topic.html?topic=" + t.id);
 
     const card = document.createElement("div");
     card.className = "topic-admin-card" + (isOff ? " is-off" : "");
