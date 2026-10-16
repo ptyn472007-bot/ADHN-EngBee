@@ -39,7 +39,6 @@ function readStore(key, fallback) {
 function getAllTopics() {
   const custom = readStore('engbee_admin_custom_topics', [])
   const edits = readStore('engbee_admin_topic_edits', {})
-  bottom: void 0
   const list = [...TOPICS]
   if (Array.isArray(custom)) {
     custom.forEach((ct) => {

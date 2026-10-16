@@ -1399,7 +1399,6 @@ function openTopicModal(mode, topicId) {
     el.inputTopicG1Picker.value = g1;
     el.inputTopicG2.value = g2;
     el.inputTopicG2Picker.value = g2;
-    el.inputTopicDesc.value = topic.desc || "";
   } else {
     el.topicModalTitle.textContent = "Thêm chủ đề mới";
     el.inputTopicOriginalId.value = "";
@@ -1430,7 +1429,6 @@ function handleTopicSubmit(event) {
   const emoji = el.inputTopicEmoji.value.trim() || "📚";
   const g1 = el.inputTopicG1.value.trim() || "#f59e0b";
   const g2 = el.inputTopicG2.value.trim() || "#f97316";
-  const desc = el.inputTopicDesc.value.trim();
 
   let hasError = false;
   if (!name) { showFieldError(el.inputTopicName, el.errorTopicName, "Vui lòng nhập tên tiếng Anh của chủ đề."); hasError = true; }
