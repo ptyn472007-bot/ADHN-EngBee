@@ -335,7 +335,7 @@
 
       // (2) Cập nhật tiêu đề & số từ
       var heroSub = document.querySelector(".learn-hero .eyebrow");
-      var topicObj = DEFAULT_TOPICS.find(function(t) { return t.id === topicId; });
+      var topicObj = getAllTopics().find(function(t) { return t.id === topicId; });
       var tName = topicObj ? topicObj.name : topicId;
       if (heroSub) {
         heroSub.textContent = "Chủ đề: " + tName + " (" + words.length + " từ)";
@@ -348,9 +348,14 @@
         pillsWrap.innerHTML = activeTopics.map(function(t) {
           var count = getTopicWordCount(t.id, 50);
           var isCurrent = t.id === topicId;
-          var href = t.id === "travel" ? "learn-travel.html" : "learn-" + t.id + ".html";
+          var isBase = DEFAULT_TOPICS.some(function(d) { return d.id === t.id; });
+          var href = isBase
+            ? (t.id === "travel" ? "learn-travel.html" : "learn-" + t.id + ".html")
+            : "flashcard.html?topic=" + encodeURIComponent(t.id);
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
           return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
-            '<span class="pill-badge" style="background:linear-gradient(135deg,' + t.g1 + ',' + t.g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
+            '<span class="pill-badge" style="background:linear-gradient(135deg,' + g1 + ',' + g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
             '<span class="pill-text"><strong>' + t.name + '</strong><small>' + t.vi + ' - ' + count + ' từ</small></span>' +
             '</a>';
         }).join("");
@@ -410,8 +415,12 @@
         html += activeTopics.map(function(t) {
           var count = getTopicWordCount(t.id, 50);
           var isCurrent = t.id === topicId;
-          return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="quiz-' + t.id + '.html" aria-current="' + isCurrent + '">' +
-            '<span class="pill-badge" style="background:linear-gradient(135deg,' + t.g1 + ',' + t.g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
+          var isBase = DEFAULT_TOPICS.some(function(d) { return d.id === t.id; });
+          var href = isBase ? "quiz-" + t.id + ".html" : "quiz-topic.html?topic=" + encodeURIComponent(t.id);
+          var g1 = t.g1 || (t.gradient && t.gradient[0]) || "#f0a500";
+          var g2 = t.g2 || (t.gradient && t.gradient[1]) || "#ff7e00";
+          return '<a class="topic-pill' + (isCurrent ? ' active' : '') + '" href="' + href + '" aria-current="' + isCurrent + '">' +
+            '<span class="pill-badge" style="background:linear-gradient(135deg,' + g1 + ',' + g2 + ')">' + t.name.slice(0, 1).toUpperCase() + '</span>' +
             '<span class="pill-text"><strong>' + t.name + '</strong><small>' + t.vi + ' - ' + count + ' từ</small></span>' +
             '</a>';
         }).join("");
@@ -455,6 +464,12 @@
   };
 
   /* ----- 16. Tự động lấy dữ liệu quản trị mới nhất từ máy chủ ----- */
+  function hasItems(v) {
+    if (Array.isArray(v)) return v.length > 0;
+    if (v && typeof v === "object") return Object.keys(v).length > 0;
+    return false;
+  }
+
   function syncFromServer() {
     if (typeof window === "undefined" || !window.fetch) return;
     fetch("/api/admin/data")
@@ -462,27 +477,27 @@
       .then(function (data) {
         if (!data) return;
         var changed = false;
-        if (data.editedWords && JSON.stringify(data.editedWords) !== localStorage.getItem(KEY_EDITED)) {
+        if (hasItems(data.editedWords) && JSON.stringify(data.editedWords) !== localStorage.getItem(KEY_EDITED)) {
           localStorage.setItem(KEY_EDITED, JSON.stringify(data.editedWords));
           changed = true;
         }
-        if (data.addedWords && JSON.stringify(data.addedWords) !== localStorage.getItem(KEY_ADDED)) {
+        if (hasItems(data.addedWords) && JSON.stringify(data.addedWords) !== localStorage.getItem(KEY_ADDED)) {
           localStorage.setItem(KEY_ADDED, JSON.stringify(data.addedWords));
           changed = true;
         }
-        if (data.removedWords && JSON.stringify(data.removedWords) !== localStorage.getItem(KEY_REMOVED)) {
+        if (hasItems(data.removedWords) && JSON.stringify(data.removedWords) !== localStorage.getItem(KEY_REMOVED)) {
           localStorage.setItem(KEY_REMOVED, JSON.stringify(data.removedWords));
           changed = true;
         }
-        if (data.hiddenTopics && JSON.stringify(data.hiddenTopics) !== localStorage.getItem(KEY_HIDDEN)) {
+        if (hasItems(data.hiddenTopics) && JSON.stringify(data.hiddenTopics) !== localStorage.getItem(KEY_HIDDEN)) {
           localStorage.setItem(KEY_HIDDEN, JSON.stringify(data.hiddenTopics));
           changed = true;
         }
-        if (data.customTopics && JSON.stringify(data.customTopics) !== localStorage.getItem(KEY_CUSTOM_TOPICS)) {
+        if (hasItems(data.customTopics) && JSON.stringify(data.customTopics) !== localStorage.getItem(KEY_CUSTOM_TOPICS)) {
           localStorage.setItem(KEY_CUSTOM_TOPICS, JSON.stringify(data.customTopics));
           changed = true;
         }
-        if (data.topicEdits && JSON.stringify(data.topicEdits) !== localStorage.getItem(KEY_TOPIC_EDITS)) {
+        if (hasItems(data.topicEdits) && JSON.stringify(data.topicEdits) !== localStorage.getItem(KEY_TOPIC_EDITS)) {
           localStorage.setItem(KEY_TOPIC_EDITS, JSON.stringify(data.topicEdits));
           changed = true;
         }

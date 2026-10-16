@@ -2,90 +2,23 @@
   "users": {
     "học viên #4993": {
       "name": "Học viên #4993",
-      "firstSeen": 1792119492839,
-      "lastActive": 1792119782586,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 10,
-      "totalQuizzes": 2
-
-    "học viên #8783": {
-      "name": "Học viên #8783",
-      "firstSeen": 1791946030298,
-      "lastActive": 1792118084997,
+      "firstSeen": 1792150051066,
+      "lastActive": 1792151440259,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
       "bestScore": 0,
       "totalQuizzes": 0
-    },
-    "nvt": {
-      "name": "NVT",
-      "firstSeen": 1792118097869,
-      "lastActive": 1792118097869,
-      "learnedWordsCount": 0,
-      "topicsCount": 0,
-      "learnedByTopic": {},
-      "bestScore": 0,
-      "totalQuizzes": 0
- main
-      "bestScore": 6,
-      "totalQuizzes": 4
     }
   },
-  "quizHistory": [
-    {
-      "id": "q_1792119782571_6482",
-      "userName": "Học viên #4993",
-      "topicId": "work",
-      "modeName": "Work",
-      "correct": 4,
-      "total": 10,
-      "pct": 40,
-      "score": 4,
-      "ts": 1792119782571
-    },
-    {
-      "id": "q_1792119736432_1433",
-      "userName": "Học viên #4993",
-      "topicId": "movie",
-      "modeName": "Movie",
-      "correct": 6,
-      "total": 10,
-      "pct": 60,
-      "score": 6,
-      "ts": 1792119736432
-    },
-    {
-      "id": "q_1792119660729_7585",
-      "userName": "Học viên #4993",
-      "topicId": "movie",
-      "modeName": "Movie",
-      "correct": 4,
-      "total": 10,
-      "pct": 40,
-      "score": 4,
-      "ts": 1792119660729
-    },
-    {
-      "id": "q_1792119614885_5230",
-      "userName": "Học viên #4993",
-      "topicId": "movie",
-      "modeName": "Movie",
-      "correct": 6,
-      "total": 10,
-      "pct": 60,
-      "score": 6,
-      "ts": 1792119614885
-    }
-  ],
+  "quizHistory": [],
   "admin": {
     "editedWords": {},
     "addedWords": {},
     "removedWords": [],
     "hiddenTopics": [],
     "customTopics": [],
-    "lastUpdate": 1792119492839
+    "lastUpdate": 1792150084393,
+    "topicEdits": {}
   }
 }

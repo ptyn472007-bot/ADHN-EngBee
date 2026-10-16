@@ -12,24 +12,42 @@
     return "guest";
   }
 
+  function gradientOf(t) {
+    if (t && t.gradient && t.gradient.length >= 2) return t.gradient;
+    if (t && t.g1 && t.g2) return [t.g1, t.g2];
+    return ["#4facfe", "#00f2fe"];
+  }
+
+  function isBaseTopic(id) {
+    if (typeof EngBeeData === "undefined" || !Array.isArray(EngBeeData.topics)) return false;
+    return EngBeeData.topics.some(function (t) { return t.id === id; });
+  }
+
   function getLoadedTopics() {
-    var raw = (typeof EngBeeData !== "undefined" && EngBeeData.topics) ? EngBeeData.topics : [];
-    if (window.EngBeeAdminData) {
-      return raw.filter(function (t) {
-        return !window.EngBeeAdminData.isTopicHidden(t.id);
+    var adm = window.EngBeeAdminData;
+    if (adm && typeof adm.getAllTopics === "function" && typeof adm.apply === "function") {
+      return adm.getAllTopics().filter(function (t) {
+        return !adm.isTopicHidden(t.id);
       }).map(function (t) {
-        var baseCopy = Array.isArray(t.words) ? t.words.slice() : [];
-        var words = window.EngBeeAdminData.apply(t.id, baseCopy);
         return {
           id: t.id,
           name: t.name,
           vi: t.vi,
-          gradient: t.gradient || ["#4facfe", "#00f2fe"],
-          words: words
+          gradient: gradientOf(t),
+          words: adm.apply(t.id)
         };
       });
     }
-    return raw;
+    var raw = (typeof EngBeeData !== "undefined" && EngBeeData.topics) ? EngBeeData.topics : [];
+    return raw.map(function (t) {
+      return {
+        id: t.id,
+        name: t.name,
+        vi: t.vi,
+        gradient: gradientOf(t),
+        words: Array.isArray(t.words) ? t.words.slice() : []
+      };
+    });
   }
 
   var topics = getLoadedTopics();
@@ -43,10 +61,16 @@
   }
 
   function pageName(id) {
+    if (!isBaseTopic(id)) return "flashcard.html?topic=" + encodeURIComponent(id);
     return id === "travel" ? "learn.html" : "learn-" + id + ".html";
   }
 
-  var currentTopic = topicById(topics[0].id);
+  var initialTopicId = null;
+  try {
+    initialTopicId = new URLSearchParams(window.location.search).get("topic");
+  } catch (e) { /* bỏ qua */ }
+
+  var currentTopic = topicById(initialTopicId || topics[0].id);
   var total = currentTopic.words.length;
   var index = 0;
   var flipped = false;
@@ -236,6 +260,11 @@
     total = currentTopic.words.length;
     index = 0;
     mastered = loadSet(currentTopic.id);
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.set("topic", currentTopic.id);
+      window.history.replaceState(null, "", url.toString());
+    } catch (e) { /* bỏ qua */ }
     setTopicStyle();
     renderPills();
     setFlip(false);

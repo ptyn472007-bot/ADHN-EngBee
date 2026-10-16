@@ -94,7 +94,7 @@ const VIEW_ORDER = ["dashboard", "words", "topics", "users", "results", "setting
 
 const VIEW_INFO = {
   dashboard: ["Tổng quan", "Nhìn toàn cảnh hoạt động của website EngBee"],
-  words: ["Quản lý từ vựng", "Thêm, sửa, xóa từ vựng của các chủ đề"],
+  words: ["Quản lý từ vựng", "Thêm, sửa từ vựng của các chủ đề"],
   topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
   results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
@@ -518,11 +518,10 @@ function renderDashboard() {
   const hidden = getHiddenTopics();
   const addedCount = Object.keys(getAdded()).reduce(function (n, k) { return n + getAdded()[k].length; }, 0);
   const editedCount = Object.keys(getEdited()).length;
-  const removedCount = getRemoved().length;
 
   el.statTopics.textContent = topics.length - hidden.length + " / " + topics.length;
   el.statWords.textContent = fmt(totalWords());
-  el.statChanges.textContent = fmt(addedCount + editedCount + removedCount);
+  el.statChanges.textContent = fmt(addedCount + editedCount);
 
   const users = listUsers();
   const history = getQuizHistory();
@@ -541,7 +540,6 @@ function renderDashboard() {
   const changes = [];
   if (addedCount) changes.push(["Từ đã thêm", addedCount]);
   if (editedCount) changes.push(["Từ đã sửa", editedCount]);
-  if (removedCount) changes.push(["Từ đã xóa", removedCount]);
   if (hidden.length) changes.push(["Chủ đề đang tắt", hidden.length]);
 
   if (changes.length === 0) {
@@ -1399,7 +1397,6 @@ function openTopicModal(mode, topicId) {
     el.inputTopicG1Picker.value = g1;
     el.inputTopicG2.value = g2;
     el.inputTopicG2Picker.value = g2;
-    el.inputTopicDesc.value = topic.desc || "";
   } else {
     el.topicModalTitle.textContent = "Thêm chủ đề mới";
     el.inputTopicOriginalId.value = "";
@@ -1430,7 +1427,6 @@ function handleTopicSubmit(event) {
   const emoji = el.inputTopicEmoji.value.trim() || "📚";
   const g1 = el.inputTopicG1.value.trim() || "#f59e0b";
   const g2 = el.inputTopicG2.value.trim() || "#f97316";
-  const desc = el.inputTopicDesc.value.trim();
 
   let hasError = false;
   if (!name) { showFieldError(el.inputTopicName, el.errorTopicName, "Vui lòng nhập tên tiếng Anh của chủ đề."); hasError = true; }
@@ -1464,7 +1460,6 @@ function handleTopicSubmit(event) {
     g1: g1,
     g2: g2,
     gradient: [g1, g2],
-    desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi),
     isCustom: true,
     words: []
   };
@@ -1483,12 +1478,12 @@ function handleTopicSubmit(event) {
         emoji: emoji,
         g1: g1,
         g2: g2,
-        gradient: [g1, g2],
-        desc: desc || ("Từ vựng tiếng Anh chủ đề " + vi)
+        gradient: [g1, g2]
       };
       writeStore(KEY_TOPIC_EDITS, edits);
     }
   } else {
+    topicData.desc = "Từ vựng tiếng Anh chủ đề " + vi;
     customTopics.push(topicData);
   }
 
@@ -1511,7 +1506,7 @@ function topicsWithWord(key) {
 function resetWords() {
   askConfirm(
     "Khôi phục từ vựng gốc",
-    "Xóa toàn bộ từ đã thêm, sửa, xóa và đưa hệ thống về dữ liệu gốc?",
+    "Xóa toàn bộ từ đã thêm, sửa và đưa hệ thống về dữ liệu gốc?",
     "Từ vựng sẽ trở về đúng dữ liệu ban đầu của website.",
     function () {
       [KEY_EDITED, KEY_ADDED, KEY_REMOVED, KEY_HIDDEN].forEach(removeStore);
@@ -1766,7 +1761,7 @@ window.addEventListener("resize", function () {
 el.loginForm.addEventListener("submit", handleLogin);
 el.btnLogout.addEventListener("click", handleLogout);
 
-// Bảng từ vựng: Sửa / Xóa
+// Bảng từ vựng: Sửa
 el.wordBody.addEventListener("click", function (event) {
   const btn = event.target.closest("button");
   if (!btn) return;
