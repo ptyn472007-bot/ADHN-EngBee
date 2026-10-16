@@ -309,7 +309,50 @@
     return record;
   }
 
-  // Khởi chạy ghi nhận tự động khi người dùng vào trang (chỉ chạy nếu đã đăng nhập)
+  // Ghi nhận kết quả kiểm tra phát âm và đồng bộ mọi máy
+  function recordPronounce(data) {
+    if (!data) return;
+    var userName = (data.userName || data.name) ? (data.userName || data.name).trim() : getCurrentUserName();
+    var now = data.ts || Date.now();
+    var total = Number(data.total) || 0;
+    var good = Number(data.good) || 0;
+    var avg = typeof data.avg === "number" ? Math.round(data.avg) : (total ? Math.round(100 * good / total) : 0);
+    var topicId = data.topicId || data.mode || "all";
+    var modeName = data.modeName || data.topicName || topicId;
+
+    var record = {
+      id: "p_" + now + "_" + Math.floor(Math.random() * 1000),
+      userName: userName,
+      topicId: topicId,
+      mode: topicId,
+      modeName: modeName,
+      avg: avg,
+      good: good,
+      total: total,
+      weak: Array.isArray(data.weak) ? data.weak.slice(0, 50) : [],
+      ts: now
+    };
+
+    // Ghi nhận người học
+    track({ name: userName });
+
+    // Gửi API lên Server để đồng bộ mọi máy
+    if (window.fetch) {
+      fetch("/api/pronounce-result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(record)
+      }).then(function (res) {
+        return res.ok ? res.json() : null;
+      }).then(function (resData) {
+        if (resData && resData.stats && Array.isArray(resData.stats.users)) {
+          writeUsers(resData.stats.users);
+        }
+      }).catch(function () {});
+    }
+  }
+
+  // Khởi chạy ghi nhận tự động khi người dùng vào trang
   function init() {
     var reg = getRegisteredUserName();
     if (reg) {
@@ -321,8 +364,7 @@
 
   window.EngBeeTrackUser = track;
   window.EngBeeRecordQuiz = recordQuiz;
-  window.EngBeeCollectProgress = collectUserProgress;
-  window.EngBeeGetUserName = getCurrentUserName;
+  window.EngBeeRecordPronounce = recordPronounce;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

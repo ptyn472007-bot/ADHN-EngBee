@@ -8,7 +8,7 @@
   overflow: hidden;
   color: #fff;
   padding: 56px 0 44px;
-  background: linear-gradient(135deg, #f0a500, #ff7e00);
+  background: linear-gradient(135deg, #c98a0e, #e0a52a);
 }
 
 .dash-hero::before,
@@ -79,7 +79,7 @@
 
 .dash-card {
   background: #fff;
-  border: 1px solid #f0e7cf;
+  border: 1px solid #f0e4c6;
   border-radius: 20px;
   box-shadow: 0 8px 22px -10px rgba(120, 90, 20, 0.3);
   padding: 26px 20px;
@@ -94,20 +94,20 @@
 .dash-value {
   font-size: 28px;
   font-weight: 800;
-  color: #d98e00;
+  color: #b87f0a;
   line-height: 1.2;
   word-break: break-word;
 }
 
 .dash-label {
   font-size: 13px;
-  color: #888;
+  color: #6b7280;
   margin-top: 6px;
 }
 
 .dash-panel {
   background: #fff;
-  border: 1px solid #f0e7cf;
+  border: 1px solid #f0e4c6;
   border-radius: 20px;
   box-shadow: 0 8px 22px -10px rgba(120, 90, 20, 0.3);
   padding: 28px;
@@ -118,13 +118,13 @@
   font-size: 20px;
   font-weight: 800;
   margin-bottom: 16px;
-  color: #221800;
+  color: #1f2937;
 }
 
 /* Thanh tiến độ */
 .progress {
   height: 14px;
-  background: #f3ead3;
+  background: #eee4cd;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -133,7 +133,7 @@
   display: block;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, #f0a500, #ff7e00);
+  background: linear-gradient(90deg, #c98a0e, #e0a52a);
   border-radius: 999px;
   transition: width 0.4s;
 }
@@ -141,7 +141,7 @@
 .dash-progress-note {
   margin-top: 12px;
   font-size: 14px;
-  color: #5b5340;
+  color: #6b7280;
 }
 
 /* Bảng lịch sử điểm */
@@ -154,17 +154,17 @@
 .dash-table td {
   padding: 12px 14px;
   text-align: left;
-  border-bottom: 1px solid #f0e7cf;
+  border-bottom: 1px solid #f0e4c6;
   font-size: 14px;
 }
 
 .dash-table th {
-  color: #888;
+  color: #6b7280;
   font-weight: 700;
 }
 
 .dash-table td strong {
-  color: #d98e00;
+  color: #b87f0a;
 }
 
 .dash-table tr:last-child td {
@@ -172,7 +172,7 @@
 }
 
 .dash-empty {
-  color: #999;
+  color: #9ca3af;
   text-align: center;
   padding: 28px 0;
 }
@@ -181,13 +181,13 @@
 .dash-learned-note {
   font-size: 14px;
   line-height: 1.6;
-  color: #5b5340;
+  color: #6b7280;
   max-width: 720px;
   margin-bottom: 18px;
 }
 
 .dash-learned-note b {
-  color: #d98e00;
+  color: #b87f0a;
 }
 
 .lw-group {
@@ -200,7 +200,7 @@
   gap: 8px;
   font-size: 15px;
   font-weight: 800;
-  color: #221800;
+  color: #1f2937;
   margin: 0 0 10px;
 }
 
@@ -208,8 +208,8 @@
   display: inline-block;
   min-width: 26px;
   text-align: center;
-  background: #f3ead3;
-  color: #8a6d00;
+  background: #eee4cd;
+  color: #6f520a;
   font-size: 13px;
   font-weight: 800;
   border-radius: 999px;
@@ -218,7 +218,7 @@
 
 /* Bảng từ đã học (gọn, 3 cột: từ / nghĩa / chủ đề) */
 .lw-tbl {
-  border: 1px solid #f0e7cf;
+  border: 1px solid #f0e4c6;
   border-radius: 12px;
   overflow: hidden;
   max-height: 260px;
@@ -231,7 +231,7 @@
 }
 
 .lw-tbl tr {
-  border-bottom: 1px solid #f5efe0;
+  border-bottom: 1px solid #efe6cf;
 }
 
 .lw-tbl tr:last-child {
@@ -246,24 +246,24 @@
 
 .lw-tbl .lw-en {
   font-weight: 700;
-  color: #221800;
+  color: #1f2937;
   width: 32%;
 }
 
 .lw-tbl .lw-vi {
-  color: #666;
+  color: #6b7280;
 }
 
 .lw-tbl .lw-topic {
   text-align: right;
-  color: #b98a00;
+  color: #8f6608;
   width: 18%;
   white-space: nowrap;
 }
 
 .lw-tbl .lw-more-row td {
   text-align: center;
-  color: #999;
+  color: #9ca3af;
   font-size: 12px;
   padding: 6px;
 }
@@ -273,11 +273,11 @@
 }
 
 .lw-group.full .lw-tbl .lw-en {
-  color: #2b7a2b;
+  color: #15803d;
 }
 
 .lw-group.meaning .lw-tbl {
-  border-color: #f5e0a8;
+  border-color: #f0dca0;
 }
 
 .lw-group.pron .lw-tbl {
@@ -290,12 +290,12 @@
 }
 
 .dash-danger h2 {
-  color: #d94f4f;
+  color: #dc2626;
 }
 
 .dash-danger-note {
   font-size: 14px;
-  color: #5b5340;
+  color: #6b7280;
   margin-bottom: 18px;
   max-width: 560px;
 }
@@ -303,8 +303,8 @@
 .btn-danger {
   display: inline-block;
   background: #fff;
-  border: 1.5px solid #e05b5b;
-  color: #d94f4f;
+  border: 1.5px solid #dc2626;
+  color: #dc2626;
   font-weight: 700;
   font-size: 15px;
   padding: 12px 24px;
@@ -314,7 +314,7 @@
 }
 
 .btn-danger:hover {
-  background: #d94f4f;
+  background: #dc2626;
   color: #fff;
 }
 

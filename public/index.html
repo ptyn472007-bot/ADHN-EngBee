@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="description" content="EngBee - Học từ vựng tiếng Anh theo chủ đề với flashcard, quiz và tiến độ học tập.">
+  <title>EngBee - Học từ vựng tiếng Anh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --amber: #c98a0e;
+  --amber-deep: #b87f0a;
+  --amber-light: #fdf3da;
+  --ink: #1f2937;
+  --ink-soft: #6b7280;
+  --bg: #fffcf6;
+  --card: #ffffff;
+  --line: #f0e4c6;
+  --navy: #1f2937;
+  --radius: 20px;
+  --shadow: 0 18px 45px -18px rgba(120, 90, 20, 0.35);
+  --shadow-sm: 0 8px 22px -10px rgba(120, 90, 20, 0.3);
+  --sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 85% -10%, rgba(201, 138, 14, 0.12), transparent 60%),
+    radial-gradient(900px 450px at -10% 10%, rgba(253, 243, 218, 0.7), transparent 55%),
+    var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+.container { width: min(1160px, 92%); margin-inline: auto; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; text-decoration: none; letter-spacing: 0.2px; }
+.logo-icon { width: 42px; height: 42px; flex: none; filter: drop-shadow(0 4px 8px rgba(201, 138, 14, 0.35)); }
+.navbar { position: sticky; top: 0; z-index: 50; background: rgba(255, 252, 246, 0.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.navbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 14px; }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a { position: relative; text-decoration: none; font-size: 15px; font-weight: 600; color: var(--ink-soft); padding: 8px 14px; border-radius: 10px; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover { color: var(--ink); background: rgba(201, 138, 14, 0.1); }
+.nav-links a.active { color: var(--amber-deep); }
+.nav-links a.active::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 3px; border-radius: 3px; background: var(--amber); }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 8px; }
+.nav-toggle span { width: 24px; height: 3px; border-radius: 3px; background: var(--ink); transition: transform 0.25s, opacity 0.25s; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.hero { position: relative; overflow: hidden; text-align: center; padding-block: 72px 64px; }
+.hero-inner { position: relative; z-index: 1; }
+.hero-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5; pointer-events: none; }
+.hero-blob-a { width: 420px; height: 420px; background: rgba(201, 138, 14, 0.4); top: -120px; left: -80px; }
+.hero-blob-b { width: 380px; height: 380px; background: rgba(255, 190, 60, 0.4); bottom: -140px; right: -60px; }
+.hero-bee .logo-icon { width: 96px; height: 96px; margin-bottom: 8px; }
+.hero h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.15; font-weight: 800; letter-spacing: -0.5px; margin: 10px auto 18px; max-width: 800px; }
+.hero h1 span { color: var(--amber-deep); }
+.hero p { color: var(--ink-soft); font-size: 17px; max-width: 640px; margin: 0 auto 30px; }
+.hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.btn-primary, .btn-ghost { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 16px; padding: 14px 28px; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
+.btn-primary { background: linear-gradient(135deg, var(--amber), #e6b23a); color: #fff; box-shadow: 0 12px 26px -10px rgba(184, 127, 10, 0.55); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -10px rgba(184, 127, 10, 0.6); }
+.btn-ghost { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); }
+.btn-ghost:hover { border-color: var(--amber); transform: translateY(-2px); }
+.hero-stats { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 44px; }
+.hero-stats div { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-sm); border-radius: 16px; padding: 14px 26px; min-width: 130px; }
+.hero-stats strong { display: block; font-size: 26px; font-weight: 800; color: var(--amber-deep); }
+.hero-stats span { font-size: 14px; color: var(--ink-soft); }
+.section-head { text-align: center; margin-bottom: 40px; }
+.section-head h2 { font-size: clamp(26px, 3.6vw, 38px); font-weight: 800; letter-spacing: -0.4px; }
+.section-head p { color: var(--ink-soft); margin-top: 10px; }
+.topics { padding-block: 52px 20px; }
+.topic-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.topic-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s; }
+.topic-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.topic-icon { display: grid; place-items: center; font-size: 46px; aspect-ratio: 16 / 9; background: linear-gradient(135deg, var(--g1), var(--g2)); position: relative; }
+.topic-icon::after { content: ''; position: absolute; inset: 0; background: radial-gradient(140% 90% at 50% 120%, rgba(255, 255, 255, 0.45), transparent 55%); }
+.topic-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.topic-body h3 { font-size: 19px; font-weight: 800; }
+.topic-vi { font-size: 13px; font-weight: 600; color: var(--ink-soft); background: var(--amber-light); border-radius: 999px; padding: 2px 10px; margin-left: 2px; }
+.topic-body p { font-size: 14px; color: var(--ink-soft); flex: 1; }
+.topic-progress { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+.topic-progress-bar { flex: 1; height: 8px; border-radius: 8px; background: #eee4cd; overflow: hidden; }
+.topic-progress-bar i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--g1), var(--g2)); transition: width 0.4s; }
+.topic-progress.empty .topic-progress-bar { opacity: 0; }
+.btn-learn { margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700; font-size: 15px; color: var(--ink); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 16px; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.btn-learn:hover { background: linear-gradient(135deg, var(--g1), var(--g2)); border-color: transparent; color: #fff; }
+.features { padding-block: 56px 60px; }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.feature-card { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-sm); border-radius: var(--radius); padding: 28px 26px; text-align: center; }
+.feature-icon { font-size: 44px; display: inline-grid; place-items: center; width: 84px; height: 84px; border-radius: 24px; background: var(--amber-light); margin-bottom: 16px; }
+.feature-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
+.feature-card p { font-size: 15px; color: var(--ink-soft); }
+.cta { padding-block: 20px 70px; }
+.cta-inner { position: relative; overflow: hidden; text-align: center; background: linear-gradient(120deg, #1f2937, #4b5563 55%, #6b7280); border-radius: 28px; color: #fff; padding: 64px 32px; }
+.cta-inner::before, .cta-inner::after { content: ''; position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55; }
+.cta-inner::before { width: 320px; height: 320px; background: rgba(201, 138, 14, 0.55); top: -120px; right: -60px; }
+.cta-inner::after { width: 280px; height: 280px; background: rgba(255, 190, 60, 0.4); bottom: -130px; left: -50px; }
+.cta-inner h2 { position: relative; z-index: 1; font-size: clamp(24px, 3.4vw, 36px); font-weight: 800; letter-spacing: -0.4px; }
+.cta-inner p { position: relative; z-index: 1; max-width: 520px; margin: 12px auto 28px; color: rgba(255, 255, 255, 0.85); }
+.cta-inner .btn-primary { position: relative; z-index: 1; }
+.footer { background: #111827; color: #d1d5db; padding-top: 48px; }
+.footer-inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-bottom: 34px; }
+.footer .logo { color: #fff; font-size: 20px; margin-bottom: 10px; }
+.footer .logo-icon { width: 36px; height: 36px; }
+.footer-tag { font-size: 14px; color: #9ca3af; margin-top: 8px; max-width: 260px; }
+.footer-links, .footer-contact { display: flex; flex-direction: column; gap: 8px; }
+.footer-links a, .footer-contact a { color: #d1d5db; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.footer-links a:hover, .footer-contact a:hover { color: var(--amber); }
+.footer-copy { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-block: 18px; font-size: 13px; color: #6b7280; }
+@media (max-width: 960px) {
+  .topic-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-toggle { display: flex; }
+  .nav-links { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--bg); border-bottom: 1px solid var(--line); padding: 10px 4%; gap: 2px; display: none; }
+  .nav-links.open { display: flex; }
+  .nav-links a.active::after { display: none; }
+  .topic-grid { grid-template-columns: 1fr; }
+  .hero { padding-block: 44px 40px; }
+  .hero-stats div { min-width: 40%; }
+  .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+}
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
+        <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="30" fill="#fdf3da"/>
+          <ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/>
+          <rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+          <rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+          <circle cx="15" cy="38" r="11" fill="#e0a52a"/>
+          <circle cx="12" cy="34" r="2" fill="#374151"/>
+          <circle cx="18" cy="32" r="2" fill="#374151"/>
+          <path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
+          <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
+        </svg>
+        <span>EngBee</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html" class="active">Trang chủ</a>
+        <a href="flashcard.html">Học từ vựng</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Đăng nhập</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-blob hero-blob-a"></div>
+      <div class="hero-blob hero-blob-b"></div>
+      <div class="container hero-inner">
+        <div class="hero-bee">
+          <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" fill="#fdf3da"/>
+            <ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/>
+            <rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <circle cx="15" cy="38" r="11" fill="#e0a52a"/>
+            <circle cx="12" cy="34" r="2" fill="#374151"/>
+            <circle cx="18" cy="32" r="2" fill="#374151"/>
+            <path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
+            <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
+          </svg>
+        </div>
+        <h1>Học từ vựng tiếng Anh <span>thông minh</span> cùng EngBee</h1>
+        <p id="home-hero-sub">600 từ vựng chia theo 12 chủ đề quen thuộc, học bằng flashcard lật thẻ, kèm phiên âm, ví dụ và quiz kiểm tra. Mỗi ngày một ít, giỏi dần mỗi ngày!</p>
+        <div class="hero-actions">
+          <a href="flashcard.html" class="btn-primary">Bắt đầu học <span aria-hidden="true">→</span></a>
+          <a href="#topics" class="btn-ghost">Khám phá chủ đề</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong id="home-stat-topics">12</strong><span>chủ đề</span></div>
+          <div><strong id="home-stat-words">600</strong><span>từ vựng</span></div>
+          <div><strong>Đa dạng</strong><span>chủ đề</span></div>
+          <div><strong>100%</strong><span>miễn phí</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="topics" id="topics">
+      <div class="container">
+        <div class="section-head">
+          <h2>Chọn chủ đề để bắt đầu</h2>
+          <p>Kho từ vựng tiếng Anh cập nhật liên tục với phiên âm, nghĩa tiếng Việt và ví dụ minh họa.</p>
+        </div>
+        <div class="topic-grid" id="home-topic-grid"></div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <div class="section-head">
+          <h2>Vì sao nên học cùng EngBee?</h2>
+          <p>Công cụ đơn giản, phương pháp hiệu quả cho người mới bắt đầu.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">🃏</div>
+            <h3>Flashcard lật thẻ</h3>
+            <p>Ghi nhớ bằng cách lật thẻ: nhìn từ, nhớ nghĩa, tự kiểm tra bản thân mỗi ngày.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">🔊</div>
+            <h3>Phát âm chuẩn</h3>
+            <p>Mỗi từ có phiên âm IPA và phát âm bằng giọng đọc chuẩn, nghe và lặp lại theo nhịp.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Theo dõi tiến độ</h3>
+            <p>Đánh dấu từ đã thuộc, xem tiến độ từng chủ đề để biết mình đang ở đâu.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <h2>Bắt đầu hành trình tiếng Anh ngay hôm nay</h2>
+        <p>Không cần đăng ký, mở trang và học ngay. Càng chăm chỉ, vốn từ của bạn càng giàu.</p>
+        <a href="flashcard.html" class="btn-primary">Học miễn phí ngay <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" fill="#fdf3da"/>
+            <ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/>
+            <rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/>
+            <circle cx="15" cy="38" r="11" fill="#e0a52a"/>
+            <circle cx="12" cy="34" r="2" fill="#374151"/>
+            <circle cx="18" cy="32" r="2" fill="#374151"/>
+            <path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/>
+            <ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/>
+          </svg>
+          <span>EngBee</span>
+        </a>
+        <p class="footer-tag">Website học từ vựng tiếng Anh miễn phí cho người Việt.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="flashcard.html">Học từ vựng</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html" id="footer-login">Đăng nhập</a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:engbee@gmail.com">Gmail: engbee@gmail.com</a>
+        <a href="tel:0901234567">SĐT: 0901 234 567</a>
+        <a href="https://facebook.com/engbee" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://zalo.me/0901234567" target="_blank" rel="noopener">Zalo</a>
+      </div>
+    </div>
+    <div class="container footer-copy">&copy; 2026 EngBee. Học vui, nhớ lâu.</div>
+  </footer>
+  <script src="assets/js/engbee-admin-data.js"></script>
+  <script src="assets/js/user-registry.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+  <script>
+  (function () {
+    "use strict";
+
+    var USER_KEY = "engbee_user";
+    var LEARN_PREFIX = "engbee_learned_";
+
+    function readStore(key, fallback) {
+      try {
+        var raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        var data = JSON.parse(raw);
+        return (data === null || data === undefined) ? fallback : data;
+      } catch (e) { return fallback; }
+    }
+
+    function currentUserName() {
+      try {
+        var p = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+        if (p && typeof p.name === "string" && p.name.trim()) return p.name.trim();
+      } catch (e) {}
+      return "guest";
+    }
+
+    function isLoggedIn() { return currentUserName() !== "guest"; }
+
+    function escapeHtml(s) {
+      return String(s === null || s === undefined ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function getAllTopics() {
+      if (window.EngBeeAdminData && typeof window.EngBeeAdminData.getAllTopics === "function") {
+        return window.EngBeeAdminData.getAllTopics();
+      }
+      if (window.EngBeeData && Array.isArray(window.EngBeeData.topics)) {
+        return window.EngBeeData.topics.map(function (t) {
+          var g = Array.isArray(t.gradient) ? t.gradient : ["#c98a0e", "#e0a52a"];
+          return { id: t.id, name: t.name, vi: t.vi, emoji: "📚", g1: g[0], g2: g[1], desc: "Từ vựng về " + (t.vi || t.name) + "." };
+        });
+      }
+      return [];
+    }
+
+    function isHidden(id) {
+      if (window.EngBeeAdminData && typeof window.EngBeeAdminData.isTopicHidden === "function") {
+        return window.EngBeeAdminData.isTopicHidden(id);
+      }
+      var h = readStore("engbee_admin_hidden_topics", []);
+      return Array.isArray(h) && h.indexOf(id) !== -1;
+    }
+
+    function getVisibleTopics() {
+      return getAllTopics().filter(function (t) { return !isHidden(t.id); });
+    }
+
+    function baseWordCount(id) {
+      if (window.EngBeeAdminData && typeof window.EngBeeAdminData.getTopicWordCount === "function") {
+        return window.EngBeeAdminData.getTopicWordCount(id, 50);
+      }
+      if (window.EngBeeData && Array.isArray(window.EngBeeData.topics)) {
+        for (var i = 0; i < window.EngBeeData.topics.length; i++) {
+          if (window.EngBeeData.topics[i].id === id) return window.EngBeeData.topics[i].words.length;
+        }
+      }
+      return 0;
+    }
+
+    function learnedOf(id, total) {
+      try {
+        var arr = JSON.parse(localStorage.getItem(LEARN_PREFIX + currentUserName() + "_" + id) || "[]");
+        return Array.isArray(arr) ? Math.min(arr.length, total) : 0;
+      } catch (e) { return 0; }
+    }
+
+    function isBaseTopic(id) {
+      if (window.EngBeeAdminData && Array.isArray(window.EngBeeAdminData.DEFAULT_TOPICS)) {
+        return window.EngBeeAdminData.DEFAULT_TOPICS.some(function (d) { return d.id === id; });
+      }
+      if (window.EngBeeData && Array.isArray(window.EngBeeData.topics)) {
+        return window.EngBeeData.topics.some(function (d) { return d.id === id; });
+      }
+      return false;
+    }
+
+    function topicCard(t) {
+      var totalCount = baseWordCount(t.id);
+      var learned = learnedOf(t.id, totalCount);
+      var pct = totalCount > 0 ? Math.round((learned / totalCount) * 100) : 0;
+      var learnLink = isBaseTopic(t.id)
+        ? "learn-" + t.id + ".html"
+        : "learn-topic.html?topic=" + encodeURIComponent(t.id);
+      var emoji = t.emoji || "📚";
+      return '<article class="topic-card" style="--g1:' + (t.g1 || "#c98a0e") + ';--g2:' + (t.g2 || "#e0a52a") + '">' +
+        '<div class="topic-icon">' + emoji + '</div>' +
+        '<div class="topic-body">' +
+          '<h3>' + escapeHtml(t.name) + ' <span class="topic-vi">' + escapeHtml(t.vi) + '</span></h3>' +
+          '<p>' + escapeHtml(t.desc || ("Từ vựng về " + (t.vi || t.name) + ".")) + '</p>' +
+          '<div class="topic-progress' + (learned ? "" : " empty") + '">' +
+            '<div class="topic-progress-bar"><i style="width:' + pct + '%"></i></div>' +
+            '<span>' + (learned > 0 ? (learned + "/" + totalCount + " từ đã thuộc") : ("0/" + totalCount + " từ (Chưa bắt đầu)")) + '</span>' +
+          '</div>' +
+          '<a class="btn-learn" href="' + learnLink + '">Học ngay <span aria-hidden="true">→</span></a>' +
+        '</div>' +
+      '</article>';
+    }
+
+    function render() {
+      var visible = getVisibleTopics();
+      var total = visible.reduce(function (sum, t) { return sum + baseWordCount(t.id); }, 0);
+
+      var grid = document.getElementById("home-topic-grid");
+      if (grid) {
+        grid.innerHTML = visible.length
+          ? visible.map(topicCard).join("")
+          : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7280;">Hiện chưa có chủ đề nào được bật.</p>';
+      }
+
+      var sub = document.getElementById("home-hero-sub");
+      if (sub) {
+        sub.textContent = total + " từ vựng chia theo " + visible.length +
+          " chủ đề quen thuộc, học bằng flashcard lật thẻ, kèm phiên âm, ví dụ và quiz kiểm tra. Mỗi ngày một ít, giỏi dần mỗi ngày!";
+      }
+      var statTopics = document.getElementById("home-stat-topics");
+      if (statTopics) statTopics.textContent = String(visible.length);
+      var statWords = document.getElementById("home-stat-words");
+      if (statWords) statWords.textContent = String(total);
+
+      var footerLogin = document.getElementById("footer-login");
+      if (footerLogin) {
+        if (isLoggedIn()) {
+          footerLogin.textContent = "Đăng xuất";
+          footerLogin.setAttribute("href", "#");
+          footerLogin.onclick = function (e) {
+            e.preventDefault();
+            localStorage.removeItem(USER_KEY);
+            window.location.reload();
+          };
+        } else {
+          footerLogin.textContent = "Đăng nhập";
+          footerLogin.setAttribute("href", "login.html");
+          footerLogin.onclick = null;
+        }
+      }
+    }
+
+    function bindNav() {
+      var toggle = document.getElementById("nav-toggle");
+      var nav = document.getElementById("nav-links");
+      if (toggle && nav) {
+        toggle.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          toggle.classList.toggle("open", open);
+          toggle.setAttribute("aria-label", open ? "Đóng menu" : "Mở menu");
+        });
+      }
+    }
+
+    function init() {
+      bindNav();
+      render();
+      window.addEventListener("storage", render);
+      window.addEventListener("engbee_data_changed", render);
+      window.addEventListener("focus", render);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>

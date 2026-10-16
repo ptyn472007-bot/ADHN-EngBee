@@ -3,9 +3,10 @@
   "use strict";
 
   var LEARN_PREFIX = "engbee_learned_";
-  var QUIZ_CORR_PREFIX = "engbee_quiz_corr_";
+  var QUIZ_HIST_PREFIX = "engbee_quiz_history_";
+  var QUIZ_BEST_PREFIX = "engbee_quiz_best_";
+  var PRON_PREFIX = "engbee_pron_history_";
   var USER_KEY = "engbee_user";
-  var PRON_KEY = "eb_pron_history";
 
   function getUser() {
     try {
@@ -19,17 +20,28 @@
     }
   }
 
+  function lightTopics() {
+    return Object.keys(window.EngBeeAllWords || {});
+  }
+
+  function topicMeta() {
+    var EBD = window.EngBeeAdminData;
+    if (EBD && typeof EBD.getAllTopics === "function") return EBD.getAllTopics();
+    return [];
+  }
+
   function getActiveTopics() {
-    var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
-    if (window.EngBeeAdminData) {
-      return rawTopics.filter(function (t) {
-        return !window.EngBeeAdminData.isTopicHidden(t.id);
-      }).map(function (t) {
-        var words = window.EngBeeAdminData.apply(t.id, t.words);
-        return { id: t.id, name: t.name, vi: t.vi, words: words };
-      });
-    }
-    return rawTopics;
+    var LIGHT = window.EngBeeAllWords || {};
+    var EBD = window.EngBeeAdminData;
+    return topicMeta().filter(function (t) {
+      return Object.prototype.hasOwnProperty.call(LIGHT, t.id);
+    }).filter(function (t) {
+      return !(EBD && EBD.isTopicHidden && EBD.isTopicHidden(t.id));
+    }).map(function (t) {
+      var base = LIGHT[t.id] || [];
+      var words = (EBD && EBD.apply) ? EBD.apply(t.id, base) : base;
+      return { id: t.id, name: t.name, vi: t.vi, words: words };
+    });
   }
 
   function getTotalWords(activeTopics) {
@@ -64,51 +76,41 @@
 
   function getBestScore() {
     var scope = getUser() || "guest";
-    var userBest = localStorage.getItem("engbee_quiz_best_" + scope);
-    if (userBest !== null && userBest !== undefined) return userBest;
+    var stored = localStorage.getItem(QUIZ_BEST_PREFIX + scope);
+    if (stored !== null && stored !== undefined && stored !== "") {
+      var n = Number(stored);
+      if (!isNaN(n)) return n;
+    }
 
-    // Tra cứu từ lịch sử quiz chung
-    try {
-      var hist = JSON.parse(localStorage.getItem("eb_quiz_history") || "[]");
-      if (Array.isArray(hist) && hist.length > 0) {
-        var top = 0;
-        hist.forEach(function (h) {
-          var p = typeof h.pct === "number" ? h.pct : 0;
-          if (p > top) top = p;
-        });
-        return top > 0 ? Math.round(top / 10) : null;
-      }
-    } catch (e) {}
-
-    return null;
+    // Suy ra điểm cao nhất từ chính lịch sử quiz của người dùng này
+    var top = 0;
+    getHistory().forEach(function (h) {
+      var s = typeof h.score === "number" ? h.score : Math.round((Number(h.pct) || 0) / 10);
+      if (s > top) top = s;
+    });
+    return top > 0 ? top : null;
   }
 
   function getHistory() {
     var scope = getUser() || "guest";
     try {
-      var arr = JSON.parse(localStorage.getItem("engbee_quiz_history_" + scope) || "null");
-      if (Array.isArray(arr) && arr.length > 0) return arr;
+      var arr = JSON.parse(localStorage.getItem(QUIZ_HIST_PREFIX + scope) || "null");
+      if (Array.isArray(arr)) return arr;
     } catch (e) {}
-
-    // Lịch sử quiz chung
-    try {
-      var h = JSON.parse(localStorage.getItem("eb_quiz_history") || "[]");
-      if (Array.isArray(h)) return h;
-    } catch (e) {}
-
     return [];
   }
 
   function getPronHistory() {
+    var scope = getUser() || "guest";
     try {
-      var h = JSON.parse(localStorage.getItem(PRON_KEY) || "[]");
-      if (Array.isArray(h)) return h;
+      var arr = JSON.parse(localStorage.getItem(PRON_PREFIX + scope) || "null");
+      if (Array.isArray(arr)) return arr;
     } catch (e) {}
     return [];
   }
 
   function topicNameById(id) {
-    var topics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
+    var topics = topicMeta();
     for (var i = 0; i < topics.length; i++) {
       if (topics[i].id === id) return topics[i].name;
     }
@@ -134,17 +136,6 @@
     return set;
   }
 
-  function getQuizCorrectSet(topicId) {
-    var set = {};
-    try {
-      var arr = JSON.parse(localStorage.getItem(QUIZ_CORR_PREFIX + topicId) || "null");
-      if (Array.isArray(arr)) {
-        arr.forEach(function (k) { set[String(k).trim().toLowerCase()] = 1; });
-      }
-    } catch (e) {}
-    return set;
-  }
-
   // Trả về 3 nhóm từ đã được ghi nhận:
   //   full    = thuộc nghĩa + phát âm (100%)
   //   meaning = làm đúng Quiz / ghi nhớ đúng nghĩa, chưa kiểm tra phát âm (50%)
@@ -158,10 +149,9 @@
       var baseKey = LEARN_PREFIX + scope + "_" + t.id;
       var answered = getIdxSet(baseKey + "_CORR");
       var pron = getIdxSet(baseKey + "_PRON");
-      var qc = getQuizCorrectSet(t.id);
       for (var i = 0; i < words.length; i++) {
         var w = words[i] || {};
-        var hasAnswer = !!answered[i] || !!qc[String(w.en || "").trim().toLowerCase()];
+        var hasAnswer = !!answered[i];
         var hasPron = !!pron[i];
         if (!hasAnswer && !hasPron) continue;
         var rec = { en: w.en || "", vi: w.vi || "", topic: t.name || t.id };
@@ -317,21 +307,14 @@
 
   function resetData() {
     var scope = getUser() || "guest";
-    var rawTopics = (typeof EngBeeData !== "undefined" && Array.isArray(EngBeeData.topics)) ? EngBeeData.topics : [];
-    rawTopics.forEach(function (t) {
-      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id);
-      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id + "_PRON");
-      localStorage.removeItem(LEARN_PREFIX + scope + "_" + t.id + "_CORR");
-      localStorage.removeItem(LEARN_PREFIX + t.id);
-      localStorage.removeItem("eb_learned_" + t.id);
-      localStorage.removeItem(QUIZ_CORR_PREFIX + t.id);
+    lightTopics().forEach(function (id) {
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + id);
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + id + "_PRON");
+      localStorage.removeItem(LEARN_PREFIX + scope + "_" + id + "_CORR");
     });
-    localStorage.removeItem("engbee_quiz_history_" + scope);
-    localStorage.removeItem("engbee_quiz_best_" + scope);
-    localStorage.removeItem("engbee_quiz_history");
-    localStorage.removeItem("engbee_quiz_best");
-    localStorage.removeItem("eb_quiz_history");
-    localStorage.removeItem(PRON_KEY);
+    localStorage.removeItem(QUIZ_HIST_PREFIX + scope);
+    localStorage.removeItem(QUIZ_BEST_PREFIX + scope);
+    localStorage.removeItem(PRON_PREFIX + scope);
     renderAll();
   }
 

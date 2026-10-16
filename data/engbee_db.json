@@ -1,6 +1,111 @@
 {
-  "users": {},
-  "quizHistory": [],
+  "users": {
+    "học viên #4993": {
+      "name": "Học viên #4993",
+      "firstSeen": 1792150051066,
+      "lastActive": 1792155388381,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #6567": {
+      "name": "Học viên #6567",
+      "firstSeen": 1792156222771,
+      "lastActive": 1792156222771,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #7740": {
+      "name": "Học viên #7740",
+      "firstSeen": 1792156257801,
+      "lastActive": 1792156257801,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #3853": {
+      "name": "Học viên #3853",
+      "firstSeen": 1792156281101,
+      "lastActive": 1792156281101,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #7286": {
+      "name": "Học viên #7286",
+      "firstSeen": 1792156282959,
+      "lastActive": 1792156282959,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #9707": {
+      "name": "Học viên #9707",
+      "firstSeen": 1792156284299,
+      "lastActive": 1792156284299,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #3990": {
+      "name": "Học viên #3990",
+      "firstSeen": 1792161865088,
+      "lastActive": 1792161865088,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "phạm thị yến nhi": {
+      "name": "Phạm Thị Yến Nhi",
+      "firstSeen": 1792162446766,
+      "lastActive": 1792173872201,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 1,
+      "totalQuizzes": 1,
+      "totalPron": 1,
+      "bestPron": 51
+    },
+    "học viên #9591": {
+      "name": "Học viên #9591",
+      "firstSeen": 1792173873384,
+      "lastActive": 1792173883464,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    }
+  },
+  "quizHistory": [
+    {
+      "id": "q_1792171705646_9163",
+      "userName": "Phạm Thị Yến Nhi",
+      "topicId": "weather",
+      "modeName": "Weather",
+      "correct": 1,
+      "total": 10,
+      "pct": 10,
+      "score": 1,
+      "ts": 1792171705646
+    }
+  ],
   "admin": {
     "editedWords": {},
     "addedWords": {
@@ -57,7 +162,56 @@
         "desc": "Từ vựng tiếng Anh chủ đề gia đình"
       }
     ],
-    "lastUpdate": 1792153388166,
+    "lastUpdate": 1792162959981,
     "topicEdits": {}
-  }
+  },
+  "pronounceHistory": [
+    {
+      "id": "p_1792166457033_2474",
+      "userName": "Phạm Thị Yến Nhi",
+      "topicId": "food",
+      "modeName": "Food",
+      "avg": 51,
+      "good": 3,
+      "total": 10,
+      "weak": [
+        {
+          "en": "sour",
+          "vi": "chua",
+          "best": 25
+        },
+        {
+          "en": "bitter",
+          "vi": "đắng",
+          "best": 50
+        },
+        {
+          "en": "delicious",
+          "vi": "ngon",
+          "best": 0
+        },
+        {
+          "en": "lunch",
+          "vi": "bữa trưa",
+          "best": 20
+        },
+        {
+          "en": "pork",
+          "vi": "thịt lợn",
+          "best": 50
+        },
+        {
+          "en": "taste",
+          "vi": "vị",
+          "best": 60
+        },
+        {
+          "en": "leftover",
+          "vi": "thức ăn thừa",
+          "best": 0
+        }
+      ],
+      "ts": 1792166457033
+    }
+  ]
 }

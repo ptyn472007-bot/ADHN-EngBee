@@ -7,135 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EngBee - Quiz tu vung chu de Sports</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
-body{font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;line-height:1.6;color:#1f2937;background:#f6f7fb;display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
-main{flex:1}
-.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
-.navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
-.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
-.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
-.logo-icon{width:34px;height:34px}
-.nav-links{display:flex;flex-wrap:wrap;align-items:center}
-.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:#f0a500}
-.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
-.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
-.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
-.footer p{margin:4px 0}
-.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
-.footer-contact a{color:#f7b733;text-decoration:none}
-.footer-contact a:hover{color:#fff}
-.footer-copy{font-size:.9rem;margin-top:4px}
-@media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
-@media(max-width:440px){.logo{font-size:1.25rem}.nav-links a{margin:4px 8px}}
-
-/* ===== EngBee quiz.css (self-contained) ===== */
-.quiz-hero{position:relative;overflow:hidden;color:#fff;padding:52px 0 40px;background:linear-gradient(135deg,var(--g1,#f0a500),var(--g2,#ff7e00))}
-.quiz-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,rgba(255,255,255,.35),transparent 55%),radial-gradient(circle at 8% 120%,rgba(255,255,255,.25),transparent 45%);pointer-events:none}
-.deco{position:absolute;border-radius:50%;background:rgba(255,255,255,.14);pointer-events:none}
-.deco-a{width:220px;height:220px;top:-70px;right:-40px}
-.deco-b{width:140px;height:140px;bottom:-50px;left:-30px}
-.quiz-hero-inner{position:relative;z-index:1;text-align:center}
-.quiz-hero .eyebrow{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);padding:6px 18px;border-radius:999px;font-size:.85rem;font-weight:600;letter-spacing:.4px;margin-bottom:14px;backdrop-filter:blur(4px)}
-.quiz-hero h1{font-size:clamp(1.6rem,4.5vw,2.5rem);font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.18)}
-.hero-sub{max-width:620px;margin:12px auto 0;color:rgba(255,255,255,.95);font-size:clamp(.95rem,2vw,1.05rem)}
-.topic-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px}
-.topic-pill{display:flex;align-items:center;gap:10px;border:none;cursor:pointer;background:#fff;color:var(--ink,#1f2937);text-decoration:none;padding:8px 18px 8px 8px;border-radius:999px;font-family:inherit;font-size:.95rem;box-shadow:0 4px 14px rgba(0,0,0,.12);transition:transform .2s,box-shadow .2s;min-height:52px}
-.topic-pill:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.18)}
-.topic-pill.active{color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(-3px)}
-.pill-badge{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;flex:none;background:linear-gradient(135deg,#f0a500,#ff7e00)}
-.pill-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
-.pill-text strong{font-size:.95rem;font-weight:700}
-.pill-text small{font-size:.72rem;opacity:.78}
-.topic-pill.active .pill-badge{background:rgba(255,255,255,.28)!important}
-.quiz-wrap{padding:36px 0 80px}
-.quiz-card{background:#fff;border:1px solid #eef0f6;border-radius:22px;box-shadow:0 16px 48px rgba(16,26,51,.10);padding:30px 28px;max-width:760px;margin:0 auto}
-.qz-screen{display:none}
-.qz-screen.active{display:block;animation:qzIn .35s ease}
-@keyframes qzIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.qz-start{border-radius:16px;background:#fff}
-.qz-start-head{text-align:center;margin-bottom:26px;padding:10px 0 4px}
-.qz-start-head h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800}
-.qz-start-head p{color:#6b7280;margin-top:6px;font-size:.95rem}
-.qz-start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px}
-.qz-stat{border:1px solid #eef0f6;border-radius:16px;padding:16px 18px;text-align:center;background:linear-gradient(180deg,#fff, #fafbfe)}
-.qz-stat b{display:block;font-size:1.7rem;font-weight:800}
-.qz-stat span{color:#6b7280;font-size:.82rem;font-weight:600}
-.qz-stat.hot b{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.qz-start-cta{text-align:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;border-radius:14px;padding:14px 26px;transition:transform .2s,box-shadow .2s,opacity .2s;text-decoration:none}
-.btn:active{transform:scale(.98)}
-.btn-start{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 10px 24px rgba(16,26,51,.18);font-size:1.08rem;padding:16px 40px}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(16,26,51,.22)}
-.btn-plain{background:#eef1f8;color:#374151}
-.btn-amber{background:linear-gradient(135deg,#f0a500,#ff7e00);color:#fff}
-.btn-ghost{background:transparent;color:#6b7280;border:1px solid #d8dcea}
-.qz-history{margin-top:26px;border-top:1px dashed #e8e2d4;padding-top:18px}
-.qz-history h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.6px;color:#9aa1b5;margin-bottom:10px;font-weight:700}
-.qz-history-list{display:flex;flex-direction:column;gap:8px}
-.qz-history-row{display:flex;align-items:center;gap:12px;background:#f7f8fc;border:1px solid #eef0f6;border-radius:12px;padding:10px 14px;font-size:.9rem}
-.qz-history-row .dot{width:9px;height:9px;border-radius:50%;flex:none}
-.qz-history-row .score{font-weight:800;color:var(--ink,#1f2937);margin-left:auto}
-.qz-history-row .date{color:#9aa1b5;font-size:.78rem}
-.qz-empty{color:#9aa1b5;font-size:.88rem}
-/* ---- question ---- */
-.qz-q-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.qz-progress-pill{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-weight:800;font-size:.82rem;padding:6px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.14)}
-.qz-progress{flex:1;height:10px;border-radius:999px;background:#eef1f8;overflow:hidden}
-.qz-progress-fill{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .35s ease}
-.qz-score-pill{font-size:.82rem;font-weight:700;color:#374151;background:#eef1f8;padding:6px 12px;border-radius:999px;white-space:nowrap}
-.qz-word{border:1px solid #eef0f6;border-radius:18px;padding:26px 20px;text-align:center;background:linear-gradient(180deg,#fff,#fafbfe);margin-bottom:18px;position:relative}
-.qz-word-flag{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;color:#9aa1b5;background:#f2f4f9;padding:4px 10px;border-radius:999px;letter-spacing:.4px}
-.qz-word-ipa{font-size:1.05rem;color:#6b7280;margin-top:4px}
-.qz-word-en{font-size:clamp(1.7rem,5vw,2.3rem);font-weight:800}
-.qz-speak{display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:700;color:#374151;background:#fff;border:1px solid #d8dcea;border-radius:999px;padding:8px 18px;margin-top:12px;transition:all .2s}
-.qz-speak:hover{background:#eef1f8;transform:translateY(-1px)}
-.qz-answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.qz-answers{grid-template-columns:1fr}}
-.qz-answer{border:2px solid #e3e7f0;background:#fff;border-radius:14px;padding:14px 16px;font-family:inherit;font-size:1rem;font-weight:600;color:var(--ink,#1f2937);cursor:pointer;text-align:left;transition:all .18s;position:relative;min-height:56px;display:flex;align-items:center;gap:12px}
-.qz-answer .qz-lbl{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#eef1f8;color:#374151;font-weight:800;font-size:.9rem;flex:none}
-.qz-answer .qz-val{flex:1}
-.qz-answer:hover:not(:disabled){border-color:var(--g1);transform:translateY(-2px);box-shadow:0 6px 16px rgba(16,26,51,.08)}
-.qz-answer:disabled{cursor:default}
-.qz-answer.correct{border-color:#22b573;background:#e9f9ef;color:#157a4d}
-.qz-answer.correct::after{content:"✓";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:800;color:#22b573}
-.qz-answer.wrong{border-color:#ef4444;background:#fdecec;color:#b91c1c}
-.qz-answer.wrong::after{content:"✕";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:800;color:#ef4444}
-.qz-feedback{border-radius:14px;padding:14px 18px;margin-top:16px;font-weight:600;display:none}
-.qz-feedback.show{display:block;animation:qzIn .3s ease}
-.qz-feedback.good{background:#e9f9ef;color:#157a4d;border:1px solid #b8ecd0}
-.qz-feedback.bad{background:#fdecec;color:#b91c1c;border:1px solid #f6c6c6}
-.qz-feedback strong{font-weight:800}
-.qz-next-row{display:flex;justify-content:flex-end;margin-top:18px}
-.btn-next{background:#fff;color:#4b5563;border:1px solid #c3cad9;box-shadow:0 4px 12px rgba(16,26,51,.08);pointer-events:none}
-.btn-next.ready{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(16,26,51,.18);pointer-events:auto}
-.btn-next.ready:hover{transform:translateY(-2px)}
-.qz-hint{text-align:center;color:#9aa1b5;font-size:.82rem;margin-top:16px}
-.qz-ex{margin-top:8px;font-size:.88rem;font-weight:400;opacity:.92;border-top:1px dashed rgba(21,122,77,.3);padding-top:8px}
-/* ---- result ---- */
-.qz-result{padding:6px 0}
-.qz-score-ring{width:150px;height:150px;margin:0 auto 18px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--g1) calc(var(--p,0)*1%), #eef1f8 0)}
-.qz-score-ring::before{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}
-.qz-score-ring b{position:relative;font-size:2rem;font-weight:800}
-.qz-score-ring span{position:relative;font-size:.75rem;color:#9aa1b5;font-weight:700;letter-spacing:.5px}
-.qz-result-title{text-align:center}
-.qz-result-title h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800}
-.qz-result-title p{color:#6b7280;margin-top:4px}
-.qz-result-title .flag{display:inline-block;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-size:.8rem;font-weight:800;padding:6px 16px;border-radius:999px;margin-top:12px}
-.qz-result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
-.qz-result-stats .qz-stat{padding:14px 10px}
-.qz-result-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-
-</style>
+<link rel="stylesheet" href="assets/css/quiz-page.css">
   <script src="assets/js/engbee-admin-data.js"></script>
+<script src="assets/data/quiz-sports.js"></script>
 </head>
 <body>
 <header class="navbar">
   <div class="container navbar-inner">
     <a href="index.html" class="logo" title="EngBee - Khóa học Tiếng Anh">
-      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff3cc"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#f0a500"/><rect x="17" y="30" width="9" height="6" fill="#8a5a00" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8a5a00" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#f5b200"/><circle cx="12" cy="34" r="2" fill="#3a2a00"/><circle cx="18" cy="32" r="2" fill="#3a2a00"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#3a2a00" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
+      <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fdf3da"/><ellipse cx="32" cy="40" rx="22" ry="18" fill="#c98a0e"/><rect x="17" y="30" width="9" height="6" fill="#8f6608" opacity="0.5"/><rect x="17" y="42" width="9" height="6" fill="#8f6608" opacity="0.5"/><circle cx="15" cy="38" r="11" fill="#e0a52a"/><circle cx="12" cy="34" r="2" fill="#374151"/><circle cx="18" cy="32" r="2" fill="#374151"/><path d="M13,41 Q15,45 18,41" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="7" ry="13" fill="#ffffff" transform="rotate(-20 44 22)"/><ellipse cx="52" cy="30" rx="6" ry="11" fill="#ffffff" transform="rotate(12 52 30)"/></svg>
       <span>EngBee</span>
     </a>
     <nav class="nav-links">
@@ -157,7 +37,7 @@ main{flex:1}
         <p class="eyebrow">Quiz - Thể thao · 10 câu hỏi · 4 lựa chọn</p>
         <h1>Quiz từ vựng chủ đề Sports</h1>
         <p class="hero-sub">50 từ trong chủ đề Sports được trộn ngẫu nhiên thành 10 câu hỏi, mỗi câu có 4 lựa chọn. Trả lời đúng càng nhiều càng tốt — điểm số sẽ được lưu lại để bạn luyện tập.</p>
-        <div class="topic-pills"><a class="topic-pill" href="quiz-all.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f0a500,#ff7e00)">⚡</span><span class="pill-text"><strong>Quiz tổng hợp</strong><small>12 chủ đề - 600 từ</small></span></a><a class="topic-pill" href="quiz-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="quiz-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="quiz-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="quiz-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="quiz-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill active" href="quiz-sports.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="quiz-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="quiz-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="quiz-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="quiz-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="quiz-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="quiz-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
+        <div class="topic-pills"><a class="topic-pill" href="quiz-all.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#c98a0e,#e0a52a)">⚡</span><span class="pill-text"><strong>Quiz tổng hợp</strong><small>12 chủ đề - 600 từ</small></span></a><a class="topic-pill" href="quiz-travel.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">T</span><span class="pill-text"><strong>Travel</strong><small>Du lịch - 50 từ</small></span></a><a class="topic-pill" href="quiz-food.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f6d365,#fda085)">F</span><span class="pill-text"><strong>Food</strong><small>Ẩm thực - 50 từ</small></span></a><a class="topic-pill" href="quiz-work.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#5f72bd,#9b23ea)">W</span><span class="pill-text"><strong>Work</strong><small>Công việc - 50 từ</small></span></a><a class="topic-pill" href="quiz-school.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#7f7fd5,#86a8e7)">S</span><span class="pill-text"><strong>School</strong><small>Trường học - 50 từ</small></span></a><a class="topic-pill" href="quiz-nature.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">N</span><span class="pill-text"><strong>Nature</strong><small>Thiên nhiên - 50 từ</small></span></a><a class="topic-pill active" href="quiz-sports.html" aria-current="true"><span class="pill-badge" style="background:linear-gradient(135deg,#f7971e,#ffd200)">S</span><span class="pill-text"><strong>Sports</strong><small>Thể thao - 50 từ</small></span></a><a class="topic-pill" href="quiz-health.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f953c6,#b91d73)">H</span><span class="pill-text"><strong>Health</strong><small>Sức khỏe - 50 từ</small></span></a><a class="topic-pill" href="quiz-technology.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#30cfd0,#330867)">T</span><span class="pill-text"><strong>Technology</strong><small>Công nghệ - 50 từ</small></span></a><a class="topic-pill" href="quiz-music.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">M</span><span class="pill-text"><strong>Music</strong><small>Âm nhạc - 50 từ</small></span></a><a class="topic-pill" href="quiz-movie.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f43f5e,#ef4444)">M</span><span class="pill-text"><strong>Movie</strong><small>Phim ảnh - 50 từ</small></span></a><a class="topic-pill" href="quiz-weather.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#0ea5e9,#22d3ee)">W</span><span class="pill-text"><strong>Weather</strong><small>Thời tiết - 50 từ</small></span></a><a class="topic-pill" href="quiz-shopping.html" aria-current="false"><span class="pill-badge" style="background:linear-gradient(135deg,#f97316,#ef4444)">S</span><span class="pill-text"><strong>Shopping</strong><small>Mua sắm - 50 từ</small></span></a></div>
       </div>
     </div>
   </section>
@@ -254,7 +134,7 @@ main{flex:1}
 (function(){
   "use strict";
   function qs(s){return document.querySelector(s);}
-  var WORDS = [{"en":"sport","ipa":"/spɔːrt/","vi":"thể thao","ex":"Sport keeps our body healthy.","exvi":"Thể thao giữ cho cơ thể khỏe mạnh."},{"en":"exercise","ipa":"/ˈeksərsaɪz/","vi":"tập luyện","ex":"Morning exercise wakes up my body.","exvi":"Tập luyện buổi sáng đánh thức cơ thể tôi."},{"en":"team","ipa":"/tiːm/","vi":"đội nhóm","ex":"Our team won the match.","exvi":"Đội của chúng tôi đã thắng trận đấu."},{"en":"player","ipa":"/ˈpleɪər/","vi":"cầu thủ","ex":"Each player trains hard daily.","exvi":"Mỗi cầu thủ luyện tập chăm chỉ hằng ngày."},{"en":"coach","ipa":"/koʊtʃ/","vi":"huấn luyện viên","ex":"The coach gave us new tactics.","exvi":"Huấn luyện viên đưa ra chiến thuật mới."},{"en":"referee","ipa":"/ˌrefəˈriː/","vi":"trọng tài","ex":"The referee blew the whistle.","exvi":"Trọng tài đã thổi còi."},{"en":"match","ipa":"/mætʃ/","vi":"trận đấu","ex":"The match ended in a draw.","exvi":"Trận đấu kết thúc với tỉ số hòa."},{"en":"goal","ipa":"/ɡoʊl/","vi":"bàn thắng","ex":"He scored the winning goal.","exvi":"Anh ấy ghi bàn thắng quyết định."},{"en":"victory","ipa":"/ˈvɪktəri/","vi":"chiến thắng","ex":"Their victory was well deserved.","exvi":"Chiến thắng của họ hoàn toàn xứng đáng."},{"en":"defeat","ipa":"/dɪˈfiːt/","vi":"sự thất bại","ex":"The team suffered a defeat.","exvi":"Đội bóng đã chịu một thất bại."},{"en":"champion","ipa":"/ˈtʃæmpiən/","vi":"nhà vô địch","ex":"She became the swimming champion.","exvi":"Cô ấy trở thành nhà vô địch bơi lội."},{"en":"tournament","ipa":"/ˈtɜːrnəmənt/","vi":"giải đấu","ex":"The tournament lasts two weeks.","exvi":"Giải đấu kéo dài hai tuần."},{"en":"competition","ipa":"/ˌkɑːmpəˈtɪʃn/","vi":"cuộc thi","ex":"Competition is fierce this year.","exvi":"Sự cạnh tranh năm nay rất gay gắt."},{"en":"stadium","ipa":"/ˈsteɪdiəm/","vi":"sân vận động","ex":"The stadium can hold fifty thousand fans.","exvi":"Sân vận động có thể chứa năm mươi nghìn người hâm mộ."},{"en":"field","ipa":"/fiːld/","vi":"sân thi đấu","ex":"Players warmed up on the field.","exvi":"Các cầu thủ khởi động trên sân."},{"en":"track","ipa":"/træk/","vi":"đường chạy","ex":"Runners gathered on the track.","exvi":"Các vận động viên chạy tập trung trên đường chạy."},{"en":"court","ipa":"/kɔːrt/","vi":"sân (bóng rổ, quần vợt)","ex":"Let us play basketball on the court.","exvi":"Chúng ta chơi bóng rổ trên sân nhé."},{"en":"ball","ipa":"/bɔːl/","vi":"quả bóng","ex":"Pass the ball to me.","exvi":"Chuyền bóng cho tôi."},{"en":"kick","ipa":"/kɪk/","vi":"đá","ex":"He kicked the ball into the goal.","exvi":"Anh ấy sút bóng vào khung thành."},{"en":"throw","ipa":"/θroʊ/","vi":"ném","ex":"Throw the ball to the basket.","exvi":"Ném bóng vào rổ."},{"en":"catch","ipa":"/kætʃ/","vi":"bắt bóng","ex":"Catch the ball with both hands.","exvi":"Bắt bóng bằng cả hai tay."},{"en":"run","ipa":"/rʌn/","vi":"chạy","ex":"I run five kilometers every day.","exvi":"Tôi chạy năm ki-lô-mét mỗi ngày."},{"en":"jump","ipa":"/dʒʌmp/","vi":"nhảy","ex":"The player jumped high for the ball.","exvi":"Cầu thủ nhảy cao để bắt bóng."},{"en":"swim","ipa":"/swɪm/","vi":"bơi","ex":"They swim in the pool every morning.","exvi":"Họ bơi trong hồ bơi mỗi buổi sáng."},{"en":"cycling","ipa":"/ˈsaɪklɪŋ/","vi":"môn đạp xe","ex":"Cycling is good for the heart.","exvi":"Đạp xe rất tốt cho tim."},{"en":"boxing","ipa":"/ˈbɑːksɪŋ/","vi":"quyền anh","ex":"Boxing requires strength and speed.","exvi":"Quyền anh đòi hỏi sức mạnh và tốc độ."},{"en":"wrestling","ipa":"/ˈreslɪŋ/","vi":"đấu vật","ex":"Wrestling is popular in some countries.","exvi":"Đấu vật phổ biến ở một số quốc gia."},{"en":"karate","ipa":"/kəˈrɑːti/","vi":"võ karate","ex":"Karate teaches discipline and focus.","exvi":"Karate dạy kỷ luật và sự tập trung."},{"en":"yoga","ipa":"/ˈjoʊɡə/","vi":"yoga","ex":"Yoga helps me relax after work.","exvi":"Yoga giúp tôi thư giãn sau giờ làm."},{"en":"gym","ipa":"/dʒɪm/","vi":"phòng tập","ex":"I go to the gym three times a week.","exvi":"Tôi đến phòng tập ba lần một tuần."},{"en":"marathon","ipa":"/ˈmærəθɑːn/","vi":"cuộc thi chạy marathon","ex":"She ran the city marathon last year.","exvi":"Cô ấy đã chạy marathon của thành phố năm ngoái."},{"en":"opponent","ipa":"/əˈpoʊnənt/","vi":"đối thủ","ex":"He respects every opponent he faces.","exvi":"Anh ấy tôn trọng mọi đối thủ mình gặp."},{"en":"medal","ipa":"/ˈmedl/","vi":"huy chương","ex":"The team won a gold medal.","exvi":"Đội đã giành được huy chương vàng."},{"en":"trophy","ipa":"/ˈtroʊfi/","vi":"chiếc cúp","ex":"The trophy is made of silver.","exvi":"Chiếc cúp được làm bằng bạc."},{"en":"practice","ipa":"/ˈpræktɪs/","vi":"luyện tập","ex":"Practice makes perfect.","exvi":"Luyện tập tạo nên sự hoàn hảo."},{"en":"warmup","ipa":"/ˈwɔːrm ʌp/","vi":"khởi động","ex":"Do a warmup before running.","exvi":"Khởi động trước khi chạy."},{"en":"fitness","ipa":"/ˈfɪtnəs/","vi":"sự khỏe khoắn","ex":"Running improves your fitness.","exvi":"Chạy bộ cải thiện sức khỏe của bạn."},{"en":"health","ipa":"/helθ/","vi":"sức khỏe","ex":"Sport is great for your health.","exvi":"Thể thao rất tốt cho sức khỏe."},{"en":"muscle","ipa":"/ˈmʌsl/","vi":"cơ bắp","ex":"Weight training builds muscle.","exvi":"Tập tạ giúp phát triển cơ bắp."},{"en":"injury","ipa":"/ˈɪndʒəri/","vi":"chấn thương","ex":"He recovered from a knee injury.","exvi":"Anh ấy đã bình phục sau chấn thương đầu gối."},{"en":"goalkeeper","ipa":"/ˈɡoʊlkiːpər/","vi":"thủ môn","ex":"The goalkeeper saved the penalty.","exvi":"Thủ môn đã cản phá quả phạt đền."},{"en":"strength","ipa":"/streŋθ/","vi":"sức mạnh","ex":"Strength matters in weightlifting.","exvi":"Sức mạnh quan trọng trong môn cử tạ."},{"en":"agility","ipa":"/əˈdʒɪləti/","vi":"sự nhanh nhẹn","ex":"Agility helps in badminton.","exvi":"Sự nhanh nhẹn giúp ích trong môn cầu lông."},{"en":"endurance","ipa":"/ɪnˈdʊrəns/","vi":"sức bền","ex":"Long races test your endurance.","exvi":"Những cuộc đua dài thử thách sức bền của bạn."},{"en":"spectator","ipa":"/ˈspekteɪtər/","vi":"khán giả","ex":"Spectators cheered loudly.","exvi":"Khán giả cổ vũ rất lớn."},{"en":"final","ipa":"/ˈfaɪnl/","vi":"trận chung kết","ex":"The final was exciting to watch.","exvi":"Trận chung kết xem rất gay cấn."},{"en":"tie","ipa":"/taɪ/","vi":"trận hòa","ex":"The game ended in a tie.","exvi":"Trận đấu kết thúc với tỉ số hòa."},{"en":"whistle","ipa":"/ˈwɪsl/","vi":"còi","ex":"The referee blew the final whistle.","exvi":"Trọng tài thổi còi kết thúc trận đấu."},{"en":"jersey","ipa":"/ˈdʒɜːrzi/","vi":"áo thi đấu","ex":"Players wear matching jerseys.","exvi":"Các cầu thủ mặc áo thi đấu đồng bộ."},{"en":"championship","ipa":"/ˈtʃæmpiənʃɪp/","vi":"chức vô địch","ex":"They are fighting for the championship title.","exvi":"Họ đang tranh giành chức vô địch."}];
+  var WORDS = window.EngBeePageWords || [];
   var WORDS_BASE = WORDS.slice();
   WORDS = window.EngBeeAdminData ? window.EngBeeAdminData.apply("sports", WORDS) : WORDS;
   var TID = "sports", TNAME = "Sports", G1 = "#f7971e", G2 = "#ffd200";
@@ -267,9 +147,21 @@ main{flex:1}
   function saveHistory(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(0,60)));}catch(e){}}
   function recordQuizCorrect(en){
     if(!TID||TID==="all"||!en)return;
+    var k=String(en).trim().toLowerCase();
+    var scope=(function(){try{var p=JSON.parse(localStorage.getItem("engbee_user")||"null");if(p&&typeof p.name==="string"&&p.name.trim())return p.name.trim();}catch(e){}return "guest";})();
+    try{
+      var lk="engbee_learned_"+scope+"_"+TID+"_CORR",la=[];
+      try{la=JSON.parse(localStorage.getItem(lk)||"[]");}catch(e){}
+      if(!Array.isArray(la))la=[];
+      for(var i=0;i<WORDS.length;i++){
+        if(String(WORDS[i]&&WORDS[i].en).trim().toLowerCase()===k){
+          if(la.indexOf(i)===-1){la.push(i);try{localStorage.setItem(lk,JSON.stringify(la));}catch(e){}}
+          break;
+        }
+      }
+    }catch(e){}
     var ckey="engbee_quiz_corr_"+TID,ca=[];
     try{ca=JSON.parse(localStorage.getItem(ckey)||"[]");}catch(e){}
-    var k=String(en).trim().toLowerCase();
     if(ca.indexOf(k)===-1)ca.push(k);
     try{localStorage.setItem(ckey,JSON.stringify(ca.slice(-120)));}catch(e){}
   }

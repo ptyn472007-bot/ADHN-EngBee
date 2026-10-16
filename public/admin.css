@@ -1,26 +1,26 @@
 /* =========================================================
    EngBee - Trang quản trị
-   Màu lấy đúng từ website: mật ong #f0a500 -> #ffb52e
-   nền #f9fafb, chữ #333, bo góc 12px, chữ Arial
+   Màu lấy đúng từ website: mật ong #c98a0e -> #e6b23a
+   nền #f9fafb, chữ #374151, bo góc 12px, chữ Arial
    ========================================================= */
 
 /* ---------- 1. BIẾN MÀU CỦA WEB ---------- */
 :root {
-  --bee: #f0a500;
-  --bee-light: #ffb52e;
-  --bee-dark: #d99400;
-  --bee-darker: #b07f00;
-  --bee-soft: #fff8e6;
-  --bee-soft-2: #d9b45b;
+  --bee: #c98a0e;
+  --bee-light: #e6b23a;
+  --bee-dark: #b87f0a;
+  --bee-darker: #8f6608;
+  --bee-soft: #fdf6e6;
+  --bee-soft-2: #e0c98a;
 
   --bg: #f9fafb;
   --card: #ffffff;
-  --text: #333333;
-  --text-dark: #222222;
-  --muted: #888888;
-  --border: #eeeeee;
-  --border-2: #dddddd;
-  --danger: #d94f4f;
+  --text: #374151;
+  --text-dark: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --border-2: #d1d5db;
+  --danger: #dc2626;
   --success: #2e7d32;
 
   --radius: 12px;
@@ -57,7 +57,7 @@
   display: grid;
   place-items: center;
   padding: 20px;
-  background: linear-gradient(135deg, #f0a500 0%, #ffb52e 45%, #ffd77a 100%);
+  background: linear-gradient(135deg, #c98a0e 0%, #e6b23a 45%, #f0dca0 100%);
   position: relative;
 }
 
@@ -174,8 +174,8 @@
 .sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
-  background: #222;
-  color: #ccc;
+  background: #1f2937;
+  color: #d1d5db;
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -209,7 +209,7 @@
 }
 
 .brand__text strong { display: block; color: #fff; font-size: 17px; }
-.brand__text span { font-size: 12px; color: #999; }
+.brand__text span { font-size: 12px; color: #9ca3af; }
 
 .sidebar__nav { flex: 1; padding: 14px 12px; overflow-y: auto; }
 
@@ -217,7 +217,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #777;
+  color: #6b7280;
   padding: 14px 10px 6px;
 }
 
@@ -229,7 +229,7 @@
   padding: 11px 12px;
   border: none;
   background: transparent;
-  color: #ccc;
+  color: #d1d5db;
   border-radius: var(--radius-sm);
   font-size: 14px;
   text-align: left;
@@ -239,7 +239,7 @@
   transition: 0.2s;
 }
 
-.nav__item:hover { background: #333; color: #fff; }
+.nav__item:hover { background: #374151; color: #fff; }
 
 .nav__item.is-active {
   background: linear-gradient(135deg, var(--bee), var(--bee-light));
@@ -252,9 +252,9 @@
 .sidebar__footer { padding: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
 
 .lock-badge {
-  background: rgba(240, 165, 0, 0.18);
-  border: 1px solid rgba(240, 165, 0, 0.45);
-  color: #ffd77a;
+  background: rgba(201, 138, 14, 0.18);
+  border: 1px solid rgba(201, 138, 14, 0.45);
+  color: #f0dca0;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
@@ -267,13 +267,13 @@
   display: block;
   text-align: center;
   padding: 9px;
-  border: 1px solid #555;
+  border: 1px solid #4b5563;
   border-radius: var(--radius-sm);
-  color: #ccc;
+  color: #d1d5db;
   font-size: 13px;
 }
 
-.btn-reset-data:hover { background: #333; color: #fff; }
+.btn-reset-data:hover { background: #374151; color: #fff; }
 
 .sidebar-overlay {
   display: none;
@@ -329,7 +329,7 @@
   place-items: center;
 }
 
-.icon-btn:hover { background: #f4f4f4; }
+.icon-btn:hover { background: #f3f4f6; }
 
 .menu-toggle { display: none; }
 
@@ -348,13 +348,13 @@
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(240, 165, 0, 0.35);
+  box-shadow: 0 6px 16px rgba(201, 138, 14, 0.35);
 }
 
 .btn-primary.btn-sm { padding: 9px 16px; font-size: 13px; }
 
 .btn-primary.btn-danger {
-  background: linear-gradient(135deg, #d94f4f, #e87373);
+  background: linear-gradient(135deg, #dc2626, #ef4444);
 }
 
 .btn-outline {
@@ -367,7 +367,7 @@
   font-size: 13px;
 }
 
-.btn-outline:hover { background: #f4f4f4; }
+.btn-outline:hover { background: #f3f4f6; }
 
 /* Nút nhỏ trong bảng */
 .btn-edit,
@@ -380,7 +380,7 @@
   transition: 0.2s;
 }
 
-.btn-edit { background: var(--bee-soft); color: var(--bee-darker); border-color: #f3dfb0; }
+.btn-edit { background: var(--bee-soft); color: var(--bee-darker); border-color: #edd9a6; }
 .btn-edit:hover { background: var(--bee); color: #fff; }
 
 .btn-delete { background: #fdecec; color: var(--danger); border-color: #f5c9c9; }
@@ -456,7 +456,7 @@ html {
 .panel__head {
   padding: 15px 18px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, #fffdf7, #fff);
+  background: linear-gradient(180deg, #fffcf6, #fff);
 }
 
 .panel__head h3 { font-size: 16px; }
@@ -478,7 +478,7 @@ html {
   padding: 10px 18px;
   font-size: 13px;
   color: var(--muted);
-  background: #fffdf7;
+  background: #fffcf6;
   border-bottom: 1px solid var(--border);
 }
 
@@ -518,7 +518,7 @@ html {
 .input:focus {
   outline: none;
   border-color: var(--bee);
-  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.18);
+  box-shadow: 0 0 0 3px rgba(201, 138, 14, 0.18);
 }
 
 .input.is-error { border-color: var(--danger); background: #fff7f7; }
@@ -543,12 +543,12 @@ html {
 .table { width: 100%; border-collapse: collapse; min-width: 760px; }
 
 .table thead th {
-  background: linear-gradient(180deg, #fffdf7, #fff8e6);
+  background: linear-gradient(180deg, #fffcf6, #fdf6e6);
   text-align: left;
   font-size: 13px;
   color: var(--bee-darker);
   padding: 12px 16px;
-  border-bottom: 2px solid #f0dcae;
+  border-bottom: 2px solid #edd9a6;
   white-space: nowrap;
 }
 
@@ -558,7 +558,7 @@ html {
   vertical-align: middle;
 }
 
-.table tbody tr:hover { background: #fffdf7; }
+.table tbody tr:hover { background: #fffcf6; }
 .table tbody tr:last-child td { border-bottom: none; }
 
 .th-stt { width: 60px; }
@@ -582,14 +582,38 @@ html {
   font-weight: bold;
   white-space: nowrap;
 }
-.tag--base { background: #eee; color: #666; }
-.tag--edited { background: #fff3d6; color: var(--bee-darker); }
+.tag--base { background: #e5e7eb; color: #6b7280; }
+.tag--edited { background: #fdf3da; color: var(--bee-darker); }
 .tag--added { background: #e8f5e9; color: var(--success); }
 
 /* Kết quả quiz */
 .tag--good { background: #e8f5e9; color: var(--success); }
-.tag--mid { background: #fff3d6; color: var(--bee-darker); }
+.tag--mid { background: #fdf3da; color: var(--bee-darker); }
 .tag--bad { background: #fdecec; color: var(--danger); }
+
+/* Tab kết quả */
+.result-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+.result-tab {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.result-tab:hover { border-color: var(--bee); color: var(--bee-darker); }
+
+.result-tab.is-active {
+  background: linear-gradient(135deg, var(--bee), #e6b23a);
+  border-color: transparent;
+  color: #fff;
+}
 
 /* ---------- 12. THẺ CHỦ ĐỀ ---------- */
 .topic-grid-admin {
@@ -649,7 +673,7 @@ html {
 .switch__slider {
   position: absolute;
   inset: 0;
-  background: #ccc;
+  background: #d1d5db;
   border-radius: 26px;
   transition: 0.2s;
   cursor: pointer;
@@ -741,7 +765,7 @@ html {
   gap: 10px;
   padding: 14px 20px;
   border-top: 1px solid var(--border);
-  background: #fffdf7;
+  background: #fffcf6;
   border-radius: 0 0 16px 16px;
 }
 
@@ -830,21 +854,21 @@ html {
   min-width: 34px;
   height: 34px;
   padding: 0 10px;
-  border: 1px solid var(--border, #e2e2e2);
+  border: 1px solid var(--border, #e5e7eb);
   background: #fff;
-  color: var(--text, #444);
+  color: var(--text, #4b5563);
   border-radius: 8px;
   font-size: 13px;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .pagination button:hover:not(:disabled):not(.is-active) {
-  border-color: #f0a500;
-  color: #f0a500;
+  border-color: #c98a0e;
+  color: #c98a0e;
 }
 .pagination button.is-active {
-  background: #f0a500;
-  border-color: #f0a500;
+  background: #c98a0e;
+  border-color: #c98a0e;
   color: #fff;
   font-weight: 700;
 }
@@ -854,7 +878,7 @@ html {
 }
 .pagination__ellipsis {
   padding: 0 2px;
-  color: #999;
+  color: #9ca3af;
   line-height: 34px;
 }
 .pagination--center { justify-content: center; }

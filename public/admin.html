@@ -289,26 +289,55 @@
             <span id="resultCountBadge" style="font-size:13px;color:#6b7280;font-weight:600;"></span>
           </div>
 
-          <div class="panel">
-            <div class="table-wrap">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="th-stt">STT</th>
-                    <th>Thời gian</th>
-                    <th>Người học</th>
-                    <th>Chủ đề / Chế độ</th>
-                    <th>Số câu đúng</th>
-                    <th>Điểm (%)</th>
-                    <th>Xếp loại</th>
-                    <th style="text-align:right;">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody id="resultBody"></tbody>
-              </table>
-              <div class="empty" id="resultEmpty" hidden>
-                <h3>Chưa có kết quả Quiz</h3>
-                <p>Khi người học hoàn thành bài quiz, kết quả sẽ hiển thị ở đây.</p>
+          <div class="result-tabs">
+            <button class="result-tab is-active" type="button" data-result-tab="quiz">Quiz trắc nghiệm</button>
+            <button class="result-tab" type="button" data-result-tab="pron">Quiz phát âm</button>
+          </div>
+
+          <div class="result-panel" id="resultPanelQuiz">
+            <div class="panel">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="th-stt">STT</th>
+                      <th>Thời gian</th>
+                      <th>Chủ đề</th>
+                      <th>Số câu đúng</th>
+                      <th>Điểm (%)</th>
+                      <th>Kết quả</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resultBody"></tbody>
+                </table>
+                <div class="empty" id="resultEmpty" hidden>
+                  <h3>Chưa có kết quả Quiz</h3>
+                  <p>Khi người học làm bài, kết quả sẽ hiển thị ở đây.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-panel" id="resultPanelPron" hidden>
+            <div class="panel">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="th-stt">STT</th>
+                      <th>Thời gian</th>
+                      <th>Chủ đề</th>
+                      <th>Số từ đúng</th>
+                      <th>Điểm (%)</th>
+                      <th>Kết quả</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pronBody"></tbody>
+                </table>
+                <div class="empty" id="pronEmpty" hidden>
+                  <h3>Chưa có kết quả phát âm</h3>
+                  <p>Khi người học làm bài kiểm tra phát âm, kết quả sẽ hiển thị ở đây.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -483,8 +512,8 @@
             <div class="form-group">
               <label for="inputTopicG1">Màu Gradient 1</label>
               <div style="display:flex;gap:8px;align-items:center;">
-                <input type="color" id="inputTopicG1Picker" value="#f59e0b" style="width:42px;height:38px;padding:2px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;" />
-                <input type="text" id="inputTopicG1" class="input" placeholder="#f59e0b" value="#f59e0b" autocomplete="off" />
+                <input type="color" id="inputTopicG1Picker" value="#c98a0e" style="width:42px;height:38px;padding:2px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;" />
+                <input type="text" id="inputTopicG1" class="input" placeholder="#c98a0e" value="#c98a0e" autocomplete="off" />
               </div>
             </div>
             <div class="form-group">

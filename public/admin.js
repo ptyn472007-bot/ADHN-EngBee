@@ -15,6 +15,7 @@ const KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // chủ đề mới do 
 const KEY_TOPIC_EDITS = "engbee_admin_topic_edits";   // thông tin chủ đề gốc đã sửa
 const KEY_USER = "engbee_user";                      // người dùng hiện tại
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
+const KEY_PRON_HISTORY = "eb_pron_history";            // lịch sử kiểm tra phát âm
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
 const PREFIX_BEST = "engbee_quiz_best_";              // điểm cao nhất
 const USERS_REGISTRY_KEY = "engbee_users";            // danh sách mọi người đã học
@@ -61,8 +62,7 @@ const el = {
   userSearch: $("userSearch"), userCountBadge: $("userCountBadge"),
   // kết quả
   resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
-  btnRefreshResults: $("btnRefreshResults"), btnClearAllResults: $("btnClearAllResults"),
-  resultSearch: $("resultSearch"), resultCountBadge: $("resultCountBadge"),
+  pronBody: $("pronBody"), pronEmpty: $("pronEmpty"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
   importFile: $("importFile"),
@@ -101,7 +101,7 @@ const VIEW_INFO = {
   words: ["Quản lý từ vựng", "Thêm, sửa từ vựng của các chủ đề"],
   topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
-  results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
+  results: ["Kết quả Quiz", "Lịch sử làm bài trắc nghiệm & kiểm tra phát âm của toàn bộ người học"],
   settings: ["Cài đặt & bảo trì", "Khôi phục hoặc sao lưu dữ liệu trên trình duyệt này"]
 };
 
@@ -180,6 +180,9 @@ async function syncServerStats() {
     }
     if (Array.isArray(data.quizHistory)) {
       try { localStorage.setItem(KEY_QUIZ_HISTORY, JSON.stringify(data.quizHistory)); } catch (e) {}
+    }
+    if (Array.isArray(data.pronounceHistory)) {
+      try { localStorage.setItem(KEY_PRON_HISTORY, JSON.stringify(data.pronounceHistory)); } catch (e) {}
     }
     if (data.admin) {
       if (data.admin.editedWords) try { localStorage.setItem(KEY_EDITED, JSON.stringify(data.admin.editedWords)); } catch (e) {}
@@ -619,7 +622,7 @@ function renderWords() {
 
     tr.innerHTML =
       '<td class="td-stt">' + (start + index + 1) + "</td>" +
-      "<td><b class=\"td-en\">" + esc(w.en) + '</b><br><small style="color:#999">' + esc(row.topic.name) + "</small></td>" +
+      "<td><b class=\"td-en\">" + esc(w.en) + '</b><br><small style="color:#9ca3af">' + esc(row.topic.name) + "</small></td>" +
       '<td class="td-ipa">' + esc(w.ipa) + "</td>" +
       "<td>" + esc(w.vi) + "</td>" +
       "<td>" + statusTag + "</td>" +
@@ -669,8 +672,8 @@ function renderTopics() {
   allTopics().forEach(function (t) {
     const isOff = hidden.indexOf(t.id) !== -1;
     const count = effectiveWords(t.id).length;
-    const g1 = (t.gradient && t.gradient[0]) || t.g1 || "#f0a500";
-    const g2 = (t.gradient && t.gradient[1]) || t.g2 || "#ffb52e";
+    const g1 = (t.gradient && t.gradient[0]) || t.g1 || "#c98a0e";
+    const g2 = (t.gradient && t.gradient[1]) || t.g2 || "#e6b23a";
     const badge = t.emoji ? t.emoji : esc(t.name.slice(0, 1).toUpperCase());
     const isCustom = !!t.isCustom;
 
@@ -871,18 +874,12 @@ function renderUsers() {
 }
 
 function renderResults() {
-  const allHistory = getQuizHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
-  const query = el.resultSearch ? el.resultSearch.value.trim().toLowerCase() : "";
-  const history = query ? allHistory.filter(function (h) {
-    const un = (h.userName || "").toLowerCase();
-    const mn = (h.modeName || h.topicId || "").toLowerCase();
-    return un.indexOf(query) !== -1 || mn.indexOf(query) !== -1;
-  }) : allHistory;
+  renderQuizResults();
+  renderPronResults();
+}
 
-  if (el.resultCountBadge) {
-    el.resultCountBadge.textContent = "Hiển thị: " + history.length + " / " + allHistory.length + " lượt thi";
-  }
-
+function renderQuizResults() {
+  const history = getQuizHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
   el.resultBody.innerHTML = "";
   el.resultEmpty.hidden = history.length > 0;
 
@@ -908,6 +905,31 @@ function renderResults() {
   });
 }
 
+function renderPronResults() {
+  const history = getPronHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+  el.pronBody.innerHTML = "";
+  el.pronEmpty.hidden = history.length > 0;
+
+  history.forEach(function (h, index) {
+    const avg = h.avg || 0;
+    const good = h.good || 0;
+    const total = h.total || 0;
+    const tag = avg >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : avg >= 50 ? '<span class="tag tag--mid">Khá</span>'
+      : '<span class="tag tag--bad">Cần luyện thêm</span>';
+
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="td-stt">' + (index + 1) + "</td>" +
+      "<td>" + esc(fmtTime(h.ts)) + "</td>" +
+      "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
+      "<td>" + good + " / " + total + "</td>" +
+      "<td><b>" + avg + "%</b></td>" +
+      "<td>" + tag + "</td>";
+    el.pronBody.appendChild(tr);
+  });
+}
+
 function getQuizHistory() {
   if (serverStats && Array.isArray(serverStats.quizHistory)) {
     return serverStats.quizHistory;
@@ -916,127 +938,12 @@ function getQuizHistory() {
   return Array.isArray(h) ? h : [];
 }
 
-// Xóa một người học khỏi server và LocalStorage
-async function deleteUser(name) {
-  if (!name) return;
-  try {
-    // 1. Gọi API server
-    if (window.fetch) {
-      await fetch("/api/admin/clear-user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name })
-      });
-    }
-
-    // 2. Dọn LocalStorage
-    const reg = readStore(USERS_REGISTRY_KEY, []);
-    if (Array.isArray(reg)) {
-      const clean = reg.filter(function (u) { return !u || u.name !== name; });
-      localStorage.setItem(USERS_REGISTRY_KEY, JSON.stringify(clean));
-    }
-    localStorage.removeItem(PREFIX_BEST + name);
-    localStorage.removeItem("engbee_quiz_history_" + name);
-
-    // Xóa các key tiến độ học của người này
-    const toRemove = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.indexOf(PREFIX_LEARNED + name + "_") === 0) {
-        toRemove.push(k);
-      }
-    }
-    toRemove.forEach(function (k) { localStorage.removeItem(k); });
-
-    await syncServerStats();
-    showToast("Đã xóa dữ liệu người học: " + name, "success");
-  } catch (e) {
-    showToast("Không thể xóa người học lúc này.", "error");
+function getPronHistory() {
+  if (serverStats && Array.isArray(serverStats.pronounceHistory) && serverStats.pronounceHistory.length > 0) {
+    return serverStats.pronounceHistory;
   }
-}
-
-// Dọn dẹp tất cả tài khoản trống / học viên rác
-async function cleanDummyUsers() {
-  try {
-    let count = 0;
-    if (window.fetch) {
-      const res = await fetch("/api/admin/clean-dummy-users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-      });
-      if (res.ok) {
-        const d = await res.json();
-        if (d && typeof d.removedCount === "number") count = d.removedCount;
-      }
-    }
-
-    // Dọn trong LocalStorage
-    const reg = readStore(USERS_REGISTRY_KEY, []);
-    if (Array.isArray(reg)) {
-      const clean = reg.filter(function (u) {
-        if (!u || !u.name) return false;
-        const low = u.name.toLowerCase();
-        if (low === "guest") return false;
-        if ((low.indexOf("học viên #") === 0 || low.indexOf("hoc vien #") === 0) &&
-            (!u.learned || u.learned === 0) && (!u.best || u.best === 0)) {
-          return false;
-        }
-        return true;
-      });
-      localStorage.setItem(USERS_REGISTRY_KEY, JSON.stringify(clean));
-    }
-
-    await syncServerStats();
-    showToast("Đã dọn dẹp các tài khoản trống thành công!", "success");
-  } catch (e) {
-    showToast("Có lỗi khi dọn dẹp tài khoản trống.", "error");
-  }
-}
-
-// Xóa một lượt thi Quiz
-async function deleteQuizItem(id, ts) {
-  try {
-    if (window.fetch) {
-      await fetch("/api/admin/delete-quiz-item", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, ts: ts })
-      });
-    }
-
-    // Xóa trong LocalStorage
-    const h = readStore(KEY_QUIZ_HISTORY, []);
-    if (Array.isArray(h)) {
-      const clean = h.filter(function (q) {
-        if (id && q.id === id) return false;
-        if (ts && q.ts === Number(ts)) return false;
-        return true;
-      });
-      localStorage.setItem(KEY_QUIZ_HISTORY, JSON.stringify(clean));
-    }
-
-    await syncServerStats();
-    showToast("Đã xóa lượt làm Quiz này.", "success");
-  } catch (e) {
-    showToast("Không thể xóa kết quả quiz.", "error");
-  }
-}
-
-// Xóa toàn bộ kết quả Quiz
-async function clearAllResults() {
-  try {
-    if (window.fetch) {
-      await fetch("/api/admin/clear-results", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    localStorage.removeItem(KEY_QUIZ_HISTORY);
-    await syncServerStats();
-    showToast("Đã xóa toàn bộ kết quả Quiz!", "success");
-  } catch (e) {
-    showToast("Không thể xóa kết quả quiz.", "error");
-  }
+  const h = readStore(KEY_PRON_HISTORY, []);
+  return Array.isArray(h) ? h : [];
 }
 
 /* ================= PHẦN 12: MODAL & XÁC NHẬN ================= */
@@ -1574,7 +1481,7 @@ function openTopicModal(mode, topicId) {
     el.inputTopicId.value = topic.id || "";
     el.inputTopicId.readOnly = true;
     el.inputTopicEmoji.value = topic.emoji || "";
-    const g1 = (topic.gradient && topic.gradient[0]) || topic.g1 || "#f59e0b";
+    const g1 = (topic.gradient && topic.gradient[0]) || topic.g1 || "#c98a0e";
     const g2 = (topic.gradient && topic.gradient[1]) || topic.g2 || "#f97316";
     el.inputTopicG1.value = g1;
     el.inputTopicG1Picker.value = g1;
@@ -1585,8 +1492,8 @@ function openTopicModal(mode, topicId) {
     el.inputTopicOriginalId.value = "";
     el.inputTopicId.readOnly = false;
     delete el.inputTopicId.dataset.userEdited;
-    el.inputTopicG1.value = "#f59e0b";
-    el.inputTopicG1Picker.value = "#f59e0b";
+    el.inputTopicG1.value = "#c98a0e";
+    el.inputTopicG1Picker.value = "#c98a0e";
     el.inputTopicG2.value = "#f97316";
     el.inputTopicG2Picker.value = "#f97316";
     el.inputTopicEmoji.value = "📚";
@@ -1608,7 +1515,7 @@ function handleTopicSubmit(event) {
   const vi = el.inputTopicVi.value.trim();
   let id = el.inputTopicId.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
   const emoji = el.inputTopicEmoji.value.trim() || "📚";
-  const g1 = el.inputTopicG1.value.trim() || "#f59e0b";
+  const g1 = el.inputTopicG1.value.trim() || "#c98a0e";
   const g2 = el.inputTopicG2.value.trim() || "#f97316";
 
   let hasError = false;
@@ -1981,52 +1888,18 @@ if (el.userBody) {
   });
 }
 
-// Kết quả quiz: Sự kiện tìm kiếm, làm mới, xóa 1 bài, xóa tất cả
-if (el.resultSearch) {
-  el.resultSearch.addEventListener("input", renderResults);
-}
-if (el.btnRefreshResults) {
-  el.btnRefreshResults.addEventListener("click", async function () {
-    await syncServerStats();
-    showToast("Đã làm mới kết quả Quiz từ máy chủ!", "info");
+// Kết quả quiz: chuyển tab
+document.querySelectorAll(".result-tab").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    const tab = btn.getAttribute("data-result-tab");
+    document.querySelectorAll(".result-tab").forEach(function (b) {
+      b.classList.toggle("is-active", b === btn);
+    });
+    const panelQuiz = $("resultPanelQuiz");
+    const panelPron = $("resultPanelPron");
+    if (panelQuiz) panelQuiz.hidden = tab !== "quiz";
+    if (panelPron) panelPron.hidden = tab !== "pron";
   });
-}
-if (el.btnClearAllResults) {
-  el.btnClearAllResults.addEventListener("click", function () {
-    askConfirm(
-      "Xóa toàn bộ kết quả Quiz",
-      "Bạn có chắc chắn muốn xóa sạch toàn bộ lịch sử làm bài thi Quiz của mọi học viên không?",
-      "Toàn bộ danh sách điểm số và lượt thi trước đây sẽ bị xóa hoàn toàn.",
-      clearAllResults
-    );
-  });
-}
-if (el.resultBody) {
-  el.resultBody.addEventListener("click", function (event) {
-    const btn = event.target.closest("button[data-act='delete-quiz']");
-    if (!btn) return;
-    const id = btn.getAttribute("data-id");
-    const ts = btn.getAttribute("data-ts");
-    askConfirm(
-      "Xóa kết quả bài thi",
-      "Bạn có muốn xóa lượt làm bài thi này khỏi lịch sử không?",
-      "Điểm số của lượt thi này sẽ không còn xuất hiện trong báo cáo.",
-      function () { deleteQuizItem(id, ts); }
-    );
-  });
-}
-
-// Tự động đồng bộ ngầm định kỳ khi tab đang mở
-setInterval(function () {
-  if (currentAdmin && document.visibilityState === "visible") {
-    syncServerStats();
-  }
-}, 15000);
-
-window.addEventListener("focus", function () {
-  if (currentAdmin) {
-    syncServerStats();
-  }
 });
 
 // Cài đặt

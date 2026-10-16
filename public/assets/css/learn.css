@@ -10,17 +10,17 @@ main{flex:1}
 .container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
 .navbar{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
 .navbar-inner{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px}
-.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#f0a500;text-decoration:none}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:bold;color:#c98a0e;text-decoration:none}
 .logo-icon{width:34px;height:34px}
 .nav-links{display:flex;flex-wrap:wrap;align-items:center}
-.nav-links a{color:#444;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:#f0a500}
-.nav-links a.active{color:#f0a500;border-bottom:2px solid #f0a500}
-.footer{background:#222;color:#ccc;text-align:center;padding:28px 0;margin-top:auto}
-.footer-logo{font-size:1.4rem;font-weight:bold;color:#f0a500}
+.nav-links a{color:#4b5563;text-decoration:none;margin-left:20px;padding-bottom:4px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#c98a0e}
+.nav-links a.active{color:#c98a0e;border-bottom:2px solid #c98a0e}
+.footer{background:#1f2937;color:#d1d5db;text-align:center;padding:28px 0;margin-top:auto}
+.footer-logo{font-size:1.4rem;font-weight:bold;color:#c98a0e}
 .footer p{margin:4px 0}
 .footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:12px 0}
-.footer-contact a{color:#f7b733;text-decoration:none}
+.footer-contact a{color:#e0a52a;text-decoration:none}
 .footer-contact a:hover{color:#fff}
 .footer-copy{font-size:.9rem;margin-top:4px}
 @media(max-width:767px){.navbar-inner{flex-direction:column}.nav-links a{margin:0 10px}}
@@ -287,9 +287,9 @@ body {
 }
 
 .btn-ghost:hover {
-  border-color: #f2a900;
-  color: #b07f00;
-  background: #fff8e6;
+  border-color: #d99a15;
+  color: #8f6608;
+  background: #fdf6e6;
 }
 
 .topic-feedback {
@@ -367,7 +367,7 @@ body {
 .flashcard-face.front {
   background: #fff;
   background-image:
-    radial-gradient(circle at 15% 12%, rgba(240, 165, 0, 0.12) 0, transparent 38%),
+    radial-gradient(circle at 15% 12%, rgba(201, 138, 14, 0.12) 0, transparent 38%),
     radial-gradient(circle at 88% 88%, var(--g1) 0, transparent 46%);
   color: var(--ink);
   z-index: 2;
