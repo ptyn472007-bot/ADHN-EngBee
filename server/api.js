@@ -19,6 +19,7 @@ function getInitialData() {
       removedWords: [],
       hiddenTopics: [],
       customTopics: [],
+      topicEdits: {},
       lastUpdate: Date.now()
     }
   };
@@ -45,6 +46,7 @@ export function readDb() {
     if (!parsed.users) parsed.users = {};
     if (!Array.isArray(parsed.quizHistory)) parsed.quizHistory = [];
     if (!parsed.admin) parsed.admin = getInitialData().admin;
+    if (parsed.admin && parsed.admin.topicEdits === undefined) parsed.admin.topicEdits = {};
     return parsed;
   } catch (e) {
     return getInitialData();
@@ -279,6 +281,7 @@ export async function handleApiRequest(req, res) {
     if (body.removedWords !== undefined) db.admin.removedWords = body.removedWords;
     if (body.hiddenTopics !== undefined) db.admin.hiddenTopics = body.hiddenTopics;
     if (body.customTopics !== undefined) db.admin.customTopics = body.customTopics;
+    if (body.topicEdits !== undefined) db.admin.topicEdits = body.topicEdits;
     db.admin.lastUpdate = Date.now();
 
     writeDb(db);
