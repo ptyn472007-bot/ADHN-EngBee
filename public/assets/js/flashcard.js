@@ -70,6 +70,7 @@
     initialTopicId = new URLSearchParams(window.location.search).get("topic");
   } catch (e) { /* bỏ qua */ }
 
+  var requestedTopicId = initialTopicId;
   var currentTopic = topicById(initialTopicId || topics[0].id);
   var total = currentTopic.words.length;
   var index = 0;
@@ -256,6 +257,7 @@
   }
 
   function switchTopic(id) {
+    requestedTopicId = null;
     currentTopic = topicById(id);
     total = currentTopic.words.length;
     index = 0;
@@ -274,7 +276,12 @@
   function reloadData() {
     topics = getLoadedTopics();
     if (!topics.length) return;
-    currentTopic = topicById(currentTopic ? currentTopic.id : topics[0].id);
+    var targetId = currentTopic ? currentTopic.id : topics[0].id;
+    if (requestedTopicId) {
+      var found = topics.some(function (t) { return t.id === requestedTopicId; });
+      if (found) { targetId = requestedTopicId; requestedTopicId = null; }
+    }
+    currentTopic = topicById(targetId);
     total = currentTopic.words.length;
     if (index >= total) index = Math.max(0, total - 1);
     mastered = loadSet(currentTopic.id);

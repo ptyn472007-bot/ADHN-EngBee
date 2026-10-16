@@ -258,17 +258,20 @@ main{flex:1}
   var _QP = new URLSearchParams(window.location.search);
   var TID = _QP.get("topic") || "all";
   var _META = null;
-  if (window.EngBeeAdminData && typeof window.EngBeeAdminData.getAllTopics === "function") {
-    var _all = window.EngBeeAdminData.getAllTopics();
-    for (var _i = 0; _i < _all.length; _i++) { if (_all[_i].id === TID) { _META = _all[_i]; break; } }
-  }
-  var TNAME = _META ? _META.name : TID;
-  var G1 = _META ? (_META.g1 || (_META.gradient && _META.gradient[0]) || "#f0a500") : "#f0a500";
-  var G2 = _META ? (_META.g2 || (_META.gradient && _META.gradient[1]) || "#ff7e00") : "#ff7e00";
-  WORDS = (window.EngBeeAdminData && typeof window.EngBeeAdminData.apply === "function")
-    ? window.EngBeeAdminData.apply(TID)
-    : WORDS;
-  (function () {
+  var TNAME = TID;
+  var G1 = "#f0a500", G2 = "#ff7e00";
+  function updateQuizHero() {
+    var adm = window.EngBeeAdminData;
+    if (adm && typeof adm.getAllTopics === "function") {
+      var _all = adm.getAllTopics();
+      for (var _i = 0; _i < _all.length; _i++) { if (_all[_i].id === TID) { _META = _all[_i]; break; } }
+    }
+    if (_META) {
+      TNAME = _META.name;
+      G1 = _META.g1 || (_META.gradient && _META.gradient[0]) || "#f0a500";
+      G2 = _META.g2 || (_META.gradient && _META.gradient[1]) || "#ff7e00";
+    }
+    WORDS = (adm && typeof adm.apply === "function") ? adm.apply(TID) : WORDS;
     try { document.title = "EngBee - Quiz " + TNAME; } catch (e) {}
     var _h = document.querySelector(".quiz-hero h1"); if (_h) _h.textContent = "Quiz từ vựng chủ đề " + TNAME;
     var _e = document.querySelector(".quiz-hero .eyebrow"); if (_e) _e.textContent = "Quiz - " + TNAME + " · 10 câu hỏi · 4 lựa chọn";
@@ -276,7 +279,8 @@ main{flex:1}
     var _hh = document.querySelector("#qz-start-title"); if (_hh) _hh.textContent = "Quiz " + TNAME;
     var _hero = document.querySelector(".quiz-hero"); if (_hero) { _hero.style.setProperty("--g1", G1); _hero.style.setProperty("--g2", G2); }
     var _wrap = document.querySelector(".quiz-wrap"); if (_wrap) { _wrap.style.setProperty("--g1", G1); _wrap.style.setProperty("--g2", G2); }
-  })();
+  }
+  updateQuizHero();
   var N = 10;
   var KEY = "eb_quiz_history";
   var STATE_KEY = "eb_quiz_state_" + TID;
@@ -499,7 +503,9 @@ main{flex:1}
   if (window.EngBeeAdminData && window.EngBeeAdminData.initQuizPage) {
     window.EngBeeAdminData.initQuizPage(TID, [], function(newWords) {
       WORDS = newWords;
+      updateQuizHero();
       buildStart();
+      if (WORDS && WORDS.length && (!answers || !answers.length)) { startQuiz(false); }
     });
   } else {
     buildStart();
