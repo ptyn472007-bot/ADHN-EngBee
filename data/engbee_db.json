@@ -3,7 +3,7 @@
     "học viên #4993": {
       "name": "Học viên #4993",
       "firstSeen": 1792150051066,
-      "lastActive": 1792151440259,
+      "lastActive": 1792153980509,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
@@ -14,11 +14,61 @@
   "quizHistory": [],
   "admin": {
     "editedWords": {},
-    "addedWords": {},
+    "addedWords": {
+      "family": [
+        {
+          "id": "w_1792153388158_31",
+          "en": "mom",
+          "vi": "mẹ",
+          "ipa": "",
+          "ex": "",
+          "exvi": "",
+          "exs": [
+            {
+              "en": "I saw a mom today.",
+              "vi": "Hôm nay tôi thấy một mẹ."
+            },
+            {
+              "en": "She bought a new mom.",
+              "vi": "Cô ấy đã mua một mẹ mới."
+            },
+            {
+              "en": "We need a mom for our class.",
+              "vi": "Chúng tôi cần một mẹ cho lớp học."
+            },
+            {
+              "en": "This mom is very useful.",
+              "vi": "mẹ này rất hữu ích."
+            },
+            {
+              "en": "Can you find a good mom?",
+              "vi": "Bạn có thể tìm một mẹ tốt không?"
+            }
+          ]
+        }
+      ]
+    },
     "removedWords": [],
     "hiddenTopics": [],
-    "customTopics": [],
-    "lastUpdate": 1792150084393,
+    "customTopics": [
+      {
+        "id": "family",
+        "name": "family",
+        "en": "family",
+        "vi": "gia đình",
+        "emoji": "📚",
+        "g1": "#f59e0b",
+        "g2": "#f97316",
+        "gradient": [
+          "#f59e0b",
+          "#f97316"
+        ],
+        "isCustom": true,
+        "words": [],
+        "desc": "Từ vựng tiếng Anh chủ đề gia đình"
+      }
+    ],
+    "lastUpdate": 1792153388166,
     "topicEdits": {}
   }
 }
