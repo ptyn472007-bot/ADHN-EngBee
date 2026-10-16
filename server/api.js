@@ -13,6 +13,7 @@ function getInitialData() {
   return {
     users: {},
     quizHistory: [],
+    pronounceHistory: [],
     admin: {
       editedWords: {},
       addedWords: {},
@@ -45,6 +46,7 @@ export function readDb() {
     const parsed = JSON.parse(raw);
     if (!parsed.users) parsed.users = {};
     if (!Array.isArray(parsed.quizHistory)) parsed.quizHistory = [];
+    if (!Array.isArray(parsed.pronounceHistory)) parsed.pronounceHistory = [];
     if (!parsed.admin) parsed.admin = getInitialData().admin;
     if (parsed.admin && parsed.admin.topicEdits === undefined) parsed.admin.topicEdits = {};
     return parsed;
@@ -85,6 +87,8 @@ export function computeStats(db) {
       topics: topicsCount,
       best: u.bestScore || 0,
       totalQuizzes: u.totalQuizzes || 0,
+      bestPron: u.bestPron || 0,
+      totalPron: u.totalPron || 0,
       lastSeen: u.lastActive || u.firstSeen || Date.now()
     };
   });
@@ -95,6 +99,12 @@ export function computeStats(db) {
     ? Math.round(quizHistory.reduce((sum, q) => sum + (Number(q.pct) || 0), 0) / totalAttempts)
     : 0;
 
+  const pronounceHistory = (db.pronounceHistory || []).slice().sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  const totalPronAttempts = pronounceHistory.length;
+  const avgPron = totalPronAttempts > 0
+    ? Math.round(pronounceHistory.reduce((sum, q) => sum + (Number(q.avg) || 0), 0) / totalPronAttempts)
+    : 0;
+
   // Sắp xếp người dùng gần đây nhất
   const sortedUsers = usersList.slice().sort((a, b) => b.lastSeen - a.lastSeen);
 
@@ -102,9 +112,12 @@ export function computeStats(db) {
     totalUsers: sortedUsers.length,
     totalAttempts,
     avgScore,
+    totalPronAttempts,
+    avgPron,
     users: sortedUsers,
     recentUsers: sortedUsers.slice(0, 5),
     quizHistory: quizHistory.slice(0, 100),
+    pronounceHistory: pronounceHistory.slice(0, 100),
     admin: db.admin || {}
   };
 }
@@ -267,7 +280,64 @@ export async function handleApiRequest(req, res) {
     return true;
   }
 
-  // 4. GET /api/admin/data - Lấy dữ liệu quản trị từ vựng & chủ đề
+  // 4. POST /api/pronounce-result - Ghi nhận kết quả kiểm tra phát âm
+  if (req.method === 'POST' && pathname === '/api/pronounce-result') {
+    const rawName = (body.userName || body.name || 'Học viên').trim();
+    const total = Number(body.total) || 0;
+    const good = Number(body.good) || 0;
+    const avg = typeof body.avg === 'number' ? Math.round(body.avg) : (total ? Math.round(100 * good / total) : 0);
+    const now = Number(body.ts) || Date.now();
+
+    const record = {
+      id: 'p_' + now + '_' + Math.floor(Math.random() * 10000),
+      userName: rawName,
+      topicId: body.topicId || 'all',
+      modeName: body.modeName || body.topicId || 'Tổng hợp',
+      avg: avg,
+      good: good,
+      total: total,
+      weak: Array.isArray(body.weak) ? body.weak.slice(0, 50) : [],
+      ts: now
+    };
+
+    if (!Array.isArray(db.pronounceHistory)) db.pronounceHistory = [];
+    db.pronounceHistory.unshift(record);
+
+    // Giới hạn lưu 500 lượt gần nhất
+    if (db.pronounceHistory.length > 500) {
+      db.pronounceHistory = db.pronounceHistory.slice(0, 500);
+    }
+
+    // Cập nhật thông tin người dùng
+    const key = rawName.toLowerCase();
+    if (!db.users[key]) {
+      db.users[key] = {
+        name: rawName,
+        firstSeen: now,
+        lastActive: now,
+        learnedWordsCount: 0,
+        topicsCount: 0,
+        learnedByTopic: {},
+        bestScore: 0,
+        totalQuizzes: 0,
+        bestPron: avg,
+        totalPron: 1
+      };
+    } else {
+      const u = db.users[key];
+      u.lastActive = now;
+      u.totalPron = (u.totalPron || 0) + 1;
+      if (avg > (u.bestPron || 0)) {
+        u.bestPron = avg;
+      }
+    }
+
+    writeDb(db);
+    sendJson(200, { ok: true, record, stats: computeStats(db) });
+    return true;
+  }
+
+  // 5. GET /api/admin/data - Lấy dữ liệu quản trị từ vựng & chủ đề
   if (req.method === 'GET' && pathname === '/api/admin/data') {
     sendJson(200, db.admin || {});
     return true;

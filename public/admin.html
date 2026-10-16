@@ -269,24 +269,55 @@
             <div class="head-actions"></div>
           </div>
 
-          <div class="panel">
-            <div class="table-wrap">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="th-stt">STT</th>
-                    <th>Thời gian</th>
-                    <th>Chủ đề</th>
-                    <th>Số câu đúng</th>
-                    <th>Điểm (%)</th>
-                    <th>Kết quả</th>
-                  </tr>
-                </thead>
-                <tbody id="resultBody"></tbody>
-              </table>
-              <div class="empty" id="resultEmpty" hidden>
-                <h3>Chưa có kết quả Quiz</h3>
-                <p>Khi người học làm bài, kết quả sẽ hiển thị ở đây.</p>
+          <div class="result-tabs">
+            <button class="result-tab is-active" type="button" data-result-tab="quiz">Quiz trắc nghiệm</button>
+            <button class="result-tab" type="button" data-result-tab="pron">Quiz phát âm</button>
+          </div>
+
+          <div class="result-panel" id="resultPanelQuiz">
+            <div class="panel">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="th-stt">STT</th>
+                      <th>Thời gian</th>
+                      <th>Chủ đề</th>
+                      <th>Số câu đúng</th>
+                      <th>Điểm (%)</th>
+                      <th>Kết quả</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resultBody"></tbody>
+                </table>
+                <div class="empty" id="resultEmpty" hidden>
+                  <h3>Chưa có kết quả Quiz</h3>
+                  <p>Khi người học làm bài, kết quả sẽ hiển thị ở đây.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-panel" id="resultPanelPron" hidden>
+            <div class="panel">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="th-stt">STT</th>
+                      <th>Thời gian</th>
+                      <th>Chủ đề</th>
+                      <th>Số từ đúng</th>
+                      <th>Điểm (%)</th>
+                      <th>Kết quả</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pronBody"></tbody>
+                </table>
+                <div class="empty" id="pronEmpty" hidden>
+                  <h3>Chưa có kết quả phát âm</h3>
+                  <p>Khi người học làm bài kiểm tra phát âm, kết quả sẽ hiển thị ở đây.</p>
+                </div>
               </div>
             </div>
           </div>

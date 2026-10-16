@@ -591,6 +591,30 @@ html {
 .tag--mid { background: #fff3d6; color: var(--bee-darker); }
 .tag--bad { background: #fdecec; color: var(--danger); }
 
+/* Tab kết quả */
+.result-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+.result-tab {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.result-tab:hover { border-color: var(--bee); color: var(--bee-darker); }
+
+.result-tab.is-active {
+  background: linear-gradient(135deg, var(--bee), #ffb733);
+  border-color: transparent;
+  color: #fff;
+}
+
 /* ---------- 12. THẺ CHỦ ĐỀ ---------- */
 .topic-grid-admin {
   display: grid;

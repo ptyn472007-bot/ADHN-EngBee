@@ -59,6 +59,28 @@
       "learnedByTopic": {},
       "bestScore": 0,
       "totalQuizzes": 0
+    },
+    "học viên #3990": {
+      "name": "Học viên #3990",
+      "firstSeen": 1792161865088,
+      "lastActive": 1792161865088,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "phạm thị yến nhi": {
+      "name": "Phạm Thị Yến Nhi",
+      "firstSeen": 1792162446766,
+      "lastActive": 1792166469533,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0,
+      "totalPron": 1,
+      "bestPron": 51
     }
   },
   "quizHistory": [],
@@ -118,7 +140,56 @@
         "desc": "Từ vựng tiếng Anh chủ đề gia đình"
       }
     ],
-    "lastUpdate": 1792153388166,
+    "lastUpdate": 1792162959981,
     "topicEdits": {}
-  }
+  },
+  "pronounceHistory": [
+    {
+      "id": "p_1792166457033_2474",
+      "userName": "Phạm Thị Yến Nhi",
+      "topicId": "food",
+      "modeName": "Food",
+      "avg": 51,
+      "good": 3,
+      "total": 10,
+      "weak": [
+        {
+          "en": "sour",
+          "vi": "chua",
+          "best": 25
+        },
+        {
+          "en": "bitter",
+          "vi": "đắng",
+          "best": 50
+        },
+        {
+          "en": "delicious",
+          "vi": "ngon",
+          "best": 0
+        },
+        {
+          "en": "lunch",
+          "vi": "bữa trưa",
+          "best": 20
+        },
+        {
+          "en": "pork",
+          "vi": "thịt lợn",
+          "best": 50
+        },
+        {
+          "en": "taste",
+          "vi": "vị",
+          "best": 60
+        },
+        {
+          "en": "leftover",
+          "vi": "thức ăn thừa",
+          "best": 0
+        }
+      ],
+      "ts": 1792166457033
+    }
+  ]
 }

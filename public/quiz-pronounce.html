@@ -356,6 +356,12 @@ main{flex:1}
     try{var p=JSON.parse(localStorage.getItem("engbee_user")||"null");if(p&&typeof p.name==="string"&&p.name.trim())return p.name.trim();}catch(e){}
     return "guest";
   }
+  function displayName(){
+    var s=userScope();
+    if(s!=="guest") return s;
+    try{var cid=localStorage.getItem("engbee_client_id");if(cid)return cid;}catch(e){}
+    return "Khách";
+  }
   function getArr(key){try{var a=JSON.parse(localStorage.getItem(key)||"null");return Array.isArray(a)?a:[];}catch(e){return [];}}
   function setArr(key,a){try{localStorage.setItem(key,JSON.stringify(a));}catch(e){}}
   function recomputeLearned(tid,scope){
@@ -663,6 +669,29 @@ main{flex:1}
     var h=getHist();
     h.unshift({ts:Date.now(), topicId:selectedTopic, avg:avg, good:good, total:total});
     saveHist(h);
+
+    // Gửi kết quả lên máy chủ để Admin lưu lại
+    var record={
+      userName:displayName(),
+      topicId:selectedTopic,
+      modeName:topicName(selectedTopic),
+      avg:avg,
+      good:good,
+      total:total,
+      weak:weakItems.map(function(it){ return {en:it.word.en, vi:it.word.vi||"", best:it.best}; }),
+      ts:Date.now()
+    };
+    try{
+      if(window.EngBeeRecordPronounce){ window.EngBeeRecordPronounce(record); }
+      else if(window.fetch){
+        fetch("/api/pronounce-result",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify(record)
+        }).catch(function(){});
+      }
+    }catch(e){}
+
     buildStart();
     show("result");
   }

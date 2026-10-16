@@ -15,6 +15,7 @@ const KEY_CUSTOM_TOPICS = "engbee_admin_custom_topics"; // chủ đề mới do 
 const KEY_TOPIC_EDITS = "engbee_admin_topic_edits";   // thông tin chủ đề gốc đã sửa
 const KEY_USER = "engbee_user";                      // người dùng hiện tại
 const KEY_QUIZ_HISTORY = "eb_quiz_history";           // lịch sử quiz
+const KEY_PRON_HISTORY = "eb_pron_history";            // lịch sử kiểm tra phát âm
 const PREFIX_LEARNED = "engbee_learned_";             // tiến độ học
 const PREFIX_BEST = "engbee_quiz_best_";              // điểm cao nhất
 const USERS_REGISTRY_KEY = "engbee_users";            // danh sách mọi người đã học
@@ -59,6 +60,7 @@ const el = {
   userBody: $("userBody"), userEmpty: $("userEmpty"),
   // kết quả
   resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
+  pronBody: $("pronBody"), pronEmpty: $("pronEmpty"),
   // cài đặt
   btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
   importFile: $("importFile"),
@@ -97,7 +99,7 @@ const VIEW_INFO = {
   words: ["Quản lý từ vựng", "Thêm, sửa từ vựng của các chủ đề"],
   topics: ["Quản lý chủ đề", "Thêm, sửa chủ đề do Admin tạo mới"],
   users: ["Người học", "Xem và quản lý tiến độ của người học"],
-  results: ["Kết quả Quiz", "Lịch sử làm bài của toàn bộ người học"],
+  results: ["Kết quả Quiz", "Lịch sử làm bài trắc nghiệm & kiểm tra phát âm của toàn bộ người học"],
   settings: ["Cài đặt & bảo trì", "Khôi phục hoặc sao lưu dữ liệu trên trình duyệt này"]
 };
 
@@ -176,6 +178,9 @@ async function syncServerStats() {
     }
     if (Array.isArray(data.quizHistory)) {
       try { localStorage.setItem(KEY_QUIZ_HISTORY, JSON.stringify(data.quizHistory)); } catch (e) {}
+    }
+    if (Array.isArray(data.pronounceHistory)) {
+      try { localStorage.setItem(KEY_PRON_HISTORY, JSON.stringify(data.pronounceHistory)); } catch (e) {}
     }
     if (data.admin) {
       if (data.admin.editedWords) try { localStorage.setItem(KEY_EDITED, JSON.stringify(data.admin.editedWords)); } catch (e) {}
@@ -826,6 +831,11 @@ function renderUsers() {
 }
 
 function renderResults() {
+  renderQuizResults();
+  renderPronResults();
+}
+
+function renderQuizResults() {
   const history = getQuizHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
   el.resultBody.innerHTML = "";
   el.resultEmpty.hidden = history.length > 0;
@@ -848,11 +858,44 @@ function renderResults() {
   });
 }
 
+function renderPronResults() {
+  const history = getPronHistory().slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+  el.pronBody.innerHTML = "";
+  el.pronEmpty.hidden = history.length > 0;
+
+  history.forEach(function (h, index) {
+    const avg = h.avg || 0;
+    const good = h.good || 0;
+    const total = h.total || 0;
+    const tag = avg >= 80 ? '<span class="tag tag--good">Tốt</span>'
+      : avg >= 50 ? '<span class="tag tag--mid">Khá</span>'
+      : '<span class="tag tag--bad">Cần luyện thêm</span>';
+
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="td-stt">' + (index + 1) + "</td>" +
+      "<td>" + esc(fmtTime(h.ts)) + "</td>" +
+      "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
+      "<td>" + good + " / " + total + "</td>" +
+      "<td><b>" + avg + "%</b></td>" +
+      "<td>" + tag + "</td>";
+    el.pronBody.appendChild(tr);
+  });
+}
+
 function getQuizHistory() {
   if (serverStats && Array.isArray(serverStats.quizHistory) && serverStats.quizHistory.length > 0) {
     return serverStats.quizHistory;
   }
   const h = readStore(KEY_QUIZ_HISTORY, []);
+  return Array.isArray(h) ? h : [];
+}
+
+function getPronHistory() {
+  if (serverStats && Array.isArray(serverStats.pronounceHistory) && serverStats.pronounceHistory.length > 0) {
+    return serverStats.pronounceHistory;
+  }
+  const h = readStore(KEY_PRON_HISTORY, []);
   return Array.isArray(h) ? h : [];
 }
 
@@ -1839,8 +1882,19 @@ if (el.inputTopicName && el.inputTopicId) {
 // Người học: xóa tiến độ
 // (đã loại bỏ chức năng xóa tiến độ người học theo yêu cầu)
 
-// Kết quả quiz
-// (đã loại bỏ chức năng xóa toàn bộ kết quả theo yêu cầu)
+// Kết quả quiz: chuyển tab
+document.querySelectorAll(".result-tab").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    const tab = btn.getAttribute("data-result-tab");
+    document.querySelectorAll(".result-tab").forEach(function (b) {
+      b.classList.toggle("is-active", b === btn);
+    });
+    const panelQuiz = $("resultPanelQuiz");
+    const panelPron = $("resultPanelPron");
+    if (panelQuiz) panelQuiz.hidden = tab !== "quiz";
+    if (panelPron) panelPron.hidden = tab !== "pron";
+  });
+});
 
 // Cài đặt
 el.btnResetWords.addEventListener("click", resetWords);
