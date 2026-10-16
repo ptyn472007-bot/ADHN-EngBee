@@ -24,7 +24,17 @@
     "học viên #8783": {
       "name": "Học viên #8783",
       "firstSeen": 1791946030298,
-      "lastActive": 1791946030298,
+      "lastActive": 1792118084997,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "nvt": {
+      "name": "NVT",
+      "firstSeen": 1792118097869,
+      "lastActive": 1792118097869,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
