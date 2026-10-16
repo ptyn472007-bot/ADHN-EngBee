@@ -3,7 +3,87 @@
     "học viên #4993": {
       "name": "Học viên #4993",
       "firstSeen": 1792150051066,
-      "lastActive": 1792151440259,
+      "lastActive": 1792155202285,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #5510": {
+      "name": "Học viên #5510",
+      "firstSeen": 1792154673147,
+      "lastActive": 1792154713673,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #4380": {
+      "name": "Học viên #4380",
+      "firstSeen": 1792154674331,
+      "lastActive": 1792154714392,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #1704": {
+      "name": "Học viên #1704",
+      "firstSeen": 1792154675630,
+      "lastActive": 1792154675630,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #2414": {
+      "name": "Học viên #2414",
+      "firstSeen": 1792154676963,
+      "lastActive": 1792154676963,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #2988": {
+      "name": "Học viên #2988",
+      "firstSeen": 1792155212501,
+      "lastActive": 1792155212501,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #2408": {
+      "name": "Học viên #2408",
+      "firstSeen": 1792155213711,
+      "lastActive": 1792155213711,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #7359": {
+      "name": "Học viên #7359",
+      "firstSeen": 1792155214905,
+      "lastActive": 1792155214905,
+      "learnedWordsCount": 0,
+      "topicsCount": 0,
+      "learnedByTopic": {},
+      "bestScore": 0,
+      "totalQuizzes": 0
+    },
+    "học viên #5340": {
+      "name": "Học viên #5340",
+      "firstSeen": 1792155216199,
+      "lastActive": 1792155216199,
       "learnedWordsCount": 0,
       "topicsCount": 0,
       "learnedByTopic": {},
@@ -14,11 +94,61 @@
   "quizHistory": [],
   "admin": {
     "editedWords": {},
-    "addedWords": {},
+    "addedWords": {
+      "family": [
+        {
+          "id": "w_1792153388158_31",
+          "en": "mom",
+          "vi": "mẹ",
+          "ipa": "",
+          "ex": "",
+          "exvi": "",
+          "exs": [
+            {
+              "en": "I saw a mom today.",
+              "vi": "Hôm nay tôi thấy một mẹ."
+            },
+            {
+              "en": "She bought a new mom.",
+              "vi": "Cô ấy đã mua một mẹ mới."
+            },
+            {
+              "en": "We need a mom for our class.",
+              "vi": "Chúng tôi cần một mẹ cho lớp học."
+            },
+            {
+              "en": "This mom is very useful.",
+              "vi": "mẹ này rất hữu ích."
+            },
+            {
+              "en": "Can you find a good mom?",
+              "vi": "Bạn có thể tìm một mẹ tốt không?"
+            }
+          ]
+        }
+      ]
+    },
     "removedWords": [],
     "hiddenTopics": [],
-    "customTopics": [],
-    "lastUpdate": 1792150084393,
+    "customTopics": [
+      {
+        "id": "family",
+        "name": "family",
+        "en": "family",
+        "vi": "gia đình",
+        "emoji": "📚",
+        "g1": "#f59e0b",
+        "g2": "#f97316",
+        "gradient": [
+          "#f59e0b",
+          "#f97316"
+        ],
+        "isCustom": true,
+        "words": [],
+        "desc": "Từ vựng tiếng Anh chủ đề gia đình"
+      }
+    ],
+    "lastUpdate": 1792153388166,
     "topicEdits": {}
   }
 }
