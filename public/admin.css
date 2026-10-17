@@ -1,10 +1,10 @@
-/* =========================================================
-   EngBee - Trang quản trị
-   Màu lấy đúng từ website: mật ong #c98a0e -> #e6b23a
-   nền #f9fafb, chữ #374151, bo góc 12px, chữ Arial
+﻿/* =========================================================
+   EngBee - Trang quáº£n trá»‹
+   MÃ u láº¥y Ä‘Ãºng tá»« website: máº­t ong #c98a0e -> #e6b23a
+   ná»n #f9fafb, chá»¯ #374151, bo gÃ³c 12px, chá»¯ Arial
    ========================================================= */
 
-/* ---------- 1. BIẾN MÀU CỦA WEB ---------- */
+/* ---------- 1. BIáº¾N MÃ€U Cá»¦A WEB ---------- */
 :root {
   --bee: #c98a0e;
   --bee-light: #e6b23a;
@@ -51,7 +51,7 @@
 
 .admin-body .required { color: var(--danger); }
 
-/* ---------- 2. ĐĂNG NHẬP ---------- */
+/* ---------- 2. ÄÄ‚NG NHáº¬P ---------- */
 .login-screen {
   min-height: 100vh;
   display: grid;
@@ -159,7 +159,7 @@
 
 /* ---------- 3. KHUNG TRANG ---------- */
 .app { display: flex; min-height: 100vh; }
-.app[hidden] { display: none; }  /* chỉ hiện khi đã đăng nhập */
+.app[hidden] { display: none; }  /* chá»‰ hiá»‡n khi Ä‘Ã£ Ä‘Äƒng nháº­p */
 
 .main {
   flex: 1;
@@ -333,7 +333,7 @@
 
 .menu-toggle { display: none; }
 
-/* ---------- 6. NÚT ---------- */
+/* ---------- 6. NÃšT ---------- */
 .btn-primary {
   display: inline-block;
   background: linear-gradient(135deg, var(--bee), var(--bee-light));
@@ -369,7 +369,7 @@
 
 .btn-outline:hover { background: #f3f4f6; }
 
-/* Nút nhỏ trong bảng */
+/* NÃºt nhá» trong báº£ng */
 .btn-edit,
 .btn-delete {
   padding: 6px 12px;
@@ -399,7 +399,7 @@ html {
   margin-bottom: 24px;
 }
 
-/* ---------- 7. ĐẦU TRANG ---------- */
+/* ---------- 7. Äáº¦U TRANG ---------- */
 .page-head {
   display: flex;
   align-items: center;
@@ -414,7 +414,7 @@ html {
 
 .head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* ---------- 8. THẺ THỐNG KÊ ---------- */
+/* ---------- 8. THáºº THá»NG KÃŠ ---------- */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -489,7 +489,7 @@ html {
   margin-bottom: 20px;
 }
 
-/* Danh sách tóm tắt */
+/* Danh sÃ¡ch tÃ³m táº¯t */
 .summary-list { list-style: none; }
 .summary-list li {
   display: flex;
@@ -503,7 +503,7 @@ html {
 .summary-list li:last-child { border-bottom: none; }
 .summary-empty { color: var(--muted); font-style: italic; }
 
-/* ---------- 10. Ô NHẬP ---------- */
+/* ---------- 10. Ã” NHáº¬P ---------- */
 .input {
   width: 100%;
   padding: 10px 14px;
@@ -537,10 +537,10 @@ html {
 .error-text { display: none; color: var(--danger); font-size: 13px; margin-top: 5px; }
 .error-text.is-show { display: block; }
 
-/* ---------- 11. BẢNG ---------- */
-.table-wrap { overflow-x: auto; }
+/* ---------- 11. Báº¢NG ---------- */
+.table-wrap { overflow-x: visible; width: 100%; }
 
-.table { width: 100%; border-collapse: collapse; min-width: 760px; }
+.table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 0; }
 
 .table thead th {
   background: linear-gradient(180deg, #fffcf6, #fdf6e6);
@@ -561,19 +561,31 @@ html {
 .table tbody tr:hover { background: #fffcf6; }
 .table tbody tr:last-child td { border-bottom: none; }
 
-.th-stt { width: 60px; }
+.th-stt { width: 70px; }
 .th-ipa { width: 150px; }
 .th-status { width: 110px; }
 .th-action { width: 160px; text-align: right; }
+
+.th-time { width: 160px; }
+.th-topic { width: 35%; }
+.th-correct { width: 110px; }
+.th-score { width: 90px; }
+.th-result { width: 110px; }
 
 .td-stt { color: var(--muted); font-weight: bold; }
 .td-en { font-weight: bold; color: var(--text-dark); }
 .td-ipa { color: var(--muted); font-family: Consolas, monospace; font-size: 13px; }
 .td-action { text-align: right; }
+.td-time { font-size: 13px; color: #6b7280; white-space: nowrap; }
+.td-topic, .td-name { white-space: normal; word-break: break-word; }
+.td-topic { white-space: normal; word-break: break-word; }
+.td-name { white-space: nowrap; }
+.table thead th, .table tbody td { text-align: left; vertical-align: middle; }
+.td-correct, .td-score, .td-result { white-space: nowrap; }
 
 .row-actions { display: flex; gap: 8px; justify-content: flex-end; }
 
-/* Nhãn trạng thái */
+/* NhÃ£n tráº¡ng thÃ¡i */
 .tag {
   display: inline-block;
   padding: 3px 10px;
@@ -586,12 +598,12 @@ html {
 .tag--edited { background: #fdf3da; color: var(--bee-darker); }
 .tag--added { background: #e8f5e9; color: var(--success); }
 
-/* Kết quả quiz */
+/* Káº¿t quáº£ quiz */
 .tag--good { background: #e8f5e9; color: var(--success); }
 .tag--mid { background: #fdf3da; color: var(--bee-darker); }
 .tag--bad { background: #fdecec; color: var(--danger); }
 
-/* Tab kết quả */
+/* Tab káº¿t quáº£ */
 .result-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 
 .result-tab {
@@ -615,7 +627,7 @@ html {
   color: #fff;
 }
 
-/* ---------- 12. THẺ CHỦ ĐỀ ---------- */
+/* ---------- 12. THáºº CHá»¦ Äá»€ ---------- */
 .topic-grid-admin {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -666,7 +678,7 @@ html {
 
 .topic-admin-card.is-off { opacity: 0.62; }
 
-/* Công tắc bật/tắt */
+/* CÃ´ng táº¯c báº­t/táº¯t */
 .switch { position: relative; width: 48px; height: 26px; display: inline-block; }
 .switch input { opacity: 0; width: 0; height: 0; }
 
@@ -705,7 +717,7 @@ html {
   color: var(--text-dark);
 }
 
-/* ---------- 13. RỖNG / MODAL / TOAST ---------- */
+/* ---------- 13. Rá»–NG / MODAL / TOAST ---------- */
 .empty { padding: 50px 20px; text-align: center; }
 .empty__icon { font-size: 40px; margin-bottom: 8px; }
 .empty h3 { font-size: 17px; margin-bottom: 4px; }
@@ -841,7 +853,7 @@ html {
   .toast { max-width: none; }
 }
 
-/* ================= PHÂN TRANG TỪ VỰNG ================= */
+/* ================= PHÃ‚N TRANG Tá»ª Vá»°NG ================= */
 .pagination {
   display: flex;
   align-items: center;
@@ -883,7 +895,7 @@ html {
 }
 .pagination--center { justify-content: center; }
 
-/* Nút hành động nhỏ & nút xóa */
+/* NÃºt hÃ nh Ä‘á»™ng nhá» & nÃºt xÃ³a */
 .btn-sm {
   padding: 4px 10px;
   font-size: 12px;

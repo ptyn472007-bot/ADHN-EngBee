@@ -890,15 +890,11 @@ function renderQuizResults() {
     const tr = document.createElement("tr");
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
-      "<td style=\"font-size:13px;color:#6b7280;\">" + esc(fmtTime(h.ts)) + "</td>" +
-      "<td><b>" + esc(h.userName || "Học viên") + "</b></td>" +
-      "<td>" + esc(h.modeName || h.topicId || "Tổng hợp") + "</td>" +
-      "<td>" + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
-      "<td><b>" + pct + "%</b></td>" +
-      "<td>" + tag + "</td>" +
-      "<td style=\"text-align:right;\">" +
-        '<button type="button" class="btn-sm btn-outline" style="color:#ef4444;border-color:#fca5a5;padding:4px 8px;font-size:12px;" data-act="delete-quiz" data-id="' + esc(h.id || '') + '" data-ts="' + (h.ts || '') + '">✕</button>' +
-      "</td>";
+      '<td class="td-time">' + esc(fmtTime(h.ts)) + "</td>" +
+      '<td class="td-topic">' + esc((h.userName || "Học viên") + " — " + (h.modeName || h.topicId || "Tổng hợp")) + "</td>" +
+      '<td class="td-correct">' + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
+      '<td class="td-score"><b>' + pct + "%</b></td>" +
+      '<td class="td-result">' + tag + "</td>";
     el.resultBody.appendChild(tr);
   });
 }
@@ -919,8 +915,8 @@ function renderPronResults() {
     const tr = document.createElement("tr");
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
-      "<td>" + esc(fmtTime(h.ts)) + "</td>" +
-      "<td>" + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
+      '<td class="td-time">' + esc(fmtTime(h.ts)) + "</td>" +
+      '<td class="td-topic">' + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
       "<td>" + good + " / " + total + "</td>" +
       "<td><b>" + avg + "%</b></td>" +
       "<td>" + tag + "</td>";
