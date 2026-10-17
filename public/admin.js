@@ -871,6 +871,28 @@ function renderUsers() {
   });
 }
 
+function clampPct(v) {
+  v = Math.round(Number(v) || 0);
+  if (v < 0) v = 0;
+  if (v > 100) v = 100;
+  return v;
+}
+
+// Tính phần trăm từ số đúng/tổng trong cùng dòng (luôn khớp với cột "Số ... đúng").
+// Fallback: dùng % đã lưu (trường pct hoặc avg) khi thiếu dữ liệu số đúng/tổng.
+function pctFromCount(correct, total, stored) {
+  correct = Number(correct) || 0;
+  total = Number(total) || 0;
+  if (total > 0) return clampPct(100 * correct / total);
+  return clampPct(stored);
+}
+
+function tagForPct(pct) {
+  return pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
+    : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
+    : '<span class="tag tag--bad">Cần luyện thêm</span>';
+}
+
 function renderResults() {
   renderQuizResults();
   renderPronResults();
@@ -882,17 +904,17 @@ function renderQuizResults() {
   el.resultEmpty.hidden = history.length > 0;
 
   history.forEach(function (h, index) {
-    const pct = typeof h.pct === "number" ? h.pct : 0;
-    const tag = pct >= 80 ? '<span class="tag tag--good">Tốt</span>'
-      : pct >= 50 ? '<span class="tag tag--mid">Khá</span>'
-      : '<span class="tag tag--bad">Cần luyện thêm</span>';
+    const correct = Number(h.correct) || 0;
+    const total = Number(h.total) || 0;
+    const pct = pctFromCount(correct, total, h.pct);
+    const tag = tagForPct(pct);
 
     const tr = document.createElement("tr");
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
       '<td class="td-time">' + esc(fmtTime(h.ts)) + "</td>" +
       '<td class="td-topic">' + esc((h.userName || "Học viên") + " — " + (h.modeName || h.topicId || "Tổng hợp")) + "</td>" +
-      '<td class="td-correct">' + (h.correct || 0) + " / " + (h.total || 0) + "</td>" +
+      '<td class="td-correct">' + correct + " / " + total + "</td>" +
       '<td class="td-score"><b>' + pct + "%</b></td>" +
       '<td class="td-result">' + tag + "</td>";
     el.resultBody.appendChild(tr);
@@ -906,20 +928,20 @@ function renderPronResults() {
 
   history.forEach(function (h, index) {
     const avg = h.avg || 0;
-    const good = h.good || 0;
-    const total = h.total || 0;
-    const tag = avg >= 80 ? '<span class="tag tag--good">Tốt</span>'
-      : avg >= 50 ? '<span class="tag tag--mid">Khá</span>'
-      : '<span class="tag tag--bad">Cần luyện thêm</span>';
+    const good = Number(h.good) || 0;
+    const total = Number(h.total) || 0;
+    // Phần trăm = số từ đúng / tổng số từ (khớp với cột "Số từ đúng"), không dùng điểm trung bình độ giống.
+    const pct = pctFromCount(good, total, avg);
+    const tag = tagForPct(pct);
 
     const tr = document.createElement("tr");
     tr.innerHTML =
       '<td class="td-stt">' + (index + 1) + "</td>" +
       '<td class="td-time">' + esc(fmtTime(h.ts)) + "</td>" +
       '<td class="td-topic">' + esc(h.userName ? h.userName + " — " + (h.modeName || h.topicId || "-") : (h.modeName || h.topicId || "-")) + "</td>" +
-      "<td>" + good + " / " + total + "</td>" +
-      "<td><b>" + avg + "%</b></td>" +
-      "<td>" + tag + "</td>";
+      '<td class="td-correct">' + good + " / " + total + "</td>" +
+      '<td class="td-score"><b>' + pct + "%</b></td>" +
+      '<td class="td-result">' + tag + "</td>";
     el.pronBody.appendChild(tr);
   });
 }
