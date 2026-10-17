@@ -862,10 +862,7 @@ function renderUsers() {
       "<td>" + u.topics + " chủ đề</td>" +
       "<td>" + (u.best ? "<b>" + u.best + "</b>/10" : "-") + "</td>" +
       "<td>" + (u.totalQuizzes ? u.totalQuizzes + " lượt" : "-") + "</td>" +
-      "<td style=\"font-size:13px;color:#6b7280;\">" + esc(fmtTime(u.lastSeen)) + "</td>" +
-      "<td style=\"text-align:right;\">" +
-        '<button type="button" class="btn-sm btn-outline" style="color:#ef4444;border-color:#fca5a5;padding:4px 10px;font-size:12px;" data-act="delete-user" data-user="' + esc(u.name) + '">Xóa</button>' +
-      "</td>";
+      "<td style=\"font-size:13px;color:#6b7280;\">" + esc(fmtTime(u.lastSeen)) + "</td>";
     el.userBody.appendChild(tr);
   });
 }
