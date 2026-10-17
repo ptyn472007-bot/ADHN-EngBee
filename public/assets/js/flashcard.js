@@ -278,6 +278,7 @@
     setTopicStyle();
     renderPills();
     setFlip(false);
+    ensureUnmastered();
     renderCard();
   }
 
@@ -295,14 +296,28 @@
     mastered = loadSet(currentTopic.id);
     setTopicStyle();
     renderPills();
+    ensureUnmastered();
     renderCard();
   }
 
   function go(step) {
     if (total <= 0) return;
-    index = (index + step + total) % total;
+    var i = index;
+    for (var k = 0; k < total; k++) {
+      i = (i + step + total) % total;
+      if (mastered.indexOf(i) === -1) { index = i; break; }
+    }
     setFlip(false);
     renderCard();
+  }
+
+  // Bỏ qua những từ đã thuộc khi lật thẻ (từ "Đã thuộc" không hiển thị nữa)
+  function ensureUnmastered() {
+    if (!total || mastered.indexOf(index) === -1) return;
+    for (var k = 1; k <= total; k++) {
+      var j = (index + k) % total;
+      if (mastered.indexOf(j) === -1) { index = j; return; }
+    }
   }
 
   function flipCard() {
@@ -336,6 +351,7 @@
   if (masteredBtn) {
     masteredBtn.addEventListener("click", function () {
       if (!hasMastered(index)) toggleMastered(index);
+      ensureUnmastered();   // từ vừa đánh dấu "Đã thuộc" sẽ không hiển thị nữa
       renderCard();
     });
   }
@@ -368,6 +384,7 @@
   mastered = loadSet(currentTopic.id);
   setTopicStyle();
   renderPills();
+  ensureUnmastered();
   renderCard();
 
   if (window.EngBeeAdminData && typeof window.EngBeeAdminData.onChange === "function") {

@@ -29,6 +29,7 @@ const ADMIN_ACCOUNT = { username: "admin", password: "admin123", name: "Quản t
 let currentAdmin = null;   // admin đang đăng nhập
 let currentView = "dashboard";
 let editingKey = "";       // khoá từ đang sửa (chuỗi rỗng = đang thêm mới)
+let lastWordTopic = "";    // chủ đề đã chọn lần trước ở form Thêm từ (giữ nguyên, không nhảy về mặc định)
 let pendingAction = null;  // hành động đang chờ xác nhận trong modal
 let serverStats = null;    // dữ liệu thống kê đồng bộ từ máy chủ (người học, quiz, điểm số)
 
@@ -1019,7 +1020,9 @@ function openWordModal(mode, key) {
   } else {
     el.wordModalTitle.textContent = "Thêm từ mới";
     el.inputEn.disabled = false;
-    el.inputTopic.value = el.wordTopicFilter.value !== "all" ? el.wordTopicFilter.value : "food";
+    const defaultTopic = el.wordTopicFilter.value !== "all" ? el.wordTopicFilter.value : (lastWordTopic || "food");
+    el.inputTopic.value = defaultTopic;
+    if (!el.inputTopic.value && el.inputTopic.options.length) el.inputTopic.value = el.inputTopic.options[0].value;
   }
 
   el.wordModal.hidden = false;
@@ -1361,6 +1364,7 @@ function handleWordSubmit(event) {
   const topic = el.inputTopic.value;
   const key = wordKey(en);
 
+  lastWordTopic = topic;   // ghi nhớ chủ đề để lần sau mở form vẫn giữ nguyên
   fillExamplesIfEmpty(en, vi, topic);
 
   // build exs for save
@@ -1716,7 +1720,9 @@ function renderAll() {
 }
 
 function renderTopicSelects() {
-  // Select chủ đề trong modal thêm/sửa
+  // Select chủ đề trong modal thêm/sửa — giữ nguyên chủ đề đang chọn
+  // (renderTopicSelects chạy lại mỗi 3 giây khi đồng bộ server, không được để nó reset về travel)
+  const current = el.inputTopic.value;
   el.inputTopic.innerHTML = "";
   allTopics().forEach(function (t) {
     const o = document.createElement("option");
@@ -1724,6 +1730,8 @@ function renderTopicSelects() {
     o.textContent = t.name + " (" + t.vi + ")";
     el.inputTopic.appendChild(o);
   });
+  if (current) el.inputTopic.value = current;
+  if (!el.inputTopic.value && el.inputTopic.options.length) el.inputTopic.value = el.inputTopic.options[0].value;
   renderWordSelect();
 }
 
@@ -1916,6 +1924,7 @@ el.btnConfirmOk.addEventListener("click", function () {
   if (action) action();
 });
 el.wordForm.addEventListener("submit", handleWordSubmit);
+if (el.inputTopic) el.inputTopic.addEventListener("change", function () { lastWordTopic = el.inputTopic.value; });
 if (el.topicForm) el.topicForm.addEventListener("submit", handleTopicSubmit);
 
 // Gỡ lỗi khi người dùng đang gõ
