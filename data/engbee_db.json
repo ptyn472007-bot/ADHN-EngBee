@@ -91,6 +91,25 @@
       "learnedByTopic": {},
       "bestScore": 0,
       "totalQuizzes": 0
+    },
+    "coco": {
+      "name": "coco",
+      "firstSeen": 1792239458539,
+      "lastActive": 1792239458539,
+      "learnedWordsCount": 0,
+      "topicsCount": 8,
+      "learnedByTopic": {
+        "health": [],
+        "nature": [],
+        "school": [],
+        "travel": [],
+        "food": [],
+        "work": [],
+        "technology": [],
+        "sports": []
+      },
+      "bestScore": 0,
+      "totalQuizzes": 0
     }
   },
   "quizHistory": [
@@ -140,7 +159,7 @@
         "desc": "Từ vựng tiếng Anh chủ đề gia đình"
       }
     ],
-    "lastUpdate": 1792219628611,
+    "lastUpdate": 1792251564214,
     "topicEdits": {}
   },
   "pronounceHistory": [
