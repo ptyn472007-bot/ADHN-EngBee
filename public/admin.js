@@ -52,7 +52,7 @@ const el = {
   statUsers: $("statUsers"), statAttempts: $("statAttempts"), statAvg: $("statAvg"),
   adminChangeList: $("adminChangeList"), recentUserList: $("recentUserList"),
   // từ vựng
-  btnAddWord: $("btnAddWord"), btnRestoreWords: $("btnRestoreWords"),
+  btnAddWord: $("btnAddWord"),
   wordTopicFilter: $("wordTopicFilter"), wordSearch: $("wordSearch"),
   wordCountInfo: $("wordCountInfo"), wordBody: $("wordBody"), wordEmpty: $("wordEmpty"), wordPagination: $("wordPagination"),
   // chủ đề
@@ -65,7 +65,7 @@ const el = {
   resultBody: $("resultBody"), resultEmpty: $("resultEmpty"),
   pronBody: $("pronBody"), pronEmpty: $("pronEmpty"),
   // cài đặt
-  btnResetWords: $("btnResetWords"), btnExport: $("btnExport"), btnImport: $("btnImport"),
+  btnExport: $("btnExport"), btnImport: $("btnImport"),
   importFile: $("importFile"),
   infoSession: $("infoSession"),
   // modal từ
@@ -1828,7 +1828,7 @@ el.wordTopicFilter.addEventListener("change", function () { wordPage = 1; render
     }
   });
 el.btnAddWord.addEventListener("click", function () { openWordModal("add", ""); });
-el.btnRestoreWords.addEventListener("click", resetWords);
+  // el.btnRestoreWords.remove(); // removed from DOM; handler removed
 
 // Chủ đề: Nút thêm chủ đề
 if (el.btnAddTopic) {
@@ -1926,7 +1926,7 @@ document.querySelectorAll(".result-tab").forEach(function (btn) {
 });
 
 // Cài đặt
-el.btnResetWords.addEventListener("click", resetWords);
+  // btnResetWords removed from UI; resetWords function kept for backwards compatibility if needed
 el.btnExport.addEventListener("click", exportData);
 el.btnImport.addEventListener("click", function () { el.importFile.click(); });
 el.importFile.addEventListener("change", importData);

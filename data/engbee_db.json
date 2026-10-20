@@ -95,24 +95,54 @@
     "coco": {
       "name": "coco",
       "firstSeen": 1792239458539,
-      "lastActive": 1792239458539,
-      "learnedWordsCount": 0,
-      "topicsCount": 8,
+      "lastActive": 1792506568942,
+      "learnedWordsCount": 10,
+      "topicsCount": 11,
       "learnedByTopic": {
         "health": [],
-        "nature": [],
+        "nature": [
+          22
+        ],
         "school": [],
-        "travel": [],
+        "travel": [
+          3,
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
         "food": [],
         "work": [],
-        "technology": [],
-        "sports": []
+        "technology": [
+          41
+        ],
+        "sports": [],
+        "movie": [],
+        "music": [],
+        "shopping": [
+          0,
+          49
+        ]
       },
-      "bestScore": 0,
-      "totalQuizzes": 0
+      "bestScore": 9,
+      "totalQuizzes": 6,
+      "totalPron": 4,
+      "bestPron": 100
     }
   },
   "quizHistory": [
+    {
+      "id": "q_1792254892562_4887",
+      "userName": "coco",
+      "topicId": "all",
+      "modeName": "Tổng hợp",
+      "correct": 9,
+      "total": 10,
+      "pct": 90,
+      "score": 9,
+      "ts": 1792254892562
+    },
     {
       "id": "q_1792216426272_6692",
       "userName": "Học viên #4993",
@@ -138,7 +168,72 @@
   ],
   "admin": {
     "editedWords": {},
-    "addedWords": {},
+    "addedWords": {
+      "family": [
+        {
+          "id": "w_1792374954693_405",
+          "en": "dad",
+          "vi": "bố",
+          "ipa": "",
+          "ex": "",
+          "exvi": "",
+          "exs": [
+            {
+              "en": "I saw a dad today.",
+              "vi": "Hôm nay tôi thấy một bố."
+            },
+            {
+              "en": "She bought a new dad.",
+              "vi": "Cô ấy đã mua một bố mới."
+            },
+            {
+              "en": "We need a dad for our class.",
+              "vi": "Chúng tôi cần một bố cho lớp học."
+            },
+            {
+              "en": "This dad is very useful.",
+              "vi": "bố này rất hữu ích."
+            },
+            {
+              "en": "Can you find a good dad?",
+              "vi": "Bạn có thể tìm một bố tốt không?"
+            }
+          ]
+        }
+      ],
+      "food": [
+        {
+          "id": "w_1792382830728_748",
+          "en": "apple",
+          "vi": "táo",
+          "ipa": "",
+          "ex": "",
+          "exvi": "",
+          "exs": [
+            {
+              "en": "I like to eat apple every day.",
+              "vi": "Tôi thích ăn táo mỗi ngày."
+            },
+            {
+              "en": "She is cooking apple for dinner.",
+              "vi": "Cô ấy đang nấu táo cho bữa tối."
+            },
+            {
+              "en": "We bought some fresh apple at the market.",
+              "vi": "Chúng tôi đã mua táo tươi ở chợ."
+            },
+            {
+              "en": "This apple tastes really delicious.",
+              "vi": "táo này có vị rất ngon."
+            },
+            {
+              "en": "Do you want to try this apple?",
+              "vi": "Bạn có muốn thử táo này không?"
+            }
+          ]
+        }
+      ]
+    },
     "removedWords": [],
     "hiddenTopics": [],
     "customTopics": [
@@ -159,10 +254,66 @@
         "desc": "Từ vựng tiếng Anh chủ đề gia đình"
       }
     ],
-    "lastUpdate": 1792251564214,
+    "lastUpdate": 1792506485361,
     "topicEdits": {}
   },
   "pronounceHistory": [
+    {
+      "id": "p_1792255219820_6912",
+      "userName": "coco",
+      "topicId": "shopping",
+      "modeName": "Shopping",
+      "avg": 92,
+      "good": 9,
+      "total": 10,
+      "weak": [
+        {
+          "en": "aisle",
+          "vi": "lối đi giữa các kệ",
+          "best": 40
+        }
+      ],
+      "ts": 1792255219820
+    },
+    {
+      "id": "p_1792255095460_6064",
+      "userName": "coco",
+      "topicId": "all",
+      "modeName": "Tổng hợp",
+      "avg": 100,
+      "good": 10,
+      "total": 10,
+      "weak": [],
+      "ts": 1792255095460
+    },
+    {
+      "id": "p_1792254957715_4714",
+      "userName": "coco",
+      "topicId": "all",
+      "modeName": "Tổng hợp",
+      "avg": 100,
+      "good": 10,
+      "total": 10,
+      "weak": [],
+      "ts": 1792254957715
+    },
+    {
+      "id": "p_1792254803868_1425",
+      "userName": "coco",
+      "topicId": "travel",
+      "modeName": "Travel",
+      "avg": 93,
+      "good": 9,
+      "total": 10,
+      "weak": [
+        {
+          "en": "lounge",
+          "vi": "phòng chờ",
+          "best": 50
+        }
+      ],
+      "ts": 1792254803868
+    },
     {
       "id": "p_1792166457033_2474",
       "userName": "Phạm Thị Yến Nhi",
