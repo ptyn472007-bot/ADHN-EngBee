@@ -1926,7 +1926,7 @@ document.querySelectorAll(".result-tab").forEach(function (btn) {
 });
 
 // Cài đặt
-  if (el.btnResetWords) el.btnResetWords.addEventListener("click", resetWords);
+  // btnResetWords removed from UI; resetWords function kept for backwards compatibility if needed
 el.btnExport.addEventListener("click", exportData);
 el.btnImport.addEventListener("click", function () { el.importFile.click(); });
 el.importFile.addEventListener("change", importData);
