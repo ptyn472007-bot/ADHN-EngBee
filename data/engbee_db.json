@@ -95,8 +95,8 @@
     "coco": {
       "name": "coco",
       "firstSeen": 1792239458539,
-      "lastActive": 1792506568942,
-      "learnedWordsCount": 10,
+      "lastActive": 1792509877993,
+      "learnedWordsCount": 11,
       "topicsCount": 11,
       "learnedByTopic": {
         "health": [],
@@ -110,7 +110,8 @@
           1,
           2,
           4,
-          5
+          5,
+          49
         ],
         "food": [],
         "work": [],
